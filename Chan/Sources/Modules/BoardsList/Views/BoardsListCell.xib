@@ -24,8 +24,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="340" height="39.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBo-bG-DRC" customClass="ChanLabel" customModule="Chan" customModuleProvider="target">
-                                <rect key="frame" x="16" y="9.5" width="43" height="21"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <rect key="frame" x="24" y="9.5" width="41.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -40,7 +40,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="TBo-bG-DRC" firstAttribute="centerY" secondItem="RD5-jo-O6Q" secondAttribute="centerY" id="3pt-Pi-sVi"/>
-                            <constraint firstItem="TBo-bG-DRC" firstAttribute="leading" secondItem="RD5-jo-O6Q" secondAttribute="leading" constant="16" id="iYt-Vr-99R"/>
+                            <constraint firstItem="TBo-bG-DRC" firstAttribute="leading" secondItem="RD5-jo-O6Q" secondAttribute="leading" constant="24" id="iYt-Vr-99R"/>
                             <constraint firstAttribute="trailing" secondItem="8iK-pe-iiG" secondAttribute="trailing" constant="8" id="lm9-zZ-xB3"/>
                             <constraint firstItem="8iK-pe-iiG" firstAttribute="centerY" secondItem="RD5-jo-O6Q" secondAttribute="centerY" id="o3k-2m-NMC"/>
                         </constraints>

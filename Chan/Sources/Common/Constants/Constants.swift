@@ -9,5 +9,13 @@
 import Foundation
 import RxSwift
 
+let DefaultMargin: CGFloat = 8
+let MediumMargin: CGFloat = 16
+let LargeMargin: CGFloat = 24
 
-typealias Result<Type> = Observable<Type>
+typealias Response<Type> = Observable<Type>
+
+
+func MakeFullPath(path: String) -> String {
+    return Enviroment.default.basePath + path
+}

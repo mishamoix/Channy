@@ -10,11 +10,17 @@ import Foundation
 
 class Enviroment {
   
-  static var `default` = Enviroment()
-  
-  var baseUrl: URL {
-    return URL(string: "https://2ch.hk")!
-  }
+    static var `default` = Enviroment()
+
+    var baseUrl: URL {
+        return URL(string: self.basePath)!
+    }
+    
+    var basePath: String {
+        return "https://2ch.hk"
+    }
+    
+    
 
 }
 

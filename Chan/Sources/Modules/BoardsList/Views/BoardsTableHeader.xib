@@ -20,8 +20,8 @@
                     <rect key="frame" x="0.0" y="0.0" width="471" height="30"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hR-Bb-tSm" customClass="ChanLabel" customModule="Chan" customModuleProvider="target">
-                            <rect key="frame" x="8" y="3" width="455" height="24"/>
-                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                            <rect key="frame" x="16" y="3" width="447" height="24"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -29,7 +29,7 @@
                     <constraints>
                         <constraint firstItem="2hR-Bb-tSm" firstAttribute="centerY" secondItem="f9c-Gy-ibz" secondAttribute="centerY" id="BpV-kZ-YPt"/>
                         <constraint firstAttribute="trailing" secondItem="2hR-Bb-tSm" secondAttribute="trailing" constant="8" id="ORY-n8-DP4"/>
-                        <constraint firstItem="2hR-Bb-tSm" firstAttribute="leading" secondItem="f9c-Gy-ibz" secondAttribute="leading" constant="8" id="f24-Md-LXC"/>
+                        <constraint firstItem="2hR-Bb-tSm" firstAttribute="leading" secondItem="f9c-Gy-ibz" secondAttribute="leading" constant="16" id="f24-Md-LXC"/>
                     </constraints>
                 </view>
             </subviews>

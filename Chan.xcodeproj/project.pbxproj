@@ -18,7 +18,7 @@
 		0A2E0C9721453E4B00CBD619 /* Router+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C9621453E4B00CBD619 /* Router+Utils.swift */; };
 		0A2E0C99214545E200CBD619 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C98214545E200CBD619 /* Constants.swift */; };
 		0A2E0C9C2145464000CBD619 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C9B2145464000CBD619 /* Error.swift */; };
-		0A2E0C9F2145467F00CBD619 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C9E2145467F00CBD619 /* RequestModel.swift */; };
+		0A2E0C9F2145467F00CBD619 /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C9E2145467F00CBD619 /* ResultModel.swift */; };
 		0A2E0CA32145561E00CBD619 /* BoardsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CA12145561E00CBD619 /* BoardsListCell.swift */; };
 		0A2E0CA42145561E00CBD619 /* BoardsListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E0CA22145561E00CBD619 /* BoardsListCell.xib */; };
 		0A2E0CA72145564300CBD619 /* ChanLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CA62145564300CBD619 /* ChanLabel.swift */; };
@@ -28,6 +28,27 @@
 		0A2E0CAF2145588A00CBD619 /* BoardsTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CAE2145588A00CBD619 /* BoardsTableHeader.swift */; };
 		0A2E0CB12145589600CBD619 /* BoardsTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E0CB02145589600CBD619 /* BoardsTableHeader.xib */; };
 		0A2E0CB321455A6A00CBD619 /* BoardsListConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CB221455A6A00CBD619 /* BoardsListConstants.swift */; };
+		0A2E0CBC2145790300CBD619 /* BoardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CB72145790300CBD619 /* BoardRouter.swift */; };
+		0A2E0CBD2145790300CBD619 /* BoardViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E0CB82145790300CBD619 /* BoardViewController.storyboard */; };
+		0A2E0CBE2145790300CBD619 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CB92145790300CBD619 /* BoardViewController.swift */; };
+		0A2E0CBF2145790300CBD619 /* BoardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CBA2145790300CBD619 /* BoardBuilder.swift */; };
+		0A2E0CC02145790300CBD619 /* BoardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CBB2145790300CBD619 /* BoardInteractor.swift */; };
+		0A2E0CC22145968000CBD619 /* BoardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CC12145968000CBD619 /* BoardService.swift */; };
+		0A2E0CC42145969D00CBD619 /* BoardTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CC32145969D00CBD619 /* BoardTarget.swift */; };
+		0A2E0CC721459F3300CBD619 /* BoardMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CC621459F3300CBD619 /* BoardMainViewModel.swift */; };
+		0A2E0CCE2145A36300CBD619 /* TGReusableLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CCB2145A36300CBD619 /* TGReusableLabel.mm */; };
+		0A2E0CCF2145A36300CBD619 /* TextSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CCC2145A36300CBD619 /* TextSize.swift */; };
+		0A2E0CD32145A3FE00CBD619 /* ThreadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CD12145A3FE00CBD619 /* ThreadCell.swift */; };
+		0A2E0CD42145A3FE00CBD619 /* ThreadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E0CD22145A3FE00CBD619 /* ThreadCell.xib */; };
+		0A2E0CD62145A41800CBD619 /* ThreadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CD52145A41800CBD619 /* ThreadModel.swift */; };
+		0A2E0CD82145A44400CBD619 /* ThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CD72145A44400CBD619 /* ThreadViewModel.swift */; };
+		0A2E0CDA2145A61000CBD619 /* BoardConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CD92145A61000CBD619 /* BoardConstants.swift */; };
+		0A2E0CDC2145B08300CBD619 /* UIFont+AppFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDB2145B08300CBD619 /* UIFont+AppFonts.swift */; };
+		0A2E0CDE2145B3F600CBD619 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDD2145B3F600CBD619 /* PostModel.swift */; };
+		0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDF2145B48300CBD619 /* FileModel.swift */; };
+		0A2E0CE22145C8D600CBD619 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */; };
+		0A5B0EB12149B8E100AECE3C /* UIImage+AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */; };
+		0A5B0EB62149BAE600AECE3C /* LoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB52149BAE600AECE3C /* LoggerPlugin.swift */; };
 		0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29512143EF0B00B4E53B /* AppDelegate.swift */; };
 		0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC29582143EF1200B4E53B /* Assets.xcassets */; };
 		0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */; };
@@ -47,6 +68,18 @@
 		0ACC29892143F79900B4E53B /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29852143F79900B4E53B /* RootBuilder.swift */; };
 		0ACC298A2143F79900B4E53B /* RootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29862143F79900B4E53B /* RootInteractor.swift */; };
 		0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC298C2143F7E100B4E53B /* BaseNavigationController.swift */; };
+		0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */; };
+		0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA421499C190002E832 /* TextStripper.swift */; };
+		0AFFFDAC2149A1F40002E832 /* ThreadRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */; };
+		0AFFFDAD2149A1F40002E832 /* ThreadViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA82149A1F40002E832 /* ThreadViewController.storyboard */; };
+		0AFFFDAE2149A1F50002E832 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA92149A1F40002E832 /* ThreadViewController.swift */; };
+		0AFFFDAF2149A1F50002E832 /* ThreadBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDAA2149A1F40002E832 /* ThreadBuilder.swift */; };
+		0AFFFDB02149A1F50002E832 /* ThreadInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDAB2149A1F40002E832 /* ThreadInteractor.swift */; };
+		0AFFFDB22149A95E0002E832 /* ThreadTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDB12149A95E0002E832 /* ThreadTarget.swift */; };
+		0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDB32149AACD0002E832 /* ThreadService.swift */; };
+		0AFFFDB72149AC3D0002E832 /* ThreadConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDB62149AC3D0002E832 /* ThreadConstants.swift */; };
+		0AFFFDB92149AC640002E832 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDB82149AC640002E832 /* PostViewModel.swift */; };
+		0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDBB2149B06E0002E832 /* ResultBoardModel.swift */; };
 		F8ED25D60CB42EEFE45700F1 /* Pods_Chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5239A404CA4DD902961DB4 /* Pods_Chan.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +95,7 @@
 		0A2E0C9621453E4B00CBD619 /* Router+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Router+Utils.swift"; sourceTree = "<group>"; };
 		0A2E0C98214545E200CBD619 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0A2E0C9B2145464000CBD619 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		0A2E0C9E2145467F00CBD619 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
+		0A2E0C9E2145467F00CBD619 /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
 		0A2E0CA12145561E00CBD619 /* BoardsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardsListCell.swift; sourceTree = "<group>"; };
 		0A2E0CA22145561E00CBD619 /* BoardsListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardsListCell.xib; sourceTree = "<group>"; };
 		0A2E0CA62145564300CBD619 /* ChanLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanLabel.swift; sourceTree = "<group>"; };
@@ -72,6 +105,29 @@
 		0A2E0CAE2145588A00CBD619 /* BoardsTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardsTableHeader.swift; sourceTree = "<group>"; };
 		0A2E0CB02145589600CBD619 /* BoardsTableHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardsTableHeader.xib; sourceTree = "<group>"; };
 		0A2E0CB221455A6A00CBD619 /* BoardsListConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardsListConstants.swift; sourceTree = "<group>"; };
+		0A2E0CB72145790300CBD619 /* BoardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardRouter.swift; sourceTree = "<group>"; };
+		0A2E0CB82145790300CBD619 /* BoardViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BoardViewController.storyboard; sourceTree = "<group>"; };
+		0A2E0CB92145790300CBD619 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
+		0A2E0CBA2145790300CBD619 /* BoardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardBuilder.swift; sourceTree = "<group>"; };
+		0A2E0CBB2145790300CBD619 /* BoardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardInteractor.swift; sourceTree = "<group>"; };
+		0A2E0CC12145968000CBD619 /* BoardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardService.swift; sourceTree = "<group>"; };
+		0A2E0CC32145969D00CBD619 /* BoardTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTarget.swift; sourceTree = "<group>"; };
+		0A2E0CC621459F3300CBD619 /* BoardMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardMainViewModel.swift; sourceTree = "<group>"; };
+		0A2E0CCA2145A36200CBD619 /* Chan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Chan-Bridging-Header.h"; sourceTree = "<group>"; };
+		0A2E0CCB2145A36300CBD619 /* TGReusableLabel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TGReusableLabel.mm; sourceTree = "<group>"; };
+		0A2E0CCC2145A36300CBD619 /* TextSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSize.swift; sourceTree = "<group>"; };
+		0A2E0CCD2145A36300CBD619 /* TGReusableLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGReusableLabel.h; sourceTree = "<group>"; };
+		0A2E0CD12145A3FE00CBD619 /* ThreadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadCell.swift; sourceTree = "<group>"; };
+		0A2E0CD22145A3FE00CBD619 /* ThreadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThreadCell.xib; sourceTree = "<group>"; };
+		0A2E0CD52145A41800CBD619 /* ThreadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadModel.swift; sourceTree = "<group>"; };
+		0A2E0CD72145A44400CBD619 /* ThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewModel.swift; sourceTree = "<group>"; };
+		0A2E0CD92145A61000CBD619 /* BoardConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardConstants.swift; sourceTree = "<group>"; };
+		0A2E0CDB2145B08300CBD619 /* UIFont+AppFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+AppFonts.swift"; sourceTree = "<group>"; };
+		0A2E0CDD2145B3F600CBD619 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		0A2E0CDF2145B48300CBD619 /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
+		0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
+		0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+AppImage.swift"; sourceTree = "<group>"; };
+		0A5B0EB52149BAE600AECE3C /* LoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPlugin.swift; sourceTree = "<group>"; };
 		0ACC294E2143EF0B00B4E53B /* Chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC29512143EF0B00B4E53B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ACC29582143EF1200B4E53B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -93,6 +149,18 @@
 		0ACC29852143F79900B4E53B /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		0ACC29862143F79900B4E53B /* RootInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootInteractor.swift; sourceTree = "<group>"; };
 		0ACC298C2143F7E100B4E53B /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
+		0AFFFDA421499C190002E832 /* TextStripper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStripper.swift; sourceTree = "<group>"; };
+		0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadRouter.swift; sourceTree = "<group>"; };
+		0AFFFDA82149A1F40002E832 /* ThreadViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ThreadViewController.storyboard; sourceTree = "<group>"; };
+		0AFFFDA92149A1F40002E832 /* ThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewController.swift; sourceTree = "<group>"; };
+		0AFFFDAA2149A1F40002E832 /* ThreadBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadBuilder.swift; sourceTree = "<group>"; };
+		0AFFFDAB2149A1F40002E832 /* ThreadInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadInteractor.swift; sourceTree = "<group>"; };
+		0AFFFDB12149A95E0002E832 /* ThreadTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadTarget.swift; sourceTree = "<group>"; };
+		0AFFFDB32149AACD0002E832 /* ThreadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadService.swift; sourceTree = "<group>"; };
+		0AFFFDB62149AC3D0002E832 /* ThreadConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadConstants.swift; sourceTree = "<group>"; };
+		0AFFFDB82149AC640002E832 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		0AFFFDBB2149B06E0002E832 /* ResultBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultBoardModel.swift; sourceTree = "<group>"; };
 		4D593AC5CC8CE63863B9D295 /* Pods-Chan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chan/Pods-Chan.debug.xcconfig"; sourceTree = "<group>"; };
 		6E5239A404CA4DD902961DB4 /* Pods_Chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CFDAAABE4008DAE5A3D544E /* Pods-Chan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chan/Pods-Chan.release.xcconfig"; sourceTree = "<group>"; };
@@ -113,6 +181,7 @@
 		0A2E0C832145390D00CBD619 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
+				0A5B0EB42149BAD700AECE3C /* Plugins */,
 				0A2E0C842145391F00CBD619 /* ChanProvider.swift */,
 			);
 			path = Provider;
@@ -121,10 +190,13 @@
 		0A2E0C862145395200CBD619 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0AFFFDBA2149B0540002E832 /* ResultModel */,
 				0A2E0C872145396400CBD619 /* BaseModel.swift */,
 				0A2E0C8B2145399400CBD619 /* BoardCategoryModel.swift */,
 				0A2E0C892145397600CBD619 /* BoardModel.swift */,
-				0A2E0C9E2145467F00CBD619 /* RequestModel.swift */,
+				0A2E0CD52145A41800CBD619 /* ThreadModel.swift */,
+				0A2E0CDD2145B3F600CBD619 /* PostModel.swift */,
+				0A2E0CDF2145B48300CBD619 /* FileModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -135,6 +207,9 @@
 				0A2E0C9221453C1000CBD619 /* UIViewController+Utils.swift */,
 				0A2E0C9421453CB600CBD619 /* ViewControllable+Utils.swift */,
 				0A2E0C9621453E4B00CBD619 /* Router+Utils.swift */,
+				0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */,
+				0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */,
+				0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -166,6 +241,81 @@
 				0A2E0CAA2145566700CBD619 /* ChanImageView.swift */,
 			);
 			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		0A2E0CB6214578F500CBD619 /* Board */ = {
+			isa = PBXGroup;
+			children = (
+				0A2E0CD02145A3D100CBD619 /* Views */,
+				0A2E0CC521459F1300CBD619 /* ViewModels */,
+				0A2E0CB72145790300CBD619 /* BoardRouter.swift */,
+				0A2E0CB82145790300CBD619 /* BoardViewController.storyboard */,
+				0A2E0CB92145790300CBD619 /* BoardViewController.swift */,
+				0A2E0CBA2145790300CBD619 /* BoardBuilder.swift */,
+				0A2E0CBB2145790300CBD619 /* BoardInteractor.swift */,
+				0A2E0CD92145A61000CBD619 /* BoardConstants.swift */,
+			);
+			path = Board;
+			sourceTree = "<group>";
+		};
+		0A2E0CC521459F1300CBD619 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0A2E0CC621459F3300CBD619 /* BoardMainViewModel.swift */,
+				0A2E0CD72145A44400CBD619 /* ThreadViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0A2E0CC82145A33000CBD619 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0A2E0CC92145A35800CBD619 /* TextSize */,
+				0AFFFDA421499C190002E832 /* TextStripper.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0A2E0CC92145A35800CBD619 /* TextSize */ = {
+			isa = PBXGroup;
+			children = (
+				0A2E0CCC2145A36300CBD619 /* TextSize.swift */,
+				0A2E0CCD2145A36300CBD619 /* TGReusableLabel.h */,
+				0A2E0CCB2145A36300CBD619 /* TGReusableLabel.mm */,
+			);
+			path = TextSize;
+			sourceTree = "<group>";
+		};
+		0A2E0CD02145A3D100CBD619 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A2E0CD12145A3FE00CBD619 /* ThreadCell.swift */,
+				0A2E0CD22145A3FE00CBD619 /* ThreadCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0A5B0EB22149B94E00AECE3C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0A5B0EB32149B95700AECE3C /* Middleware */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		0A5B0EB32149B95700AECE3C /* Middleware */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Middleware;
+			sourceTree = "<group>";
+		};
+		0A5B0EB42149BAD700AECE3C /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				0A5B0EB52149BAE600AECE3C /* LoggerPlugin.swift */,
+			);
+			path = Plugins;
 			sourceTree = "<group>";
 		};
 		0ACC29452143EF0B00B4E53B = {
@@ -209,6 +359,8 @@
 		0ACC29642143F06500B4E53B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0AFFFDA62149A1E20002E832 /* Thread */,
+				0A2E0CB6214578F500CBD619 /* Board */,
 				0ACC29822143F78F00B4E53B /* Root */,
 				0ACC29662143F21D00B4E53B /* BoardsList */,
 			);
@@ -218,6 +370,8 @@
 		0ACC29652143F06A00B4E53B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0A5B0EB22149B94E00AECE3C /* Network */,
+				0A2E0CC82145A33000CBD619 /* Utils */,
 				0A2E0C9A2145463400CBD619 /* Error */,
 				0A2E0C8F21453BF200CBD619 /* Extension */,
 				0A2E0C862145395200CBD619 /* Models */,
@@ -249,6 +403,8 @@
 			children = (
 				0ACC29742143F3AE00B4E53B /* BaseService.swift */,
 				0ACC29722143F3A400B4E53B /* BoardsListService.swift */,
+				0A2E0CC12145968000CBD619 /* BoardService.swift */,
+				0AFFFDB32149AACD0002E832 /* ThreadService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -257,6 +413,8 @@
 			isa = PBXGroup;
 			children = (
 				0ACC29772143F44400B4E53B /* BoardsListTarget.swift */,
+				0A2E0CC32145969D00CBD619 /* BoardTarget.swift */,
+				0AFFFDB12149A95E0002E832 /* ThreadTarget.swift */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -266,6 +424,7 @@
 			children = (
 				0ACC297A2143F4C100B4E53B /* Enviroment.swift */,
 				0A2E0C98214545E200CBD619 /* Constants.swift */,
+				0A2E0CDB2145B08300CBD619 /* UIFont+AppFonts.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -285,6 +444,7 @@
 			children = (
 				0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */,
 				0ACC29582143EF1200B4E53B /* Assets.xcassets */,
+				0A2E0CCA2145A36200CBD619 /* Chan-Bridging-Header.h */,
 				0A2E0C81214460FB00CBD619 /* Main.storyboard */,
 			);
 			path = Resources;
@@ -310,6 +470,37 @@
 				0A2E0CAC214557E900CBD619 /* BaseTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0AFFFDA62149A1E20002E832 /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				0AFFFDB52149ABDD0002E832 /* ViewModel */,
+				0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */,
+				0AFFFDA82149A1F40002E832 /* ThreadViewController.storyboard */,
+				0AFFFDA92149A1F40002E832 /* ThreadViewController.swift */,
+				0AFFFDAA2149A1F40002E832 /* ThreadBuilder.swift */,
+				0AFFFDAB2149A1F40002E832 /* ThreadInteractor.swift */,
+				0AFFFDB62149AC3D0002E832 /* ThreadConstants.swift */,
+			);
+			path = Thread;
+			sourceTree = "<group>";
+		};
+		0AFFFDB52149ABDD0002E832 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0AFFFDB82149AC640002E832 /* PostViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0AFFFDBA2149B0540002E832 /* ResultModel */ = {
+			isa = PBXGroup;
+			children = (
+				0A2E0C9E2145467F00CBD619 /* ResultModel.swift */,
+				0AFFFDBB2149B06E0002E832 /* ResultBoardModel.swift */,
+			);
+			path = ResultModel;
 			sourceTree = "<group>";
 		};
 		4D36EE4DEAF72C13B7E89E56 /* Frameworks */ = {
@@ -363,6 +554,7 @@
 				TargetAttributes = {
 					0ACC294D2143EF0B00B4E53B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -389,12 +581,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AFFFDAD2149A1F40002E832 /* ThreadViewController.storyboard in Resources */,
 				0ACC296D2143F22F00B4E53B /* BoardsListViewController.storyboard in Resources */,
 				0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */,
 				0A2E0CA42145561E00CBD619 /* BoardsListCell.xib in Resources */,
 				0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */,
 				0A2E0CB12145589600CBD619 /* BoardsTableHeader.xib in Resources */,
+				0A2E0CBD2145790300CBD619 /* BoardViewController.storyboard in Resources */,
 				0A2E0C82214460FB00CBD619 /* Main.storyboard in Resources */,
+				0A2E0CD42145A3FE00CBD619 /* ThreadCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +628,7 @@
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -443,6 +639,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -457,39 +654,69 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A2E0C99214545E200CBD619 /* Constants.swift in Sources */,
+				0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */,
 				0A2E0C8C2145399400CBD619 /* BoardCategoryModel.swift in Sources */,
+				0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */,
 				0A2E0CA32145561E00CBD619 /* BoardsListCell.swift in Sources */,
+				0A2E0CD32145A3FE00CBD619 /* ThreadCell.swift in Sources */,
+				0A2E0CC02145790300CBD619 /* BoardInteractor.swift in Sources */,
 				0A2E0C882145396400CBD619 /* BaseModel.swift in Sources */,
+				0A2E0CC721459F3300CBD619 /* BoardMainViewModel.swift in Sources */,
 				0A2E0C8A2145397600CBD619 /* BoardModel.swift in Sources */,
 				0ACC29752143F3AE00B4E53B /* BaseService.swift in Sources */,
-				0A2E0C9F2145467F00CBD619 /* RequestModel.swift in Sources */,
+				0A2E0C9F2145467F00CBD619 /* ResultModel.swift in Sources */,
 				0ACC29892143F79900B4E53B /* RootBuilder.swift in Sources */,
 				0A2E0C8E21453BE100CBD619 /* BaseViewController.swift in Sources */,
+				0AFFFDAF2149A1F50002E832 /* ThreadBuilder.swift in Sources */,
 				0A2E0CA72145564300CBD619 /* ChanLabel.swift in Sources */,
 				0A2E0CB321455A6A00CBD619 /* BoardsListConstants.swift in Sources */,
+				0AFFFDB02149A1F50002E832 /* ThreadInteractor.swift in Sources */,
 				0A2E0CA92145565100CBD619 /* ChanView.swift in Sources */,
 				0A2E0C9321453C1000CBD619 /* UIViewController+Utils.swift in Sources */,
 				0ACC29782143F44400B4E53B /* BoardsListTarget.swift in Sources */,
+				0AFFFDB92149AC640002E832 /* PostViewModel.swift in Sources */,
 				0A2E0C9521453CB600CBD619 /* ViewControllable+Utils.swift in Sources */,
 				0ACC297B2143F4C100B4E53B /* Enviroment.swift in Sources */,
 				0ACC29732143F3A400B4E53B /* BoardsListService.swift in Sources */,
 				0A2E0CAD214557E900CBD619 /* BaseTableViewCell.swift in Sources */,
+				0A2E0CCE2145A36300CBD619 /* TGReusableLabel.mm in Sources */,
 				0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */,
+				0A2E0CBC2145790300CBD619 /* BoardRouter.swift in Sources */,
+				0A2E0CDE2145B3F600CBD619 /* PostModel.swift in Sources */,
+				0AFFFDB22149A95E0002E832 /* ThreadTarget.swift in Sources */,
+				0A2E0CD82145A44400CBD619 /* ThreadViewModel.swift in Sources */,
 				0ACC29882143F79900B4E53B /* RootViewController.swift in Sources */,
 				0A2E0CAF2145588A00CBD619 /* BoardsTableHeader.swift in Sources */,
 				0ACC29872143F79900B4E53B /* RootRouter.swift in Sources */,
+				0A2E0CE22145C8D600CBD619 /* UIImage+Utils.swift in Sources */,
+				0A2E0CD62145A41800CBD619 /* ThreadModel.swift in Sources */,
 				0ACC29702143F22F00B4E53B /* BoardsListInteractor.swift in Sources */,
+				0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */,
 				0A2E0C9C2145464000CBD619 /* Error.swift in Sources */,
 				0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */,
 				0ACC296C2143F22F00B4E53B /* BoardsListRouter.swift in Sources */,
 				0ACC298A2143F79900B4E53B /* RootInteractor.swift in Sources */,
 				0A2E0C9721453E4B00CBD619 /* Router+Utils.swift in Sources */,
+				0A2E0CBF2145790300CBD619 /* BoardBuilder.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
+				0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */,
 				0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */,
+				0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */,
 				0ACC296F2143F22F00B4E53B /* BoardsListBuilder.swift in Sources */,
 				0ACC29812143F77500B4E53B /* AppComponent.swift in Sources */,
+				0A2E0CC42145969D00CBD619 /* BoardTarget.swift in Sources */,
+				0A2E0CCF2145A36300CBD619 /* TextSize.swift in Sources */,
+				0A5B0EB12149B8E100AECE3C /* UIImage+AppImage.swift in Sources */,
+				0A2E0CC22145968000CBD619 /* BoardService.swift in Sources */,
+				0A2E0CDC2145B08300CBD619 /* UIFont+AppFonts.swift in Sources */,
+				0AFFFDB72149AC3D0002E832 /* ThreadConstants.swift in Sources */,
 				0A2E0CAB2145566700CBD619 /* ChanImageView.swift in Sources */,
+				0AFFFDAC2149A1F40002E832 /* ThreadRouter.swift in Sources */,
+				0A2E0CDA2145A61000CBD619 /* BoardConstants.swift in Sources */,
+				0A5B0EB62149BAE600AECE3C /* LoggerPlugin.swift in Sources */,
+				0AFFFDAE2149A1F50002E832 /* ThreadViewController.swift in Sources */,
 				0ACC296E2143F22F00B4E53B /* BoardsListViewController.swift in Sources */,
+				0A2E0CBE2145790300CBD619 /* BoardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,6 +853,7 @@
 			baseConfigurationReference = 4D593AC5CC8CE63863B9D295 /* Pods-Chan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F5N53DM6KA;
 				INFOPLIST_FILE = Chan/Info.plist;
@@ -635,6 +863,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.flexyfal.Chan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Chan/Resources/Chan-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -645,6 +875,7 @@
 			baseConfigurationReference = 7CFDAAABE4008DAE5A3D544E /* Pods-Chan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F5N53DM6KA;
 				INFOPLIST_FILE = Chan/Info.plist;
@@ -654,6 +885,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.flexyfal.Chan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Chan/Resources/Chan-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="KGk-i7-Jjw" customClass="ThreadCell" customModule="Chan" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeG-W7-dlV" customClass="ChanView" customModule="Chan" customModuleProvider="target">
+                        <rect key="frame" x="16" y="4" width="361" height="71.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OsD-EZ-OoV" customClass="ChanImageView" customModule="Chan" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="71.5" height="71.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="OsD-EZ-OoV" secondAttribute="height" id="YNk-Vy-STP"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="OsD-EZ-OoV" secondAttribute="bottom" id="gaz-Cc-u7B"/>
+                            <constraint firstItem="OsD-EZ-OoV" firstAttribute="leading" secondItem="DeG-W7-dlV" secondAttribute="leading" id="nyr-nN-hYO"/>
+                            <constraint firstItem="OsD-EZ-OoV" firstAttribute="top" secondItem="DeG-W7-dlV" secondAttribute="top" id="t2d-mT-AvF"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="DeG-W7-dlV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="7LX-qV-cRG"/>
+                    <constraint firstAttribute="bottom" secondItem="DeG-W7-dlV" secondAttribute="bottom" constant="4" id="Fd0-ui-6uJ"/>
+                    <constraint firstAttribute="trailing" secondItem="DeG-W7-dlV" secondAttribute="trailing" constant="16" id="bd1-k2-k6n"/>
+                    <constraint firstItem="DeG-W7-dlV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ejK-1d-Z3y"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="canvas" destination="DeG-W7-dlV" id="dfn-Oy-Wvh"/>
+                <outlet property="iconView" destination="OsD-EZ-OoV" id="fWi-Xo-lyS"/>
+            </connections>
+            <point key="canvasLocation" x="66.5" y="26"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -8,7 +8,10 @@
 
 import UIKit
 
-class RequestModel<Type> {
-    var result: Type? = nil
-    var error: Error? = nil
+class ResultModel<Type> {
+    var result: Type
+    
+    init(result: Type) {
+        self.result = result
+    }
 }

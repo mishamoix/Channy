@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol BoardsListDependency: Dependency {
+protocol BoardsListDependency: Dependency, BoardDependency {
     // TODO: Declare the set of dependencies required by this RIB, but cannot be
     // created by this RIB.
 }
@@ -33,9 +33,13 @@ final class BoardsListBuilder: Builder<BoardsListDependency>, BoardsListBuildabl
     func build(withListener listener: BoardsListListener) -> BoardsListRouting {
         let component = BoardsListComponent(dependency: dependency)
         let viewController = UIStoryboard(name: "BoardsListViewController", bundle: nil).instantiateViewController(withIdentifier: "BoardsListViewController") as! BoardsListViewController
+        
         let interactor = self.buildInteractor(vc: viewController)
         interactor.listener = listener
-        return BoardsListRouter(interactor: interactor, viewController: viewController)
+        
+        let board = BoardBuilder(dependency: self.dependency)
+        
+        return BoardsListRouter(interactor: interactor, viewController: viewController, board: board)
     }
     
     // MARK: Private

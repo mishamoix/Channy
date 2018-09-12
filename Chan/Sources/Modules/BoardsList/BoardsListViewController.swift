@@ -22,7 +22,9 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     weak var listener: BoardsListPresentableListener?
     
     // MARK: Data
-    private var category: [BoardCategoryModel] = []
+    private var category: [BoardCategoryModel] {
+        return self.listener?.dataSource.value ?? []
+    }
     
     //MARK: UI
     @IBOutlet weak var tableView: UITableView!
@@ -49,13 +51,14 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.setupTableView()
         self.setupSearchBar()
         
+        self.navigationItem.title = "Главная"
+        
     }
     
     private func setupRx() {
         self.listener?.dataSource.asObservable().subscribe(onNext: { [weak self] result in
-            self?.category = result
             self?.tableView.reloadData()
-
+            
         }, onError: { [weak self] error in
                 
         }).disposed(by: self.disposeBag)
@@ -83,6 +86,8 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
 extension BoardsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        self.listener?.viewActions.on(.next(.openBoard(index: indexPath)))
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

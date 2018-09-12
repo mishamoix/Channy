@@ -10,6 +10,7 @@ import RIBs
 import RxSwift
 
 protocol BoardsListRouting: ViewableRouting {
+     func openBoard(with board: BoardModel)
 }
 
 protocol BoardsListPresentable: Presentable {
@@ -80,6 +81,11 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
                 case .seacrh(let text): do {
                     if let result = self?.search(with: text) {
                         self?.dataSource.value = result
+                    }
+                    }
+                case .openBoard(let index): do {
+                    if let model = self?.dataSource.value[index.section].boards[index.row] {
+                        self?.router?.openBoard(with: model)
                     }
                     }
                 }

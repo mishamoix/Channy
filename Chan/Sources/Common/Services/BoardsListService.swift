@@ -22,7 +22,7 @@ class BoardsListService: BaseService, BoardsListServiceProtocol {
     private let disposeBag = DisposeBag()
     
     var publish: PublishSubject<ResultType>? = nil
-    let provider = ChanProvider<BoardsListTarget>()
+    private let provider = ChanProvider<BoardsListTarget>()
     
     override init() {
         super.init()
@@ -58,7 +58,6 @@ class BoardsListService: BaseService, BoardsListServiceProtocol {
             }
         }
         
-        print(result)
         return result
     }
     

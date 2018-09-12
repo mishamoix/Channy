@@ -19,6 +19,9 @@ target 'Chan' do
 
     pod 'Moya'
     pod 'Moya/RxSwift'
+    
+    # UI
+    pod 'SnapKit'
 
 
 

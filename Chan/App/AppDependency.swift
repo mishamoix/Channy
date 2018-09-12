@@ -9,20 +9,20 @@
 import UIKit
 import Moya
 import RIBs
-import Alamofire
+import AlamofireImage
 
 class AppDependency: NSObject {
-  static var shared = AppDependency()
-  private var launchRouter: LaunchRouting?
+    static var shared = AppDependency()
+    private var launchRouter: LaunchRouting?
 
-  
-  func startApp(with window: UIWindow) {
+    var interfaceImageDownloader: ImageDownloader = ImageDownloader()
+
+    func startApp(with window: UIWindow) {
+        let launchRouter = RootBuilder(dependency: AppComponent()).build()
+        self.launchRouter = launchRouter
+        launchRouter.launchFromWindow(window)
+    }
     
-    let launchRouter = RootBuilder(dependency: AppComponent()).build()
-    self.launchRouter = launchRouter
-    launchRouter.launchFromWindow(window)
     
-    
-  }
   
 }

@@ -31,8 +31,5 @@ class BoardModel: BaseModel, Decodable {
         return "uid - \(self.uid), name - \(self.name)"
     }
     
-//    func deepCopy() -> BoardModel {
-//        
-//    }
   
 }
