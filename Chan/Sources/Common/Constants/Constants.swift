@@ -13,6 +13,9 @@ let DefaultMargin: CGFloat = 8
 let MediumMargin: CGFloat = 16
 let LargeMargin: CGFloat = 24
 
+let DefaultCornerRadius: CGFloat = 4
+let AnimationDuration: CGFloat = 0.25
+
 typealias Response<Type> = Observable<Type>
 
 

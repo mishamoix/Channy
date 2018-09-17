@@ -28,7 +28,6 @@ class BoardService: BaseService, BoardServiceProtocol {
     let board: BoardModel
     var publish: PublishSubject<ResultType>? = nil
 
-    private let disposeBag = DisposeBag()
     private let provider = ChanProvider<BoardTarget>()
     
     private var page = 0
@@ -99,6 +98,7 @@ class BoardService: BaseService, BoardServiceProtocol {
             if let threads = json["threads"] {
                 if let valueData = try? JSONSerialization.data(withJSONObject: threads, options: .prettyPrinted) {
                     if let res = ThreadModel.parseArray(from: valueData) {
+                        let _ = res.map{ $0.update(board: self.board) }
                         result = res
                     }
                 }

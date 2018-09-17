@@ -13,14 +13,20 @@ class ThreadViewModel {
     private(set) var thumbnail: URL? = nil
     private(set) var title: String? = nil
     private(set) var comment: String? = nil
+    private(set) var postsCount: Int = 0
     
     private(set) var height: CGFloat = 0
     private var heightCalculated = false
     
+    var displayText: String {
+        return "[\(self.postsCount)] " + (self.comment ?? "")
+    }
+    
     init(with model: ThreadModel) {
         if let post = model.posts.first {
-            self.title = post.subject
-            self.comment = TextStripper.removeAllTags(in: post.comment) 
+//            self.title = post.subject
+            self.comment = TextStripper.removeAllTags(in: post.comment)
+            self.postsCount = model.postsCount
             if let file = post.files.first {
                 self.thumbnail = URL(string: MakeFullPath(path: file.thumbnail))
             }

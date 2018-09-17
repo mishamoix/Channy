@@ -49,6 +49,11 @@
 		0A2E0CE22145C8D600CBD619 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */; };
 		0A5B0EB12149B8E100AECE3C /* UIImage+AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */; };
 		0A5B0EB62149BAE600AECE3C /* LoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB52149BAE600AECE3C /* LoggerPlugin.swift */; };
+		0A5B0EB9214EED8900AECE3C /* PostPreparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB8214EED8900AECE3C /* PostPreparation.swift */; };
+		0A5B0EBC214EFD8000AECE3C /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EBB214EFD8000AECE3C /* Style.swift */; };
+		0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EBD214F098400AECE3C /* PostCell.swift */; };
+		0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */; };
+		0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC4214F995400AECE3C /* String+Utils.swift */; };
 		0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29512143EF0B00B4E53B /* AppDelegate.swift */; };
 		0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC29582143EF1200B4E53B /* Assets.xcassets */; };
 		0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */; };
@@ -128,6 +133,11 @@
 		0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
 		0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+AppImage.swift"; sourceTree = "<group>"; };
 		0A5B0EB52149BAE600AECE3C /* LoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPlugin.swift; sourceTree = "<group>"; };
+		0A5B0EB8214EED8900AECE3C /* PostPreparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPreparation.swift; sourceTree = "<group>"; };
+		0A5B0EBB214EFD8000AECE3C /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		0A5B0EBD214F098400AECE3C /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePostCell.swift; sourceTree = "<group>"; };
+		0A5B0EC4214F995400AECE3C /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		0ACC294E2143EF0B00B4E53B /* Chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC29512143EF0B00B4E53B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ACC29582143EF1200B4E53B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -210,6 +220,8 @@
 				0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */,
 				0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */,
 				0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */,
+				0A2E0CDB2145B08300CBD619 /* UIFont+AppFonts.swift */,
+				0A5B0EC4214F995400AECE3C /* String+Utils.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -272,6 +284,7 @@
 			children = (
 				0A2E0CC92145A35800CBD619 /* TextSize */,
 				0AFFFDA421499C190002E832 /* TextStripper.swift */,
+				0A5B0EB8214EED8900AECE3C /* PostPreparation.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -298,6 +311,7 @@
 		0A5B0EB22149B94E00AECE3C /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				0A2E0C832145390D00CBD619 /* Provider */,
 				0A5B0EB32149B95700AECE3C /* Middleware */,
 			);
 			path = Network;
@@ -316,6 +330,23 @@
 				0A5B0EB52149BAE600AECE3C /* LoggerPlugin.swift */,
 			);
 			path = Plugins;
+			sourceTree = "<group>";
+		};
+		0A5B0EB7214EECBA00AECE3C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */,
+				0A5B0EBD214F098400AECE3C /* PostCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0A5B0EBA214EFD6E00AECE3C /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				0A5B0EBB214EFD8000AECE3C /* Style.swift */,
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 		0ACC29452143EF0B00B4E53B = {
@@ -370,12 +401,12 @@
 		0ACC29652143F06A00B4E53B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0A5B0EBA214EFD6E00AECE3C /* Styles */,
 				0A5B0EB22149B94E00AECE3C /* Network */,
 				0A2E0CC82145A33000CBD619 /* Utils */,
 				0A2E0C9A2145463400CBD619 /* Error */,
 				0A2E0C8F21453BF200CBD619 /* Extension */,
 				0A2E0C862145395200CBD619 /* Models */,
-				0A2E0C832145390D00CBD619 /* Provider */,
 				0ACC298B2143F7A400B4E53B /* Views */,
 				0ACC29792143F4A700B4E53B /* Constants */,
 				0ACC29762143F3D800B4E53B /* Targets */,
@@ -424,7 +455,6 @@
 			children = (
 				0ACC297A2143F4C100B4E53B /* Enviroment.swift */,
 				0A2E0C98214545E200CBD619 /* Constants.swift */,
-				0A2E0CDB2145B08300CBD619 /* UIFont+AppFonts.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -475,6 +505,7 @@
 		0AFFFDA62149A1E20002E832 /* Thread */ = {
 			isa = PBXGroup;
 			children = (
+				0A5B0EB7214EECBA00AECE3C /* Views */,
 				0AFFFDB52149ABDD0002E832 /* ViewModel */,
 				0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */,
 				0AFFFDA82149A1F40002E832 /* ThreadViewController.storyboard */,
@@ -629,6 +660,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -640,6 +672,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -679,6 +712,7 @@
 				0ACC297B2143F4C100B4E53B /* Enviroment.swift in Sources */,
 				0ACC29732143F3A400B4E53B /* BoardsListService.swift in Sources */,
 				0A2E0CAD214557E900CBD619 /* BaseTableViewCell.swift in Sources */,
+				0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */,
 				0A2E0CCE2145A36300CBD619 /* TGReusableLabel.mm in Sources */,
 				0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */,
 				0A2E0CBC2145790300CBD619 /* BoardRouter.swift in Sources */,
@@ -692,10 +726,14 @@
 				0A2E0CD62145A41800CBD619 /* ThreadModel.swift in Sources */,
 				0ACC29702143F22F00B4E53B /* BoardsListInteractor.swift in Sources */,
 				0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */,
+				0A5B0EB9214EED8900AECE3C /* PostPreparation.swift in Sources */,
 				0A2E0C9C2145464000CBD619 /* Error.swift in Sources */,
 				0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */,
 				0ACC296C2143F22F00B4E53B /* BoardsListRouter.swift in Sources */,
+				0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */,
+				0A5B0EBC214EFD8000AECE3C /* Style.swift in Sources */,
 				0ACC298A2143F79900B4E53B /* RootInteractor.swift in Sources */,
+				0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */,
 				0A2E0C9721453E4B00CBD619 /* Router+Utils.swift in Sources */,
 				0A2E0CBF2145790300CBD619 /* BoardBuilder.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,

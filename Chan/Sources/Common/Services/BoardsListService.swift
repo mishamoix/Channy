@@ -18,9 +18,7 @@ protocol BoardsListServiceProtocol {
 }
 
 class BoardsListService: BaseService, BoardsListServiceProtocol {
-  
-    private let disposeBag = DisposeBag()
-    
+      
     var publish: PublishSubject<ResultType>? = nil
     private let provider = ChanProvider<BoardsListTarget>()
     

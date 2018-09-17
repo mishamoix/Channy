@@ -15,6 +15,11 @@ class ThreadModel: BaseModel, Decodable {
     var postsCount = 0
     var posts: [PostModel] = []
     
+    var board: BoardModel?
+    
+    func update(board: BoardModel) {
+        self.board = board
+    }
     
     enum CodingKeys : String, CodingKey {
         case uid = "thread_num"

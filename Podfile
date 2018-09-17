@@ -22,6 +22,9 @@ target 'Chan' do
     
     # UI
     pod 'SnapKit'
+    
+    # Data
+    pod 'SwiftSoup'
 
 
 

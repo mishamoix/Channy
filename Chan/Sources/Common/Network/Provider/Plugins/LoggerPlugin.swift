@@ -53,8 +53,10 @@ class LoggerPlugin: PluginType {
 //                res += "Data: \(json)"
             }
             }
-        case .failure(let error): break
-            // TODO: make
+        case .failure(let error): do {
+            
+            let a = 1
+        }
         }
         
         

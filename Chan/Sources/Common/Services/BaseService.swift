@@ -7,7 +7,19 @@
 //
 
 import UIKit
+import RxSwift
 
-class BaseService {
-  
+protocol BaseServiceProtocol {
+    func cancel()
+}
+
+class BaseService: BaseServiceProtocol {
+    var disposeBag = DisposeBag()
+    
+    
+    func cancel() {
+        self.disposeBag = DisposeBag()
+    }
+    
+
 }

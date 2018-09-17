@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum ThreadTarget {
-    case load(idx: String)
+    case load(board: String, idx: String)
 }
 
 extension ThreadTarget: TargetType {
@@ -19,8 +19,8 @@ extension ThreadTarget: TargetType {
     public var baseURL: URL { return Enviroment.default.baseUrl }
     public var path: String {
         switch self {
-        case .load(let idx):
-            return "/res/\(idx).json"
+        case .load(let board, let idx):
+            return "/\(board)/res/\(idx).json"
             
         }
     }

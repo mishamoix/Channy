@@ -40,7 +40,7 @@ class BaseNavigationController: UINavigationController {
     // Dispose of any resources that can be recreated.
   }
   
-  override open var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+  override open var preferredStatusBarStyle: UIStatusBarStyle { return .default }
   
   
   

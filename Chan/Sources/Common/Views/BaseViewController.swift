@@ -25,7 +25,7 @@ open class BaseViewController: UIViewController {
         self.printDeinit()
     }
     
-    override open var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    override open var preferredStatusBarStyle: UIStatusBarStyle { return .default }
     
     
     /*

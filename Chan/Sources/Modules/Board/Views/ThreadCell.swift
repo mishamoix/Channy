@@ -74,7 +74,7 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
     override func update(with model: ThreadViewModel) {
         super.update(with: model)
         
-        self.message.text = model.comment
+        self.message.text = model.displayText
         self.message.font = .text
         self.message.textColor = .black
         self.message.backgroundColor = .clear

@@ -27,8 +27,11 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     weak var router: ThreadRouting?
     weak var listener: ThreadListener?
     
-    let service: ThreadServiceProtocol
-
+    var service: ThreadServiceProtocol
+    
+    private let publish: PublishSubject<ThreadServiceProtocol.ResultType> = PublishSubject()
+    private let disposeBag = DisposeBag()
+    
     init(presenter: ThreadPresentable, service: ThreadServiceProtocol) {
         self.service = service
         self.mainViewModel = Variable(ThreadViewModel(with: service.thread))
@@ -38,7 +41,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 
     override func didBecomeActive() {
         super.didBecomeActive()
-        // TODO: Implement business logic here.
+        self.setup()
     }
 
     override func willResignActive() {
@@ -49,5 +52,29 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     var mainViewModel: Variable<ThreadViewModel>
     var dataSource: Variable<[PostViewModel]> = Variable([])
     var viewActions: PublishSubject<ThreadAction> = PublishSubject()
+    
+    // MARK:Private
+    private func setup() {
+        self.setupRx()
+        self.service.load()
+    }
+    
+    private func setupRx() {
+        self.service.publish = self.publish
+        
+        self.publish
+            .subscribe(onNext: { [weak self] posts in
+                guard let strongSelf = self else {
+                    return
+                }
+                if let models = posts {
+                    let result = models.compactMap { PostViewModel(model: $0, thread: strongSelf.service.thread.uid) }
+                    strongSelf.dataSource.value = result
+                }
+            }, onError: { [weak self] error in
+                
+            }).disposed(by: self.disposeBag)
+        
+    }
 
 }
