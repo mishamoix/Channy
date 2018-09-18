@@ -9,6 +9,7 @@
 import RIBs
 import RxSwift
 import UIKit
+import IGListKit
 
 let ThreadCellIdentifier = "ThreadCell"
 
@@ -70,8 +71,26 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] result in
                 self?.refreshControl.endRefreshing()
-                self?.data = result
-                self?.tableView.reloadData()
+                
+                
+                if let oldData = self?.data, let tableView = self?.tableView {
+//                    let diff = ListDiff(oldArray: oldData, newArray: result, option: .equality)
+                    let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
+                    self?.data = result
+                    tableView.performBatchUpdates({
+                        tableView.deleteRows(at: diff.deletes, with: .automatic)
+                        tableView.insertRows(at: diff.inserts, with: .automatic)
+                        tableView.reloadRows(at: diff.updates, with: .automatic)
+                        for move in diff.moves {
+                            tableView.moveRow(at: move.from, to: move.to)
+                        }
+                    }, completion: { finished in
+                        
+                    })
+                } else {
+                    self?.data = result
+                    self?.tableView.reloadData()
+                }
             }, onError: { [weak self] error in
                 self?.listener?.viewActions.on(.next(.reload))
             }).disposed(by: self.disposeBag)
@@ -116,6 +135,10 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
 extension BoardViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.data[indexPath.row].height
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.tableView(self.tableView, heightForRowAt:indexPath)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

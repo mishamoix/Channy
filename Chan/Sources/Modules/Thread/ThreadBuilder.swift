@@ -22,6 +22,7 @@ final class ThreadComponent: Component<ThreadDependency> {
 
 protocol ThreadBuildable: Buildable {
     func build(withListener listener: ThreadListener, thread: ThreadModel) -> ThreadRouting
+    func build(withListener listener: ThreadListener, replys: PostReplysViewModel) -> ThreadRouting
 }
 
 final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
@@ -37,6 +38,24 @@ final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
         let service = ThreadService(thread: thread)
         let interactor = ThreadInteractor(presenter: viewController, service: service)
         interactor.listener = listener
-        return ThreadRouter(interactor: interactor, viewController: viewController)
+        
+        let thread = ThreadBuilder(dependency: self.dependency)
+        
+        return ThreadRouter(interactor: interactor, viewController: viewController, threadBuilder: thread)
     }
+    
+    func build(withListener listener: ThreadListener, replys: PostReplysViewModel) -> ThreadRouting {
+        let component = ThreadComponent(dependency: dependency)
+        let viewController = UIStoryboard(name: "ThreadViewController", bundle: nil).instantiateViewController(withIdentifier: "ThreadViewController") as! ThreadViewController
+        
+        let service = ThreadReplyService(thread: replys.thread, parent: replys.parent, posts: replys.posts)
+        let interactor = ThreadInteractor(presenter: viewController, service: service)
+        interactor.listener = listener
+        
+        let thread = ThreadBuilder(dependency: self.dependency)
+        
+        return ThreadRouter(interactor: interactor, viewController: viewController, threadBuilder: thread)
+    }
+    
+    
 }

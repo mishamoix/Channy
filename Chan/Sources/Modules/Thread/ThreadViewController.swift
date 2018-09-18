@@ -13,16 +13,17 @@ import UIKit
 private let PostCellIdentifier = "PostCell"
 
 protocol ThreadPresentableListener: class {
-    var mainViewModel: Variable<ThreadViewModel> { get }
+    var mainViewModel: Variable<PostMainViewModel> { get }
     var dataSource: Variable<[PostViewModel]> { get }
-    var viewActions: PublishSubject<ThreadAction> { get }
+    var viewActions: PublishSubject<PostAction> { get }
 }
 
-final class ThreadViewController: UIViewController, ThreadPresentable, ThreadViewControllable {
+final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadViewControllable {
     
     // MARK: Other
     weak var listener: ThreadPresentableListener?
     private let disposeBag = DisposeBag()
+    private let cellActions: PublishSubject<PostCellAction> = PublishSubject()
     
     // MARK: UI
     @IBOutlet weak var collectionView: UICollectionView!
@@ -51,7 +52,7 @@ final class ThreadViewController: UIViewController, ThreadPresentable, ThreadVie
         self.listener?.mainViewModel
             .asObservable()
             .subscribe(onNext: { [weak self] model in
-                self?.navigationItem.title = model.comment
+                self?.navigationItem.title = model.title
             }).disposed(by: self.disposeBag)
         
         self.listener?.dataSource
@@ -61,6 +62,17 @@ final class ThreadViewController: UIViewController, ThreadPresentable, ThreadVie
                 self?.collectionView.reloadData()
             }, onError: { [weak self] error in
                 
+            }).disposed(by: self.disposeBag)
+        
+        self.cellActions
+            .subscribe(onNext: { [weak self] action in
+                switch action {
+                case .openReplys(let cell): do {
+                    if let idx = self?.collectionView.indexPath(for: cell), let post = self?.data[idx.item] {
+                        self?.listener?.viewActions.on(.next(.openReplys(postUid: post.uid)))
+                    }
+                }
+                }
             }).disposed(by: self.disposeBag)
     }
     
@@ -104,6 +116,7 @@ final class ThreadViewController: UIViewController, ThreadPresentable, ThreadVie
         let data = self.data[index.item]
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: PostCellIdentifier, for: index) as! BasePostCell
         cell.update(with: data)
+        cell.action = self.cellActions
         return cell
     }
 }

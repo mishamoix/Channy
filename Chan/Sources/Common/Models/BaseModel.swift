@@ -21,6 +21,7 @@ extension Decodable where Self: BaseModel {
     }
     
     static func parseArray(from data: Data) -> [Self]? {
+        let aaa = try! JSONDecoder().decode([Self].self, from: data)
         guard let result = try? JSONDecoder().decode([Self].self, from: data) else {
             return nil
         }

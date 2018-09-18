@@ -9,14 +9,18 @@
 import UIKit
 import RxSwift
 
-protocol ThreadServiceProtocol {
+
+protocol ThreadServiceProtocol: BaseServiceProtocol {
     
-    typealias ResultType = [PostModel]?
+    typealias ResultType = ResultThreadModel<DataType>
+    typealias DataType = [PostModel]
 
     var thread: ThreadModel { get }
     var publish: PublishSubject<ResultType>? { get set }
 
     func load()
+    
+    var name: String { get }
 }
 
 class ThreadService: BaseService, ThreadServiceProtocol {
@@ -25,6 +29,8 @@ class ThreadService: BaseService, ThreadServiceProtocol {
     var publish: PublishSubject<ResultType>? = nil
     
     private let provider = ChanProvider<ThreadTarget>()
+    
+    var name: String { return self.thread.posts.first?.comment ?? "" }
     
     init(thread: ThreadModel) {
         self.thread = thread
@@ -37,7 +43,8 @@ class ThreadService: BaseService, ThreadServiceProtocol {
             .asObservable()
             .subscribe(onNext: { [weak self] response in
                 if let res = self?.makeModel(data: response.data) {
-                    self?.publish?.on(.next(res))
+                    let result = ResultThreadModel<DataType>(result: res, type: .all)
+                    self?.publish?.on(.next(result))
                 }
 
             }, onError: { [weak self] error in
@@ -45,9 +52,9 @@ class ThreadService: BaseService, ThreadServiceProtocol {
             }).disposed(by: self.disposeBag)
     }
     
-    private func makeModel(data: Data) -> ResultType {
+    private func makeModel(data: Data) -> DataType {
         
-        var result: ResultType = []
+        var result: DataType = []
         if let json = (try? JSONSerialization.jsonObject(with: data, options: [])) as? Dictionary<String, Any> {
             
             

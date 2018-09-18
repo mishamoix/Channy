@@ -10,7 +10,7 @@ import RIBs
 import RxSwift
 
 protocol ThreadRouting: ViewableRouting {
-    // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+    func openThread(with post: PostReplysViewModel)
 }
 
 protocol ThreadPresentable: Presentable {
@@ -32,9 +32,11 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     private let publish: PublishSubject<ThreadServiceProtocol.ResultType> = PublishSubject()
     private let disposeBag = DisposeBag()
     
+    private var data: [PostModel] = []
+    
     init(presenter: ThreadPresentable, service: ThreadServiceProtocol) {
         self.service = service
-        self.mainViewModel = Variable(ThreadViewModel(with: service.thread))
+        self.mainViewModel = Variable(PostMainViewModel(title: service.name))
         super.init(presenter: presenter)
         presenter.listener = self
     }
@@ -49,9 +51,9 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     // MARK: ThreadPresentableListener
-    var mainViewModel: Variable<ThreadViewModel>
+    var mainViewModel: Variable<PostMainViewModel>
     var dataSource: Variable<[PostViewModel]> = Variable([])
-    var viewActions: PublishSubject<ThreadAction> = PublishSubject()
+    var viewActions: PublishSubject<PostAction> = PublishSubject()
     
     // MARK:Private
     private func setup() {
@@ -63,17 +65,42 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         self.service.publish = self.publish
         
         self.publish
-            .subscribe(onNext: { [weak self] posts in
+            .subscribe(onNext: { [weak self] result in
                 guard let strongSelf = self else {
                     return
                 }
-                if let models = posts {
-                    let result = models.compactMap { PostViewModel(model: $0, thread: strongSelf.service.thread.uid) }
-                    strongSelf.dataSource.value = result
+                let models = result.result
+                self?.data = models
+                let manager = PostManager(posts: models, thread: strongSelf.service.thread)
+                
+                switch result.type {
+                case .all: do {
                 }
+                case .replys(let parent): do {
+                    manager.addFilter(by: parent.uid)
+                }
+                }
+                
+                strongSelf.dataSource.value = manager.postsVM
+                    
+                
             }, onError: { [weak self] error in
                 
             }).disposed(by: self.disposeBag)
+        
+        self.viewActions
+            .subscribe(onNext: { [weak self] action in
+                switch action {
+                case .openReplys(let postUid): do {
+                    if let post = self?.data.filter({ $0.uid == postUid }).first, let posts = self?.data, let thread = self?.service.thread {
+                        let replyModel = PostReplysViewModel(parent: post, posts: posts, thread: thread)
+                        self?.router?.openThread(with: replyModel)
+                    }
+                    }
+                }
+            }).disposed(by: self.disposeBag)
+        
+        
         
     }
 

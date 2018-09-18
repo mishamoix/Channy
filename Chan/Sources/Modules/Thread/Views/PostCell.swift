@@ -35,7 +35,7 @@ class PostCell: BasePostCell {
     
     
     func caclulateTextMargin(with model: PostViewModel) -> CGFloat {
-        return self.frame.height - (PostTextBottomMargin + model.textHeight)
+        return PostTitleTopMargin + model.titleHeight + PostTitleTextMargin
     }
 
 }

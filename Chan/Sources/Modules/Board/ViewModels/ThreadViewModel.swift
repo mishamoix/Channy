@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IGListKit
 
 class ThreadViewModel {
     
@@ -18,11 +19,14 @@ class ThreadViewModel {
     private(set) var height: CGFloat = 0
     private var heightCalculated = false
     
+    private let uid: String
+    
     var displayText: String {
         return "[\(self.postsCount)] " + (self.comment ?? "")
     }
     
     init(with model: ThreadModel) {
+        self.uid = model.uid
         if let post = model.posts.first {
 //            self.title = post.subject
             self.comment = TextStripper.removeAllTags(in: post.comment)
@@ -53,4 +57,20 @@ class ThreadViewModel {
         
         return self
     }
+}
+
+extension ThreadViewModel: ListDiffable {
+    func diffIdentifier() -> NSObjectProtocol {
+        return self.uid as NSObjectProtocol
+    }
+    
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        if let obj = object as? ThreadViewModel {
+            return obj.uid == self.uid
+        }
+        
+        return false
+    }
+    
+    
 }

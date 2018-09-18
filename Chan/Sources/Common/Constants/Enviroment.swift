@@ -20,6 +20,10 @@ class Enviroment {
         return "https://2ch.hk"
     }
     
+    var basePathWithoutScheme: String {
+        return "2ch.hk"
+    }
+    
     
 
 }

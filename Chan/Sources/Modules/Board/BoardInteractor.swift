@@ -103,6 +103,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     }
                 }
                 case .reload: do {
+                    self?.service.cancel()
                     self?.service.reload()
                     }
                 }

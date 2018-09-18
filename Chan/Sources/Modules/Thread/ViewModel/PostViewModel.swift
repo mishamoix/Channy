@@ -10,7 +10,7 @@ import UIKit
 
 class PostViewModel {
     
-    private let modifier: PostPreparation
+    let modifier: PostPreparation
     let uid: String
     let media: [FileModel]
     private var tags: [String] = []
@@ -23,17 +23,31 @@ class PostViewModel {
     private(set) var titleHeight: CGFloat = 0
     private(set) var textHeight: CGFloat = 0
     private var heightCalculated = false
+    
+    var replyPosts: [String] = []
 
     var text: NSAttributedString {
         return self.modifier.attributedText
     }
+
     
     var title: NSAttributedString {
         let number = "#\(self.number)"
         let str = "\(number) • \(self.uid) • \(self.date)"
         let result = Style.postTitle(text: str)
         Style.quote(text: result, range: NSRange(location: 0, length: number.count))
+//        if self.name.lowercased() != "аноним" {
+//            str = "\(str) • \(self.name)"
+//        }
         return result
+    }
+    
+    var replyedButtonText: String {
+        return "\(self.replyPosts.count)"
+    }
+    
+    var shoudHideReplyedButton: Bool {
+        return self.replyPosts.count == 0
     }
     
     
@@ -58,9 +72,12 @@ class PostViewModel {
         self.titleHeight = titleHeight
         self.textHeight = textHeight
         
+        var resultHeight = PostTitleTopMargin + titleHeight + PostTitleTextMargin + textHeight + PostTextBottomMargin
+        if !self.shoudHideReplyedButton {
+            resultHeight += PostBottomHeight
+        }
         
-        
-        self.height = PostTitleTopMargin + titleHeight + PostTitleTextMargin + textHeight + PostTextBottomMargin
+        self.height = resultHeight
     }
     
     func reset() {

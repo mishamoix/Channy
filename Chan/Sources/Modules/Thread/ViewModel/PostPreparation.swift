@@ -18,6 +18,8 @@ class PostPreparation {
     private let thread: String
     private let post: String
     
+    private(set) var replyedPosts: [ChanLinkModel] = []
+    
     private var attributedTextString: String {
         return self.attributedText.string
     }
@@ -70,10 +72,6 @@ class PostPreparation {
         self.regexDelete(regex: "^[\\t\\f\\p{Z}]+", range: resultRange)
         
         TextStripper.finishHtmlToNormal(in: self.attributedText.mutableString)
-
-        
-        print(self.attributedText)
-        
     }
     
     private func regexFind(regex regexString: String, range fullRange: NSRange, result: (NSRange) -> ()) {
@@ -168,7 +166,16 @@ class PostPreparation {
                 
                 if urlRange.length != 0 {
                     let urlString = TextStripper.ampToNormal(in: fullLink.substring(in: urlRange))
-                    if let url = URL(string: urlString) {
+                    
+                    let parser = LinkParser(path: urlString)
+                    let linkType = parser.type
+                    
+                    switch linkType {
+                    case .boardLink(let chanLink): do {
+                        self.replyedPosts.append(chanLink)
+                        }
+                    case .externalLink:
+                        break
                     }
                 }
                 

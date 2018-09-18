@@ -18,6 +18,7 @@ class PostModel: BaseModel, Decodable {
     var date: TimeInterval = 0
     var number = 0
     
+    
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -29,7 +30,9 @@ class PostModel: BaseModel, Decodable {
         }
         
         self.comment = try values.decode(String.self, forKey: .comment)
-        self.files = try values.decode([FileModel].self, forKey: .files)
+        if let files = try? values.decode([FileModel].self, forKey: .files) {
+            self.files = files
+        }
         
         self.name = try values.decode(String.self, forKey: .name)
         self.date = try values.decode(TimeInterval.self, forKey: .date)

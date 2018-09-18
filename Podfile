@@ -8,6 +8,7 @@ target 'Chan' do
 
     # Strucutre
     pod 'RIBs'
+    pod 'IGListKit', '~> 3.0'
 
     # RX
     pod 'RxSwift'

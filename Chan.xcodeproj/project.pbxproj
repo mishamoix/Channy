@@ -54,6 +54,14 @@
 		0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EBD214F098400AECE3C /* PostCell.swift */; };
 		0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */; };
 		0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC4214F995400AECE3C /* String+Utils.swift */; };
+		0A90E7822151886900B71EAA /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7812151886900B71EAA /* PostManager.swift */; };
+		0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E78321518B2600B71EAA /* LinkParser.swift */; };
+		0A90E786215194E000B71EAA /* RegexChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E785215194DF00B71EAA /* RegexChecker.swift */; };
+		0A90E7882151988D00B71EAA /* ChanLinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7872151988D00B71EAA /* ChanLinkModel.swift */; };
+		0A90E78A2151A58700B71EAA /* PostReplysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7892151A58700B71EAA /* PostReplysViewModel.swift */; };
+		0A90E78D2151A76B00B71EAA /* ThreadReplyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E78C2151A76B00B71EAA /* ThreadReplyService.swift */; };
+		0A90E78F2151A9A100B71EAA /* ResultThreadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E78E2151A9A100B71EAA /* ResultThreadModel.swift */; };
+		0A90E7912151AD0300B71EAA /* PostMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7902151AD0300B71EAA /* PostMainViewModel.swift */; };
 		0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29512143EF0B00B4E53B /* AppDelegate.swift */; };
 		0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC29582143EF1200B4E53B /* Assets.xcassets */; };
 		0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */; };
@@ -138,6 +146,14 @@
 		0A5B0EBD214F098400AECE3C /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePostCell.swift; sourceTree = "<group>"; };
 		0A5B0EC4214F995400AECE3C /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		0A90E7812151886900B71EAA /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
+		0A90E78321518B2600B71EAA /* LinkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkParser.swift; sourceTree = "<group>"; };
+		0A90E785215194DF00B71EAA /* RegexChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexChecker.swift; sourceTree = "<group>"; };
+		0A90E7872151988D00B71EAA /* ChanLinkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanLinkModel.swift; sourceTree = "<group>"; };
+		0A90E7892151A58700B71EAA /* PostReplysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReplysViewModel.swift; sourceTree = "<group>"; };
+		0A90E78C2151A76B00B71EAA /* ThreadReplyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadReplyService.swift; sourceTree = "<group>"; };
+		0A90E78E2151A9A100B71EAA /* ResultThreadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultThreadModel.swift; sourceTree = "<group>"; };
+		0A90E7902151AD0300B71EAA /* PostMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMainViewModel.swift; sourceTree = "<group>"; };
 		0ACC294E2143EF0B00B4E53B /* Chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC29512143EF0B00B4E53B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ACC29582143EF1200B4E53B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -207,6 +223,7 @@
 				0A2E0CD52145A41800CBD619 /* ThreadModel.swift */,
 				0A2E0CDD2145B3F600CBD619 /* PostModel.swift */,
 				0A2E0CDF2145B48300CBD619 /* FileModel.swift */,
+				0A90E7872151988D00B71EAA /* ChanLinkModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -284,7 +301,8 @@
 			children = (
 				0A2E0CC92145A35800CBD619 /* TextSize */,
 				0AFFFDA421499C190002E832 /* TextStripper.swift */,
-				0A5B0EB8214EED8900AECE3C /* PostPreparation.swift */,
+				0A90E78321518B2600B71EAA /* LinkParser.swift */,
+				0A90E785215194DF00B71EAA /* RegexChecker.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -347,6 +365,15 @@
 				0A5B0EBB214EFD8000AECE3C /* Style.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		0A90E78B2151A75700B71EAA /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				0AFFFDB32149AACD0002E832 /* ThreadService.swift */,
+				0A90E78C2151A76B00B71EAA /* ThreadReplyService.swift */,
+			);
+			path = Thread;
 			sourceTree = "<group>";
 		};
 		0ACC29452143EF0B00B4E53B = {
@@ -432,10 +459,10 @@
 		0ACC29712143F35E00B4E53B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0A90E78B2151A75700B71EAA /* Thread */,
 				0ACC29742143F3AE00B4E53B /* BaseService.swift */,
 				0ACC29722143F3A400B4E53B /* BoardsListService.swift */,
 				0A2E0CC12145968000CBD619 /* BoardService.swift */,
-				0AFFFDB32149AACD0002E832 /* ThreadService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -521,6 +548,10 @@
 			isa = PBXGroup;
 			children = (
 				0AFFFDB82149AC640002E832 /* PostViewModel.swift */,
+				0A5B0EB8214EED8900AECE3C /* PostPreparation.swift */,
+				0A90E7812151886900B71EAA /* PostManager.swift */,
+				0A90E7892151A58700B71EAA /* PostReplysViewModel.swift */,
+				0A90E7902151AD0300B71EAA /* PostMainViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -530,6 +561,7 @@
 			children = (
 				0A2E0C9E2145467F00CBD619 /* ResultModel.swift */,
 				0AFFFDBB2149B06E0002E832 /* ResultBoardModel.swift */,
+				0A90E78E2151A9A100B71EAA /* ResultThreadModel.swift */,
 			);
 			path = ResultModel;
 			sourceTree = "<group>";
@@ -654,6 +686,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chan/Pods-Chan-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/RIBs/RIBs.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -666,6 +699,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RIBs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -691,6 +725,7 @@
 				0A2E0C8C2145399400CBD619 /* BoardCategoryModel.swift in Sources */,
 				0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */,
 				0A2E0CA32145561E00CBD619 /* BoardsListCell.swift in Sources */,
+				0A90E786215194E000B71EAA /* RegexChecker.swift in Sources */,
 				0A2E0CD32145A3FE00CBD619 /* ThreadCell.swift in Sources */,
 				0A2E0CC02145790300CBD619 /* BoardInteractor.swift in Sources */,
 				0A2E0C882145396400CBD619 /* BaseModel.swift in Sources */,
@@ -706,6 +741,7 @@
 				0AFFFDB02149A1F50002E832 /* ThreadInteractor.swift in Sources */,
 				0A2E0CA92145565100CBD619 /* ChanView.swift in Sources */,
 				0A2E0C9321453C1000CBD619 /* UIViewController+Utils.swift in Sources */,
+				0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */,
 				0ACC29782143F44400B4E53B /* BoardsListTarget.swift in Sources */,
 				0AFFFDB92149AC640002E832 /* PostViewModel.swift in Sources */,
 				0A2E0C9521453CB600CBD619 /* ViewControllable+Utils.swift in Sources */,
@@ -722,12 +758,14 @@
 				0ACC29882143F79900B4E53B /* RootViewController.swift in Sources */,
 				0A2E0CAF2145588A00CBD619 /* BoardsTableHeader.swift in Sources */,
 				0ACC29872143F79900B4E53B /* RootRouter.swift in Sources */,
+				0A90E78D2151A76B00B71EAA /* ThreadReplyService.swift in Sources */,
 				0A2E0CE22145C8D600CBD619 /* UIImage+Utils.swift in Sources */,
 				0A2E0CD62145A41800CBD619 /* ThreadModel.swift in Sources */,
 				0ACC29702143F22F00B4E53B /* BoardsListInteractor.swift in Sources */,
 				0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */,
 				0A5B0EB9214EED8900AECE3C /* PostPreparation.swift in Sources */,
 				0A2E0C9C2145464000CBD619 /* Error.swift in Sources */,
+				0A90E7882151988D00B71EAA /* ChanLinkModel.swift in Sources */,
 				0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */,
 				0ACC296C2143F22F00B4E53B /* BoardsListRouter.swift in Sources */,
 				0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */,
@@ -736,16 +774,19 @@
 				0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */,
 				0A2E0C9721453E4B00CBD619 /* Router+Utils.swift in Sources */,
 				0A2E0CBF2145790300CBD619 /* BoardBuilder.swift in Sources */,
+				0A90E78F2151A9A100B71EAA /* ResultThreadModel.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
 				0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */,
 				0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */,
 				0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */,
+				0A90E7912151AD0300B71EAA /* PostMainViewModel.swift in Sources */,
 				0ACC296F2143F22F00B4E53B /* BoardsListBuilder.swift in Sources */,
 				0ACC29812143F77500B4E53B /* AppComponent.swift in Sources */,
 				0A2E0CC42145969D00CBD619 /* BoardTarget.swift in Sources */,
 				0A2E0CCF2145A36300CBD619 /* TextSize.swift in Sources */,
 				0A5B0EB12149B8E100AECE3C /* UIImage+AppImage.swift in Sources */,
 				0A2E0CC22145968000CBD619 /* BoardService.swift in Sources */,
+				0A90E78A2151A58700B71EAA /* PostReplysViewModel.swift in Sources */,
 				0A2E0CDC2145B08300CBD619 /* UIFont+AppFonts.swift in Sources */,
 				0AFFFDB72149AC3D0002E832 /* ThreadConstants.swift in Sources */,
 				0A2E0CAB2145566700CBD619 /* ChanImageView.swift in Sources */,
@@ -753,6 +794,7 @@
 				0A2E0CDA2145A61000CBD619 /* BoardConstants.swift in Sources */,
 				0A5B0EB62149BAE600AECE3C /* LoggerPlugin.swift in Sources */,
 				0AFFFDAE2149A1F50002E832 /* ThreadViewController.swift in Sources */,
+				0A90E7822151886900B71EAA /* PostManager.swift in Sources */,
 				0ACC296E2143F22F00B4E53B /* BoardsListViewController.swift in Sources */,
 				0A2E0CBE2145790300CBD619 /* BoardViewController.swift in Sources */,
 			);

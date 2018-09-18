@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 
 
-protocol BoardServiceProtocol {
+protocol BoardServiceProtocol: BaseServiceProtocol {
     typealias DataType = [ThreadModel]
     typealias ResultType = ResultBoardModel<DataType>
     

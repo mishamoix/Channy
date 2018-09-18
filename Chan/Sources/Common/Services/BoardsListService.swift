@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import Moya
 
-protocol BoardsListServiceProtocol {
+protocol BoardsListServiceProtocol: BaseServiceProtocol {
     typealias ResultType = [BoardCategoryModel]?
     func loadAllBoards()
     

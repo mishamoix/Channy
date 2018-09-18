@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol ThreadInteractable: Interactable {
+protocol ThreadInteractable: Interactable, ThreadListener {
     var router: ThreadRouting? { get set }
     var listener: ThreadListener? { get set }
 }
@@ -20,8 +20,25 @@ protocol ThreadViewControllable: ViewControllable {
 final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControllable>, ThreadRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    override init(interactor: ThreadInteractable, viewController: ThreadViewControllable) {
+    init(interactor: ThreadInteractable, viewController: ThreadViewControllable, threadBuilder: ThreadBuildable) {
+        self.threadBuilder = threadBuilder
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
+    
+    // MARK: ThreadRouting
+    func openThread(with post: PostReplysViewModel) {
+        if self.canDeattach(router: self.thread) {
+            let thread = self.threadBuilder.build(withListener: self.interactor, replys: post)
+            self.thread = thread
+            self.attachChild(thread)
+            self.viewController.push(view: thread.viewControllable)
+        }
+    }
+    
+    // MARK: Private
+    private let threadBuilder: ThreadBuildable
+    private weak var thread: ViewableRouting?
+    
+    
 }

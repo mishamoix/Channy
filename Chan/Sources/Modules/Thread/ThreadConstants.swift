@@ -24,10 +24,18 @@ let PostCellBottomMargin: CGFloat = PostCellTopMargin
 let PostCellLeftMargin: CGFloat = DefaultMargin
 let PostCellRightMargin: CGFloat = PostCellLeftMargin
 
+let PostButtonRightMargin: CGFloat = DefaultMargin
+let PostButtonBottomMargin: CGFloat = DefaultMargin
+let PostButtonSize: CGSize = CGSize(width: 28, height: 20)
 
-enum ThreadAction {
+let PostBottomHeight = PostButtonBottomMargin + PostButtonSize.height
+
+
+enum PostAction {
+    case openReplys(postUid: String)
 }
 
-enum ThreadCellAction {
+enum PostCellAction {
+    case openReplys(cell: UICollectionViewCell)
 }
 
