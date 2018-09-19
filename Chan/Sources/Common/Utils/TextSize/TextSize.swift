@@ -11,11 +11,11 @@ import Foundation
 
 open class TextSize {
   
-  open let text: String
-  open let font: UIFont
-  open let maxWidth: CGFloat
-  open let attributedString: NSAttributedString
-  open let lineHeight: CGFloat?
+    public let text: String
+    public let font: UIFont
+    public let maxWidth: CGFloat
+    public let attributedString: NSAttributedString
+    public let lineHeight: CGFloat?
   
   public init(text: String, maxWidth: CGFloat, font: UIFont, lineHeight: CGFloat? = nil) {
     self.maxWidth = maxWidth
@@ -61,6 +61,30 @@ open class TextSize {
     let height = result.height
     return CGSize(width: CGFloat(ceilf(Float((result.width)))), height: CGFloat(ceilf(Float(height))))
   }
+    
+    static func indexForPoint(text: NSAttributedString, point: CGPoint, container size: CGSize) -> Int {
+        
+        let layoutManager = NSLayoutManager()
+        let textContainer = NSTextContainer(size: CGSize.zero)
+        let textStorage = NSTextStorage(attributedString: text)
+        
+        // Configure layoutManager and textStorage
+        layoutManager.addTextContainer(textContainer)
+        textStorage.addLayoutManager(layoutManager)
+        
+        // Configure textContainer
+        textContainer.lineFragmentPadding = 0.0
+        textContainer.maximumNumberOfLines = 0
+        let labelSize = size
+        textContainer.size = labelSize
+        
+        // Find the tapped character location and compare it to the specified range
+        let locationOfTouchInLabel = point
+        let locationOfTouchInTextContainer = CGPoint(x: locationOfTouchInLabel.x, y: locationOfTouchInLabel.y);
+        let indexOfCharacter = layoutManager.characterIndex(for: locationOfTouchInTextContainer, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        
+        return indexOfCharacter
+    }
   
   private static func prepareText(_ text: String) -> String {
     var result = text
@@ -70,4 +94,6 @@ open class TextSize {
     return result
 
   }
+    
+    
 }

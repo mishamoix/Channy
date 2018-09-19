@@ -21,7 +21,7 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
                 manager: Manager = MoyaProvider<Target>.defaultAlamofireManager(),
                 plugins: [PluginType] = [],
                 trackInflights: Bool = false) {
-        let plugs = plugins //+ [NetworkLoggerPlugin(verbose: true)]
+        let plugs = plugins // + [NetworkLoggerPlugin(verbose: true)]
         super.init(endpointClosure: endpointClosure, requestClosure: requestClosure, stubClosure: stubClosure, callbackQueue: callbackQueue, manager: manager, plugins: plugs, trackInflights: trackInflights)
 
     }

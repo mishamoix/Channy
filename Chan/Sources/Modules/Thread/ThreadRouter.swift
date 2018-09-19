@@ -36,6 +36,15 @@ final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControlla
         }
     }
     
+    func openNewThread(with thread: ThreadModel) {
+        if self.canDeattach(router: self.thread) {
+            let thread = self.threadBuilder.build(withListener: self.interactor, thread: thread)
+            self.thread = thread
+            self.attachChild(thread)
+            self.viewController.push(view: thread.viewControllable)
+        }
+    }
+    
     // MARK: Private
     private let threadBuilder: ThreadBuildable
     private weak var thread: ViewableRouting?

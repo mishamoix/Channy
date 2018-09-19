@@ -11,6 +11,7 @@ import UIKit
 enum ResultThreadModelType {
     case all
     case replys(parent: PostModel)
+    case replyed(post: PostModel)
 }
 
 class ResultThreadModel<Type>: ResultModel<Type> {

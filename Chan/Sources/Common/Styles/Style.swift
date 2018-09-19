@@ -46,8 +46,16 @@ class Style {
         text.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.unkfunc], range: range)
     }
     
-    class func linkPost(text: NSMutableAttributedString, range: NSRange) {
-        text.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.reply], range: range)
+    class func linkPost(text: NSMutableAttributedString, range: NSRange, url: URL? = nil) {
+        var attrs: [NSAttributedStringKey:Any] = [NSAttributedStringKey.foregroundColor: UIColor.reply]
+        if let url = url {
+            attrs[NSAttributedStringKey.link] = url
+        }
+        text.addAttributes(attrs, range: range)
+    }
+    
+    class func removeLink(text: NSMutableAttributedString, range: NSRange) {
+        text.removeAttribute(NSAttributedStringKey.link, range: range)
     }
     
     

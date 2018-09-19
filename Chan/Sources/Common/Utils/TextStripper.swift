@@ -43,7 +43,18 @@ class TextStripper {
     }
     
     static func clean(text: String) -> String {
-        return text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let components = text.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
+        return components.filter { !$0.isEmpty }.joined(separator: " ")
+
+//        return text.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    static func fullClean(text: String) -> String {
+        var newText = TextStripper.removeAllTags(in: text)
+        newText = TextStripper.ampToNormal(in: newText)
+        newText = TextStripper.htmlToNormal(in: newText)
+        newText = TextStripper.clean(text: newText)
+        return newText
     }
     
     

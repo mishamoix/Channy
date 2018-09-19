@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class PostCell: BasePostCell {
     
@@ -22,6 +24,24 @@ class PostCell: BasePostCell {
         self.contentView.addSubview(self.textLabel)
         self.textLabel.backgroundColor = .clear
         
+        let tap = UITapGestureRecognizer()
+        self.textLabel.isUserInteractionEnabled = true
+        self.textLabel.addGestureRecognizer(tap)
+        
+        tap
+            .rx
+            .event
+            .asDriver()
+            .drive(onNext: { [weak self] recognizer in
+                if let textLabel = self?.textLabel, let strongSelf = self {
+                    let point = recognizer.location(in: textLabel)
+                    let idx = TextSize.indexForPoint(text: textLabel.attributedText, point: point, container: textLabel.bounds.size)
+                    
+                    self?.action?.on(.next(.tappedAtText(idx: idx, cell: strongSelf)))
+
+                }
+            }).disposed(by: self.disposeBag)
+        
     }
     
     override func update(with model: PostViewModel) {
@@ -31,6 +51,7 @@ class PostCell: BasePostCell {
         self.textLabel.frame = CGRect(x: PostTextLeftMargin, y: self.caclulateTextMargin(with: model), width: self.frame.width - PostTextLeftMargin - PostTextRightMargin, height: model.textHeight)
         
         self.textLabel.setNeedsDisplay()
+        
     }
     
     

@@ -13,7 +13,7 @@ class PostMainViewModel: NSObject {
     let title: String
     
     init(title: String) {
-        self.title = title
+        self.title = TextStripper.fullClean(text: title)
     }
     
 }

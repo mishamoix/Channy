@@ -19,6 +19,7 @@ class PostPreparation {
     private let post: String
     
     private(set) var replyedPosts: [ChanLinkModel] = []
+    private(set) var tags: [TagViewModel] = []
     
     private var attributedTextString: String {
         return self.attributedText.string
@@ -152,7 +153,7 @@ class PostPreparation {
             self.regexFind(regex: "<a[^>]*>(.*?)</a>", range: fullRange) { range in
                 let fullLink = self.attributedTextString.substring(in: range)
                 let fullLinkRange = NSRange(location: 0, length: fullLink.count)
-                
+                var addingUrl: URL? = nil
                 var urlRange = NSRange(location: 0, length: 0)
                 if let linkResult = linkFirstFormat.firstMatch(in: fullLink, options: regexMatchingOption, range: fullLinkRange) {
                     if linkResult.numberOfRanges != 0 {
@@ -177,9 +178,11 @@ class PostPreparation {
                     case .externalLink:
                         break
                     }
+                    
+                    addingUrl = URL(string: urlString)
                 }
                 
-                Style.linkPost(text: self.attributedText, range: range)
+                Style.linkPost(text: self.attributedText, range: range, url: addingUrl)
             }
         }
     }
@@ -197,6 +200,14 @@ class PostPreparation {
             shift += range.length
         }
         
+        self.attributedText.enumerateAttribute(NSAttributedStringKey.link, in: NSRange(location: 0, length: self.attributedTextString.count), options: NSAttributedString.EnumerationOptions.init(rawValue: 0)) { (result, range, stop) in
+            
+            if let url = result as? URL {
+                let tagLink = TagViewModel(type: .link(url: url), range: range.location...range.location + range.length)
+                self.tags.append(tagLink)
+                Style.removeLink(text: self.attributedText, range: range)
+            }
+        }
     }
     
 }

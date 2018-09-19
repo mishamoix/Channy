@@ -17,6 +17,11 @@ class ThreadModel: BaseModel, Decodable {
     
     var board: BoardModel?
     
+    init(uid: String, board: BoardModel? = nil) {
+        self.uid = uid
+        self.board = board
+    }
+    
     func update(board: BoardModel) {
         self.board = board
     }

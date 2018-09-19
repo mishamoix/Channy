@@ -14,9 +14,6 @@ protocol RootDependency: Dependency {
 }
 
 final class RootComponent: Component<RootDependency>, BoardsListDependency {
-    
-    var board: BoardModel = BoardModel()
-    
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }

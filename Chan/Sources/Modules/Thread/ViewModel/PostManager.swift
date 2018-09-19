@@ -10,27 +10,69 @@ import UIKit
 
 class PostManager {
     
-    private let posts: [PostModel]
+    private var posts: [PostModel] = []
     private let thread: ThreadModel
     
-    private(set) var postsVM: [PostViewModel] = []
+    private var isProcessed = false
     
-    init(posts: [PostModel], thread: ThreadModel) {
-        self.posts = posts
-        self.thread = thread
+    var filtredPostsVM: [PostViewModel] {
+        if let parentUid = self.filterParentUid {
+            if let parent = self.internalPostVM.filter({ $0.uid == parentUid }).first {
+                return self.internalPostVM.filter { parent.replyPosts.contains($0.uid) }
+            }
+        }
         
-        self.process()
+        if let replyedUid = self.replyedUid, let vm = self.internalPostVM.first(where: { $0.uid == replyedUid }) {
+            return [vm]
+        }
+        
+        return self.internalPostVM
     }
     
-    func addFilter(by parentUid: String) {
-        if let parent = self.postsVM.filter({ $0.uid == parentUid }).first {
-            self.postsVM = self.postsVM.filter { parent.replyPosts.contains($0.uid) }
+    private(set) var internalPostVM: [PostViewModel] = []
+    private var filterParentUid: String? = nil
+    private var replyedUid: String? = nil
+    
+    init(thread: ThreadModel) {
+        self.thread = thread
+    }
+    
+    func update(posts: [PostModel]) {
+        self.posts = posts
+    }
+    
+    func update(vms: [PostViewModel]?) {
+        if let vms = vms {
+            self.internalPostVM = vms
+            self.isProcessed = vms.count != 0
         }
     }
     
-    private func process() {
+    func resetFilters() {
+        self.filterParentUid = nil
+    }
+    
+    func addFilter(by parentUid: String?) {
+        self.resetFilters()
+        self.filterParentUid = parentUid
+    }
+    
+    func onlyReplyed(uid: String?) {
+        self.resetFilters()
+        self.replyedUid = uid
+    }
+    
+    func process() {
+        if self.isProcessed {
+            return
+        }
+        
         let postsVM = self.posts.compactMap { PostViewModel(model: $0, thread: thread.uid) }
-        self.postsVM = postsVM
+        self.internalPostVM = postsVM
+        
+        if self.internalPostVM.count != 0 {
+            self.isProcessed = true
+        }
         
         var replyedDict: [String:[String]] = [:]
         for post in postsVM {
@@ -50,7 +92,12 @@ class PostManager {
         }
     }
     
+    func resetCache() {
+        self.isProcessed = false
+        self.internalPostVM = []
+    }
+    
     private func findPostVm(uid: String) -> PostViewModel? {
-        return self.postsVM.filter({ $0.uid == uid }).first
+        return self.internalPostVM.filter({ $0.uid == uid }).first
     }
 }

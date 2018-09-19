@@ -13,7 +13,6 @@ class PostViewModel {
     let modifier: PostPreparation
     let uid: String
     let media: [FileModel]
-    private var tags: [String] = []
     
     private let date: String
     private let name: String
@@ -85,6 +84,10 @@ class PostViewModel {
         self.titleHeight = 0
         self.textHeight = 0
         self.height = 0
+    }
+    
+    func tag(for idx: Int) -> TagViewModel? {
+        return self.modifier.tags.filter({ $0.isIdxInRange(idx) }).first
     }
     
     

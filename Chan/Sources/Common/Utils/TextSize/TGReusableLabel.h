@@ -100,7 +100,6 @@ typedef enum {
 @property (nonatomic) CGSize size;
 @property (nonatomic, strong) NSArray *textLines;
 
-
 - (CGSize)drawingSize;
 
 - (NSString *)linkAtPoint:(CGPoint)point topRegion:(CGRect *)topRegion middleRegion:(CGRect *)middleRegion bottomRegion:(CGRect *)bottomRegion hiddenLink:(bool *)hiddenLink linkText:(__autoreleasing NSString **)linkText;

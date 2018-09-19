@@ -30,10 +30,14 @@ class ThreadService: BaseService, ThreadServiceProtocol {
     
     private let provider = ChanProvider<ThreadTarget>()
     
-    var name: String { return self.thread.posts.first?.comment ?? "" }
+    var name: String { return self.internalName ?? "" }
+    var internalName: String? = nil
     
     init(thread: ThreadModel) {
         self.thread = thread
+        super.init()
+        
+        self.updateInternalName(thread.posts)
     }
     
     func load() {
@@ -43,6 +47,7 @@ class ThreadService: BaseService, ThreadServiceProtocol {
             .asObservable()
             .subscribe(onNext: { [weak self] response in
                 if let res = self?.makeModel(data: response.data) {
+                    self?.updateInternalName(res)
                     let result = ResultThreadModel<DataType>(result: res, type: .all)
                     self?.publish?.on(.next(result))
                 }
@@ -71,6 +76,11 @@ class ThreadService: BaseService, ThreadServiceProtocol {
         
     }
 
+    private func updateInternalName(_ posts: [PostModel]) {
+        if let post = posts.first {
+            self.internalName = post.comment
+        }
+    }
     
     
 }

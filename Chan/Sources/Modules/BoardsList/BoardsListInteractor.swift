@@ -66,12 +66,20 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     
     private func setupRx() {
         self.listService.publish = self.listServiceResult
-        self.listServiceResult.subscribe(onNext: { [weak self] (result) in
-            if let result = result {
-                self?.dataSource.value = result
-                self?.data = result
-            }
-        }, onError: { error in
+        self.listServiceResult
+
+            .subscribe(onNext: { [weak self] (result) in
+                if let result = result {
+                    let sorted = result
+                        .sorted(by: { $0.name ?? "" < $1.name ?? "" })
+                    for category in sorted {
+                        category.boards = category.boards.sorted(by: { $0.uid < $1.uid })
+                    }
+
+                    self?.dataSource.value = sorted
+                    self?.data = sorted
+                }
+            }, onError: { error in
             
         }).disposed(by: self.disposeBag)
         

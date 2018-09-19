@@ -48,8 +48,14 @@ final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
         let component = ThreadComponent(dependency: dependency)
         let viewController = UIStoryboard(name: "ThreadViewController", bundle: nil).instantiateViewController(withIdentifier: "ThreadViewController") as! ThreadViewController
         
-        let service = ThreadReplyService(thread: replys.thread, parent: replys.parent, posts: replys.posts)
-        let interactor = ThreadInteractor(presenter: viewController, service: service)
+        var service: ThreadServiceProtocol
+        if let replyed = replys.replyed {
+            service = ThreadRepledService(thread: replys.thread, parent: replys.parent, posts: replys.posts, replyed: replyed)
+        } else {
+            service = ThreadReplyService(thread: replys.thread, parent: replys.parent, posts: replys.posts)
+        }
+        
+        let interactor = ThreadInteractor(presenter: viewController, service: service, cachedVM: replys.cachedVM)
         interactor.listener = listener
         
         let thread = ThreadBuilder(dependency: self.dependency)

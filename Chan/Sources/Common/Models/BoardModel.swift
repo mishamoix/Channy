@@ -18,6 +18,10 @@ class BoardModel: BaseModel, Decodable {
         case uid = "id"
     }
     
+    init(uid: String) {
+        self.uid = uid
+    }
+    
     func has(substring: String) -> Bool {
         let sub = substring.lowercased()
         if self.uid.lowercased().range(of: sub) != nil || self.name.lowercased().range(of: sub) != nil {
@@ -26,6 +30,7 @@ class BoardModel: BaseModel, Decodable {
         
         return false
     }
+    
     
     override var debugDescription: String {
         return "uid - \(self.uid), name - \(self.name)"

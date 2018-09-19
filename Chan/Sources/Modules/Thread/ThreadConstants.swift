@@ -33,9 +33,11 @@ let PostBottomHeight = PostButtonBottomMargin + PostButtonSize.height
 
 enum PostAction {
     case openReplys(postUid: String)
+    case openByTextIndex(postUid: String, idx: Int)
 }
 
 enum PostCellAction {
     case openReplys(cell: UICollectionViewCell)
+    case tappedAtText(idx: Int, cell: UICollectionViewCell)
 }
 

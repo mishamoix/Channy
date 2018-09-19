@@ -13,7 +13,7 @@ class ThreadReplyService: ThreadServiceProtocol {
 
     let thread: ThreadModel
     private let parent: PostModel
-    private let posts: [PostModel]
+    let posts: [PostModel]
     
     var publish: PublishSubject<ResultType>? = nil
     

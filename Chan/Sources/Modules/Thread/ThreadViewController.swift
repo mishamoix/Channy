@@ -72,6 +72,12 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                         self?.listener?.viewActions.on(.next(.openReplys(postUid: post.uid)))
                     }
                 }
+                    
+                case .tappedAtText(let idx, let cell): do {
+                    if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
+                        self?.listener?.viewActions.on(.next(.openByTextIndex(postUid: post.uid, idx: idx)))
+                    }
+                }
                 }
             }).disposed(by: self.disposeBag)
     }

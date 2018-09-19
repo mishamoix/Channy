@@ -29,7 +29,7 @@ class ThreadViewModel {
         self.uid = model.uid
         if let post = model.posts.first {
 //            self.title = post.subject
-            self.comment = TextStripper.removeAllTags(in: post.comment)
+            self.comment = TextStripper.fullClean(text: post.comment)
             self.postsCount = model.postsCount
             if let file = post.files.first {
                 self.thumbnail = URL(string: MakeFullPath(path: file.thumbnail))
