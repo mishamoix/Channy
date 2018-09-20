@@ -19,8 +19,12 @@ class PostViewModel {
     private let number: Int
     
     private(set) var height: CGFloat = 0
-    private(set) var titleHeight: CGFloat = 0
-    private(set) var textHeight: CGFloat = 0
+    private(set) var titleFrame: CGRect = .zero
+    private(set) var textFrame: CGRect = .zero
+    private(set) var mediaFrame: CGRect = .zero
+    private(set) var bottomFrame: CGRect = .zero
+    
+//    private(set) var textFrame: CGFloat = 0
     private var heightCalculated = false
     
     var replyPosts: [String] = []
@@ -68,21 +72,43 @@ class PostViewModel {
         
         let titleHeight = TextSize(text: self.title.string, maxWidth: CGFloat.infinity, font: UIFont.postTitle, lineHeight: UIFont.postTitle.lineHeight).calculate().height
         
-        self.titleHeight = titleHeight
-        self.textHeight = textHeight
+//        self.titleHeight = titleHeight
+//        self.textHeight = textHeight
+//
+        let headerSection: CGFloat = PostTitleTopMargin + titleHeight
+        var mediaSection: CGFloat = 0
+        let textSection: CGFloat = PostTextTopMargin + textHeight
+        var bottomSection: CGFloat = 0
         
-        var resultHeight = PostTitleTopMargin + titleHeight + PostTitleTextMargin + textHeight + PostTextBottomMargin
-        if !self.shoudHideReplyedButton {
-            resultHeight += PostBottomHeight
+        var mediaWidthHeight: CGFloat = 0
+        
+        if self.media.count != 0 {
+            mediaWidthHeight = (width - 5 * PostMediaMargin) / 4
+            mediaSection = PostMediaTopMargin + mediaWidthHeight
         }
         
+        if !self.shoudHideReplyedButton {
+            bottomSection += PostButtonTopMargin + PostBottomHeight
+        } else {
+            bottomSection = PostTextBottomMargin
+        }
+
+        self.titleFrame = CGRect(x: PostTitleLeftMargin, y: PostTitleTopMargin, width: width - (PostTitleLeftMargin + PostTitleRightMargin), height: titleHeight)
+        self.mediaFrame = CGRect(x: PostMediaMargin, y: headerSection + PostMediaTopMargin, width: mediaWidthHeight, height: mediaWidthHeight)
+        self.textFrame = CGRect(x: PostTextLeftMargin, y: headerSection + mediaSection + PostTextTopMargin, width: width - PostTextLeftMargin - PostTextRightMargin, height: textHeight)
+        self.bottomFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        
+        let resultHeight = headerSection + mediaSection + textSection + bottomSection
         self.height = resultHeight
     }
     
     func reset() {
         self.heightCalculated = false
-        self.titleHeight = 0
-        self.textHeight = 0
+        self.titleFrame = .zero
+        self.textFrame = .zero
+        self.mediaFrame = .zero
+        self.bottomFrame = .zero
+        
         self.height = 0
     }
     

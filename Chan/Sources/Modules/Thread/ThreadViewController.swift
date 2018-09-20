@@ -11,6 +11,8 @@ import RxSwift
 import UIKit
 
 private let PostCellIdentifier = "PostCell"
+private let PostMediaCellIdentifier = "PostMediaCell"
+
 
 protocol ThreadPresentableListener: class {
     var mainViewModel: Variable<PostMainViewModel> { get }
@@ -115,14 +117,24 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         self.collectionView.contentInset = UIEdgeInsets(top: PostCellTopMargin, left: 0, bottom: self.collectionView.contentInset.bottom + PostCellBottomMargin, right: 0)
         
         self.collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCellIdentifier)
+        self.collectionView.register(PostMediaCell.self, forCellWithReuseIdentifier: PostMediaCellIdentifier)
+
         
     }
     
     private func cell(for index: IndexPath) -> UICollectionViewCell {
         let data = self.data[index.item]
-        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: PostCellIdentifier, for: index) as! BasePostCell
-        cell.update(with: data)
-        cell.action = self.cellActions
+        var cell: UICollectionViewCell
+        if data.media.count != 0 {
+            cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: PostMediaCellIdentifier, for: index)
+        } else {
+            cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: PostCellIdentifier, for: index)
+        }
+        
+        if let cl = cell as? BasePostCellProtocol {
+            cl.update(with: data)
+            cl.update(action: self.cellActions)
+        }
         return cell
     }
 }

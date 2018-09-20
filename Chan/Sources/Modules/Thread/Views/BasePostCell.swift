@@ -13,6 +13,8 @@ import RxSwift
 
 protocol BasePostCellProtocol {
     func update(with model: PostViewModel)
+    func update(action: PublishSubject<PostCellAction>?)
+
 }
 
 class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
@@ -70,11 +72,15 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     
     func update(with model: PostViewModel) {
         self.titleLabel.attributedText = model.title
-        self.titleLabel.frame = CGRect(x: PostTitleLeftMargin, y: PostTitleTopMargin, width: self.frame.width - (PostTitleLeftMargin + PostTitleRightMargin), height: model.titleHeight)
+        self.titleLabel.frame = model.titleFrame
         self.titleLabel.setNeedsDisplay()
         
         self.replyedButton.isHidden = model.shoudHideReplyedButton
         self.replyedButton.setTitle(model.replyedButtonText, for: .normal)
+    }
+    
+    func update(action: PublishSubject<PostCellAction>?) {
+        self.action = action
     }
     
 }

@@ -48,15 +48,12 @@ class PostCell: BasePostCell {
         super.update(with: model)
         
         self.textLabel.attributedText = model.text
-        self.textLabel.frame = CGRect(x: PostTextLeftMargin, y: self.caclulateTextMargin(with: model), width: self.frame.width - PostTextLeftMargin - PostTextRightMargin, height: model.textHeight)
+        self.textLabel.frame = model.textFrame
         
         self.textLabel.setNeedsDisplay()
         
     }
     
     
-    func caclulateTextMargin(with model: PostViewModel) -> CGFloat {
-        return PostTitleTopMargin + model.titleHeight + PostTitleTextMargin
-    }
 
 }

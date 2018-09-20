@@ -10,11 +10,10 @@ import Foundation
 import UIKit
 
 let PostTitleTopMargin: CGFloat = PostTitleLeftMargin / 2
-let PostTitleTextMargin: CGFloat = PostTitleTopMargin
-
 let PostTitleLeftMargin: CGFloat = DefaultMargin
 let PostTitleRightMargin: CGFloat = PostTitleLeftMargin
 
+let PostTextTopMargin: CGFloat = PostTitleTopMargin
 let PostTextBottomMargin: CGFloat = DefaultMargin
 let PostTextLeftMargin: CGFloat = PostTitleLeftMargin
 let PostTextRightMargin: CGFloat = PostTitleRightMargin
@@ -26,9 +25,13 @@ let PostCellRightMargin: CGFloat = PostCellLeftMargin
 
 let PostButtonRightMargin: CGFloat = DefaultMargin
 let PostButtonBottomMargin: CGFloat = DefaultMargin
+let PostButtonTopMargin: CGFloat = DefaultMargin
 let PostButtonSize: CGSize = CGSize(width: 28, height: 20)
 
 let PostBottomHeight = PostButtonBottomMargin + PostButtonSize.height
+
+let PostMediaMargin = DefaultMargin
+let PostMediaTopMargin = DefaultMargin
 
 
 enum PostAction {
