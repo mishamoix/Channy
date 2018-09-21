@@ -23,6 +23,7 @@ target 'Chan' do
     
     # UI
     pod 'SnapKit'
+    pod 'AXPhotoViewer/Lite'
     
     # Data
     pod 'SwiftSoup'

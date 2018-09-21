@@ -42,5 +42,6 @@ enum PostAction {
 enum PostCellAction {
     case openReplys(cell: UICollectionViewCell)
     case tappedAtText(idx: Int, cell: UICollectionViewCell)
+    case openMedia(idx: Int, cell: UICollectionViewCell, view: UIView)
 }
 

@@ -56,6 +56,19 @@ class PostMediaCell: PostCell {
         image.clipsToBounds = true
         image.layer.cornerRadius = DefaultCornerRadius
         image.contentMode = .scaleAspectFill
+        
+        let tap = UITapGestureRecognizer()
+        image.isUserInteractionEnabled = true
+        image.addGestureRecognizer(tap)
+        
+        tap.rx
+            .event
+            .asDriver()
+            .drive(onNext: { [weak self] gesture in
+                if let view = gesture.view as? ChanImageView, let idx = self?.images.firstIndex(of: view), let strongSelf = self {
+                    self?.action?.on(.next(.openMedia(idx: idx, cell: strongSelf, view: view)))
+                }
+            }).disposed(by: self.disposeBag)
     }
     
     private func setupConstrainst(with model: PostViewModel) {

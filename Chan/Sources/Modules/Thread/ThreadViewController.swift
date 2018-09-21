@@ -9,6 +9,7 @@
 import RIBs
 import RxSwift
 import UIKit
+import AXPhotoViewer
 
 private let PostCellIdentifier = "PostCell"
 private let PostMediaCellIdentifier = "PostMediaCell"
@@ -80,7 +81,19 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                         self?.listener?.viewActions.on(.next(.openByTextIndex(postUid: post.uid, idx: idx)))
                     }
                 }
+                case .openMedia(let idx, let cell, let view): do {
+                    if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
+                        let media = post.media[idx]
+                        let loader = SimpleNetworkIntegration()
+                        let axPhoto = AXPhoto(url: URL(string: MakeFullPath(path: media.path)))
+                        let dataSource = AXPhotosDataSource(photos: [axPhoto])
+                        let vc = AXPhotosViewController(dataSource: dataSource, networkIntegration: loader)
+                        self?.present(vc, animated: true)
+                    }
                 }
+
+                }
+                
             }).disposed(by: self.disposeBag)
     }
     

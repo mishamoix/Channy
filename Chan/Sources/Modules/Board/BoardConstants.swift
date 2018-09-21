@@ -15,7 +15,7 @@ let ThreadCellTopMargin: CGFloat = 8
 let ThreadCellSideMargin: CGFloat = 16
 
 let ThreadCellCornerRadius: CGFloat = 8
-let ThreadTableLoadNext: CGFloat = 100
+let ThreadTableLoadNext: CGFloat = 300
 
 
 enum BoardAction {
