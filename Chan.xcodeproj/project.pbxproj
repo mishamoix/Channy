@@ -54,6 +54,7 @@
 		0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EBD214F098400AECE3C /* PostCell.swift */; };
 		0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */; };
 		0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC4214F995400AECE3C /* String+Utils.swift */; };
+		0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */; };
 		0A90E7822151886900B71EAA /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7812151886900B71EAA /* PostManager.swift */; };
 		0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E78321518B2600B71EAA /* LinkParser.swift */; };
 		0A90E786215194E000B71EAA /* RegexChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E785215194DF00B71EAA /* RegexChecker.swift */; };
@@ -150,6 +151,7 @@
 		0A5B0EBD214F098400AECE3C /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePostCell.swift; sourceTree = "<group>"; };
 		0A5B0EC4214F995400AECE3C /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.Key.swift; sourceTree = "<group>"; };
 		0A90E7812151886900B71EAA /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 		0A90E78321518B2600B71EAA /* LinkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkParser.swift; sourceTree = "<group>"; };
 		0A90E785215194DF00B71EAA /* RegexChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexChecker.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */,
 				0A2E0CDB2145B08300CBD619 /* UIFont+AppFonts.swift */,
 				0A5B0EC4214F995400AECE3C /* String+Utils.swift */,
+				0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -772,6 +775,7 @@
 				0A2E0CBC2145790300CBD619 /* BoardRouter.swift in Sources */,
 				0A2E0CDE2145B3F600CBD619 /* PostModel.swift in Sources */,
 				0AFFFDB22149A95E0002E832 /* ThreadTarget.swift in Sources */,
+				0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */,
 				0A2E0CD82145A44400CBD619 /* ThreadViewModel.swift in Sources */,
 				0A90E79F2152C97300B71EAA /* TagViewModel.swift in Sources */,
 				0ACC29882143F79900B4E53B /* RootViewController.swift in Sources */,

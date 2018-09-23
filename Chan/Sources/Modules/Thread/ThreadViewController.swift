@@ -76,9 +76,9 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                     }
                 }
                     
-                case .tappedAtText(let idx, let cell): do {
+                case .tappedAtLink(let url, let cell): do {
                     if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
-                        self?.listener?.viewActions.on(.next(.openByTextIndex(postUid: post.uid, idx: idx)))
+                        self?.listener?.viewActions.on(.next(.openLink(postUid: post.uid, url: url)))
                     }
                 }
                 case .openMedia(let idx, let cell, let view): do {
@@ -168,7 +168,7 @@ extension ThreadViewController: UICollectionViewDelegateFlowLayout {
             
         let cellWidth = self.collectionView.frame.width - (PostCellLeftMargin + PostCellRightMargin)
         
-        let maxWidth = cellWidth - (PostTextLeftMargin + PostTextRightMargin)
+        let maxWidth = cellWidth
         data.calculateSize(max: maxWidth)
         
         let height = data.height

@@ -200,14 +200,14 @@ class PostPreparation {
             shift += range.length
         }
         
-        self.attributedText.enumerateAttribute(NSAttributedStringKey.link, in: NSRange(location: 0, length: self.attributedTextString.count), options: NSAttributedString.EnumerationOptions.init(rawValue: 0)) { (result, range, stop) in
-            
-            if let url = result as? URL {
-                let tagLink = TagViewModel(type: .link(url: url), range: range.location...range.location + range.length)
-                self.tags.append(tagLink)
-                Style.removeLink(text: self.attributedText, range: range)
-            }
-        }
+//        self.attributedText.enumerateAttribute(NSAttributedStringKey.link, in: NSRange(location: 0, length: self.attributedTextString.count), options: NSAttributedString.EnumerationOptions.init(rawValue: 0)) { (result, range, stop) in
+//            
+//            if let url = result as? URL {
+//                let tagLink = TagViewModel(type: .link(url: url), range: range.location...range.location + range.length)
+//                self.tags.append(tagLink)
+//                Style.removeLink(text: self.attributedText, range: range)
+//            }
+//        }
     }
     
 }

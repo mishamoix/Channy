@@ -106,51 +106,46 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                         self?.router?.openThread(with: replyModel)
                     }
                     }
-                case .openByTextIndex(let postUid, let idx): do {
-                    self?.openByTextIndex(postUid: postUid, idx: idx)
+                case .openLink(let postUid, let url): do {
+                    self?.openByTextIndex(postUid: postUid, url: url)
                 }
                 }
             }).disposed(by: self.disposeBag)
     }
     
-    private func openByTextIndex(postUid: String, idx: Int) {
+    private func openByTextIndex(postUid: String, url: URL) {
         let posts = self.data
         let thread = self.service.thread
-        if let post = self.data.filter({ $0.uid == postUid }).first, let postVM = self.dataSource.value.first(where: { $0.uid == postUid }) {
-            if let tag = postVM.tag(for: idx) {
-                switch tag.type {
-                case .link(let url): do {
-                    let stringUrl = url.absoluteString
-                    let linkParser = LinkParser(path: stringUrl)
+        
+        if let post = self.data.first(where: { $0.uid == postUid }) {
+            let stringUrl = url.absoluteString
+            let linkParser = LinkParser(path: stringUrl)
+            
+            switch linkParser.type {
+            case .boardLink(let boardLink): do {
+                if let openThread = boardLink.thread, let boardUid = boardLink.board {
                     
-                    switch linkParser.type {
-                    case .boardLink(let boardLink): do {
-                        if let openThread = boardLink.thread, let boardUid = boardLink.board {
-                            
-                            if thread.uid != openThread {
-                                // TODO: открывать новую
-                                let board = BoardModel(uid: boardUid)
-                                let threadToOpen = ThreadModel(uid: openThread, board: board)
-                                
-                                self.router?.openNewThread(with: threadToOpen)
-                            } else {
-                                if let replyedPost = posts.filter({ $0.uid == boardLink.post}).first {
-                                    let replyes = PostReplysViewModel(parent: post, posts: posts, thread: thread, replyed: replyedPost, cachedVM: self.postsManager.internalPostVM)
-                                    self.router?.openThread(with: replyes)
-                                } else {
-                                    self.router?.openNewThread(with: thread)
-
-                                }
-                            }
+                    if thread.uid != openThread {
+                        // TODO: открывать новую
+                        let board = BoardModel(uid: boardUid)
+                        let threadToOpen = ThreadModel(uid: openThread, board: board)
+                        
+                        self.router?.openNewThread(with: threadToOpen)
+                    } else {
+                        if let replyedPost = posts.filter({ $0.uid == boardLink.post}).first {
+                            let replyes = PostReplysViewModel(parent: post, posts: posts, thread: thread, replyed: replyedPost, cachedVM: self.postsManager.internalPostVM)
+                            self.router?.openThread(with: replyes)
                         } else {
-                            // TODO: Если ссылка вида /hw/catalog.html, '/web/'
+                            self.router?.openNewThread(with: thread)
+
                         }
                     }
-                        
-                    case .externalLink: Helper.open(url: url)
-                    }
-                    }
+                } else {
+                    // TODO: Если ссылка вида /hw/catalog.html, '/web/'
                 }
+            }
+                
+            case .externalLink: Helper.open(url: url)
             }
         }
     }

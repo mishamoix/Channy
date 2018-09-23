@@ -36,12 +36,12 @@ let PostMediaTopMargin = DefaultMargin
 
 enum PostAction {
     case openReplys(postUid: String)
-    case openByTextIndex(postUid: String, idx: Int)
+    case openLink(postUid: String, url: URL)
 }
 
 enum PostCellAction {
     case openReplys(cell: UICollectionViewCell)
-    case tappedAtText(idx: Int, cell: UICollectionViewCell)
+    case tappedAtLink(url: URL, cell: UICollectionViewCell)
     case openMedia(idx: Int, cell: UICollectionViewCell, view: UIView)
 }
 
