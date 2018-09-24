@@ -9,7 +9,8 @@
 import RIBs
 import RxSwift
 import UIKit
-import AXPhotoViewer
+import GSImageViewerController
+import SnapKit
 
 private let PostCellIdentifier = "PostCell"
 private let PostMediaCellIdentifier = "PostMediaCell"
@@ -30,6 +31,9 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     
     // MARK: UI
     @IBOutlet weak var collectionView: UICollectionView!
+    private let refreshControl = UIRefreshControl()
+    private let scrollDownButton = ScrollDownButton()
+
     
     // MARK: Data
     private var data: [PostViewModel] = []
@@ -37,6 +41,11 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateScrollDownButton()
     }
     
     //MARK: Private
@@ -48,6 +57,13 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private func setupUI() {
         self.setupNavBar()
         self.setupCollectionView()
+        
+        self.view.addSubview(self.scrollDownButton)
+        self.scrollDownButton.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().offset(-PostScrollDownButtonRightMargin)
+            make.bottom.equalToSuperview().offset(-PostScrollDownButtonBottomMargin)
+        }
+        
     }
     
     
@@ -56,13 +72,31 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .asObservable()
             .subscribe(onNext: { [weak self] model in
                 self?.navigationItem.title = model.title
+//                self?.refreshControl.isEnabled = model.canRefresh
+                
+                if model.canRefresh {
+                    self?.collectionView.refreshControl = self?.refreshControl
+                } else {
+                    self?.collectionView.refreshControl = nil
+                }
             }).disposed(by: self.disposeBag)
         
         self.listener?.dataSource
             .asObservable()
+            .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] posts in
                 self?.data = posts
                 self?.collectionView.reloadData()
+                self?.collectionView.performBatchUpdates({
+                }, completion: { completed in
+                })
+                
+                self?.updateScrollDownButton()
+
+                self?.endRefresh()
+
+                
+                
             }, onError: { [weak self] error in
                 
             }).disposed(by: self.disposeBag)
@@ -76,24 +110,45 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                     }
                 }
                     
-                case .tappedAtText(let idx, let cell): do {
+                case .tappedAtLink(let url, let cell): do {
                     if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
-                        self?.listener?.viewActions.on(.next(.openByTextIndex(postUid: post.uid, idx: idx)))
+                        self?.listener?.viewActions.on(.next(.openLink(postUid: post.uid, url: url)))
                     }
                 }
                 case .openMedia(let idx, let cell, let view): do {
                     if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
                         let media = post.media[idx]
-                        let loader = SimpleNetworkIntegration()
-                        let axPhoto = AXPhoto(url: URL(string: MakeFullPath(path: media.path)))
-                        let dataSource = AXPhotosDataSource(photos: [axPhoto])
-                        let vc = AXPhotosViewController(dataSource: dataSource, networkIntegration: loader)
-                        self?.present(vc, animated: true)
+                        if let image = view.image {
+                            let imageInfo = GSImageInfo(image: image, imageMode: GSImageInfo.ImageMode.aspectFit, imageHD: URL(string: MakeFullPath(path: media.path)))
+                            let transitionInfo = GSTransitionInfo(fromView: view)
+                            let imageViewer    = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
+                            self?.present(imageViewer, animated: true, completion: nil)
+                        }
+
+//                        let loader = SimpleNetworkIntegration()
+//                        let axPhoto = AXPhoto(url: URL(string: MakeFullPath(path: media.path)))
+//                        let dataSource = AXPhotosDataSource(photos: [axPhoto])
+//                        let vc = AXPhotosViewController(dataSource: dataSource, networkIntegration: loader)
+////                        vc.
+//                        self?.present(vc, animated: true)
                     }
                 }
 
                 }
                 
+            }).disposed(by: self.disposeBag)
+        
+        self.refreshControl
+            .rx
+            .controlEvent(.valueChanged).subscribe(onNext: { [weak self] in
+                self?.refresh()
+            }).disposed(by: self.disposeBag)
+        
+        self.scrollDownButton
+            .rx
+            .controlEvent(.touchUpInside)
+            .subscribe(onNext: { [weak self] in
+                self?.scrollDown()
             }).disposed(by: self.disposeBag)
     }
     
@@ -105,6 +160,11 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .asDriver()
             .drive(onNext: { [weak self] in
                 let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+                
+                actionSheet.addAction(UIAlertAction(title: "Вернуться к треду", style: .default, handler: { [weak self] _ in
+                    self?.listener?.viewActions.on(.next(.popToRoot))
+                }))
+
                 
                 actionSheet.addAction(UIAlertAction(title: "Пожаловаться", style: .destructive, handler: { [weak self] _ in
                     
@@ -131,8 +191,6 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         
         self.collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCellIdentifier)
         self.collectionView.register(PostMediaCell.self, forCellWithReuseIdentifier: PostMediaCellIdentifier)
-
-        
     }
     
     private func cell(for index: IndexPath) -> UICollectionViewCell {
@@ -149,6 +207,34 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             cl.update(action: self.cellActions)
         }
         return cell
+    }
+    
+    private func refresh() {
+        self.refreshControl.beginRefreshing()
+        
+        self.listener?.viewActions.on(.next(.refresh))
+    }
+    
+    private func endRefresh() {
+        self.refreshControl.endRefreshing()
+    }
+    
+    private func scrollDown() {
+        let offset = self.collectionView.contentSize.height + self.collectionView.contentInset.bottom + self.collectionView.safeAreaInsets.bottom - self.collectionView.frame.height
+        if offset > 0 {
+            self.collectionView.setContentOffset(CGPoint(x: self.collectionView.contentOffset.x, y: offset), animated: true)
+        }
+    }
+    
+    private func updateScrollDownButton() {
+        let currentOffset = self.collectionView.contentOffset.y + self.collectionView.frame.height
+        let contentSize = self.collectionView.contentSize.height + self.collectionView.contentInset.bottom
+        let delta = PostScrollDownButtonBottomMargin + PostScrollDownButtonSize.height
+        if contentSize - currentOffset < delta {
+            self.scrollDownButton.hiddenAction.on(.next(true))
+        } else {
+            self.scrollDownButton.hiddenAction.on(.next(false))
+        }
     }
 }
 
@@ -168,11 +254,15 @@ extension ThreadViewController: UICollectionViewDelegateFlowLayout {
             
         let cellWidth = self.collectionView.frame.width - (PostCellLeftMargin + PostCellRightMargin)
         
-        let maxWidth = cellWidth - (PostTextLeftMargin + PostTextRightMargin)
+        let maxWidth = cellWidth
         data.calculateSize(max: maxWidth)
         
         let height = data.height
         return CGSize(width: cellWidth, height: height)
 
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateScrollDownButton()
     }
 }

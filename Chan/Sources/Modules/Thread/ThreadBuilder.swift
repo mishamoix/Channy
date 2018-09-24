@@ -9,12 +9,12 @@
 import RIBs
 
 protocol ThreadDependency: Dependency {
-    // TODO: Declare the set of dependencies required by this RIB, but cannot be
-    // created by this RIB.
+//    var threadIsRoot: Bool { get }
 }
 
-final class ThreadComponent: Component<ThreadDependency> {
+final class ThreadComponent: Component<ThreadDependency>, ThreadDependency {
 
+//    var threadIsRoot = false
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
 
@@ -33,19 +33,23 @@ final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
 
     func build(withListener listener: ThreadListener, thread: ThreadModel) -> ThreadRouting {
         let component = ThreadComponent(dependency: dependency)
+//        component.threadIsRoot = false
+        
         let viewController = UIStoryboard(name: "ThreadViewController", bundle: nil).instantiateViewController(withIdentifier: "ThreadViewController") as! ThreadViewController
         
         let service = ThreadService(thread: thread)
-        let interactor = ThreadInteractor(presenter: viewController, service: service)
+        let interactor = ThreadInteractor(presenter: viewController, service: service, moduleIsRoot: true)
         interactor.listener = listener
         
-        let thread = ThreadBuilder(dependency: self.dependency)
+        let thread = ThreadBuilder(dependency: component)
         
         return ThreadRouter(interactor: interactor, viewController: viewController, threadBuilder: thread)
     }
     
     func build(withListener listener: ThreadListener, replys: PostReplysViewModel) -> ThreadRouting {
         let component = ThreadComponent(dependency: dependency)
+//        component.threadIsRoot = false
+        
         let viewController = UIStoryboard(name: "ThreadViewController", bundle: nil).instantiateViewController(withIdentifier: "ThreadViewController") as! ThreadViewController
         
         var service: ThreadServiceProtocol
@@ -55,10 +59,10 @@ final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
             service = ThreadReplyService(thread: replys.thread, parent: replys.parent, posts: replys.posts)
         }
         
-        let interactor = ThreadInteractor(presenter: viewController, service: service, cachedVM: replys.cachedVM)
+        let interactor = ThreadInteractor(presenter: viewController, service: service, moduleIsRoot:false, cachedVM: replys.cachedVM)
         interactor.listener = listener
         
-        let thread = ThreadBuilder(dependency: self.dependency)
+        let thread = ThreadBuilder(dependency: component)
         
         return ThreadRouter(interactor: interactor, viewController: viewController, threadBuilder: thread)
     }

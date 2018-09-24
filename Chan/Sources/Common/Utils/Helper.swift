@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import RxSwift
 
 class Helper {
     class func open(url: URL) {
-        UIApplication.shared.openURL(url)
+//        UIApplication.shared.openURL(url)
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
+    static var rxBackgroundThread = ConcurrentDispatchQueueScheduler(qos: .background)
+    static var rxMainThread = MainScheduler.instance
     
+    func a() {
+        
+    }
 }

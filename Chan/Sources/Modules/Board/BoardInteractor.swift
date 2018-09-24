@@ -23,7 +23,6 @@ protocol BoardListener: class {
 }
 
 final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInteractable, BoardPresentableListener {
-    
 
     weak var router: BoardRouting?
     weak var listener: BoardListener?
@@ -62,6 +61,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     var viewActions: PublishSubject<BoardAction> = PublishSubject()
 
+    // MARK: ThreadListener
+    func popToRoot() {
+        // pop to root thread
+    }
     
     // MARK: Private
     func setup() {

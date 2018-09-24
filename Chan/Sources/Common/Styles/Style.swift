@@ -49,7 +49,7 @@ class Style {
     class func linkPost(text: NSMutableAttributedString, range: NSRange, url: URL? = nil) {
         var attrs: [NSAttributedStringKey:Any] = [NSAttributedStringKey.foregroundColor: UIColor.reply]
         if let url = url {
-            attrs[NSAttributedStringKey.link] = url
+            attrs[NSAttributedStringKey.chanlink] = url
         }
         text.addAttributes(attrs, range: range)
     }

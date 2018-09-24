@@ -21,8 +21,12 @@ class ThreadRepledService: ThreadReplyService {
         super.init(thread: thread, parent: parent, posts: posts)
     }
     
+    
+    
     override func load() {
         let result = ResultThreadModel<DataType>(result: self.posts, type: .replyed(post: self.replyedPost))
         self.publish?.on(.next(result))
     }
+    
+
 }
