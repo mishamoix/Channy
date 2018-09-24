@@ -86,6 +86,7 @@
 		0ACC29892143F79900B4E53B /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29852143F79900B4E53B /* RootBuilder.swift */; };
 		0ACC298A2143F79900B4E53B /* RootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29862143F79900B4E53B /* RootInteractor.swift */; };
 		0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC298C2143F7E100B4E53B /* BaseNavigationController.swift */; };
+		0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */; };
 		0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */; };
 		0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA421499C190002E832 /* TextStripper.swift */; };
 		0AFFFDAC2149A1F40002E832 /* ThreadRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */; };
@@ -185,6 +186,7 @@
 		0ACC29852143F79900B4E53B /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		0ACC29862143F79900B4E53B /* RootInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootInteractor.swift; sourceTree = "<group>"; };
 		0ACC298C2143F7E100B4E53B /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDownButton.swift; sourceTree = "<group>"; };
 		0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		0AFFFDA421499C190002E832 /* TextStripper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStripper.swift; sourceTree = "<group>"; };
 		0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadRouter.swift; sourceTree = "<group>"; };
@@ -365,9 +367,8 @@
 		0A5B0EB7214EECBA00AECE3C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */,
-				0A5B0EBD214F098400AECE3C /* PostCell.swift */,
-				0AA1B6CC21542DC10063B5F7 /* PostMediaCell.swift */,
+				0AFFB6D821596D6000A122A0 /* Subviews */,
+				0AFFB6D721596D4000A122A0 /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -543,6 +544,24 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0AFFB6D721596D4000A122A0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */,
+				0A5B0EBD214F098400AECE3C /* PostCell.swift */,
+				0AA1B6CC21542DC10063B5F7 /* PostMediaCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		0AFFB6D821596D6000A122A0 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		0AFFFDA62149A1E20002E832 /* Thread */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,11 +718,9 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chan/Pods-Chan-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AXPhotoViewer/AXPhotoViewer.framework",
-				"${BUILT_PRODUCTS_DIR}/AXStateButton/AXStateButton.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
+				"${BUILT_PRODUCTS_DIR}/GSImageViewerController/GSImageViewerController.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/RIBs/RIBs.framework",
@@ -715,11 +732,9 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AXPhotoViewer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AXStateButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GSImageViewerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RIBs.framework",
@@ -744,6 +759,7 @@
 				0A2E0C99214545E200CBD619 /* Constants.swift in Sources */,
 				0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */,
 				0A2E0C8C2145399400CBD619 /* BoardCategoryModel.swift in Sources */,
+				0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */,
 				0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */,
 				0A2E0CA32145561E00CBD619 /* BoardsListCell.swift in Sources */,
 				0A90E786215194E000B71EAA /* RegexChecker.swift in Sources */,

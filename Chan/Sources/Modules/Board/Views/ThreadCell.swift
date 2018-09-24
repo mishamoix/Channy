@@ -83,6 +83,7 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
         
 
         self.iconView.af_cancelImageRequest()
+        self.iconView.image = nil
         if let thumbnail = model.thumbnail {
             self.iconView.af_setImage(withURL: thumbnail)
         }

@@ -11,4 +11,5 @@ import UIKit
 
 extension UIImage {
     static var more: UIImage { return UIImage(named: "more")!}
+    static var downArraw: UIImage { return UIImage(named: "downArrow")!}
 }

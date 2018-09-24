@@ -45,6 +45,10 @@ final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControlla
         }
     }
     
+    func popToCurrent() {
+        self.viewControllable.pop(animated: true, view: self.viewControllable)
+    }
+    
     // MARK: Private
     private let threadBuilder: ThreadBuildable
     private weak var thread: ViewableRouting?

@@ -12,16 +12,15 @@ import RxSwift
 protocol ThreadRouting: ViewableRouting {
     func openThread(with post: PostReplysViewModel)
     func openNewThread(with thread: ThreadModel)
-
+    func popToCurrent()
 }
 
 protocol ThreadPresentable: Presentable {
     var listener: ThreadPresentableListener? { get set }
-    // TODO: Declare methods the interactor can invoke the presenter to present data.
 }
 
 protocol ThreadListener: class {
-    // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+    func popToRoot()
 }
 
 final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadInteractable, ThreadPresentableListener {
@@ -37,10 +36,12 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     private var data: [PostModel] = []
     
     private let postsManager: PostManager
+    private let moduleIsRoot: Bool
     
-    init(presenter: ThreadPresentable, service: ThreadServiceProtocol, cachedVM: [PostViewModel]? = nil) {
+    init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, cachedVM: [PostViewModel]? = nil) {
         self.service = service
-        self.mainViewModel = Variable(PostMainViewModel(title: service.name))
+        self.moduleIsRoot = moduleIsRoot
+        self.mainViewModel = Variable(PostMainViewModel(title: service.name, canRefresh: self.moduleIsRoot))
         self.postsManager = PostManager(thread: service.thread)
         self.postsManager.update(vms: cachedVM)
         
@@ -62,6 +63,15 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     var dataSource: Variable<[PostViewModel]> = Variable([])
     var viewActions: PublishSubject<PostAction> = PublishSubject()
     
+    // MARK: ThreadListener
+    func popToRoot() {
+        if self.moduleIsRoot {
+            self.router?.popToCurrent()
+        } else {
+            self.listener?.popToRoot()
+        }
+    }
+    
     // MARK:Private
     private func setup() {
         self.setupRx()
@@ -72,6 +82,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         self.service.publish = self.publish
         
         self.publish
+            .observeOn(Helper.rxBackgroundThread)
             .subscribe(onNext: { [weak self] result in
                 guard let strongSelf = self else {
                     return
@@ -90,7 +101,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 
                 strongSelf.dataSource.value = self?.postsManager.filtredPostsVM ?? []
                 if let newName = self?.service.name {
-                    self?.mainViewModel.value = PostMainViewModel(title: newName)
+                    self?.mainViewModel.value = PostMainViewModel(title: newName, canRefresh: self?.moduleIsRoot ?? false)
                 }
 
             }, onError: { [weak self] error in
@@ -109,6 +120,15 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .openLink(let postUid, let url): do {
                     self?.openByTextIndex(postUid: postUid, url: url)
                 }
+                case .refresh: do {
+                    if self?.moduleIsRoot ?? false {
+                        self?.postsManager.resetCache()
+                        self?.service.refresh()
+                    }
+                }
+                case .popToRoot: do {
+                    self?.popToRoot()
+                }
                 }
             }).disposed(by: self.disposeBag)
     }
@@ -126,7 +146,6 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 if let openThread = boardLink.thread, let boardUid = boardLink.board {
                     
                     if thread.uid != openThread {
-                        // TODO: открывать новую
                         let board = BoardModel(uid: boardUid)
                         let threadToOpen = ThreadModel(uid: openThread, board: board)
                         

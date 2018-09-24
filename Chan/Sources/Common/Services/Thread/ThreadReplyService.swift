@@ -33,6 +33,10 @@ class ThreadReplyService: ThreadServiceProtocol {
         self.publish?.on(.next(result))
     }
     
+    func refresh() {
+        self.load()
+    }
+    
     func cancel() {
         
     }

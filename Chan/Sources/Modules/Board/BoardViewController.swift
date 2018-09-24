@@ -54,6 +54,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         
         self.bgImage.alpha = 0.15
         self.bgImage.clipsToBounds = true
+        
+        self.refreshControl.beginRefreshing()
     }
     
     private func setupRx() {

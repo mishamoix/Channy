@@ -19,6 +19,7 @@ protocol ThreadServiceProtocol: BaseServiceProtocol {
     var publish: PublishSubject<ResultType>? { get set }
 
     func load()
+    func refresh()
     
     var name: String { get }
 }
@@ -55,6 +56,10 @@ class ThreadService: BaseService, ThreadServiceProtocol {
             }, onError: { [weak self] error in
 //                self?.publish.
             }).disposed(by: self.disposeBag)
+    }
+    
+    func refresh() {
+        self.load()
     }
     
     private func makeModel(data: Data) -> DataType {
