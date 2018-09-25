@@ -389,7 +389,7 @@ extension UIImage {
         shapeLayer.frame = mainRect
         shapeLayer.lineWidth = 2.0
         shapeLayer.fillColor = UIColor.blue.cgColor
-        shapeLayer.fillRule = kCAFillRuleEvenOdd
+        shapeLayer.fillRule = CAShapeLayerFillRule.evenOdd
         
         let outerPath = UIBezierPath(rect: mainRect)
         let innerPath = UIBezierPath(rect: shapeLayer.bounds.insetBy(dx: CGFloat(borderWidth), dy: CGFloat(borderWidth)))

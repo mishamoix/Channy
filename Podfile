@@ -23,11 +23,10 @@ target 'Chan' do
     
     # UI
     pod 'SnapKit'
-    pod 'GSImageViewerController'
-    
-    # Data
-    pod 'SwiftSoup'
+#    pod 'GSImageViewerController'
 
+    # Data
+#    pod 'SwiftSoup'
 
 
 end

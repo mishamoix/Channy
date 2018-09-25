@@ -74,6 +74,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     func setupRx() {
         self.serviceListener
+            .observeOn(Helper.rxBackgroundThread)
             .subscribe(onNext: { [weak self] result in
 //                if let result = result {
                 let threads = result.result

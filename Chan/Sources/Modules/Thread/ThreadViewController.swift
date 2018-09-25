@@ -9,7 +9,6 @@
 import RIBs
 import RxSwift
 import UIKit
-import GSImageViewerController
 import SnapKit
 
 private let PostCellIdentifier = "PostCell"
@@ -118,12 +117,12 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 case .openMedia(let idx, let cell, let view): do {
                     if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
                         let media = post.media[idx]
-                        if let image = view.image {
-                            let imageInfo = GSImageInfo(image: image, imageMode: GSImageInfo.ImageMode.aspectFit, imageHD: URL(string: MakeFullPath(path: media.path)))
-                            let transitionInfo = GSTransitionInfo(fromView: view)
-                            let imageViewer    = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
-                            self?.present(imageViewer, animated: true, completion: nil)
-                        }
+//                        if let image = view.image {
+//                            let imageInfo = GSImageInfo(image: image, imageMode: GSImageInfo.ImageMode.aspectFit, imageHD: URL(string: MakeFullPath(path: media.path)))
+//                            let transitionInfo = GSTransitionInfo(fromView: view)
+//                            let imageViewer    = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
+//                            self?.present(imageViewer, animated: true, completion: nil)
+//                        }
 
 //                        let loader = SimpleNetworkIntegration()
 //                        let axPhoto = AXPhoto(url: URL(string: MakeFullPath(path: media.path)))
@@ -159,7 +158,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .tap
             .asDriver()
             .drive(onNext: { [weak self] in
-                let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+                let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
                 
                 actionSheet.addAction(UIAlertAction(title: "Вернуться к треду", style: .default, handler: { [weak self] _ in
                     self?.listener?.viewActions.on(.next(.popToRoot))

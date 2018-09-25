@@ -20,7 +20,7 @@ extension UIFont {
     static var postTitle: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize - 2) }
 
     
-    func with(traits: UIFontDescriptorSymbolicTraits) -> UIFont {
+    func with(traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
         guard let descriptor = self.fontDescriptor.withSymbolicTraits(traits) else {
             return self
         }

@@ -18,7 +18,9 @@ class Helper {
     static var rxBackgroundThread = ConcurrentDispatchQueueScheduler(qos: .background)
     static var rxMainThread = MainScheduler.instance
     
-    func a() {
-        
+    static func performOnMainThread(_ block: @escaping () -> ()) {
+        DispatchQueue.main.async {
+            block()
+        }
     }
 }

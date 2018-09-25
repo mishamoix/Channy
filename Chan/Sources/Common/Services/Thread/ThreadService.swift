@@ -65,11 +65,11 @@ class ThreadService: BaseService, ThreadServiceProtocol {
     private func makeModel(data: Data) -> DataType {
         
         var result: DataType = []
-        if let json = (try? JSONSerialization.jsonObject(with: data, options: [])) as? Dictionary<String, Any> {
+        if let json = self.fromJson(data: data) {
             
             
             if let threads = json["threads"] as? [Any], let postsArray = threads.first as? [String:Any], let posts = postsArray["posts"] as? [[String:AnyObject]] {
-                if let valueData = try? JSONSerialization.data(withJSONObject: posts, options: .prettyPrinted) {
+                if let valueData = self.toJson(array: posts) {
                     if let res = PostModel.parseArray(from: valueData) {
                         result = res
                     }

@@ -10,9 +10,12 @@ import UIKit
 import Moya
 import RIBs
 import AlamofireImage
-import SwiftSoup
+import RxSwift
 
 class AppDependency: NSObject {
+    
+    let disposeBag = DisposeBag()
+    
     static var shared = AppDependency()
     private var launchRouter: LaunchRouting?
 
@@ -26,11 +29,14 @@ class AppDependency: NSObject {
         launchRouter.launchFromWindow(window)
         
         
+        
     }
     
     func setupMainAppearance() {
         UIBarButtonItem.appearance().tintColor = .main
     }
+    
+
     
 
 

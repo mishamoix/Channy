@@ -87,7 +87,7 @@ class BoardService: BaseService, BoardServiceProtocol {
     private func makeModel(data: Data) -> DataType {
         
         var result: DataType = []
-        if let json = (try? JSONSerialization.jsonObject(with: data, options: [])) as? Dictionary<String, Any> {
+        if let json = self.fromJson(data: data) {
             
             if let pages = json["pages"] as? [Int] {
                 if let max = pages.max() {
@@ -96,7 +96,7 @@ class BoardService: BaseService, BoardServiceProtocol {
             }
             
             if let threads = json["threads"] {
-                if let valueData = try? JSONSerialization.data(withJSONObject: threads, options: .prettyPrinted) {
+                if let valueData = self.toJson(any: threads) {
                     if let res = ThreadModel.parseArray(from: valueData) {
                         let _ = res.map{ $0.update(board: self.board) }
                         result = res

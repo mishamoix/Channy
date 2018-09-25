@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 let BoardsListCellHeight: CGFloat = 40.0
 let BoardsTableHeaderHeight: CGFloat = 44.0
 

@@ -65,7 +65,9 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 self?.navigationItem.title = model.title
             }).disposed(by: self.disposeBag)
         
-        self.listener?.dataSource.asObservable()
+        self.listener?.dataSource
+            .asObservable()
+            .observeOn(Helper.rxMainThread)
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map({ [weak self] models -> [ThreadViewModel] in
                 return models.map { $0.calculateSize(max: self?.tableWidth ?? 0) }

@@ -27,7 +27,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     weak var listener: BoardsListListener?
     
     private var listService: BoardsListServiceProtocol
-    private let listServiceResult: PublishSubject<BoardsListServiceProtocol.ResultType> = PublishSubject<BoardsListServiceProtocol.ResultType>()
+    private var listServiceResult: PublishSubject<BoardsListServiceProtocol.ResultType> = PublishSubject<BoardsListServiceProtocol.ResultType>()
     
     private let disposeBag = DisposeBag()
     private var data: [BoardCategoryModel] = []
@@ -47,7 +47,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     override func didBecomeActive() {
         super.didBecomeActive()
         
-        self.listService.loadAllBoards()
+        self.reload()
     }
 
     override func willResignActive() {
@@ -65,25 +65,11 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     }
     
     private func setupRx() {
-        self.listService.publish = self.listServiceResult
-        self.listServiceResult
-
-            .subscribe(onNext: { [weak self] (result) in
-                if let result = result {
-                    let sorted = result
-                        .sorted(by: { $0.name ?? "" < $1.name ?? "" })
-                    for category in sorted {
-                        category.boards = category.boards.sorted(by: { $0.uid < $1.uid })
-                    }
-
-                    self?.dataSource.value = sorted
-                    self?.data = sorted
-                }
-            }, onError: { error in
-            
-        }).disposed(by: self.disposeBag)
         
-        self.viewActions.asObservable()
+        self.subscribeOnService()
+        self.viewActions
+            .asObservable()
+            .observeOn(Helper.rxBackgroundThread)
             .subscribe(onNext: { [weak self] action in
                 switch action {
                 case .seacrh(let text): do {
@@ -98,6 +84,44 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
                     }
                 }
             }).disposed(by: self.disposeBag)
+    }
+    
+    private func subscribeOnService() {
+        
+        self.listServiceResult = PublishSubject<BoardsListServiceProtocol.ResultType>()
+        self.listService.publish = self.listServiceResult
+        
+        self.listServiceResult
+            
+            .catchError({ [weak self] error -> Observable<[BoardCategoryModel]?> in
+                let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry])
+                errorManager.show()
+
+                return errorManager.actions
+                    .filter({ $0 == .retry })
+                    .flatMap({ type -> Observable<[BoardCategoryModel]?> in
+                        self?.subscribeOnService()
+                        self?.reload()
+                        return Observable<[BoardCategoryModel]?>.just(nil)
+                    })
+            })
+            .flatMap({  [weak self] (result) -> Observable<[BoardCategoryModel]> in
+                if let result = result {
+                    let sorted = result
+                        .sorted(by: { $0.name ?? "" < $1.name ?? "" })
+                    for category in sorted {
+                        category.boards = category.boards.sorted(by: { $0.uid < $1.uid })
+                    }
+                    
+                    self?.data = sorted
+                    return Observable<[BoardCategoryModel]>.just(sorted)
+                }
+                
+                return Observable<[BoardCategoryModel]>.just([])
+            })
+            .bind(to: self.dataSource)
+            .disposed(by: self.disposeBag)
+
     }
     
     private func search(with text: String?) -> [BoardCategoryModel] {
@@ -123,5 +147,9 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
         }
         
         return result
+    }
+    
+    private func reload() {
+        self.listService.loadAllBoards()
     }
 }

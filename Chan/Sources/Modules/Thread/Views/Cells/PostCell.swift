@@ -38,7 +38,7 @@ class PostCell: BasePostCell {
                     let idx = TextSize.indexForPoint(text: textLabel.attributedText, point: point, container: textLabel.bounds.size)
                     
                     
-                    self?.textLabel.attributedText.enumerateAttribute(NSAttributedStringKey.chanlink, in: NSRange(location: idx, length: 1), options: NSAttributedString.EnumerationOptions.init(rawValue: 0)) { (result, range, stop) in
+                  self?.textLabel.attributedText.enumerateAttribute(NSAttributedString.Key.chanlink, in: NSRange(location: idx, length: 1), options: NSAttributedString.EnumerationOptions.init(rawValue: 0)) { (result, range, stop) in
                         if let link = result as? URL {
                             self?.action?.on(.next(.tappedAtLink(url: link, cell: strongSelf)))
                         }

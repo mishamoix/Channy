@@ -16,6 +16,8 @@ let LargeMargin: CGFloat = 24
 let DefaultCornerRadius: CGFloat = 4
 let AnimationDuration: TimeInterval = 0.25
 
+let RetryCount = 3
+
 typealias Response<Type> = Observable<Type>
 
 

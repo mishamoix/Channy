@@ -86,6 +86,10 @@
 		0ACC29892143F79900B4E53B /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29852143F79900B4E53B /* RootBuilder.swift */; };
 		0ACC298A2143F79900B4E53B /* RootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29862143F79900B4E53B /* RootInteractor.swift */; };
 		0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC298C2143F7E100B4E53B /* BaseNavigationController.swift */; };
+		0AD5C2D4215A7F2B00F68AF4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2D3215A7F2B00F68AF4 /* NetworkManager.swift */; };
+		0AD5C2D8215AC7B900F68AF4 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2D7215AC7B900F68AF4 /* ErrorDisplay.swift */; };
+		0AD5C2DA215AC89700F68AF4 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2D9215AC89700F68AF4 /* ErrorManager.swift */; };
+		0AD5C2DC215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2DB215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift */; };
 		0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */; };
 		0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */; };
 		0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA421499C190002E832 /* TextStripper.swift */; };
@@ -186,6 +190,10 @@
 		0ACC29852143F79900B4E53B /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		0ACC29862143F79900B4E53B /* RootInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootInteractor.swift; sourceTree = "<group>"; };
 		0ACC298C2143F7E100B4E53B /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		0AD5C2D3215A7F2B00F68AF4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		0AD5C2D7215AC7B900F68AF4 /* ErrorDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
+		0AD5C2D9215AC89700F68AF4 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
+		0AD5C2DB215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBoardsListDisplay.swift; sourceTree = "<group>"; };
 		0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDownButton.swift; sourceTree = "<group>"; };
 		0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		0AFFFDA421499C190002E832 /* TextStripper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStripper.swift; sourceTree = "<group>"; };
@@ -259,7 +267,10 @@
 		0A2E0C9A2145463400CBD619 /* Error */ = {
 			isa = PBXGroup;
 			children = (
+				0AD5C2D9215AC89700F68AF4 /* ErrorManager.swift */,
 				0A2E0C9B2145464000CBD619 /* Error.swift */,
+				0AD5C2D7215AC7B900F68AF4 /* ErrorDisplay.swift */,
+				0AD5C2DB215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -345,6 +356,7 @@
 			children = (
 				0A2E0C832145390D00CBD619 /* Provider */,
 				0A5B0EB32149B95700AECE3C /* Middleware */,
+				0AD5C2D3215A7F2B00F68AF4 /* NetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -720,7 +732,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chan/Pods-Chan-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/GSImageViewerController/GSImageViewerController.framework",
+				"${BUILT_PRODUCTS_DIR}/HGPlaceholders/HGPlaceholders.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/RIBs/RIBs.framework",
@@ -728,13 +740,12 @@
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GSImageViewerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HGPlaceholders.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RIBs.framework",
@@ -742,7 +753,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -770,6 +780,7 @@
 				0A2E0C8A2145397600CBD619 /* BoardModel.swift in Sources */,
 				0ACC29752143F3AE00B4E53B /* BaseService.swift in Sources */,
 				0A2E0C9F2145467F00CBD619 /* ResultModel.swift in Sources */,
+				0AD5C2DC215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift in Sources */,
 				0ACC29892143F79900B4E53B /* RootBuilder.swift in Sources */,
 				0A2E0C8E21453BE100CBD619 /* BaseViewController.swift in Sources */,
 				0AFFFDAF2149A1F50002E832 /* ThreadBuilder.swift in Sources */,
@@ -777,9 +788,11 @@
 				0A2E0CB321455A6A00CBD619 /* BoardsListConstants.swift in Sources */,
 				0AFFFDB02149A1F50002E832 /* ThreadInteractor.swift in Sources */,
 				0A2E0CA92145565100CBD619 /* ChanView.swift in Sources */,
+				0AD5C2D8215AC7B900F68AF4 /* ErrorDisplay.swift in Sources */,
 				0A2E0C9321453C1000CBD619 /* UIViewController+Utils.swift in Sources */,
 				0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */,
 				0ACC29782143F44400B4E53B /* BoardsListTarget.swift in Sources */,
+				0AD5C2D4215A7F2B00F68AF4 /* NetworkManager.swift in Sources */,
 				0AFFFDB92149AC640002E832 /* PostViewModel.swift in Sources */,
 				0A2E0C9521453CB600CBD619 /* ViewControllable+Utils.swift in Sources */,
 				0ACC297B2143F4C100B4E53B /* Enviroment.swift in Sources */,
@@ -804,6 +817,7 @@
 				0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */,
 				0A5B0EB9214EED8900AECE3C /* PostPreparation.swift in Sources */,
 				0A2E0C9C2145464000CBD619 /* Error.swift in Sources */,
+				0AD5C2DA215AC89700F68AF4 /* ErrorManager.swift in Sources */,
 				0A90E7882151988D00B71EAA /* ChanLinkModel.swift in Sources */,
 				0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */,
 				0ACC296C2143F22F00B4E53B /* BoardsListRouter.swift in Sources */,
@@ -987,7 +1001,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chan/Resources/Chan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1008,7 +1022,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.flexyfal.Chan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chan/Resources/Chan-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
