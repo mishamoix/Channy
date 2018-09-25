@@ -58,7 +58,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     private func setupRx() {
         self.listener?.dataSource
             .asObservable()
-//            .observeOn(Helper.rxMainThread)
+            .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] result in
                 self?.tableView.reloadData()
             }, onError: { [weak self] error in
