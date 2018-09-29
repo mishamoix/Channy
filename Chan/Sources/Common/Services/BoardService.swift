@@ -16,17 +16,16 @@ protocol BoardServiceProtocol: BaseServiceProtocol {
     
     
     var board: BoardModel { get }
-    var publish: PublishSubject<ResultType>? { get set }
-    
-    func loadNext()
-    func reload()
+//    var publish: PublishSubject<ResultType>? { get set }
+  
+    func loadNext(realod needReload: Bool) -> Observable<ResultType>?
 }
 
 
 class BoardService: BaseService, BoardServiceProtocol {
     
     let board: BoardModel
-    var publish: PublishSubject<ResultType>? = nil
+//    var publish: PublishSubject<ResultType>? = nil
 
     private let provider = ChanProvider<BoardTarget>()
     
@@ -45,7 +44,14 @@ class BoardService: BaseService, BoardServiceProtocol {
         super.init()
     }
     
-    func loadNext() {
+    func loadNext(realod needReload: Bool = false) -> Observable<ResultType>? {
+        
+        if needReload {
+            self.page = 0
+            self.onLoading = false
+
+        }
+        
         if self.page < self.maxPage && !self.onLoading {
             var target: BoardTarget
             if self.page == 0 {
@@ -54,34 +60,35 @@ class BoardService: BaseService, BoardServiceProtocol {
                 target = .page(board: self.uid, page: self.page)
             }
             self.onLoading = true
-            self.provider.rx
+            
+            return self.provider.rx
                 .request(target)
                 .asObservable()
-                .subscribe(onNext: { [weak self] response in
+                .retry(RetryCount)
+                .flatMap({ [weak self] response -> Observable<ResultType> in
+                    
+
+                    self?.onLoading = false
                     if let res = self?.makeModel(data: response.data) {
                         var type: ResultBoardModelType = .first
                         if let page = self?.page, page != 0 {
                             type = .page(idx: page)
                         }
-                        
+
                         let result = ResultType(result: res, type: type)
-                        
-                        self?.publish?.on(.next(result))
-                        
                         self?.page += 1
+
+                        return Observable<ResultType>.just(result)
+                    } else {
+                        let result = ResultType(result: [], type: ResultBoardModelType.page(idx: self?.page ?? 0))
+                        self?.page += 1
+
+                        return Observable<ResultType>.just(result)
                     }
-                    self?.onLoading = false
-                }, onError: { [weak self] error in
-                    self?.onLoading = false
-                }).disposed(by: self.disposeBag)
-            
-        
+                })
             }
-    }
-    
-    func reload() {
-        self.page = 0
-        self.loadNext()
+        
+        return nil
     }
     
     private func makeModel(data: Data) -> DataType {

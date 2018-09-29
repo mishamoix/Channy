@@ -17,7 +17,7 @@ let ThreadCellIdentifier = "ThreadCell"
 protocol BoardPresentableListener: class {
 
     var mainViewModel: Variable<BoardMainViewModel> { get }
-    var dataSource: Variable<[ThreadViewModel]> { get }
+    var dataSource: BehaviorSubject<[ThreadViewModel]> { get }
     var viewActions: PublishSubject<BoardAction> { get }
 }
 
@@ -42,6 +42,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         super.viewDidLoad()
         self.setup()
     }
+    
+    // MARK: BoardPresentable
     
     //MARK: Private
     private func setup() {
@@ -68,7 +70,6 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         self.listener?.dataSource
             .asObservable()
             .observeOn(Helper.rxMainThread)
-            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map({ [weak self] models -> [ThreadViewModel] in
                 return models.map { $0.calculateSize(max: self?.tableWidth ?? 0) }
             })
@@ -96,7 +97,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                     self?.tableView.reloadData()
                 }
             }, onError: { [weak self] error in
-                self?.listener?.viewActions.on(.next(.reload))
+//                self?.listener?.viewActions.on(.next(.reload))
             }).disposed(by: self.disposeBag)
         
         self.cellActions

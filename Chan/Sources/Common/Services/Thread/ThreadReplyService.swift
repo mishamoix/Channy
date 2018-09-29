@@ -15,7 +15,7 @@ class ThreadReplyService: ThreadServiceProtocol {
     private let parent: PostModel
     let posts: [PostModel]
     
-    var publish: PublishSubject<ResultType>? = nil
+//    var publish: PublishSubject<ResultType>? = nil
     
 //    private let provider = ChanProvider<ThreadTarget>()
     
@@ -28,14 +28,11 @@ class ThreadReplyService: ThreadServiceProtocol {
         self.posts = posts
     }
     
-    func load() {
+    func load() -> Observable<ResultType> {
         let result = ResultThreadModel<DataType>(result: self.posts, type: .replys(parent: self.parent))
-        self.publish?.on(.next(result))
+        return Observable<ResultType>.just(result)
     }
     
-    func refresh() {
-        self.load()
-    }
     
     func cancel() {
         
