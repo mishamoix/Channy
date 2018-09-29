@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0A11320C215EC1AD00BB3C79 /* Presentable+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11320B215EC1AD00BB3C79 /* Presentable+Utils.swift */; };
+		0A11320E215F94CB00BB3C79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A11320D215F94CA00BB3C79 /* GoogleService-Info.plist */; };
+		0A113215215F96EA00BB3C79 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A113210215F96EA00BB3C79 /* SettingsRouter.swift */; };
+		0A113216215F96EA00BB3C79 /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A113211215F96EA00BB3C79 /* SettingsViewController.storyboard */; };
+		0A113217215F96EA00BB3C79 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A113212215F96EA00BB3C79 /* SettingsViewController.swift */; };
+		0A113218215F96EA00BB3C79 /* SettingsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A113213215F96EA00BB3C79 /* SettingsBuilder.swift */; };
+		0A113219215F96EA00BB3C79 /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A113214215F96EA00BB3C79 /* SettingsInteractor.swift */; };
 		0A2E0C82214460FB00CBD619 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E0C81214460FB00CBD619 /* Main.storyboard */; };
 		0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C842145391F00CBD619 /* ChanProvider.swift */; };
 		0A2E0C882145396400CBD619 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C872145396400CBD619 /* BaseModel.swift */; };
@@ -109,6 +115,12 @@
 
 /* Begin PBXFileReference section */
 		0A11320B215EC1AD00BB3C79 /* Presentable+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Presentable+Utils.swift"; sourceTree = "<group>"; };
+		0A11320D215F94CA00BB3C79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0A113210215F96EA00BB3C79 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
+		0A113211215F96EA00BB3C79 /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
+		0A113212215F96EA00BB3C79 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0A113213215F96EA00BB3C79 /* SettingsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBuilder.swift; sourceTree = "<group>"; };
+		0A113214215F96EA00BB3C79 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		0A2E0C81214460FB00CBD619 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0A2E0C842145391F00CBD619 /* ChanProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanProvider.swift; sourceTree = "<group>"; };
 		0A2E0C872145396400CBD619 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -226,6 +238,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A11320F215F96D500BB3C79 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0A113210215F96EA00BB3C79 /* SettingsRouter.swift */,
+				0A113211215F96EA00BB3C79 /* SettingsViewController.storyboard */,
+				0A113212215F96EA00BB3C79 /* SettingsViewController.swift */,
+				0A113213215F96EA00BB3C79 /* SettingsBuilder.swift */,
+				0A113214215F96EA00BB3C79 /* SettingsInteractor.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		0A2E0C832145390D00CBD619 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,6 +471,7 @@
 		0ACC29642143F06500B4E53B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0A11320F215F96D500BB3C79 /* Settings */,
 				0AFFFDA62149A1E20002E832 /* Thread */,
 				0A2E0CB6214578F500CBD619 /* Board */,
 				0ACC29822143F78F00B4E53B /* Root */,
@@ -529,6 +554,7 @@
 		0ACC297D2143F71400B4E53B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A11320D215F94CA00BB3C79 /* GoogleService-Info.plist */,
 				0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */,
 				0ACC29582143EF1200B4E53B /* Assets.xcassets */,
 				0A2E0CCA2145A36200CBD619 /* Chan-Bridging-Header.h */,
@@ -693,6 +719,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A11320E215F94CB00BB3C79 /* GoogleService-Info.plist in Resources */,
+				0A113216215F96EA00BB3C79 /* SettingsViewController.storyboard in Resources */,
 				0AFFFDAD2149A1F40002E832 /* ThreadViewController.storyboard in Resources */,
 				0ACC296D2143F22F00B4E53B /* BoardsListViewController.storyboard in Resources */,
 				0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */,
@@ -735,7 +763,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chan/Pods-Chan-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/HGPlaceholders/HGPlaceholders.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/RIBs/RIBs.framework",
@@ -743,12 +771,13 @@
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HGPlaceholders.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RIBs.framework",
@@ -756,6 +785,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -771,6 +801,7 @@
 			files = (
 				0A2E0C99214545E200CBD619 /* Constants.swift in Sources */,
 				0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */,
+				0A113215215F96EA00BB3C79 /* SettingsRouter.swift in Sources */,
 				0A2E0C8C2145399400CBD619 /* BoardCategoryModel.swift in Sources */,
 				0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */,
 				0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */,
@@ -821,6 +852,7 @@
 				0A5B0EB9214EED8900AECE3C /* PostPreparation.swift in Sources */,
 				0A2E0C9C2145464000CBD619 /* Error.swift in Sources */,
 				0AD5C2DA215AC89700F68AF4 /* ErrorManager.swift in Sources */,
+				0A113217215F96EA00BB3C79 /* SettingsViewController.swift in Sources */,
 				0A90E7882151988D00B71EAA /* ChanLinkModel.swift in Sources */,
 				0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */,
 				0ACC296C2143F22F00B4E53B /* BoardsListRouter.swift in Sources */,
@@ -834,11 +866,13 @@
 				0A90E78F2151A9A100B71EAA /* ResultThreadModel.swift in Sources */,
 				0A90E7A52152DF9800B71EAA /* ThreadRepledService.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
+				0A113219215F96EA00BB3C79 /* SettingsInteractor.swift in Sources */,
 				0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */,
 				0AA1B6CD21542DC10063B5F7 /* PostMediaCell.swift in Sources */,
 				0A11320C215EC1AD00BB3C79 /* Presentable+Utils.swift in Sources */,
 				0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */,
 				0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */,
+				0A113218215F96EA00BB3C79 /* SettingsBuilder.swift in Sources */,
 				0A90E7912151AD0300B71EAA /* PostMainViewModel.swift in Sources */,
 				0ACC296F2143F22F00B4E53B /* BoardsListBuilder.swift in Sources */,
 				0ACC29812143F77500B4E53B /* AppComponent.swift in Sources */,

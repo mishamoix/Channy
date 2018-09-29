@@ -11,6 +11,7 @@ import Moya
 import RIBs
 import AlamofireImage
 import RxSwift
+import Firebase
 
 class AppDependency: NSObject {
     
@@ -23,17 +24,19 @@ class AppDependency: NSObject {
 
     func startApp(with window: UIWindow) {
         self.setupMainAppearance()
+        self.setupFirebase()
         
         let launchRouter = RootBuilder(dependency: AppComponent()).build()
         self.launchRouter = launchRouter
         launchRouter.launchFromWindow(window)
-        
-        
-        
     }
     
     func setupMainAppearance() {
         UIBarButtonItem.appearance().tintColor = .main
+    }
+    
+    func setupFirebase() {
+        FirebaseApp.configure()
     }
     
 

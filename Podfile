@@ -25,6 +25,9 @@ target 'Chan' do
     pod 'SnapKit'
 #    pod 'GSImageViewerController'
 
+    # Firebase
+    pod 'Firebase/Core'
+
     # Data
 #    pod 'SwiftSoup'
 
