@@ -13,7 +13,7 @@ import Alamofire
 
 protocol BoardsListServiceProtocol: BaseServiceProtocol {
     typealias ResultType = [BoardCategoryModel]?
-    func loadAllBoards()
+    func loadAllBoards() -> Observable<ResultType>
     
     var publish: PublishSubject<ResultType>? { get set }
 }
@@ -27,27 +27,17 @@ class BoardsListService: BaseService, BoardsListServiceProtocol {
         super.init()
     }
     
-    func loadAllBoards() {
+    func loadAllBoards() -> Observable<ResultType> {
         
-        
-        if let publish = self.publish {
-        self.provider.rx
+        return self.provider.rx
             .request(.list)
             .asObservable()
             .retry(RetryCount)
             .flatMap {[weak self] (response) -> Observable<ResultType> in
                 let res = self?.makeModels(data: response.data)
                 return Observable<ResultType>.just(res)
-            }.bind(to: publish).disposed(by: self.disposeBag)
-        }
-//            .subscribe(onSuccess: { [weak self] response  in
-//                let res = self?.makeModels(data: response.data)
-//                self?.publish?.on(.next(res))
-//            }) { [weak self] error in
-//                if let err = self?.handleError(err: error) {
-//                    self?.publish?.on(.error(err))
-//                }
-//            }.disposed(by: self.disposeBag)
+            }
+
     }
     
     func makeModels(data: Data) -> ResultType {
@@ -60,7 +50,6 @@ class BoardsListService: BaseService, BoardsListServiceProtocol {
                 category.name = key
                 result?.append(category)
                 
-//                let valueData = NSKeyedArchiver.archivedData(withRootObject: value)
                 if let valueData = self.toJson(any: value) {
                     if let boards = BoardModel.parseArray(from: valueData) {
                         category.boards = boards

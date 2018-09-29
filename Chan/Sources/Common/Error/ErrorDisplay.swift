@@ -43,7 +43,10 @@ class ErrorDisplay: ErrorDisplayProtocol {
     }
     
     func show() {
-        if let err = self.error as? ChanError {
+        let error = ErrorHelper(error: self.error).makeError()
+        
+        
+        if let err = error as? ChanError {
             self.chanErrorDisplay(err)
         } else {
             let message = self.error.localizedDescription
@@ -60,6 +63,11 @@ class ErrorDisplay: ErrorDisplayProtocol {
         case .offline:
             title = "Сетевая ошибка"
             message = "Похоже вы оффлайн"
+        case .somethingWrong(let description):
+            title = "Неизвестная ошибка"
+            if let descr = description {
+                message = descr
+            }
         default: break
         }
         

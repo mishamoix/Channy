@@ -69,6 +69,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private func setupRx() {
         self.listener?.mainViewModel
             .asObservable()
+            .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] model in
                 self?.navigationItem.title = model.title
 //                self?.refreshControl.isEnabled = model.canRefresh
@@ -95,8 +96,6 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 self?.endRefresh()
 
                 
-                
-            }, onError: { [weak self] error in
                 
             }).disposed(by: self.disposeBag)
         

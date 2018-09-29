@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A11320C215EC1AD00BB3C79 /* Presentable+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11320B215EC1AD00BB3C79 /* Presentable+Utils.swift */; };
 		0A2E0C82214460FB00CBD619 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E0C81214460FB00CBD619 /* Main.storyboard */; };
 		0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C842145391F00CBD619 /* ChanProvider.swift */; };
 		0A2E0C882145396400CBD619 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C872145396400CBD619 /* BaseModel.swift */; };
@@ -107,6 +108,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A11320B215EC1AD00BB3C79 /* Presentable+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Presentable+Utils.swift"; sourceTree = "<group>"; };
 		0A2E0C81214460FB00CBD619 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0A2E0C842145391F00CBD619 /* ChanProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanProvider.swift; sourceTree = "<group>"; };
 		0A2E0C872145396400CBD619 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				0A2E0CDB2145B08300CBD619 /* UIFont+AppFonts.swift */,
 				0A5B0EC4214F995400AECE3C /* String+Utils.swift */,
 				0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */,
+				0A11320B215EC1AD00BB3C79 /* Presentable+Utils.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -833,6 +836,7 @@
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
 				0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */,
 				0AA1B6CD21542DC10063B5F7 /* PostMediaCell.swift in Sources */,
+				0A11320C215EC1AD00BB3C79 /* Presentable+Utils.swift in Sources */,
 				0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */,
 				0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */,
 				0A90E7912151AD0300B71EAA /* PostMainViewModel.swift in Sources */,

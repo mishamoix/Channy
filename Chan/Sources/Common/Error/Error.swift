@@ -13,6 +13,7 @@ enum ChanError: Error {
     
     case somethingWrong(description: String?)
     case offline
+    case parseError
     
     case badRequest // 400
     case notFound // 404
@@ -33,26 +34,24 @@ class ErrorHelper {
         self.error = error
     }
     
-    func makeError() -> ChanError {
+    func makeError() -> Error {
         if let error = self.error {
             if let moyaError = error as? MoyaError {
                 return self.make(moya: moyaError)
             }
         }
-        return .somethingWrong(description: nil)
+        return ChanError.somethingWrong(description: self.error?.localizedDescription)
     }
     
     private func make(moya error: MoyaError) -> ChanError {
-        
-        
         switch error {
         case .underlying(let err, let response):
-            return .offline
+            if response == nil {
+                return .offline
+            }
         default: break
         }
         
-        self.error?.localizedDescription
-        
-        return .somethingWrong(description: nil)
+        return .somethingWrong(description: error.localizedDescription)
     }
 }

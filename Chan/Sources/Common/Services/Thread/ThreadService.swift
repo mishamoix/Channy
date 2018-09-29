@@ -16,10 +16,9 @@ protocol ThreadServiceProtocol: BaseServiceProtocol {
     typealias DataType = [PostModel]
 
     var thread: ThreadModel { get }
-    var publish: PublishSubject<ResultType>? { get set }
+//    var publish: PublishSubject<ResultType>? { get set }
 
-    func load()
-    func refresh()
+    func load() -> Observable<ResultType>
     
     var name: String { get }
 }
@@ -27,7 +26,7 @@ protocol ThreadServiceProtocol: BaseServiceProtocol {
 class ThreadService: BaseService, ThreadServiceProtocol {
     
     let thread: ThreadModel
-    var publish: PublishSubject<ResultType>? = nil
+//    var publish: PublishSubject<ResultType>? = nil
     
     private let provider = ChanProvider<ThreadTarget>()
     
@@ -41,25 +40,22 @@ class ThreadService: BaseService, ThreadServiceProtocol {
         self.updateInternalName(thread.posts)
     }
     
-    func load() {
-        self.provider
+    func load() -> Observable<ResultType> {
+        
+        return self.provider
             .rx
             .request(.load(board: self.thread.board?.uid ?? "", idx: self.thread.uid))
             .asObservable()
-            .subscribe(onNext: { [weak self] response in
+            .retry(RetryCount)
+            .flatMap({ [weak self] response -> Observable<ResultType> in
                 if let res = self?.makeModel(data: response.data) {
                     self?.updateInternalName(res)
                     let result = ResultThreadModel<DataType>(result: res, type: .all)
-                    self?.publish?.on(.next(result))
+                    return Observable<ResultType>.just(result)
+                } else {
+                    return Observable<ResultType>.error(ChanError.parseError)
                 }
-
-            }, onError: { [weak self] error in
-//                self?.publish.
-            }).disposed(by: self.disposeBag)
-    }
-    
-    func refresh() {
-        self.load()
+            })
     }
     
     private func makeModel(data: Data) -> DataType {

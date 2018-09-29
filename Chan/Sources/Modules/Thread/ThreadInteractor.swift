@@ -30,7 +30,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     var service: ThreadServiceProtocol
     
-    private let publish: PublishSubject<ThreadServiceProtocol.ResultType> = PublishSubject()
+//    private let publish: PublishSubject<ThreadServiceProtocol.ResultType> = PublishSubject()
     private let disposeBag = DisposeBag()
     
     private var data: [PostModel] = []
@@ -75,38 +75,10 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     // MARK:Private
     private func setup() {
         self.setupRx()
-        self.service.load()
+        self.load()
     }
     
     private func setupRx() {
-        self.service.publish = self.publish
-        
-        self.publish
-            .observeOn(Helper.rxBackgroundThread)
-            .subscribe(onNext: { [weak self] result in
-                guard let strongSelf = self else {
-                    return
-                }
-                let models = result.result
-                self?.data = models
-                
-                self?.postsManager.update(posts: models)
-                self?.postsManager.process()
-                
-                switch result.type {
-                case .all: self?.postsManager.resetFilters()
-                case .replys(let parent): self?.postsManager.addFilter(by: parent.uid)
-                case .replyed(let model): self?.postsManager.onlyReplyed(uid: model.uid)
-                }
-                
-                strongSelf.dataSource.value = self?.postsManager.filtredPostsVM ?? []
-                if let newName = self?.service.name {
-                    self?.mainViewModel.value = PostMainViewModel(title: newName, canRefresh: self?.moduleIsRoot ?? false)
-                }
-
-            }, onError: { [weak self] error in
-                
-            }).disposed(by: self.disposeBag)
         
         self.viewActions
             .subscribe(onNext: { [weak self] action in
@@ -123,7 +95,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .refresh: do {
                     if self?.moduleIsRoot ?? false {
                         self?.postsManager.resetCache()
-                        self?.service.refresh()
+                        self?.load()
                     }
                 }
                 case .popToRoot: do {
@@ -131,6 +103,54 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 }
                 }
             }).disposed(by: self.disposeBag)
+    }
+    
+    private func load() {
+        self.service
+            .load()
+            .asObservable()
+            .observeOn(Helper.rxBackgroundThread)
+            .retryWhen({ [weak self] (errorObservable) -> Observable<Void> in
+                return errorObservable.flatMap({ [weak self] error -> Observable<Void> in
+                    let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry, .ok])
+                    errorManager.show()
+                    
+                    return errorManager.actions
+                        .flatMap({ type -> Observable<()> in
+                            if type == .retry {
+                                self?.presenter.startRefreshing()
+
+                                return Observable<Void>.just(Void())
+                            } else {
+                                self?.presenter.endRefreshing()
+                                return Observable<Void>.empty()
+                            }
+                        })
+                })
+            })
+            .flatMap({ [weak self] (result) -> Observable<[PostViewModel]> in
+                guard let strongSelf = self else {
+                    return Observable.empty()
+                }
+                let models = result.result
+                strongSelf.data = models
+
+                strongSelf.postsManager.update(posts: models)
+                strongSelf.postsManager.process()
+
+                switch result.type {
+                case .all: strongSelf.postsManager.resetFilters()
+                case .replys(let parent): strongSelf.postsManager.addFilter(by: parent.uid)
+                case .replyed(let model): strongSelf.postsManager.onlyReplyed(uid: model.uid)
+                }
+
+                strongSelf.mainViewModel.value = PostMainViewModel(title: strongSelf.service.name, canRefresh: strongSelf.moduleIsRoot)
+
+                
+                return Observable<[PostViewModel]>.just(strongSelf.postsManager.filtredPostsVM)
+            })
+            .bind(to: self.dataSource)
+            .disposed(by: self.disposeBag)
     }
     
     private func openByTextIndex(postUid: String, url: URL) {
