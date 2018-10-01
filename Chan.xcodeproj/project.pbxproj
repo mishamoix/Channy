@@ -1073,7 +1073,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.flexyfal.Chan;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.flexyfal.nach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chan/Resources/Chan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1095,7 +1095,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.flexyfal.Chan;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.flexyfal.nach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chan/Resources/Chan-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
