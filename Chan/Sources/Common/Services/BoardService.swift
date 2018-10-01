@@ -49,17 +49,17 @@ class BoardService: BaseService, BoardServiceProtocol {
         if needReload {
             self.page = 0
             self.onLoading = false
-
         }
         
-        if self.page < self.maxPage && !self.onLoading {
+        if (self.page < self.maxPage) && !self.onLoading {
+            self.onLoading = true
+
             var target: BoardTarget
             if self.page == 0 {
                 target = .mainPage(board: self.uid)
             } else {
                 target = .page(board: self.uid, page: self.page)
             }
-            self.onLoading = true
             
             return self.provider.rx
                 .request(target)

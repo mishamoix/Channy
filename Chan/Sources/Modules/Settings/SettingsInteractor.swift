@@ -19,7 +19,7 @@ protocol SettingsPresentable: Presentable {
 }
 
 protocol SettingsListener: class {
-    // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+    func limitorChanged()
 }
 
 final class SettingsInteractor: PresentableInteractor<SettingsPresentable>, SettingsInteractable, SettingsPresentableListener {
@@ -42,5 +42,9 @@ final class SettingsInteractor: PresentableInteractor<SettingsPresentable>, Sett
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
+    }
+    
+    func limitorChanged() {
+        self.listener?.limitorChanged()
     }
 }

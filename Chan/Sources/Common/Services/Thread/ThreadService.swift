@@ -46,7 +46,6 @@ class ThreadService: BaseService, ThreadServiceProtocol {
             .rx
             .request(.load(board: self.thread.board?.uid ?? "", idx: self.thread.uid))
             .asObservable()
-            .retry(RetryCount)
             .flatMap({ [weak self] response -> Observable<ResultType> in
                 if let res = self?.makeModel(data: response.data) {
                     self?.updateInternalName(res)

@@ -10,6 +10,7 @@ import RIBs
 import RxSwift
 import UIKit
 import SnapKit
+import Lightbox
 
 private let PostCellIdentifier = "PostCell"
 private let PostMediaCellIdentifier = "PostMediaCell"
@@ -33,7 +34,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private let refreshControl = UIRefreshControl()
     private let scrollDownButton = ScrollDownButton()
 
-    
+    private var currentWidth: CGFloat = 0
     // MARK: Data
     private var data: [PostViewModel] = []
     
@@ -46,6 +47,30 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         super.viewWillAppear(animated)
         self.updateScrollDownButton()
     }
+    
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//
+//    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        super.viewWillTransition(to: size, with: coordinator)
+
+        self.currentWidth = size.width
+
+        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        flowLayout.invalidateLayout()
+
+        
+        coordinator.animate(alongsideTransition: nil, completion: {
+            _ in
+            
+            self.collectionView.reloadData()
+        })
+    }
+
     
     //MARK: Private
     private func setup() {
@@ -72,8 +97,6 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] model in
                 self?.navigationItem.title = model.title
-//                self?.refreshControl.isEnabled = model.canRefresh
-                
                 if model.canRefresh {
                     self?.collectionView.refreshControl = self?.refreshControl
                 } else {
@@ -90,13 +113,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 self?.collectionView.performBatchUpdates({
                 }, completion: { completed in
                 })
-                
                 self?.updateScrollDownButton()
-
-                self?.endRefresh()
-
-                
-                
             }).disposed(by: self.disposeBag)
         
         self.cellActions
@@ -116,19 +133,29 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 case .openMedia(let idx, let cell, let view): do {
                     if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
                         let media = post.media[idx]
-//                        if let image = view.image {
-//                            let imageInfo = GSImageInfo(image: image, imageMode: GSImageInfo.ImageMode.aspectFit, imageHD: URL(string: MakeFullPath(path: media.path)))
-//                            let transitionInfo = GSTransitionInfo(fromView: view)
-//                            let imageViewer    = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
-//                            self?.present(imageViewer, animated: true, completion: nil)
-//                        }
+                        
+                        if !Values.shared.fullAccess {
+                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Вы не включили полный доступ к приложению, перейдите на спиок борд, зайдите в настройки и снимите ограничения", styles: [.ok])
+                        } else if let image = URL(string: MakeFullPath(path: media.path)) {
+                            
+                            var item: LightboxImage
+                            if media.type == .video {
+                                if let preview = view.image {
+                                    item = LightboxImage(image: preview, text: "", videoURL: image)
+                                } else {
+                                    item = LightboxImage(imageURL: image, text: "", videoURL: image)
+                                }
+                            } else {
+                                item = LightboxImage(imageURL: image)
+                            }
+                            
+                            
+//                            ite
 
-//                        let loader = SimpleNetworkIntegration()
-//                        let axPhoto = AXPhoto(url: URL(string: MakeFullPath(path: media.path)))
-//                        let dataSource = AXPhotosDataSource(photos: [axPhoto])
-//                        let vc = AXPhotosViewController(dataSource: dataSource, networkIntegration: loader)
-////                        vc.
-//                        self?.present(vc, animated: true)
+                            let controller = LightboxController(images: [item])
+                            controller.dynamicBackground = true
+                            self?.present(controller, animated: true, completion: nil)
+                        }
                     }
                 }
 
@@ -138,7 +165,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         
         self.refreshControl
             .rx
-            .controlEvent(.valueChanged).subscribe(onNext: { [weak self] in
+            .controlEvent(.valueChanged)
+            .subscribe(onNext: { [weak self] in
                 self?.refresh()
             }).disposed(by: self.disposeBag)
         
@@ -248,9 +276,14 @@ extension ThreadViewController: UICollectionViewDataSource {
 
 extension ThreadViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if self.currentWidth == 0 {
+            self.currentWidth = self.collectionView.frame.width
+        }
+        
         let data = self.data[indexPath.item]
             
-        let cellWidth = self.collectionView.frame.width - (PostCellLeftMargin + PostCellRightMargin)
+        let cellWidth = self.currentWidth - (PostCellLeftMargin + PostCellRightMargin)
         
         let maxWidth = cellWidth
         data.calculateSize(max: maxWidth)

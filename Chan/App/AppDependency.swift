@@ -12,6 +12,7 @@ import RIBs
 import AlamofireImage
 import RxSwift
 import Firebase
+import FirebaseDatabase
 
 class AppDependency: NSObject {
     
@@ -23,13 +24,21 @@ class AppDependency: NSObject {
     var interfaceImageDownloader: ImageDownloader = ImageDownloader()
 
     func startApp(with window: UIWindow) {
-        self.setupMainAppearance()
-        self.setupFirebase()
+
+        self.commonSetup()
         
         let launchRouter = RootBuilder(dependency: AppComponent()).build()
         self.launchRouter = launchRouter
         launchRouter.launchFromWindow(window)
     }
+    
+    func commonSetup() {
+        self.setupMainAppearance()
+        self.setupFirebase()
+        
+        FirebaseManager.setup()
+    }
+
     
     func setupMainAppearance() {
         UIBarButtonItem.appearance().tintColor = .main
@@ -37,7 +46,10 @@ class AppDependency: NSObject {
     
     func setupFirebase() {
         FirebaseApp.configure()
+        
+        Database.database().isPersistenceEnabled = true
     }
+    
     
 
     

@@ -96,11 +96,35 @@ class ErrorDisplay: ErrorDisplayProtocol {
         }
         
         Helper.performOnMainThread {
-            self.topViewController?.present(vc, animated: true, completion: nil)
+            ErrorDisplay.topViewController?.present(vc, animated: true, completion: nil)
         }
     }
     
-    private var topViewController: UIViewController? {
+    static func presentAlert(with title: String?, message: String, styles: [ErrorButton] = []) {
+        let vc = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        for button in styles {
+            switch button {
+            case .ok:
+                vc.addAction(UIAlertAction(title: "ОК", style: .default, handler: { _ in
+                }))
+            case .cancel:
+                vc.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { _ in
+                }))
+            case .retry:
+                vc.addAction(UIAlertAction(title: "Попытаться снова", style: .default, handler: { _ in
+                }))
+                
+            }
+        }
+        
+        Helper.performOnMainThread {
+            ErrorDisplay.topViewController?.present(vc, animated: true, completion: nil)
+        }
+
+    }
+    
+    private static var topViewController: UIViewController? {
         if var topController = UIApplication.shared.keyWindow?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController

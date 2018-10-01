@@ -32,9 +32,13 @@ final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable
     // MARK: BoardRouting
     func open(thread: ThreadModel) {
         if self.canDeattach(router: self.thread) {
+
+            self.thread = nil
+            
             let threadModule = self.threadBuildable.build(withListener: self.interactor, thread: thread)
             self.attachChild(threadModule)
             self.thread = threadModule
+
             
             self.viewControllable.push(view: threadModule.viewControllable)
         }

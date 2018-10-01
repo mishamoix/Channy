@@ -14,6 +14,9 @@
 		0A113217215F96EA00BB3C79 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A113212215F96EA00BB3C79 /* SettingsViewController.swift */; };
 		0A113218215F96EA00BB3C79 /* SettingsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A113213215F96EA00BB3C79 /* SettingsBuilder.swift */; };
 		0A113219215F96EA00BB3C79 /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A113214215F96EA00BB3C79 /* SettingsInteractor.swift */; };
+		0A11321C215F9B3300BB3C79 /* FirebaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11321B215F9B3300BB3C79 /* FirebaseDB.swift */; };
+		0A11321E215F9E4C00BB3C79 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11321D215F9E4C00BB3C79 /* FirebaseManager.swift */; };
+		0A1132212160112400BB3C79 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1132202160112400BB3C79 /* Values.swift */; };
 		0A2E0C82214460FB00CBD619 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E0C81214460FB00CBD619 /* Main.storyboard */; };
 		0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C842145391F00CBD619 /* ChanProvider.swift */; };
 		0A2E0C882145396400CBD619 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C872145396400CBD619 /* BaseModel.swift */; };
@@ -121,6 +124,9 @@
 		0A113212215F96EA00BB3C79 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0A113213215F96EA00BB3C79 /* SettingsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBuilder.swift; sourceTree = "<group>"; };
 		0A113214215F96EA00BB3C79 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		0A11321B215F9B3300BB3C79 /* FirebaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDB.swift; sourceTree = "<group>"; };
+		0A11321D215F9E4C00BB3C79 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		0A1132202160112400BB3C79 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
 		0A2E0C81214460FB00CBD619 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0A2E0C842145391F00CBD619 /* ChanProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanProvider.swift; sourceTree = "<group>"; };
 		0A2E0C872145396400CBD619 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -248,6 +254,23 @@
 				0A113214215F96EA00BB3C79 /* SettingsInteractor.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		0A11321A215F9AC900BB3C79 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				0A11321B215F9B3300BB3C79 /* FirebaseDB.swift */,
+				0A11321D215F9E4C00BB3C79 /* FirebaseManager.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		0A11321F2160111300BB3C79 /* Values */ = {
+			isa = PBXGroup;
+			children = (
+				0A1132202160112400BB3C79 /* Values.swift */,
+			);
+			path = Values;
 			sourceTree = "<group>";
 		};
 		0A2E0C832145390D00CBD619 /* Provider */ = {
@@ -483,6 +506,8 @@
 		0ACC29652143F06A00B4E53B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0A11321F2160111300BB3C79 /* Values */,
+				0A11321A215F9AC900BB3C79 /* Firebase */,
 				0A5B0EBA214EFD6E00AECE3C /* Styles */,
 				0A5B0EB22149B94E00AECE3C /* Network */,
 				0A2E0CC82145A33000CBD619 /* Utils */,
@@ -765,12 +790,17 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
+				"${BUILT_PRODUCTS_DIR}/MediaBrowser/MediaBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/RIBs/RIBs.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
+				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -779,12 +809,17 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MediaBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RIBs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -806,6 +841,7 @@
 				0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */,
 				0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */,
 				0A2E0CA32145561E00CBD619 /* BoardsListCell.swift in Sources */,
+				0A1132212160112400BB3C79 /* Values.swift in Sources */,
 				0A90E786215194E000B71EAA /* RegexChecker.swift in Sources */,
 				0A2E0CD32145A3FE00CBD619 /* ThreadCell.swift in Sources */,
 				0A2E0CC02145790300CBD619 /* BoardInteractor.swift in Sources */,
@@ -841,6 +877,7 @@
 				0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */,
 				0A2E0CD82145A44400CBD619 /* ThreadViewModel.swift in Sources */,
 				0A90E79F2152C97300B71EAA /* TagViewModel.swift in Sources */,
+				0A11321E215F9E4C00BB3C79 /* FirebaseManager.swift in Sources */,
 				0ACC29882143F79900B4E53B /* RootViewController.swift in Sources */,
 				0A2E0CAF2145588A00CBD619 /* BoardsTableHeader.swift in Sources */,
 				0ACC29872143F79900B4E53B /* RootRouter.swift in Sources */,
@@ -859,6 +896,7 @@
 				0A90E7A12152DB4700B71EAA /* Helper.swift in Sources */,
 				0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */,
 				0A5B0EBC214EFD8000AECE3C /* Style.swift in Sources */,
+				0A11321C215F9B3300BB3C79 /* FirebaseDB.swift in Sources */,
 				0ACC298A2143F79900B4E53B /* RootInteractor.swift in Sources */,
 				0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */,
 				0A2E0C9721453E4B00CBD619 /* Router+Utils.swift in Sources */,

@@ -56,6 +56,9 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 
     override func willResignActive() {
         super.willResignActive()
+        
+        self.service.cancel()
+        self.postsManager.cancel()
     }
     
     // MARK: ThreadPresentableListener
@@ -106,17 +109,20 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func load() {
+        self.presenter.startRefreshing()
+        
         self.service
             .load()
             .asObservable()
+            .debug()
             .observeOn(Helper.rxBackgroundThread)
             .retryWhen({ [weak self] (errorObservable) -> Observable<Void> in
                 return errorObservable.flatMap({ [weak self] error -> Observable<Void> in
                     let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry, .ok])
                     errorManager.show()
-                    
+
                     return errorManager.actions
-                        .flatMap({ type -> Observable<()> in
+                        .flatMap({ [weak self] type -> Observable<()> in
                             if type == .retry {
                                 self?.presenter.startRefreshing()
 
@@ -128,29 +134,39 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                         })
                 })
             })
-            .flatMap({ [weak self] (result) -> Observable<[PostViewModel]> in
+            .flatMap({ [weak self] (result) -> Observable<[PostModel]> in
                 guard let strongSelf = self else {
                     return Observable.empty()
                 }
                 let models = result.result
                 strongSelf.data = models
 
-                strongSelf.postsManager.update(posts: models)
-                strongSelf.postsManager.process()
 
                 switch result.type {
                 case .all: strongSelf.postsManager.resetFilters()
                 case .replys(let parent): strongSelf.postsManager.addFilter(by: parent.uid)
                 case .replyed(let model): strongSelf.postsManager.onlyReplyed(uid: model.uid)
                 }
+                self?.postsManager.update(posts: models)
 
-                strongSelf.mainViewModel.value = PostMainViewModel(title: strongSelf.service.name, canRefresh: strongSelf.moduleIsRoot)
+                self?.mainViewModel.value = PostMainViewModel(title: strongSelf.service.name, canRefresh: strongSelf.moduleIsRoot)
 
-                
-                return Observable<[PostViewModel]>.just(strongSelf.postsManager.filtredPostsVM)
+                return Observable<[PostModel]>.just(models)
+            })
+            .map({ [weak self] models -> [PostViewModel] in
+                print("start mapping")
+                let start = Date()
+                self?.postsManager.process()
+                let end = Date()
+                print("end mapping \(end.timeIntervalSince1970 - start.timeIntervalSince1970)")
+                return self?.postsManager.filtredPostsVM ?? []
+            })
+            .flatMap({ [weak self] models -> Observable<[PostViewModel]> in
+                self?.presenter.endRefreshing()
+                return Observable<[PostViewModel]>.just(self?.postsManager.filtredPostsVM ?? [])
             })
             .bind(to: self.dataSource)
-            .disposed(by: self.disposeBag)
+            .disposed(by: self.service.disposeBag)
     }
     
     private func openByTextIndex(postUid: String, url: URL) {

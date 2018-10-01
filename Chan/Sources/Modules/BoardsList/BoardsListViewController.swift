@@ -61,8 +61,14 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
             .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] result in
                 self?.tableView.reloadData()
-            }, onError: { [weak self] error in
-                print(error)
+            }).disposed(by: self.disposeBag)
+        
+        self.navigationItem.rightBarButtonItem?
+            .rx
+            .tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.listener?.viewActions.on(.next(.openSettings))
             }).disposed(by: self.disposeBag)
     }
     
@@ -82,6 +88,9 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.seacrhBar.placeholder = "Поиск по бордам"
         self.navigationItem.titleView = self.seacrhBar
         self.seacrhBar.delegate = self
+        
+        let settingButton = UIBarButtonItem(image: .settings, style: .plain, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = settingButton
     }
 }
 
