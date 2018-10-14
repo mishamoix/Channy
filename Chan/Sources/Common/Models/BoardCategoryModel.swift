@@ -22,7 +22,7 @@ class BoardCategoryModel: BaseModel {
         return result
     }
     
-    override func copy() -> Any {
+    func cp() -> BoardCategoryModel {
         let model = BoardCategoryModel()
         model.name = self.name
         return model

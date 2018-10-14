@@ -14,14 +14,16 @@ import Alamofire
 protocol BoardsListServiceProtocol: BaseServiceProtocol {
     typealias ResultType = [BoardCategoryModel]?
     func loadAllBoards() -> Observable<ResultType>
+    func dropCache()
     
-    var publish: PublishSubject<ResultType>? { get set }
+    
 }
 
 class BoardsListService: BaseService, BoardsListServiceProtocol {
       
-    var publish: PublishSubject<ResultType>? = nil
     private let provider = ChanProvider<BoardsListTarget>()
+    
+    private var cachedResult: [BoardCategoryModel]? = nil
     
     override init() {
         super.init()
@@ -29,18 +31,36 @@ class BoardsListService: BaseService, BoardsListServiceProtocol {
     
     func loadAllBoards() -> Observable<ResultType> {
         
+        if self.cachedResult == nil {
+            return self.load()
+        } else {
+            return self.getCachedBoards()
+        }
+
+    }
+    
+    func dropCache() {
+        self.cachedResult = nil
+    }
+    
+    private func getCachedBoards() -> Observable<ResultType> {
+        return Observable<ResultType>.just(self.cachedResult)
+    }
+    
+    private func load() -> Observable<ResultType> {
         return self.provider.rx
             .request(.list)
             .asObservable()
             .retry(RetryCount)
             .flatMap {[weak self] (response) -> Observable<ResultType> in
                 let res = self?.makeModels(data: response.data)
+                self?.cachedResult = res
                 return Observable<ResultType>.just(res)
-            }
+        }
 
     }
     
-    func makeModels(data: Data) -> ResultType {
+    private func makeModels(data: Data) -> ResultType {
         var result: ResultType = []
         
         if let json = self.fromJson(data: data) {

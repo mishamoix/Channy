@@ -23,7 +23,14 @@ target 'Chan' do
     
     # UI
     pod 'SnapKit'
-#    pod 'GSImageViewerController'
+    pod 'MWPhotoBrowser'
+    
+    # Firebase
+    pod 'Firebase/Core'
+    pod 'Firebase/Database'
+    
+    # Utils
+    pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
 
     # Data
 #    pod 'SwiftSoup'

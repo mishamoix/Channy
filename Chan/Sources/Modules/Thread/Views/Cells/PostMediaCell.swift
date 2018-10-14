@@ -35,14 +35,15 @@ class PostMediaCell: PostCell {
         super.update(with: model)
         self.setupConstrainst(with: model)
         
-        let _ = self.images.map { $0.af_cancelImageRequest() }
+        let _ = self.images.map { $0.cancelLoad() }
         let _ = self.images.map { $0.isHidden = true }
         
         for (idx, media) in model.media.enumerated() {
             if self.images.count > idx {
                 if let thumb = URL(string: MakeFullPath(path: media.thumbnail)) {
                     let img = self.images[idx]
-                    img.af_setImage(withURL: thumb)
+                    img.image = nil
+                    img.load(url: thumb)
                     img.isHidden = false
                 }
             }

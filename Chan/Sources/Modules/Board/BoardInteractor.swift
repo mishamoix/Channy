@@ -56,7 +56,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     // MARK: BoardPresentableListener
     var mainViewModel: Variable<BoardMainViewModel> = Variable(BoardMainViewModel(title: ""))
-    var dataSource: BehaviorSubject<[ThreadViewModel]> = BehaviorSubject(value: [])
+    var dataSource: Variable<[ThreadViewModel]> = Variable([])
     var viewActions: PublishSubject<BoardAction> = PublishSubject()
 
     // MARK: ThreadListener
@@ -70,6 +70,8 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     func load(reload: Bool = false) {
+        self.presenter.startRefreshing()
+
         self.service
             .loadNext(realod: reload)?
             .asObservable()
@@ -93,8 +95,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 })
             })
             .flatMap({ [weak self] result -> Observable<[ThreadViewModel]> in
-                let threads = result.result
-                let threadsVM = threads.map({ ThreadViewModel(with: $0) })
+                let threads = result.result.filter({ !FirebaseManager.shared.excludeThreads.contains($0.threadPath) })
+                let threadsVM = threads
+                    
+                    .map({ ThreadViewModel(with: $0) })
                 
                 var allVM: [ThreadViewModel] = []
                 if let prev = self?.viewModels {
@@ -112,23 +116,15 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     allVM += threadsVM
                 }
             
+                self?.presenter.endRefreshing()
                 return Observable<[ThreadViewModel]>.just(allVM)
 
             })
             .bind(to: self.dataSource)
             .disposed(by: self.disposeBag)
-        
-//
     }
     
     func setupRx() {
-//        self.serviceListener
-//            .observeOn(Helper.rxBackgroundThread)
-//            .subscribe(onNext: { [weak self] result in
-//            }, onError: { error in
-//
-//            }).disposed(by: self.disposeBag)
-        
         self.viewActions
             .subscribe(onNext: { [weak self] action in
                 switch action {
@@ -147,5 +143,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 }
             }).disposed(by: self.disposeBag)
     }
+    
+
 
 }

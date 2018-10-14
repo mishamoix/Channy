@@ -11,6 +11,7 @@ import RxSwift
 
 protocol BaseServiceProtocol {
     func cancel()
+    var disposeBag: DisposeBag { get }
 }
 
 class BaseService: BaseServiceProtocol {

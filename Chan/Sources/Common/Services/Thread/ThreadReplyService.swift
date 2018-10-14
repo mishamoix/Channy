@@ -10,7 +10,9 @@ import UIKit
 import RxSwift
 
 class ThreadReplyService: ThreadServiceProtocol {
-
+    
+    var disposeBag: DisposeBag = DisposeBag()
+    
     let thread: ThreadModel
     private let parent: PostModel
     let posts: [PostModel]

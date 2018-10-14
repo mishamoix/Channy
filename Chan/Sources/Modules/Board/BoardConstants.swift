@@ -9,7 +9,7 @@
 import Foundation
 
 
-let ThreadCellMinHeight: CGFloat = 107
+let ThreadCellMinHeight: CGFloat = 110
 let ThreadCellMaxHeight: CGFloat = 400
 let ThreadCellTopMargin: CGFloat = 8
 let ThreadCellSideMargin: CGFloat = 16
