@@ -100,7 +100,7 @@ class ErrorDisplay: ErrorDisplayProtocol {
         }
     }
     
-    static func presentAlert(with title: String?, message: String, styles: [ErrorButton] = []) {
+    static func presentAlert(with title: String?, message: String, styles: [ErrorButton] = []) -> UIViewController {
         let vc = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         
         for button in styles {
@@ -121,6 +121,8 @@ class ErrorDisplay: ErrorDisplayProtocol {
         Helper.performOnMainThread {
             ErrorDisplay.topViewController?.present(vc, animated: true, completion: nil)
         }
+        
+        return vc
 
     }
     

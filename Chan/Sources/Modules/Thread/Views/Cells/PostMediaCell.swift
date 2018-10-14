@@ -42,6 +42,7 @@ class PostMediaCell: PostCell {
             if self.images.count > idx {
                 if let thumb = URL(string: MakeFullPath(path: media.thumbnail)) {
                     let img = self.images[idx]
+                    img.image = nil
                     img.load(url: thumb)
                     img.isHidden = false
                 }

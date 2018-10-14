@@ -13,7 +13,7 @@ protocol BoardsListDependency: Dependency {
     // created by this RIB.
 }
 
-final class BoardsListComponent: Component<BoardsListDependency>, BoardDependency, SettingsDependency {
+final class BoardsListComponent: Component<BoardsListDependency>, BoardDependency, SettingsDependency, WebAcceptDependency {
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
@@ -39,8 +39,9 @@ final class BoardsListBuilder: Builder<BoardsListDependency>, BoardsListBuildabl
         
         let board = BoardBuilder(dependency: component)
         let settings = SettingsBuilder(dependency: component)
+        let agreement = WebAcceptBuilder(dependency: component)
         
-        return BoardsListRouter(interactor: interactor, viewController: viewController, board: board, settings: settings)
+        return BoardsListRouter(interactor: interactor, viewController: viewController, board: board, settings: settings, agreement: agreement)
     }
     
     // MARK: Private

@@ -85,7 +85,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     
     private func setupSearchBar() {
         self.seacrhBar.searchBarStyle = .prominent
-        self.seacrhBar.placeholder = "Поиск по бордам"
+        self.seacrhBar.placeholder = "Фильтр по доскам"
         self.navigationItem.titleView = self.seacrhBar
         self.seacrhBar.delegate = self
         

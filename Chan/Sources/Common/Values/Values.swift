@@ -11,6 +11,7 @@ import SwiftyUserDefaults
 
 extension DefaultsKeys {
     static let fullAccess = DefaultsKey<Bool>("fullAccess")
+    static let privacyPolicy = DefaultsKey<Bool>("privacyPolicy")
 }
 
 class Values {
@@ -25,6 +26,16 @@ class Values {
         
         set {
             Defaults[.fullAccess] = newValue
+        }
+    }
+    
+    var privacyPolicy: Bool {
+        get {
+            return Defaults[.privacyPolicy]
+        }
+        
+        set {
+            Defaults[.privacyPolicy] = newValue
         }
     }
     

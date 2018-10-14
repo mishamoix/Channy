@@ -13,7 +13,7 @@
         <scene sceneID="wol-br-tP9">
             <objects>
                 <tableViewController storyboardIdentifier="SettingsViewController" id="YZ8-Zd-WbY" customClass="SettingsViewController" customModule="Chan" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="dTd-T1-qRm">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="dTd-T1-qRm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -28,7 +28,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Снять ограничения " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Eq-TS-eMb">
-                                                    <rect key="frame" x="24" y="9.5" width="159.5" height="20.5"/>
+                                                    <rect key="frame" x="16" y="9.5" width="159.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -36,15 +36,15 @@
                                                 <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2w0-l8-7pB">
                                                     <rect key="frame" x="255" y="12.5" width="51" height="31"/>
                                                 </switch>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Показывать картинки и скрытые борды" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bT-wn-Aic">
-                                                    <rect key="frame" x="24" y="33.5" width="233.5" height="14.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Показывать картинки и скрытые доски" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bT-wn-Aic">
+                                                    <rect key="frame" x="16" y="33.5" width="231" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="9Eq-TS-eMb" firstAttribute="leading" secondItem="1dp-qa-DZy" secondAttribute="leading" constant="24" id="QfD-ac-tmS"/>
+                                                <constraint firstItem="9Eq-TS-eMb" firstAttribute="leading" secondItem="1dp-qa-DZy" secondAttribute="leading" constant="16" id="QfD-ac-tmS"/>
                                                 <constraint firstItem="5bT-wn-Aic" firstAttribute="leading" secondItem="9Eq-TS-eMb" secondAttribute="leading" id="Yg2-2r-FJN"/>
                                                 <constraint firstItem="9Eq-TS-eMb" firstAttribute="centerY" secondItem="1dp-qa-DZy" secondAttribute="centerY" constant="-8" id="fho-R1-mwP"/>
                                                 <constraint firstAttribute="trailing" secondItem="2w0-l8-7pB" secondAttribute="trailing" constant="16" id="lqd-RC-cYI"/>

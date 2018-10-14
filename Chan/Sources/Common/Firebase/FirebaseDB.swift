@@ -36,4 +36,9 @@ class FirebaseDB {
         .disposed(by: self.disposeBag)
         
     }
+    
+    func report(thread: String, key: String) {
+        let resultKey = "reports/\(key)"
+        self.reference.child(resultKey).setValue(thread)
+    }
 }

@@ -19,10 +19,13 @@ class FirebaseManager {
     
     private(set) var excludeBoards: [String] = []
     private(set) var notFullAllowBoards: [String]? = nil
+    private(set) var excludeThreads: [String] = []
 
     private(set) var email: String? = nil
     private(set) var tg: String? = nil
     private(set) var mainInfo: String? = nil
+    private(set) var disableImages: Bool = false
+    private(set) var agreementUrl: URL? = nil
 
     
     init() {
@@ -57,18 +60,39 @@ class FirebaseManager {
             self.notFullAllowBoards = notFullAllow
         }
         
-        if let dev_email = result["dev_email"] as? String {
-            self.email = dev_email
+        if let devEmail = result["dev_email"] as? String {
+            self.email = devEmail
         }
         
-        if let dev_tg = result["dev_tg"] as? String {
-            self.tg = dev_tg
+        if let devTg = result["dev_tg"] as? String {
+            self.tg = devTg
         }
         
-        if let main_info = result["main_info"] as? String {
-            self.mainInfo = main_info
+        if let mainInfo = result["main_info"] as? String {
+            self.mainInfo = mainInfo
         }
         
+        if let disableImages = result["disbale_images"] as? Bool {
+            self.disableImages = disableImages
+        }
         
+        if let excludeThreads = result["exclude_threads"] as? [String] {
+            self.excludeThreads = excludeThreads
+        }
+        
+        if let agreement = result["agreement_url"] as? String, let url = URL(string: agreement) {
+            self.agreementUrl = url
+        }
+    }
+    
+    func report(thread: ThreadModel) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .full
+        let key = formatter.string(from: Date()).replacingOccurrences(of: " ", with: "_")
+        
+        let value = thread.threadPath
+        
+        self.db.report(thread: value, key: key)
     }
 }

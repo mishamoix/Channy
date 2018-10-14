@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol BoardsListInteractable: Interactable, BoardListener, SettingsListener {
+protocol BoardsListInteractable: Interactable, BoardListener, SettingsListener, WebAcceptListener {
     var router: BoardsListRouting? { get set }
     var listener: BoardsListListener? { get set }
 }
@@ -20,9 +20,10 @@ protocol BoardsListViewControllable: ViewControllable {
 final class BoardsListRouter: ViewableRouter<BoardsListInteractable, BoardsListViewControllable>, BoardsListRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: BoardsListInteractable, viewController: BoardsListViewControllable, board: BoardBuildable, settings: SettingsBuildable) {
+    init(interactor: BoardsListInteractable, viewController: BoardsListViewControllable, board: BoardBuildable, settings: SettingsBuildable, agreement: WebAcceptBuildable) {
         self.boardBuildable = board
         self.settingsBuildable = settings
+        self.agreementBuildable = agreement
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
@@ -51,6 +52,26 @@ final class BoardsListRouter: ViewableRouter<BoardsListInteractable, BoardsListV
         }
     }
     
+    func openAgreement(model: WebAcceptViewModel) {
+        self.closeAgreement()
+        self.tryDeattach(router: self.agreement) {
+            let agreement = self.agreementBuildable.build(withListener: self.interactor, model: model)
+            self.agreement = agreement
+            self.attachChild(agreement)
+            
+            self.viewController.present(view: agreement.viewControllable)
+        }
+    }
+    
+    func closeAgreement() {
+        self.agreement?.viewControllable.dismiss()
+        self.tryDeattach(router: self.agreement) {
+            self.agreement = nil
+        }
+    }
+    
+    
+    
     // MARK: Private
     private let boardBuildable: BoardBuildable
     private weak var board: ViewableRouting?
@@ -58,4 +79,7 @@ final class BoardsListRouter: ViewableRouter<BoardsListInteractable, BoardsListV
     private let settingsBuildable: SettingsBuildable
     private weak var setting: ViewableRouting?
     
+    private let agreementBuildable: WebAcceptBuildable
+    private weak var agreement: ViewableRouting?
+
 }

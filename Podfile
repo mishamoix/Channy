@@ -23,7 +23,7 @@ target 'Chan' do
     
     # UI
     pod 'SnapKit'
-    pod 'Lightbox'
+    pod 'MWPhotoBrowser'
     
     # Firebase
     pod 'Firebase/Core'

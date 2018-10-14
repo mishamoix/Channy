@@ -95,8 +95,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 })
             })
             .flatMap({ [weak self] result -> Observable<[ThreadViewModel]> in
-                let threads = result.result
-                let threadsVM = threads.map({ ThreadViewModel(with: $0) })
+                let threads = result.result.filter({ !FirebaseManager.shared.excludeThreads.contains($0.threadPath) })
+                let threadsVM = threads
+                    
+                    .map({ ThreadViewModel(with: $0) })
                 
                 var allVM: [ThreadViewModel] = []
                 if let prev = self?.viewModels {

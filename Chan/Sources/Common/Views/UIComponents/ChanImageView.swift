@@ -11,8 +11,9 @@ import AlamofireImage
 
 class ChanImageView: UIImageView {
     func load(url: URL?) {
-        if Values.shared.fullAccess {
+        if Values.shared.fullAccess && !FirebaseManager.shared.disableImages {
             if let url = url {
+                self.cancelLoad()
                 self.af_setImage(withURL: url)
             }
         } else {

@@ -57,6 +57,12 @@
 		0A2E0CDE2145B3F600CBD619 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDD2145B3F600CBD619 /* PostModel.swift */; };
 		0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDF2145B48300CBD619 /* FileModel.swift */; };
 		0A2E0CE22145C8D600CBD619 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */; };
+		0A505D76216D060A0076F383 /* WebAcceptRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D71216D060A0076F383 /* WebAcceptRouter.swift */; };
+		0A505D77216D060A0076F383 /* WebAcceptViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */; };
+		0A505D78216D060A0076F383 /* WebAcceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D73216D060A0076F383 /* WebAcceptViewController.swift */; };
+		0A505D79216D060A0076F383 /* WebAcceptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D74216D060A0076F383 /* WebAcceptBuilder.swift */; };
+		0A505D7A216D060A0076F383 /* WebAcceptInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D75216D060A0076F383 /* WebAcceptInteractor.swift */; };
+		0A505D7C216D074B0076F383 /* WebAcceptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D7B216D074B0076F383 /* WebAcceptViewModel.swift */; };
 		0A5B0EB12149B8E100AECE3C /* UIImage+AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */; };
 		0A5B0EB62149BAE600AECE3C /* LoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB52149BAE600AECE3C /* LoggerPlugin.swift */; };
 		0A5B0EB9214EED8900AECE3C /* PostPreparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB8214EED8900AECE3C /* PostPreparation.swift */; };
@@ -65,6 +71,8 @@
 		0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */; };
 		0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC4214F995400AECE3C /* String+Utils.swift */; };
 		0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */; };
+		0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856292216E518900D053F7 /* ThreadImageViewer.swift */; };
+		0A856296216E58E000D053F7 /* ChanPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856295216E58E000D053F7 /* ChanPhotoBrowser.swift */; };
 		0A90E7822151886900B71EAA /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7812151886900B71EAA /* PostManager.swift */; };
 		0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E78321518B2600B71EAA /* LinkParser.swift */; };
 		0A90E786215194E000B71EAA /* RegexChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E785215194DF00B71EAA /* RegexChecker.swift */; };
@@ -169,6 +177,12 @@
 		0A2E0CDD2145B3F600CBD619 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		0A2E0CDF2145B48300CBD619 /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
+		0A505D71216D060A0076F383 /* WebAcceptRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptRouter.swift; sourceTree = "<group>"; };
+		0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebAcceptViewController.storyboard; sourceTree = "<group>"; };
+		0A505D73216D060A0076F383 /* WebAcceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptViewController.swift; sourceTree = "<group>"; };
+		0A505D74216D060A0076F383 /* WebAcceptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptBuilder.swift; sourceTree = "<group>"; };
+		0A505D75216D060A0076F383 /* WebAcceptInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptInteractor.swift; sourceTree = "<group>"; };
+		0A505D7B216D074B0076F383 /* WebAcceptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptViewModel.swift; sourceTree = "<group>"; };
 		0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+AppImage.swift"; sourceTree = "<group>"; };
 		0A5B0EB52149BAE600AECE3C /* LoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPlugin.swift; sourceTree = "<group>"; };
 		0A5B0EB8214EED8900AECE3C /* PostPreparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPreparation.swift; sourceTree = "<group>"; };
@@ -177,6 +191,8 @@
 		0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePostCell.swift; sourceTree = "<group>"; };
 		0A5B0EC4214F995400AECE3C /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.Key.swift; sourceTree = "<group>"; };
+		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
+		0A856295216E58E000D053F7 /* ChanPhotoBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanPhotoBrowser.swift; sourceTree = "<group>"; };
 		0A90E7812151886900B71EAA /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 		0A90E78321518B2600B71EAA /* LinkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkParser.swift; sourceTree = "<group>"; };
 		0A90E785215194DF00B71EAA /* RegexChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexChecker.swift; sourceTree = "<group>"; };
@@ -401,6 +417,19 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0A505D70216D05EF0076F383 /* WebAccept */ = {
+			isa = PBXGroup;
+			children = (
+				0A505D71216D060A0076F383 /* WebAcceptRouter.swift */,
+				0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */,
+				0A505D73216D060A0076F383 /* WebAcceptViewController.swift */,
+				0A505D74216D060A0076F383 /* WebAcceptBuilder.swift */,
+				0A505D75216D060A0076F383 /* WebAcceptInteractor.swift */,
+				0A505D7B216D074B0076F383 /* WebAcceptViewModel.swift */,
+			);
+			path = WebAccept;
+			sourceTree = "<group>";
+		};
 		0A5B0EB22149B94E00AECE3C /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,6 +470,15 @@
 				0A5B0EBB214EFD8000AECE3C /* Style.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		0A856294216E58C700D053F7 /* ImageViewer */ = {
+			isa = PBXGroup;
+			children = (
+				0A856292216E518900D053F7 /* ThreadImageViewer.swift */,
+				0A856295216E58E000D053F7 /* ChanPhotoBrowser.swift */,
+			);
+			path = ImageViewer;
 			sourceTree = "<group>";
 		};
 		0A90E78B2151A75700B71EAA /* Thread */ = {
@@ -494,6 +532,7 @@
 		0ACC29642143F06500B4E53B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0A505D70216D05EF0076F383 /* WebAccept */,
 				0A11320F215F96D500BB3C79 /* Settings */,
 				0AFFFDA62149A1E20002E832 /* Thread */,
 				0A2E0CB6214578F500CBD619 /* Board */,
@@ -631,6 +670,7 @@
 		0AFFFDA62149A1E20002E832 /* Thread */ = {
 			isa = PBXGroup;
 			children = (
+				0A856294216E58C700D053F7 /* ImageViewer */,
 				0A5B0EB7214EECBA00AECE3C /* Views */,
 				0AFFFDB52149ABDD0002E832 /* ViewModel */,
 				0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */,
@@ -754,6 +794,7 @@
 				0A2E0CB12145589600CBD619 /* BoardsTableHeader.xib in Resources */,
 				0A2E0CBD2145790300CBD619 /* BoardViewController.storyboard in Resources */,
 				0A2E0C82214460FB00CBD619 /* Main.storyboard in Resources */,
+				0A505D77216D060A0076F383 /* WebAcceptViewController.storyboard in Resources */,
 				0A2E0CD42145A3FE00CBD619 /* ThreadCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -788,9 +829,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chan/Pods-Chan-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
-				"${BUILT_PRODUCTS_DIR}/MediaBrowser/MediaBrowser.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MWPhotoBrowser/MWPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/RIBs/RIBs.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -799,7 +842,6 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
-				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -807,9 +849,11 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DACircularProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MediaBrowser.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MWPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RIBs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -818,7 +862,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -854,6 +897,7 @@
 				0ACC29892143F79900B4E53B /* RootBuilder.swift in Sources */,
 				0A2E0C8E21453BE100CBD619 /* BaseViewController.swift in Sources */,
 				0AFFFDAF2149A1F50002E832 /* ThreadBuilder.swift in Sources */,
+				0A505D79216D060A0076F383 /* WebAcceptBuilder.swift in Sources */,
 				0A2E0CA72145564300CBD619 /* ChanLabel.swift in Sources */,
 				0A2E0CB321455A6A00CBD619 /* BoardsListConstants.swift in Sources */,
 				0AFFFDB02149A1F50002E832 /* ThreadInteractor.swift in Sources */,
@@ -870,6 +914,7 @@
 				0A2E0CAD214557E900CBD619 /* BaseTableViewCell.swift in Sources */,
 				0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */,
 				0A2E0CCE2145A36300CBD619 /* TGReusableLabel.mm in Sources */,
+				0A505D7C216D074B0076F383 /* WebAcceptViewModel.swift in Sources */,
 				0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */,
 				0A2E0CBC2145790300CBD619 /* BoardRouter.swift in Sources */,
 				0A2E0CDE2145B3F600CBD619 /* PostModel.swift in Sources */,
@@ -882,6 +927,7 @@
 				0A2E0CAF2145588A00CBD619 /* BoardsTableHeader.swift in Sources */,
 				0ACC29872143F79900B4E53B /* RootRouter.swift in Sources */,
 				0A90E78D2151A76B00B71EAA /* ThreadReplyService.swift in Sources */,
+				0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */,
 				0A2E0CE22145C8D600CBD619 /* UIImage+Utils.swift in Sources */,
 				0A2E0CD62145A41800CBD619 /* ThreadModel.swift in Sources */,
 				0ACC29702143F22F00B4E53B /* BoardsListInteractor.swift in Sources */,
@@ -896,7 +942,9 @@
 				0A90E7A12152DB4700B71EAA /* Helper.swift in Sources */,
 				0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */,
 				0A5B0EBC214EFD8000AECE3C /* Style.swift in Sources */,
+				0A505D78216D060A0076F383 /* WebAcceptViewController.swift in Sources */,
 				0A11321C215F9B3300BB3C79 /* FirebaseDB.swift in Sources */,
+				0A505D76216D060A0076F383 /* WebAcceptRouter.swift in Sources */,
 				0ACC298A2143F79900B4E53B /* RootInteractor.swift in Sources */,
 				0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */,
 				0A2E0C9721453E4B00CBD619 /* Router+Utils.swift in Sources */,
@@ -915,6 +963,7 @@
 				0ACC296F2143F22F00B4E53B /* BoardsListBuilder.swift in Sources */,
 				0ACC29812143F77500B4E53B /* AppComponent.swift in Sources */,
 				0A2E0CC42145969D00CBD619 /* BoardTarget.swift in Sources */,
+				0A505D7A216D060A0076F383 /* WebAcceptInteractor.swift in Sources */,
 				0A2E0CCF2145A36300CBD619 /* TextSize.swift in Sources */,
 				0A5B0EB12149B8E100AECE3C /* UIImage+AppImage.swift in Sources */,
 				0A2E0CC22145968000CBD619 /* BoardService.swift in Sources */,
@@ -925,6 +974,7 @@
 				0AFFFDAC2149A1F40002E832 /* ThreadRouter.swift in Sources */,
 				0A2E0CDA2145A61000CBD619 /* BoardConstants.swift in Sources */,
 				0A5B0EB62149BAE600AECE3C /* LoggerPlugin.swift in Sources */,
+				0A856296216E58E000D053F7 /* ChanPhotoBrowser.swift in Sources */,
 				0AFFFDAE2149A1F50002E832 /* ThreadViewController.swift in Sources */,
 				0A90E7822151886900B71EAA /* PostManager.swift in Sources */,
 				0ACC296E2143F22F00B4E53B /* BoardsListViewController.swift in Sources */,
@@ -1069,6 +1119,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F5N53DM6KA;
 				INFOPLIST_FILE = Chan/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1078,7 +1129,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Chan/Resources/Chan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1091,6 +1142,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F5N53DM6KA;
 				INFOPLIST_FILE = Chan/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1099,7 +1151,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chan/Resources/Chan-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

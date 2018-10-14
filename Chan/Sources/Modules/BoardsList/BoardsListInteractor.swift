@@ -12,6 +12,9 @@ import RxSwift
 protocol BoardsListRouting: ViewableRouting {
     func openBoard(with board: BoardModel)
     func openSettings()
+    
+    func openAgreement(model: WebAcceptViewModel)
+    func closeAgreement()
 }
 
 protocol BoardsListPresentable: Presentable {
@@ -23,6 +26,8 @@ protocol BoardsListListener: class {
 }
 
 final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, BoardsListInteractable, BoardsListPresentableListener {
+
+    
 
     weak var router: BoardsListRouting?
     weak var listener: BoardsListListener?
@@ -64,6 +69,12 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     // MARK: SettingsListener
     func limitorChanged() {
         self.load()
+    }
+    
+    // MARK: WebAcceptDependency
+    func accept() {
+        self.router?.closeAgreement()
+        Values.shared.privacyPolicy = true
     }
     
     // MARK: Private
@@ -145,6 +156,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
                 })
             })
             .flatMap({  [weak self] (result) -> Observable<[BoardCategoryModel]> in
+                self?.checkAgreement()
                 if let result = result {
                     
                     var res: [BoardCategoryModel] = []
@@ -180,5 +192,17 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
             .bind(to: self.dataSource)
             .disposed(by: self.listService.disposeBag)
 
+    }
+    
+    private func checkAgreement() {
+        if !Values.shared.privacyPolicy {
+            if let url = FirebaseManager.shared.agreementUrl {
+                let agreement = WebAcceptViewModel(url: url, title: "Соглашение")
+                
+                Helper.performOnMainThread {
+                    self.router?.openAgreement(model: agreement)
+                }
+            }
+        }
     }
 }

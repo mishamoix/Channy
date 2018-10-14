@@ -45,6 +45,11 @@ enum PostAction {
     case openLink(postUid: String, url: URL)
     case refresh
     case popToRoot
+    case reportThread
+    case copyPost(postUid: String)
+    case cutPost(postUid: String)
+    case open(media: FileModel)
+
 }
 
 enum PostCellAction {

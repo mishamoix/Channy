@@ -10,7 +10,6 @@ import RIBs
 import RxSwift
 import UIKit
 import SnapKit
-import Lightbox
 
 private let PostCellIdentifier = "PostCell"
 private let PostMediaCellIdentifier = "PostMediaCell"
@@ -20,6 +19,7 @@ protocol ThreadPresentableListener: class {
     var mainViewModel: Variable<PostMainViewModel> { get }
     var dataSource: Variable<[PostViewModel]> { get }
     var viewActions: PublishSubject<PostAction> { get }
+    var moduleIsRoot: Bool { get }
 }
 
 final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadViewControllable {
@@ -134,27 +134,30 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                     if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
                         let media = post.media[idx]
                         
-                        if !Values.shared.fullAccess {
-                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Вы не включили полный доступ к приложению, перейдите на спиок борд, зайдите в настройки и снимите ограничения", styles: [.ok])
-                        } else if let image = URL(string: MakeFullPath(path: media.path)) {
-                            
-                            var item: LightboxImage
-                            if media.type == .video {
-                                if let preview = view.image {
-                                    item = LightboxImage(image: preview, text: "", videoURL: image)
-                                } else {
-                                    item = LightboxImage(imageURL: image, text: "", videoURL: image)
-                                }
-                            } else {
-                                item = LightboxImage(imageURL: image)
-                            }
-                            
-                            
-//                            ite
-
-                            let controller = LightboxController(images: [item])
-                            controller.dynamicBackground = true
-                            self?.present(controller, animated: true, completion: nil)
+                        if FirebaseManager.shared.disableImages {
+                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Медиа отключено по требованию Apple", styles: [.ok])
+                        } else if !Values.shared.fullAccess {
+                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Вы не включили полный доступ к приложению, перейдите на спиок досок, зайдите в настройки и снимите ограничения", styles: [.ok])
+                        } else {
+                          
+                            self?.listener?.viewActions.on(.next(.open(media: media)))
+//                            var item: LightboxImage
+//                            if media.type == .video {
+//                                if let preview = view.image {
+//                                    item = LightboxImage(image: preview, text: "", videoURL: image)
+//                                } else {
+//                                    item = LightboxImage(imageURL: image, text: "", videoURL: image)
+//                                }
+//                            } else {
+//                                item = LightboxImage(imageURL: image)
+//                            }
+//
+//
+////                            ite
+//
+//                            let controller = LightboxController(images: [item])
+//                            controller.dynamicBackground = true
+//                            self?.present(controller, animated: true, completion: nil)
                         }
                     }
                 }
@@ -186,19 +189,20 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .asDriver()
             .drive(onNext: { [weak self] in
                 let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-                
-                actionSheet.addAction(UIAlertAction(title: "Вернуться к треду", style: .default, handler: { [weak self] _ in
-                    self?.listener?.viewActions.on(.next(.popToRoot))
-                }))
+              
+                if self?.listener?.moduleIsRoot ?? false {
+                    actionSheet.addAction(UIAlertAction(title: "Пожаловаться", style: .destructive, handler: { [weak self] _ in
+                        self?.reportThread()
+                        
+                    }))
 
+                } else {
+                    actionSheet.addAction(UIAlertAction(title: "Вернуться к треду", style: .default, handler: { [weak self] _ in
+                        self?.listener?.viewActions.on(.next(.popToRoot))
+                    }))
+                }
                 
-                actionSheet.addAction(UIAlertAction(title: "Пожаловаться", style: .destructive, handler: { [weak self] _ in
-                    
-                }))
-                
-                actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { [weak self] _ in
-                    
-                }))
+                actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
                 
                 self?.present(actionSheet, animated: true)
             }).disposed(by: self.disposeBag)
@@ -262,6 +266,20 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             self.scrollDownButton.hiddenAction.on(.next(false))
         }
     }
+  
+    private func reportThread() {
+        self.listener?.viewActions.on(.next(.reportThread))
+        
+        let vController = ErrorDisplay.presentAlert(with: "Жалоба отправлена", message: "Жалоба будет рассмотрена в течении 24 часов")
+        
+        Observable<UIViewController>
+            .from(optional: vController)
+            .delay(2.0, scheduler: Helper.rxMainThread)
+            .subscribe(onNext: { vc in
+                vc.dismiss(animated: true, completion: nil)
+            })
+            .disposed(by: self.disposeBag)
+    }
 }
 
 extension ThreadViewController: UICollectionViewDataSource {
@@ -271,6 +289,23 @@ extension ThreadViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return self.cell(for: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return ["copy:", "cut:"].contains(action.description)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        let post = self.data[indexPath.row]
+        if action.description == "copy:" {
+            self.listener?.viewActions.on(.next(.copyPost(postUid: post.uid)))
+        } else if action.description == "cut:" {
+            self.listener?.viewActions.on(.next(.cutPost(postUid: post.uid)))
+        }
     }
 }
 
@@ -296,4 +331,6 @@ extension ThreadViewController: UICollectionViewDelegateFlowLayout {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateScrollDownButton()
     }
+    
+    
 }

@@ -13,6 +13,7 @@ protocol ThreadRouting: ViewableRouting {
     func openThread(with post: PostReplysViewModel)
     func openNewThread(with thread: ThreadModel)
     func popToCurrent()
+    func showMediaViewer(_ vc: UIViewController)
 }
 
 protocol ThreadPresentable: Presentable {
@@ -35,15 +36,15 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     private var data: [PostModel] = []
     
-    private let postsManager: PostManager
-    private let moduleIsRoot: Bool
+    private var postsManager: PostManager? = nil
+    internal let moduleIsRoot: Bool
     
     init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, cachedVM: [PostViewModel]? = nil) {
         self.service = service
         self.moduleIsRoot = moduleIsRoot
         self.mainViewModel = Variable(PostMainViewModel(title: service.name, canRefresh: self.moduleIsRoot))
         self.postsManager = PostManager(thread: service.thread)
-        self.postsManager.update(vms: cachedVM)
+        self.postsManager?.update(vms: cachedVM)
         
         super.init(presenter: presenter)
         presenter.listener = self
@@ -58,7 +59,8 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         super.willResignActive()
         
         self.service.cancel()
-        self.postsManager.cancel()
+        self.postsManager?.cancel()
+        self.postsManager = nil
     }
     
     // MARK: ThreadPresentableListener
@@ -88,22 +90,23 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 switch action {
                 case .openReplys(let postUid): do {
                     if let post = self?.data.filter({ $0.uid == postUid }).first, let posts = self?.data, let thread = self?.service.thread {
-                        let replyModel = PostReplysViewModel(parent: post, posts: posts, thread: thread, cachedVM: self?.postsManager.internalPostVM)
+                        let replyModel = PostReplysViewModel(parent: post, posts: posts, thread: thread, cachedVM: self?.postsManager?.internalPostVM)
                         self?.router?.openThread(with: replyModel)
                     }
-                    }
-                case .openLink(let postUid, let url): do {
-                    self?.openByTextIndex(postUid: postUid, url: url)
                 }
                 case .refresh: do {
                     if self?.moduleIsRoot ?? false {
-                        self?.postsManager.resetCache()
+                        self?.postsManager?.resetCache()
                         self?.load()
                     }
                 }
-                case .popToRoot: do {
-                    self?.popToRoot()
-                }
+                    
+                case .openLink(let postUid, let url): self?.openByTextIndex(postUid: postUid, url: url)
+                case .popToRoot: self?.popToRoot()
+                case .reportThread: self?.reportThread()
+                case .copyPost(let postUid): self?.copyPost(uid: postUid)
+                case .cutPost(let postUid): self?.cutPost(uid: postUid)
+                case .open(let media): self?.showMedia(with: media)
                 }
             }).disposed(by: self.disposeBag)
     }
@@ -143,11 +146,11 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 
 
                 switch result.type {
-                case .all: strongSelf.postsManager.resetFilters()
-                case .replys(let parent): strongSelf.postsManager.addFilter(by: parent.uid)
-                case .replyed(let model): strongSelf.postsManager.onlyReplyed(uid: model.uid)
+                case .all: strongSelf.postsManager?.resetFilters()
+                case .replys(let parent): strongSelf.postsManager?.addFilter(by: parent.uid)
+                case .replyed(let model): strongSelf.postsManager?.onlyReplyed(uid: model.uid)
                 }
-                self?.postsManager.update(posts: models)
+                self?.postsManager?.update(posts: models)
 
                 self?.mainViewModel.value = PostMainViewModel(title: strongSelf.service.name, canRefresh: strongSelf.moduleIsRoot)
 
@@ -156,14 +159,14 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
             .map({ [weak self] models -> [PostViewModel] in
                 print("start mapping")
                 let start = Date()
-                self?.postsManager.process()
+                self?.postsManager?.process()
                 let end = Date()
                 print("end mapping \(end.timeIntervalSince1970 - start.timeIntervalSince1970)")
-                return self?.postsManager.filtredPostsVM ?? []
+                return self?.postsManager?.filtredPostsVM ?? []
             })
             .flatMap({ [weak self] models -> Observable<[PostViewModel]> in
                 self?.presenter.endRefreshing()
-                return Observable<[PostViewModel]>.just(self?.postsManager.filtredPostsVM ?? [])
+                return Observable<[PostViewModel]>.just(self?.postsManager?.filtredPostsVM ?? [])
             })
             .bind(to: self.dataSource)
             .disposed(by: self.service.disposeBag)
@@ -188,7 +191,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                         self.router?.openNewThread(with: threadToOpen)
                     } else {
                         if let replyedPost = posts.filter({ $0.uid == boardLink.post}).first {
-                            let replyes = PostReplysViewModel(parent: post, posts: posts, thread: thread, replyed: replyedPost, cachedVM: self.postsManager.internalPostVM)
+                            let replyes = PostReplysViewModel(parent: post, posts: posts, thread: thread, replyed: replyedPost, cachedVM: self.postsManager?.internalPostVM)
                             self.router?.openThread(with: replyes)
                         } else {
                             self.router?.openNewThread(with: thread)
@@ -203,6 +206,31 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
             case .externalLink: Helper.open(url: url)
             }
         }
+    }
+    
+    private func reportThread() {
+        FirebaseManager.shared.report(thread: self.service.thread)
+    }
+    
+    private func copyPost(uid: String) {
+        if let post = self.data.first(where: { $0.uid == uid }) {
+            UIPasteboard.general.string = post.comment
+        }
+    }
+    
+    private func cutPost(uid: String) {
+        if let post = self.postsManager?.filtredPostsVM.first(where: { $0.uid == uid }) {
+            UIPasteboard.general.string = post.text.string
+        }
+    }
+    
+    private func showMedia(with anchor: FileModel) {
+        let allFiles = self.data.flatMap { $0.files }
+        let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
+        if let vc = viewer.browser {
+            self.router?.showMediaViewer(vc)
+        }
+        
     }
 
 }

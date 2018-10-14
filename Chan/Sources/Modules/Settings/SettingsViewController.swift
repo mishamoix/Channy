@@ -59,8 +59,22 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
             .asDriver()
             .drive(onNext: { [weak self] _ in
                 if let result = self?.limitorSwitch.isOn {
-                    Values.shared.fullAccess = result
-                    self?.listener?.limitorChanged()
+                    if result {
+                        let vc = UIAlertController(title: "", message: "Подтвердите что вам более 17 лет", preferredStyle: UIAlertController.Style.alert)
+                        vc.addAction(UIAlertAction(title: "Да", style: .default, handler: { [weak self] _ in
+                            Values.shared.fullAccess = result
+                            self?.listener?.limitorChanged()
+                        }))
+                        vc.addAction(UIAlertAction(title: "Нет", style: .destructive, handler: { [weak self] _ in
+                            self?.limitorSwitch.isOn = false
+                        }))
+                        
+                        self?.present(vc, animated: true, completion: nil)
+                    } else {
+                        Values.shared.fullAccess = result
+                        self?.listener?.limitorChanged()
+                    }
+                    
                 }
             }).disposed(by: self.disposeBag)
 
