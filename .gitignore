@@ -109,3 +109,5 @@ iOSInjectionProject/
 
 # End of https://www.gitignore.io/api/swift,xcode,cocoapods
 /Chan/Resources/GoogleService-Info.plist
+Chan/.DS_Store
+sockets.log
