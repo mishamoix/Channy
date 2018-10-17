@@ -9,45 +9,68 @@
 import UIKit
 import RxSwift
 import Moya
+import Alamofire
 
 protocol BoardsListServiceProtocol: BaseServiceProtocol {
     typealias ResultType = [BoardCategoryModel]?
-    func loadAllBoards()
+    func loadAllBoards() -> Observable<ResultType>
+    func dropCache()
     
-    var publish: PublishSubject<ResultType>? { get set }
+    
 }
 
 class BoardsListService: BaseService, BoardsListServiceProtocol {
       
-    var publish: PublishSubject<ResultType>? = nil
     private let provider = ChanProvider<BoardsListTarget>()
+    
+    private var cachedResult: [BoardCategoryModel]? = nil
     
     override init() {
         super.init()
     }
     
-    func loadAllBoards() {
+    func loadAllBoards() -> Observable<ResultType> {
         
-        self.provider.rx.request(.list).subscribe(onSuccess: {[weak self] response  in
-            let res = self?.makeModels(data: response.data)
-            self?.publish?.on(.next(res))
-        }) { [weak self] error in
-            self?.publish?.on(.error(error))
-        }.disposed(by: self.disposeBag)
+        if self.cachedResult == nil {
+            return self.load()
+        } else {
+            return self.getCachedBoards()
+        }
+
     }
     
-    func makeModels(data: Data) -> ResultType {
+    func dropCache() {
+        self.cachedResult = nil
+    }
+    
+    private func getCachedBoards() -> Observable<ResultType> {
+        return Observable<ResultType>.just(self.cachedResult)
+    }
+    
+    private func load() -> Observable<ResultType> {
+        return self.provider.rx
+            .request(.list)
+            .asObservable()
+            .retry(RetryCount)
+            .flatMap {[weak self] (response) -> Observable<ResultType> in
+                let res = self?.makeModels(data: response.data)
+                self?.cachedResult = res
+                return Observable<ResultType>.just(res)
+        }
+
+    }
+    
+    private func makeModels(data: Data) -> ResultType {
         var result: ResultType = []
         
-        if let json = (try? JSONSerialization.jsonObject(with: data, options: [])) as? Dictionary<String, Any> {
+        if let json = self.fromJson(data: data) {
             for (key, value) in json {
                 
                 let category = BoardCategoryModel()
                 category.name = key
                 result?.append(category)
                 
-//                let valueData = NSKeyedArchiver.archivedData(withRootObject: value)
-                if let valueData = try? JSONSerialization.data(withJSONObject: value, options: .prettyPrinted) {
+                if let valueData = self.toJson(any: value) {
                     if let boards = BoardModel.parseArray(from: valueData) {
                         category.boards = boards
                     }

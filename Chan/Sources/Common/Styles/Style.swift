@@ -15,47 +15,47 @@ class Style {
 //    }
     
     class func post(text: String) -> NSMutableAttributedString {
-        return NSMutableAttributedString(string: text, attributes: [NSAttributedStringKey.font : UIFont.text, NSAttributedStringKey.foregroundColor: UIColor.black])
+      return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.text, NSAttributedString.Key.foregroundColor: UIColor.black])
     }
     
     class func postTitle(text: String) -> NSMutableAttributedString {
-        return NSMutableAttributedString(string: text, attributes: [NSAttributedStringKey.font : UIFont.postTitle, NSAttributedStringKey.foregroundColor: UIColor.black])
+        return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.postTitle, NSAttributedString.Key.foregroundColor: UIColor.black])
     }
     
     class func em(text: NSMutableAttributedString, range: NSRange) {
-        text.addAttributes([NSAttributedStringKey.font : UIFont.textItalic], range: range)
+        text.addAttributes([NSAttributedString.Key.font : UIFont.textItalic], range: range)
     }
     
     class func strong(text: NSMutableAttributedString, range: NSRange) {
-        text.addAttributes([NSAttributedStringKey.font : UIFont.textStrong], range: range)
+        text.addAttributes([NSAttributedString.Key.font : UIFont.textStrong], range: range)
     }
     
     class func emStrong(text: NSMutableAttributedString, range: NSRange) {
-        text.addAttributes([NSAttributedStringKey.font : UIFont.textItalicStrong], range: range)
+        text.addAttributes([NSAttributedString.Key.font : UIFont.textItalicStrong], range: range)
     }
     
     class func underline(text: NSMutableAttributedString, range: NSRange) {
-        text.addAttributes([NSAttributedStringKey.underlineStyle : NSUnderlineStyle.styleSingle], range: range)
+        text.addAttributes([NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single], range: range)
     }
     
     class func spoiler(text: NSMutableAttributedString, range: NSRange) {
-        text.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.spoiler], range: range)
+        text.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.spoiler], range: range)
     }
     
     class func quote(text: NSMutableAttributedString, range: NSRange) {
-        text.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.unkfunc], range: range)
+        text.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.unkfunc], range: range)
     }
     
     class func linkPost(text: NSMutableAttributedString, range: NSRange, url: URL? = nil) {
-        var attrs: [NSAttributedStringKey:Any] = [NSAttributedStringKey.foregroundColor: UIColor.reply]
+        var attrs: [NSAttributedString.Key:Any] = [NSAttributedString.Key.foregroundColor: UIColor.reply]
         if let url = url {
-            attrs[NSAttributedStringKey.link] = url
+            attrs[NSAttributedString.Key.chanlink] = url
         }
         text.addAttributes(attrs, range: range)
     }
     
     class func removeLink(text: NSMutableAttributedString, range: NSRange) {
-        text.removeAttribute(NSAttributedStringKey.link, range: range)
+        text.removeAttribute(NSAttributedString.Key.link, range: range)
     }
     
     

@@ -32,5 +32,9 @@ class ThreadModel: BaseModel, Decodable {
         case postsCount = "posts_count"
         case posts
     }
+    
+    var threadPath: String {
+        return "\(self.board?.uid ?? "")_\(self.uid)"
+    }
 
 }

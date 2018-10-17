@@ -43,6 +43,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         self.setup()
     }
     
+    // MARK: BoardPresentable
+    
     //MARK: Private
     private func setup() {
         self.setupUI()
@@ -54,6 +56,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         
         self.bgImage.alpha = 0.15
         self.bgImage.clipsToBounds = true
+        
+        self.refreshControl.beginRefreshing()
     }
     
     private func setupRx() {
@@ -63,15 +67,15 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 self?.navigationItem.title = model.title
             }).disposed(by: self.disposeBag)
         
-        self.listener?.dataSource.asObservable()
-            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+        self.listener?.dataSource
+            .asObservable()
+            .debug()
+            .observeOn(Helper.rxMainThread)
             .map({ [weak self] models -> [ThreadViewModel] in
                 return models.map { $0.calculateSize(max: self?.tableWidth ?? 0) }
             })
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] result in
-                self?.refreshControl.endRefreshing()
-                
+            .subscribe(onNext: { [weak self] result in                
                 
                 if let oldData = self?.data, let tableView = self?.tableView {
 //                    let diff = ListDiff(oldArray: oldData, newArray: result, option: .equality)
@@ -91,8 +95,6 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                     self?.data = result
                     self?.tableView.reloadData()
                 }
-            }, onError: { [weak self] error in
-                self?.listener?.viewActions.on(.next(.reload))
             }).disposed(by: self.disposeBag)
         
         self.cellActions

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AlamofireImage
 import SnapKit
 import RxSwift
 import RxCocoa
@@ -82,9 +81,11 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
         self.message.setNeedsDisplay()
         
 
-        self.iconView.af_cancelImageRequest()
+        self.iconView.cancelLoad()
+        self.iconView.image = nil
         if let thumbnail = model.thumbnail {
-            self.iconView.af_setImage(withURL: thumbnail)
+            self.iconView.load(url: thumbnail)
+//            self.iconView.af_setImage(withURL: thumbnail)
         }
       
     }

@@ -10,10 +10,16 @@ import UIKit
 
 class PostManager {
     
+    class CancellationToken {
+        var isCancelled = false
+    }
+    
     private var posts: [PostModel] = []
     private let thread: ThreadModel
     
     private var isProcessed = false
+    
+    private var cancellationToken = CancellationToken()
     
     var filtredPostsVM: [PostViewModel] {
         if let parentUid = self.filterParentUid {
@@ -39,6 +45,7 @@ class PostManager {
     
     func update(posts: [PostModel]) {
         self.posts = posts
+        self.cancellationToken = CancellationToken()
     }
     
     func update(vms: [PostViewModel]?) {
@@ -62,12 +69,24 @@ class PostManager {
         self.replyedUid = uid
     }
     
+    func cancel() {
+        self.cancellationToken.isCancelled = true
+    }
+    
     func process() {
         if self.isProcessed {
             return
         }
         
-        let postsVM = self.posts.compactMap { PostViewModel(model: $0, thread: thread.uid) }
+        var postsVM: [PostViewModel] = []
+        for post in self.posts {
+            if self.cancellationToken.isCancelled {
+                return
+            }
+            
+            postsVM.append(PostViewModel(model: post, thread: thread.uid))
+        }
+//        let postsVM = self.posts.compactMap { PostViewModel(model: $0, thread: thread.uid) }
         self.internalPostVM = postsVM
         
         if self.internalPostVM.count != 0 {

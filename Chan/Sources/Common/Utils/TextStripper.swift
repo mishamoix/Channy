@@ -18,14 +18,19 @@ class TextStripper {
     
     static func htmlToNormal(in text: String) -> String {
         return text
-            .replacingOccurrences(of: "\n", with: "")
-            .replacingOccurrences(of: "<br />", with: "\n")
-            .replacingOccurrences(of: "<br/>", with: "\n")
-            .replacingOccurrences(of: "<br>", with: "\n")
             .replacingOccurrences(of: "&#39;", with: "'")
             .replacingOccurrences(of: "&#44;", with: ",")
             .replacingOccurrences(of: "&#47;", with: "/")
             .replacingOccurrences(of: "&#92;", with: "\\")
+            .replacingOccurrences(of: "\\n", with: " ")
+            .replacingOccurrences(of: "\\r", with: "")
+            .replacingOccurrences(of: "\\t", with: " ")
+            .replacingOccurrences(of: "\n", with: "")
+            .replacingOccurrences(of: "\r", with: "")
+            .replacingOccurrences(of: "\t", with: "")
+            .replacingOccurrences(of: "<br />", with: "\n")
+            .replacingOccurrences(of: "<br/>", with: "\n")
+            .replacingOccurrences(of: "<br>", with: "\n")
     }
     
     static func finishHtmlToNormal(in text: NSMutableString) {
@@ -35,6 +40,14 @@ class TextStripper {
         text.replaceOccurrences(of: "&quot;", with: "\"", options: NSString.CompareOptions.caseInsensitive, range: NSRange(location: 0, length: text.length))
         text.replaceOccurrences(of: "&amp;", with: "&", options: NSString.CompareOptions.caseInsensitive, range: NSRange(location: 0, length: text.length))
     }
+    
+    static func finishHtmlToNormalString(in text: String) -> String {
+        return text
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&lt;", with: "<")
+            .replacingOccurrences(of: "&amp;", with: "&")
+            .replacingOccurrences(of: "&quot;", with: "\\")
+    }
 
     
     static func ampToNormal(in text: String) -> String {
@@ -43,8 +56,10 @@ class TextStripper {
     }
     
     static func clean(text: String) -> String {
-        let components = text.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
-        return components.filter { !$0.isEmpty }.joined(separator: " ")
+//        return text
+        return text.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+//        let components = text.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
+//        return components.filter { !$0.isEmpty }.joined(separator: " ")
 
 //        return text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
@@ -53,6 +68,7 @@ class TextStripper {
         var newText = TextStripper.removeAllTags(in: text)
         newText = TextStripper.ampToNormal(in: newText)
         newText = TextStripper.htmlToNormal(in: newText)
+        newText = TextStripper.finishHtmlToNormalString(in: newText)
         newText = TextStripper.clean(text: newText)
         return newText
     }

@@ -1,20 +1,65 @@
 PODS:
-  - Alamofire (4.7.2)
-  - AlamofireImage (3.3.1):
-    - Alamofire (~> 4.5)
-  - AXPhotoViewer/Core (1.4.3):
-    - AXStateButton (>= 1.1.3)
-    - FLAnimatedImage (>= 1.0.0)
-    - FLAnimatedImage-tvOS (>= 1.0.16)
-  - AXPhotoViewer/Lite (1.4.3):
-    - AXPhotoViewer/Core
-  - AXStateButton (1.1.4)
-  - FLAnimatedImage (1.0.12)
+  - Alamofire (4.7.3)
+  - AlamofireImage (3.4.1):
+    - Alamofire (~> 4.7)
+  - DACircularProgress (2.3.1)
+  - Firebase/Core (5.9.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 5.2.0)
+  - Firebase/CoreOnly (5.9.0):
+    - FirebaseCore (= 5.1.4)
+  - Firebase/Database (5.9.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (= 5.0.3)
+  - FirebaseAnalytics (5.2.0):
+    - FirebaseCore (~> 5.1)
+    - FirebaseInstanceID (~> 3.2)
+    - GoogleAppMeasurement (~> 5.2)
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (5.1.4):
+    - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseDatabase (5.0.3):
+    - FirebaseCore (~> 5.0)
+    - leveldb-library (~> 1.18)
+  - FirebaseInstanceID (3.2.2):
+    - FirebaseCore (~> 5.1)
+    - GoogleUtilities/Environment (~> 5.3)
+    - GoogleUtilities/UserDefaults (~> 5.3)
+  - GoogleAppMeasurement (5.2.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - GoogleUtilities/AppDelegateSwizzler (5.3.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (5.3.0)
+  - GoogleUtilities/Logger (5.3.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (5.3.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (5.3.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (5.3.0)"
+  - GoogleUtilities/Reachability (5.3.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (5.3.0):
+    - GoogleUtilities/Logger
   - IGListKit (3.4.0):
     - IGListKit/Default (= 3.4.0)
   - IGListKit/Default (3.4.0):
     - IGListKit/Diffing
   - IGListKit/Diffing (3.4.0)
+  - leveldb-library (1.20)
+  - MBProgressHUD (0.9.2)
   - Moya (11.0.2):
     - Moya/Core (= 11.0.2)
   - Moya/Core (11.0.2):
@@ -23,59 +68,93 @@ PODS:
   - Moya/RxSwift (11.0.2):
     - Moya/Core
     - RxSwift (~> 4.0)
+  - MWPhotoBrowser (2.1.2):
+    - DACircularProgress (~> 2.3)
+    - MBProgressHUD (~> 0.9)
+    - "SDWebImage (!= 3.7.2, ~> 3.7)"
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
   - Result (3.2.4)
   - RIBs (0.9.1):
     - RxSwift (~> 4.0)
-  - RxCocoa (4.2.0):
+  - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
-  - RxSwift (4.2.0)
-  - SnapKit (4.0.0)
-  - SwiftSoup (1.7.1)
+  - RxSwift (4.3.1)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - SnapKit (4.0.1)
+  - SwiftyUserDefaults (4.0.0-alpha.1)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
-  - AXPhotoViewer/Lite
+  - Firebase/Core
+  - Firebase/Database
   - IGListKit (~> 3.0)
   - Moya
   - Moya/RxSwift
+  - MWPhotoBrowser
   - RIBs
   - RxCocoa
   - RxSwift
   - SnapKit
-  - SwiftSoup
+  - SwiftyUserDefaults (= 4.0.0-alpha.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
-    - AXPhotoViewer
-    - AXStateButton
-    - FLAnimatedImage
+    - DACircularProgress
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseDatabase
+    - FirebaseInstanceID
+    - GoogleAppMeasurement
+    - GoogleUtilities
     - IGListKit
+    - leveldb-library
+    - MBProgressHUD
     - Moya
+    - MWPhotoBrowser
+    - nanopb
     - Result
     - RIBs
     - RxCocoa
     - RxSwift
+    - SDWebImage
     - SnapKit
-    - SwiftSoup
+    - SwiftyUserDefaults
 
 SPEC CHECKSUMS:
-  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
-  AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
-  AXPhotoViewer: fb5c57219615b37b66d785ab602cc53d71e29212
-  AXStateButton: 6c515a433e37551505046429b5be04c12daa8c07
-  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  Firebase: 383fa29aca93e371cab776b48a5c66544d3c2003
+  FirebaseAnalytics: 831f1f127f4a75698e9875a87bf7e2668730d953
+  FirebaseCore: 2a84b6b325792a4319ef71ee18819dcba08d2fd7
+  FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
+  FirebaseInstanceID: 78ba376fcd5b94c001f9999b2cbd3d1f1e56e78d
+  GoogleAppMeasurement: 2b3a023a61239c8d002e6e4fcf4abce8eddce0e0
+  GoogleUtilities: 760ccb53b7c7f40f9c02d8c241f76f841a7a6162
   IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   Moya: a725035953bc1c0eb1be505ab903984501d82440
+  MWPhotoBrowser: 5836d7aa041dc05a13de380c246826578adc5ea5
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RIBs: 879184fbca567425c488d6b3d14a9c5abfbf9d47
-  RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
-  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  SwiftSoup: 277f7ef548826e0ca7603a06b30d4a5df3ee0587
+  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
+  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
 
-PODFILE CHECKSUM: 2ea3f347d479ec6c7380dd7762f4cc8768c4a9cd
+PODFILE CHECKSUM: 23b20e52808e9f3e3524be2c6b40d3146586d810
 
 COCOAPODS: 1.5.3

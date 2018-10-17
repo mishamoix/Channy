@@ -892,9 +892,13 @@
         
         CGRect textRect = rect;
       if (attributedText) {
-        NSStringDrawingContext *ctx = [[NSStringDrawingContext alloc] init];
-        ctx.minimumScaleFactor = [UIScreen mainScreen].scale;
-        [attributedText drawWithRect:textRect options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics context:ctx];
+          if ([attributedText isKindOfClass:[NSAttributedString class]]) {
+            NSStringDrawingContext *ctx = [[NSStringDrawingContext alloc] init];
+            ctx.minimumScaleFactor = [UIScreen mainScreen].scale;
+            [attributedText drawWithRect:textRect options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics context:ctx];
+          } else {
+              int a = 1;
+          }
       } else {
         [text drawInRect:textRect withFont:font lineBreakMode:(numberOfLines == 0 ? NSLineBreakByWordWrapping : NSLineBreakByTruncatingTail)];
       }

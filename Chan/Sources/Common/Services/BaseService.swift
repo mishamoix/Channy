@@ -11,6 +11,7 @@ import RxSwift
 
 protocol BaseServiceProtocol {
     func cancel()
+    var disposeBag: DisposeBag { get }
 }
 
 class BaseService: BaseServiceProtocol {
@@ -21,5 +22,35 @@ class BaseService: BaseServiceProtocol {
         self.disposeBag = DisposeBag()
     }
     
+    func handleError(err: Error?) -> Error {
+        let helper = ErrorHelper(error: err)
+        return helper.makeError()
+    }
+    
+    func fromJson(data: Data?) -> [String:Any]? {
+        if let data = data, let result = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String:Any] {
+            return result
+        }
+        
+        return nil
+    }
+    
+    
+    func toJson(any: Any?) -> Data? {
+        if let any = any, let result = try? JSONSerialization.data(withJSONObject: any, options: .prettyPrinted) {
+            return result
+        }
+        
+        return nil
+    }
+    
+    func toJson(dict: [String:Any]?) -> Data? {
+        return self.toJson(any: dict as Any)
+    }
+    
+    func toJson(array: [Any]?) -> Data? {
+        return self.toJson(any: array as Any)
+    }
+
 
 }

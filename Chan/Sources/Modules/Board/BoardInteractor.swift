@@ -15,7 +15,6 @@ protocol BoardRouting: ViewableRouting {
 
 protocol BoardPresentable: Presentable {
     var listener: BoardPresentableListener? { get set }
-    // TODO: Declare methods the interactor can invoke the presenter to present data.
 }
 
 protocol BoardListener: class {
@@ -23,16 +22,15 @@ protocol BoardListener: class {
 }
 
 final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInteractable, BoardPresentableListener {
-    
 
     weak var router: BoardRouting?
     weak var listener: BoardListener?
     
     private var service: BoardServiceProtocol
-    private let serviceListener: PublishSubject<BoardServiceProtocol.ResultType> = PublishSubject()
     private let disposeBag = DisposeBag()
     
     private var data: [ThreadModel] = []
+    private var viewModels: [ThreadViewModel] = []
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
@@ -49,7 +47,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         super.didBecomeActive()
         self.setup()
         
-        self.service.loadNext()
+        self.load(reload: true)
     }
 
     override func willResignActive() {
@@ -59,43 +57,79 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     // MARK: BoardPresentableListener
     var mainViewModel: Variable<BoardMainViewModel> = Variable(BoardMainViewModel(title: ""))
     var dataSource: Variable<[ThreadViewModel]> = Variable([])
-    
     var viewActions: PublishSubject<BoardAction> = PublishSubject()
 
+    // MARK: ThreadListener
+    func popToRoot() {
+        // pop to root thread
+    }
     
     // MARK: Private
     func setup() {
-        self.service.publish = self.serviceListener
         self.setupRx()
     }
     
-    func setupRx() {
-        self.serviceListener
-            .subscribe(onNext: { [weak self] result in
-//                if let result = result {
-                let threads = result.result
-                let threadsVM = threads.map({ ThreadViewModel(with: $0) })
+    func load(reload: Bool = false) {
+        self.presenter.startRefreshing()
+
+        self.service
+            .loadNext(realod: reload)?
+            .asObservable()
+            .observeOn(Helper.rxBackgroundThread)
+            .retryWhen({ [weak self] errorObservable in
+                return errorObservable.flatMap({ error -> Observable<Void>  in
+                    let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry, .ok])
+                    errorManager.show()
+                    
+                    return errorManager.actions
+                        .flatMap({ type -> Observable<Void> in
+                            if type == .retry {
+                                self?.presenter.startRefreshing()
+                                return Observable<Void>.just(Void())
+                            } else {
+                                self?.presenter.endRefreshing()
+                                return Observable<Void>.empty()
+                            }
+                        })
+                    
+                })
+            })
+            .flatMap({ [weak self] result -> Observable<[ThreadViewModel]> in
+                let threads = result.result.filter({ !FirebaseManager.shared.excludeThreads.contains($0.threadPath) })
+                let threadsVM = threads
+                    
+                    .map({ ThreadViewModel(with: $0) })
                 
+                var allVM: [ThreadViewModel] = []
+                if let prev = self?.viewModels {
+                    allVM += prev
+                }
+            
                 switch result.type {
                 case .first:
                     self?.data = threads
-                    self?.dataSource.value = threadsVM
+                    allVM = threadsVM
+                    self?.viewModels = threadsVM
                 default:
+                    self?.viewModels += threadsVM
                     self?.data += threads
-                    self?.dataSource.value += threadsVM
+                    allVM += threadsVM
                 }
-                
-                
-//                }
-            }, onError: { error in
-                
-            }).disposed(by: self.disposeBag)
-        
+            
+                self?.presenter.endRefreshing()
+                return Observable<[ThreadViewModel]>.just(allVM)
+
+            })
+            .bind(to: self.dataSource)
+            .disposed(by: self.disposeBag)
+    }
+    
+    func setupRx() {
         self.viewActions
             .subscribe(onNext: { [weak self] action in
                 switch action {
                 case .loadNext: do {
-                    self?.service.loadNext()
+                    self?.load()
                 }
                 case .openThread(let idx): do {
                     if let thread = self?.data[idx] {
@@ -104,10 +138,12 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 }
                 case .reload: do {
                     self?.service.cancel()
-                    self?.service.reload()
+                    self?.load(reload: true)
                     }
                 }
             }).disposed(by: self.disposeBag)
     }
+    
+
 
 }

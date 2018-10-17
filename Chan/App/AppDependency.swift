@@ -10,28 +10,50 @@ import UIKit
 import Moya
 import RIBs
 import AlamofireImage
-import SwiftSoup
+import RxSwift
+import Firebase
+import FirebaseDatabase
 
 class AppDependency: NSObject {
+    
+    let disposeBag = DisposeBag()
+    
     static var shared = AppDependency()
     private var launchRouter: LaunchRouting?
 
     var interfaceImageDownloader: ImageDownloader = ImageDownloader()
 
     func startApp(with window: UIWindow) {
+
+        self.commonSetup()
+        
         let launchRouter = RootBuilder(dependency: AppComponent()).build()
         self.launchRouter = launchRouter
         launchRouter.launchFromWindow(window)
-        
-        
-//        test()
     }
     
-    func test() {
-        let text = "<a href=\"/b/res/183065082.html#183071189\" class=\"post-reply-link\" data-thread=\"183065082\" data-num=\"183071189\">>>183071189      </a> <span class=\"unkfunc\">>1          и как всегда <a href=\"/b/res/183065082.html#183071189\" class=\"post-reply-link\" data-thread=\"183065082\" data-num=\"183071189\">>>183071189</a> лучшие вет клиники в СШП</span>"
+    func commonSetup() {
+        self.setupMainAppearance()
+        self.setupFirebase()
         
-        PostPreparation(text: text, thread: "1", post: "2")
+        FirebaseManager.setup()
     }
+
+    
+    func setupMainAppearance() {
+        UIBarButtonItem.appearance().tintColor = .main
+    }
+    
+    func setupFirebase() {
+        FirebaseApp.configure()
+        
+        Database.database().isPersistenceEnabled = true
+    }
+    
+    
+
+    
+
 
     
   

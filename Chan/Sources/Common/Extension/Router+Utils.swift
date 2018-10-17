@@ -19,8 +19,16 @@ public extension Router where InteractorType: Any {
             }
             
             self.detachChild(router)
+            vc.removeFromParent()
+
         }
         
         return true
+    }
+    
+    public func tryDeattach(router: ViewableRouting?, block: () -> ()) {
+        if self.canDeattach(router: router) {
+            block()
+        }
     }
 }

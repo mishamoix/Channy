@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class ThreadRepledService: ThreadReplyService {
     
@@ -21,8 +22,12 @@ class ThreadRepledService: ThreadReplyService {
         super.init(thread: thread, parent: parent, posts: posts)
     }
     
-    override func load() {
+    
+    
+    override func load() -> Observable<ResultType> {
         let result = ResultThreadModel<DataType>(result: self.posts, type: .replyed(post: self.replyedPost))
-        self.publish?.on(.next(result))
+        return Observable<ResultType>.just(result)
     }
+    
+
 }

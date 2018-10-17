@@ -64,17 +64,19 @@ class PostViewModel {
         self.name = model.name
         self.number = model.number
         self.date = String.date(from: date)
+        
+        print("Inited PostVM \(model.number)")
     }
     
     func calculateSize(max width: CGFloat) {
-        let textSize = TextSize(text: self.text.string, maxWidth: width, font: UIFont.text, lineHeight: UIFont.text.lineHeight)
+        
+        let maxTextWidth = width - (PostTextLeftMargin + PostTextRightMargin)
+        
+        let textSize = TextSize(text: self.text.string, maxWidth: maxTextWidth, font: UIFont.text, lineHeight: UIFont.text.lineHeight)
         let textHeight = textSize.calculate().height
         
         let titleHeight = TextSize(text: self.title.string, maxWidth: CGFloat.infinity, font: UIFont.postTitle, lineHeight: UIFont.postTitle.lineHeight).calculate().height
-        
-//        self.titleHeight = titleHeight
-//        self.textHeight = textHeight
-//
+
         let headerSection: CGFloat = PostTitleTopMargin + titleHeight
         var mediaSection: CGFloat = 0
         let textSection: CGFloat = PostTextTopMargin + textHeight
@@ -95,6 +97,7 @@ class PostViewModel {
 
         self.titleFrame = CGRect(x: PostTitleLeftMargin, y: PostTitleTopMargin, width: width - (PostTitleLeftMargin + PostTitleRightMargin), height: titleHeight)
         self.mediaFrame = CGRect(x: PostMediaMargin, y: headerSection + PostMediaTopMargin, width: mediaWidthHeight, height: mediaWidthHeight)
+        
         self.textFrame = CGRect(x: PostTextLeftMargin, y: headerSection + mediaSection + PostTextTopMargin, width: width - PostTextLeftMargin - PostTextRightMargin, height: textHeight)
         self.bottomFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
         

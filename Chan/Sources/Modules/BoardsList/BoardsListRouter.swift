@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol BoardsListInteractable: Interactable, BoardListener {
+protocol BoardsListInteractable: Interactable, BoardListener, SettingsListener, WebAcceptListener {
     var router: BoardsListRouting? { get set }
     var listener: BoardsListListener? { get set }
 }
@@ -20,23 +20,66 @@ protocol BoardsListViewControllable: ViewControllable {
 final class BoardsListRouter: ViewableRouter<BoardsListInteractable, BoardsListViewControllable>, BoardsListRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: BoardsListInteractable, viewController: BoardsListViewControllable, board: BoardBuildable) {
+    init(interactor: BoardsListInteractable, viewController: BoardsListViewControllable, board: BoardBuildable, settings: SettingsBuildable, agreement: WebAcceptBuildable) {
         self.boardBuildable = board
+        self.settingsBuildable = settings
+        self.agreementBuildable = agreement
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
     
-    // MARK: Private
-    private let boardBuildable: BoardBuildable
-    private weak var board: ViewableRouting?
-    
+    // MARK: BoardsListRouting
     func openBoard(with board: BoardModel) {
-        if self.canDeattach(router: self.board) {
+        
+        self.tryDeattach(router: self.board) {
             let board = self.boardBuildable.build(withListener: self.interactor, board: board)
             self.attachChild(board)
             self.board = board
             
             self.viewController.push(view: board.viewControllable)
+            
+        }
+        
+    }
+    
+    func openSettings() {
+        self.tryDeattach(router: self.setting) {
+            let setting = self.settingsBuildable.build(withListener: self.interactor)
+            self.attachChild(setting)
+            self.setting = setting
+            
+            self.viewController.push(view: setting.viewControllable)
         }
     }
+    
+    func openAgreement(model: WebAcceptViewModel) {
+        self.closeAgreement()
+        self.tryDeattach(router: self.agreement) {
+            let agreement = self.agreementBuildable.build(withListener: self.interactor, model: model)
+            self.agreement = agreement
+            self.attachChild(agreement)
+            
+            self.viewController.present(view: agreement.viewControllable)
+        }
+    }
+    
+    func closeAgreement() {
+        self.agreement?.viewControllable.dismiss()
+        self.tryDeattach(router: self.agreement) {
+            self.agreement = nil
+        }
+    }
+    
+    
+    
+    // MARK: Private
+    private let boardBuildable: BoardBuildable
+    private weak var board: ViewableRouting?
+    
+    private let settingsBuildable: SettingsBuildable
+    private weak var setting: ViewableRouting?
+    
+    private let agreementBuildable: WebAcceptBuildable
+    private weak var agreement: ViewableRouting?
+
 }

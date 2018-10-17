@@ -45,6 +45,15 @@ final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControlla
         }
     }
     
+    func popToCurrent() {
+        self.viewControllable.pop(animated: true, view: self.viewControllable)
+    }
+    
+    func showMediaViewer(_ vc: UIViewController) {
+//        self.viewController.uiviewController.present(vc, animated: true, completion: nil)
+        self.viewController.uiviewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     // MARK: Private
     private let threadBuilder: ThreadBuildable
     private weak var thread: ViewableRouting?

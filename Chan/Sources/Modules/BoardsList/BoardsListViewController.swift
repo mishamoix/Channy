@@ -18,7 +18,7 @@ protocol BoardsListPresentableListener: class {
     var viewActions: PublishSubject<BoardsListAction> { get }
 }
 
-final class BoardsListViewController: BaseViewController, BoardsListPresentable, BoardsListViewControllable {
+final class BoardsListViewController: BaseViewController, BoardsListPresentable, BoardsListViewControllable, ViewRefreshing {
     weak var listener: BoardsListPresentableListener?
     
     // MARK: Data
@@ -29,8 +29,9 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     //MARK: UI
     @IBOutlet weak var tableView: UITableView!
     private let seacrhBar: UISearchBar = UISearchBar()
-    
-    //MARK: Other
+    @IBOutlet weak var loader: UIActivityIndicatorView!
+  
+  //MARK: Other
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -38,7 +39,15 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.setup()
     }
     
-    //MARK: BoardsListPresentable
+    // MARK: BoardsListPresentable
+    
+    // MARK: ViewRefreshing
+    func endRefresh() {
+        self.loader.stopAnimating()
+    }
+    func startRefresh() {
+        
+    }
     
     //MARK: Private
     private func setup() {
@@ -56,12 +65,20 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     }
     
     private func setupRx() {
-        self.listener?.dataSource.asObservable().subscribe(onNext: { [weak self] result in
-            self?.tableView.reloadData()
-            
-        }, onError: { [weak self] error in
-                
-        }).disposed(by: self.disposeBag)
+        self.listener?.dataSource
+            .asObservable()
+            .observeOn(Helper.rxMainThread)
+            .subscribe(onNext: { [weak self] result in
+                self?.tableView.reloadData()
+            }).disposed(by: self.disposeBag)
+        
+        self.navigationItem.rightBarButtonItem?
+            .rx
+            .tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.listener?.viewActions.on(.next(.openSettings))
+            }).disposed(by: self.disposeBag)
     }
     
     private func setupTableView() {
@@ -77,9 +94,12 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     
     private func setupSearchBar() {
         self.seacrhBar.searchBarStyle = .prominent
-        self.seacrhBar.placeholder = "Поиск по бордам"
+        self.seacrhBar.placeholder = "Фильтр по доскам"
         self.navigationItem.titleView = self.seacrhBar
         self.seacrhBar.delegate = self
+        
+        let settingButton = UIBarButtonItem(image: .settings, style: .plain, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = settingButton
     }
 }
 

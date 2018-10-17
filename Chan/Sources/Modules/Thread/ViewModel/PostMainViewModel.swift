@@ -11,9 +11,11 @@ import UIKit
 class PostMainViewModel: NSObject {
 
     let title: String
+    let canRefresh: Bool
     
-    init(title: String) {
+    init(title: String, canRefresh: Bool) {
         self.title = TextStripper.fullClean(text: title)
+        self.canRefresh = canRefresh
     }
     
 }

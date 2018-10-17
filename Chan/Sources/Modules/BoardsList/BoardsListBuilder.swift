@@ -8,12 +8,12 @@
 
 import RIBs
 
-protocol BoardsListDependency: Dependency, BoardDependency {
+protocol BoardsListDependency: Dependency {
     // TODO: Declare the set of dependencies required by this RIB, but cannot be
     // created by this RIB.
 }
 
-final class BoardsListComponent: Component<BoardsListDependency> {
+final class BoardsListComponent: Component<BoardsListDependency>, BoardDependency, SettingsDependency, WebAcceptDependency {
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
@@ -37,9 +37,11 @@ final class BoardsListBuilder: Builder<BoardsListDependency>, BoardsListBuildabl
         let interactor = self.buildInteractor(vc: viewController)
         interactor.listener = listener
         
-        let board = BoardBuilder(dependency: self.dependency)
+        let board = BoardBuilder(dependency: component)
+        let settings = SettingsBuilder(dependency: component)
+        let agreement = WebAcceptBuilder(dependency: component)
         
-        return BoardsListRouter(interactor: interactor, viewController: viewController, board: board)
+        return BoardsListRouter(interactor: interactor, viewController: viewController, board: board, settings: settings, agreement: agreement)
     }
     
     // MARK: Private

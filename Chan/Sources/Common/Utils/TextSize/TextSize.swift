@@ -23,7 +23,7 @@ open class TextSize {
     self.font = font
     self.lineHeight = lineHeight
     
-    self.attributedString = NSAttributedString(string: text, attributes: [NSAttributedStringKey.font : font])
+    self.attributedString = NSAttributedString(string: text, attributes: [NSAttributedString.Key.font : font])
   }
   
 //  public init(attributed: NSAttributedString, maxWidth: CGFloat, lineHeight: CGFloat? = nil) {

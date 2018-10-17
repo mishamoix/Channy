@@ -16,9 +16,9 @@ protocol ThreadServiceProtocol: BaseServiceProtocol {
     typealias DataType = [PostModel]
 
     var thread: ThreadModel { get }
-    var publish: PublishSubject<ResultType>? { get set }
+//    var publish: PublishSubject<ResultType>? { get set }
 
-    func load()
+    func load() -> Observable<ResultType>
     
     var name: String { get }
 }
@@ -26,7 +26,7 @@ protocol ThreadServiceProtocol: BaseServiceProtocol {
 class ThreadService: BaseService, ThreadServiceProtocol {
     
     let thread: ThreadModel
-    var publish: PublishSubject<ResultType>? = nil
+//    var publish: PublishSubject<ResultType>? = nil
     
     private let provider = ChanProvider<ThreadTarget>()
     
@@ -40,31 +40,31 @@ class ThreadService: BaseService, ThreadServiceProtocol {
         self.updateInternalName(thread.posts)
     }
     
-    func load() {
-        self.provider
+    func load() -> Observable<ResultType> {
+        
+        return self.provider
             .rx
             .request(.load(board: self.thread.board?.uid ?? "", idx: self.thread.uid))
             .asObservable()
-            .subscribe(onNext: { [weak self] response in
+            .flatMap({ [weak self] response -> Observable<ResultType> in
                 if let res = self?.makeModel(data: response.data) {
                     self?.updateInternalName(res)
                     let result = ResultThreadModel<DataType>(result: res, type: .all)
-                    self?.publish?.on(.next(result))
+                    return Observable<ResultType>.just(result)
+                } else {
+                    return Observable<ResultType>.error(ChanError.parseError)
                 }
-
-            }, onError: { [weak self] error in
-//                self?.publish.
-            }).disposed(by: self.disposeBag)
+            })
     }
     
     private func makeModel(data: Data) -> DataType {
         
         var result: DataType = []
-        if let json = (try? JSONSerialization.jsonObject(with: data, options: [])) as? Dictionary<String, Any> {
+        if let json = self.fromJson(data: data) {
             
             
             if let threads = json["threads"] as? [Any], let postsArray = threads.first as? [String:Any], let posts = postsArray["posts"] as? [[String:AnyObject]] {
-                if let valueData = try? JSONSerialization.data(withJSONObject: posts, options: .prettyPrinted) {
+                if let valueData = self.toJson(array: posts) {
                     if let res = PostModel.parseArray(from: valueData) {
                         result = res
                     }

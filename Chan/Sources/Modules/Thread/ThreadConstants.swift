@@ -33,15 +33,28 @@ let PostBottomHeight = PostButtonBottomMargin + PostButtonSize.height
 let PostMediaMargin = DefaultMargin
 let PostMediaTopMargin = DefaultMargin
 
+let PostScrollDownButtonSize = CGSize(width: 44, height: 44)
+let PostScrollDownButtonRightMargin = MediumMargin
+let PostScrollDownButtonBottomMargin = MediumMargin
+
+
+//let PostScrollDownButtonImageSize = CGSize(width: 44, height: 44)
 
 enum PostAction {
     case openReplys(postUid: String)
-    case openByTextIndex(postUid: String, idx: Int)
+    case openLink(postUid: String, url: URL)
+    case refresh
+    case popToRoot
+    case reportThread
+    case copyPost(postUid: String)
+    case cutPost(postUid: String)
+    case open(media: FileModel)
+
 }
 
 enum PostCellAction {
     case openReplys(cell: UICollectionViewCell)
-    case tappedAtText(idx: Int, cell: UICollectionViewCell)
-    case openMedia(idx: Int, cell: UICollectionViewCell, view: UIView)
+    case tappedAtLink(url: URL, cell: UICollectionViewCell)
+    case openMedia(idx: Int, cell: UICollectionViewCell, view: UIImageView)
 }
 

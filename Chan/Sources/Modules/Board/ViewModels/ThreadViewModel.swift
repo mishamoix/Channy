@@ -22,7 +22,7 @@ class ThreadViewModel {
     private let uid: String
     
     var displayText: String {
-        return "[\(self.postsCount)] " + (self.comment ?? "")
+        return "[\(max(self.postsCount, 1))] " + (self.comment ?? "")
     }
     
     init(with model: ThreadModel) {
@@ -38,23 +38,7 @@ class ThreadViewModel {
     }
     
     func calculateSize(max width: CGFloat) -> ThreadViewModel {
-        
-        let contentWidth = width - 2 * ThreadCellSideMargin
-        
-        var titleSize: CGFloat = 0
-        var commentSize: CGFloat = 0
-        
-        if let title = self.title {
-            titleSize = TextSize(text: title, maxWidth: contentWidth - 2 * ThreadCellTopMargin, font: .title).calculate().height
-        }
-        
-        if let comment = self.comment {
-            commentSize = TextSize(text: comment, maxWidth: contentWidth - ThreadCellTopMargin - ThreadCellSideMargin, font: .text).calculate().height
-        }
-        
-//        self.height = min(commentSize + titleSize + 5 * ThreadCellTopMargin, ThreadCellMaxHeight)
         self.height = ThreadCellMinHeight
-        
         return self
     }
 }

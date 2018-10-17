@@ -9,13 +9,12 @@
 import UIKit
 import Moya
 import Result
+import RxSwift
 
 
 class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
-    
-    
     public override init(endpointClosure: @escaping EndpointClosure = ChanProvider.defaultEndpointMapping,
-                requestClosure: @escaping RequestClosure = ChanProvider.defaultRequestMapping,
+                requestClosure: @escaping RequestClosure = ChanProvider.chanRequestMapping,
                 stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
                 callbackQueue: DispatchQueue? = nil,
                 manager: Manager = MoyaProvider<Target>.defaultAlamofireManager(),
@@ -26,6 +25,33 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
 
     }
     
+    public final class func chanRequestMapping(for endpoint: Endpoint, closure: @escaping RequestResultClosure) {
+        
+        if NetworkManager.default.canPerformRequests.value {
+            ChanProvider.defaultRequestMapping(for: endpoint, closure: closure)
+        } else {
+            NetworkManager.default.canPerformRequests
+                .asDriver()
+                .filter({ $0 })
+                .drive(onNext: {  _ in
+                    ChanProvider.defaultRequestMapping(for: endpoint, closure: closure)
+                }).disposed(by: NetworkManager.disposeBag)
+        }
+        
+
+        
+//        do {
+//            let urlRequest = try endpoint.urlRequest()
+//            closure(.success(urlRequest))
+//        } catch MoyaError.requestMapping(let url) {
+//            closure(.failure(MoyaError.requestMapping(url)))
+//        } catch MoyaError.parameterEncoding(let error) {
+//            closure(.failure(MoyaError.parameterEncoding(error)))
+//        } catch {
+//            closure(.failure(MoyaError.underlying(error, nil)))
+//        }
+    }
+
 
 
     
