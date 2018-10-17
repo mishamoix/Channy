@@ -10,7 +10,7 @@ import UIKit
 import SwiftyUserDefaults
 
 extension DefaultsKeys {
-    static let fullAccess = DefaultsKey<Bool>("fullAccess")
+    static let safeMode = DefaultsKey<Bool>("safeMode")
     static let privacyPolicy = DefaultsKey<Bool>("privacyPolicy")
 }
 
@@ -19,13 +19,13 @@ class Values {
     
     static let shared = Values()
     
-    var fullAccess: Bool {
+    var safeMode: Bool {
         get {
-            return Defaults[.fullAccess]
+            return Defaults[.safeMode]
         }
         
         set {
-            Defaults[.fullAccess] = newValue
+            Defaults[.safeMode] = newValue
         }
     }
     

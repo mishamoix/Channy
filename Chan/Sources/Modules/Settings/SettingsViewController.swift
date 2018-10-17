@@ -44,7 +44,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     
     private func setupUI() {
         
-        self.limitorSwitch.isOn = Values.shared.fullAccess
+        self.limitorSwitch.isOn = Values.shared.safeMode
 
         self.infoTextView.text = FirebaseManager.shared.mainInfo
 
@@ -59,19 +59,19 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
             .asDriver()
             .drive(onNext: { [weak self] _ in
                 if let result = self?.limitorSwitch.isOn {
-                    if result {
+                    if !result {
                         let vc = UIAlertController(title: "", message: "Подтвердите что вам более 17 лет", preferredStyle: UIAlertController.Style.alert)
-                        vc.addAction(UIAlertAction(title: "Да", style: .default, handler: { [weak self] _ in
-                            Values.shared.fullAccess = result
+                        vc.addAction(UIAlertAction(title: "Мне 17+", style: .default, handler: { [weak self] _ in
+                            Values.shared.safeMode = result
                             self?.listener?.limitorChanged()
                         }))
                         vc.addAction(UIAlertAction(title: "Нет", style: .destructive, handler: { [weak self] _ in
-                            self?.limitorSwitch.isOn = false
+                            self?.limitorSwitch.isOn = true
                         }))
                         
                         self?.present(vc, animated: true, completion: nil)
                     } else {
-                        Values.shared.fullAccess = result
+                        Values.shared.safeMode = result
                         self?.listener?.limitorChanged()
                     }
                     

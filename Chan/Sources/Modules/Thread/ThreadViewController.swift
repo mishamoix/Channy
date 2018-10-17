@@ -136,8 +136,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                         
                         if FirebaseManager.shared.disableImages {
                             ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Медиа отключено по требованию Apple", styles: [.ok])
-                        } else if !Values.shared.fullAccess {
-                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Вы не включили полный доступ к приложению, перейдите на спиок досок, зайдите в настройки и снимите ограничения", styles: [.ok])
+                        } else if Values.shared.safeMode {
+                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Включен безопасный режим", styles: [.ok])
                         } else {
                           
                             self?.listener?.viewActions.on(.next(.open(media: media)))

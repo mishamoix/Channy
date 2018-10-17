@@ -77,6 +77,10 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
         Values.shared.privacyPolicy = true
     }
     
+    func endRefreshing() {
+        
+    }
+    
     // MARK: Private
     private func setup() {
         self.setupRx()
@@ -169,7 +173,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
                         res.append(cat)
                     }
                     
-                    if let allow = FirebaseManager.shared.notFullAllowBoards, !Values.shared.fullAccess {
+                    if let allow = FirebaseManager.shared.notFullAllowBoards, Values.shared.safeMode {
                         for category in res {
                             category.boards = category.boards
                                 .filter({ allow.contains($0.uid) })
@@ -181,9 +185,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
                         .sorted(by: { $0.name ?? "" < $1.name ?? "" })
                     
                     self?.data = sorted
-                    
-                    
-                    
+                    self?.presenter.endRefreshing()
                     return Observable<[BoardCategoryModel]>.just(self?.search(with: self?.currentSearchText) ?? [])
                 }
                 

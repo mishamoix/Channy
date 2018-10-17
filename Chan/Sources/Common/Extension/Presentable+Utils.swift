@@ -9,6 +9,11 @@
 import Foundation
 import RIBs
 
+public protocol ViewRefreshing {
+    func endRefresh()
+    func startRefresh()
+}
+
 
 public extension Presentable {
     func startRefreshing() {
@@ -16,6 +21,10 @@ public extension Presentable {
             if let view = (self as? UIViewController)?.view {
                 let scrollViews: [UIScrollView] = view.subviews.filter({ $0.isKind(of: UIScrollView.self) }) as! [UIScrollView]
                 let _ = scrollViews.map({ $0.refreshControl?.beginRefreshing() })
+            }
+            
+            if let vc = self as? ViewRefreshing {
+                vc.startRefresh()
             }
         }
     }
@@ -25,6 +34,10 @@ public extension Presentable {
             if let view = (self as? UIViewController)?.view {
                 let scrollViews: [UIScrollView] = view.subviews.filter({ $0.isKind(of: UIScrollView.self) }) as! [UIScrollView]
                 let _ = scrollViews.map({ $0.refreshControl?.endRefreshing() })
+            }
+            
+            if let vc = self as? ViewRefreshing {
+                vc.endRefresh()
             }
         }
     }

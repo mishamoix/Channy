@@ -18,7 +18,7 @@ protocol BoardsListPresentableListener: class {
     var viewActions: PublishSubject<BoardsListAction> { get }
 }
 
-final class BoardsListViewController: BaseViewController, BoardsListPresentable, BoardsListViewControllable {
+final class BoardsListViewController: BaseViewController, BoardsListPresentable, BoardsListViewControllable, ViewRefreshing {
     weak var listener: BoardsListPresentableListener?
     
     // MARK: Data
@@ -29,8 +29,9 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     //MARK: UI
     @IBOutlet weak var tableView: UITableView!
     private let seacrhBar: UISearchBar = UISearchBar()
-    
-    //MARK: Other
+    @IBOutlet weak var loader: UIActivityIndicatorView!
+  
+  //MARK: Other
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -38,7 +39,15 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.setup()
     }
     
-    //MARK: BoardsListPresentable
+    // MARK: BoardsListPresentable
+    
+    // MARK: ViewRefreshing
+    func endRefresh() {
+        self.loader.stopAnimating()
+    }
+    func startRefresh() {
+        
+    }
     
     //MARK: Private
     private func setup() {
