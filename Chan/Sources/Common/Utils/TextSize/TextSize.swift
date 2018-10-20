@@ -62,8 +62,10 @@ open class TextSize {
     return CGSize(width: CGFloat(ceilf(Float((result.width)))), height: CGFloat(ceilf(Float(height))))
   }
     
-    static func indexForPoint(text: NSAttributedString, point: CGPoint, container size: CGSize) -> Int {
-        
+    static func indexForPoint(text: NSAttributedString?, point: CGPoint, container size: CGSize) -> Int {
+      guard let text = text else {
+        return 0
+      }
         let layoutManager = NSLayoutManager()
         let textContainer = NSTextContainer(size: CGSize.zero)
         let textStorage = NSTextStorage(attributedString: text)

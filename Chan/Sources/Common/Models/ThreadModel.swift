@@ -36,5 +36,13 @@ class ThreadModel: BaseModel, Decodable {
     var threadPath: String {
         return "\(self.board?.uid ?? "")_\(self.uid)"
     }
+    
+    var buildLink: String? {
+        if let board = self.board {
+            let result = "\(Enviroment.default.basePath)/\(board.uid)/res/\(self.uid).html"
+            return result
+        }
+        return nil
+    }
 
 }

@@ -27,7 +27,7 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
     override func update(with model: BoardModel) {
         super.update(with: model)
         
-        self.title.text = model.name
+        self.title.text = "\(model.name) /\(model.uid)/" 
     }
     
     

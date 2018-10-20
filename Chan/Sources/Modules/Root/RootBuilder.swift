@@ -38,7 +38,7 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
     let component = RootComponent(dependency: dependency)
     let viewController = RootViewController()
     
-    let listService = BoardsListService()
+//    let listService = BoardsListService()
     let interactor = RootInteractor(presenter: viewController)
     
     let boards = BoardsListBuilder(dependency: component)

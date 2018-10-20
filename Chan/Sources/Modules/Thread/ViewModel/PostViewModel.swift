@@ -65,7 +65,7 @@ class PostViewModel {
         self.number = model.number
         self.date = String.date(from: date)
         
-        print("Inited PostVM \(model.number)")
+//        print("Inited PostVM \(model.number)")
     }
     
     func calculateSize(max width: CGFloat) {

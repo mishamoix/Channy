@@ -37,19 +37,6 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
                     ChanProvider.defaultRequestMapping(for: endpoint, closure: closure)
                 }).disposed(by: NetworkManager.disposeBag)
         }
-        
-
-        
-//        do {
-//            let urlRequest = try endpoint.urlRequest()
-//            closure(.success(urlRequest))
-//        } catch MoyaError.requestMapping(let url) {
-//            closure(.failure(MoyaError.requestMapping(url)))
-//        } catch MoyaError.parameterEncoding(let error) {
-//            closure(.failure(MoyaError.parameterEncoding(error)))
-//        } catch {
-//            closure(.failure(MoyaError.underlying(error, nil)))
-//        }
     }
 
 

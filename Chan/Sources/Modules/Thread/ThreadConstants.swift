@@ -49,6 +49,7 @@ enum PostAction {
     case copyPost(postUid: String)
     case cutPost(postUid: String)
     case open(media: FileModel)
+    case copyLinkOnThread
 
 }
 

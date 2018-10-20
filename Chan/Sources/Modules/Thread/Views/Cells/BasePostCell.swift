@@ -11,10 +11,10 @@ import SnapKit
 import RxCocoa
 import RxSwift
 
+
 protocol BasePostCellProtocol {
     func update(with model: PostViewModel)
     func update(action: PublishSubject<PostCellAction>?)
-
 }
 
 class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
@@ -22,7 +22,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     private let titleLabel = TGReusableLabel()
     private let replyedButton = UIButton()
     let disposeBag = DisposeBag()
-    
+        
     weak var action: PublishSubject<PostCellAction>?
 
     
@@ -83,4 +83,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.action = action
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
 }

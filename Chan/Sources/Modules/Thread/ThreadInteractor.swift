@@ -107,6 +107,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .copyPost(let postUid): self?.copyPost(uid: postUid)
                 case .cutPost(let postUid): self?.cutPost(uid: postUid)
                 case .open(let media): self?.showMedia(with: media)
+                case .copyLinkOnThread: self?.copyLinkOnThread()
                 }
             }).disposed(by: self.disposeBag)
     }
@@ -225,12 +226,35 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func showMedia(with anchor: FileModel) {
-        let allFiles = self.data.flatMap { $0.files }
-        let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
-        if let vc = viewer.browser {
-            self.router?.showMediaViewer(vc)
+        if anchor.type == .image {
+            let allFiles = self.data.flatMap { $0.files }.filter({ $0.type == .image })
+            let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
+            if let vc = viewer.browser {
+                self.router?.showMediaViewer(vc)
+            }
+        } else {
+            print(anchor.path)
+            if anchor.path.hasSuffix(".webm") { //}|| anchor.path.hasSuffix(".ogg") {
+                let webm = WebmPlayerViewController(with: anchor)
+                self.router?.showMediaViewer(webm)
+            } else {
+                let player = VideoPlayer(with: anchor)
+                if let pl = player.videoPlayer {
+                    self.router?.showMediaViewer(pl)
+                }
+            }
         }
         
+    }
+    
+    private func copyLinkOnThread() {
+        if let link = self.service.thread.buildLink {
+            UIPasteboard.general.string = link
+            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: DefaultDismissTime)
+
+        } else {
+            ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: DefaultDismissTime)
+        }
     }
 
 }

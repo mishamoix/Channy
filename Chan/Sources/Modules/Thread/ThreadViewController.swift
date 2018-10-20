@@ -10,6 +10,8 @@ import RIBs
 import RxSwift
 import UIKit
 import SnapKit
+import AVKit
+
 
 private let PostCellIdentifier = "PostCell"
 private let PostMediaCellIdentifier = "PostMediaCell"
@@ -48,29 +50,12 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         self.updateScrollDownButton()
     }
     
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//
-//    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
         super.viewWillTransition(to: size, with: coordinator)
-
-        self.currentWidth = size.width
-
-        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        flowLayout.invalidateLayout()
-
         
-        coordinator.animate(alongsideTransition: nil, completion: {
-            _ in
-            
-            self.collectionView.reloadData()
-        })
+        self.currentWidth = size.width
+        self.collectionView.reloadData()
     }
-
     
     //MARK: Private
     private func setup() {
@@ -140,24 +125,12 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                             ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Включен безопасный режим", styles: [.ok])
                         } else {
                           
+
+                            
+                          // TODO: переделать
                             self?.listener?.viewActions.on(.next(.open(media: media)))
-//                            var item: LightboxImage
-//                            if media.type == .video {
-//                                if let preview = view.image {
-//                                    item = LightboxImage(image: preview, text: "", videoURL: image)
-//                                } else {
-//                                    item = LightboxImage(imageURL: image, text: "", videoURL: image)
-//                                }
-//                            } else {
-//                                item = LightboxImage(imageURL: image)
-//                            }
-//
-//
-////                            ite
-//
-//                            let controller = LightboxController(images: [item])
-//                            controller.dynamicBackground = true
-//                            self?.present(controller, animated: true, completion: nil)
+                            
+
                         }
                     }
                 }
@@ -191,11 +164,14 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
               
                 if self?.listener?.moduleIsRoot ?? false {
+                    
+                    actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на тред", style: .default, handler: { [weak self] _ in
+                        self?.listener?.viewActions.on(.next(.copyLinkOnThread))
+                    }))
+                    
                     actionSheet.addAction(UIAlertAction(title: "Пожаловаться", style: .destructive, handler: { [weak self] _ in
                         self?.reportThread()
-                        
                     }))
-
                 } else {
                     actionSheet.addAction(UIAlertAction(title: "Вернуться к треду", style: .default, handler: { [weak self] _ in
                         self?.listener?.viewActions.on(.next(.popToRoot))
@@ -269,16 +245,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
   
     private func reportThread() {
         self.listener?.viewActions.on(.next(.reportThread))
-        
-        let vController = ErrorDisplay.presentAlert(with: "Жалоба отправлена", message: "Жалоба будет рассмотрена в течении 24 часов")
-        
-        Observable<UIViewController>
-            .from(optional: vController)
-            .delay(2.0, scheduler: Helper.rxMainThread)
-            .subscribe(onNext: { vc in
-                vc.dismiss(animated: true, completion: nil)
-            })
-            .disposed(by: self.disposeBag)
+        ErrorDisplay.presentAlert(with: "Жалоба отправлена", message: "Жалоба будет рассмотрена в течении 24 часов", dismiss: DefaultDismissTime)
     }
 }
 
@@ -307,6 +274,7 @@ extension ThreadViewController: UICollectionViewDataSource {
             self.listener?.viewActions.on(.next(.cutPost(postUid: post.uid)))
         }
     }
+
 }
 
 extension ThreadViewController: UICollectionViewDelegateFlowLayout {
@@ -331,6 +299,5 @@ extension ThreadViewController: UICollectionViewDelegateFlowLayout {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateScrollDownButton()
     }
-    
-    
 }
+

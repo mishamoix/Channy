@@ -35,7 +35,7 @@ class Style {
     }
     
     class func underline(text: NSMutableAttributedString, range: NSRange) {
-        text.addAttributes([NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single], range: range)
+        text.addAttributes([NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue], range: range)
     }
     
     class func spoiler(text: NSMutableAttributedString, range: NSRange) {
@@ -47,15 +47,16 @@ class Style {
     }
     
     class func linkPost(text: NSMutableAttributedString, range: NSRange, url: URL? = nil) {
-        var attrs: [NSAttributedString.Key:Any] = [NSAttributedString.Key.foregroundColor: UIColor.reply]
+        let attrs: [NSAttributedString.Key:Any] = [NSAttributedString.Key.foregroundColor: UIColor.reply]
         if let url = url {
-            attrs[NSAttributedString.Key.chanlink] = url
+          let linkAttrs = [NSAttributedString.Key.chanlink: url]
+          text.addAttributes(linkAttrs, range: range)
         }
         text.addAttributes(attrs, range: range)
     }
     
     class func removeLink(text: NSMutableAttributedString, range: NSRange) {
-        text.removeAttribute(NSAttributedString.Key.link, range: range)
+//        text.removeAttribute(NSAttributedString.Key.link, range: range)
     }
     
     

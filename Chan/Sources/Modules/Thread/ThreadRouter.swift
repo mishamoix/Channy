@@ -51,7 +51,8 @@ final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControlla
     
     func showMediaViewer(_ vc: UIViewController) {
 //        self.viewController.uiviewController.present(vc, animated: true, completion: nil)
-        self.viewController.uiviewController.navigationController?.pushViewController(vc, animated: true)
+        self.viewController.uiviewController.present(vc, animated: true, completion: nil)
+//        self.viewController.uiviewController.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: Private

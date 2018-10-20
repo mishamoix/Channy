@@ -13,6 +13,8 @@ import AlamofireImage
 import RxSwift
 import Firebase
 import FirebaseDatabase
+import Fabric
+import Crashlytics
 
 class AppDependency: NSObject {
     
@@ -37,6 +39,8 @@ class AppDependency: NSObject {
         self.setupFirebase()
         
         FirebaseManager.setup()
+      
+        Fabric.with([Crashlytics.self])
     }
 
     

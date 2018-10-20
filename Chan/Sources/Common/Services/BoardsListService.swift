@@ -48,7 +48,8 @@ class BoardsListService: BaseService, BoardsListServiceProtocol {
     }
     
     private func load() -> Observable<ResultType> {
-        return self.provider.rx
+        return self.provider
+            .rx
             .request(.list)
             .asObservable()
             .retry(RetryCount)

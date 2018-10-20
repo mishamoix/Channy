@@ -27,6 +27,14 @@ class FileModel: BaseModel, Decodable {
         return .image
     }
     
+    var url: URL? {
+        return URL(string: MakeFullPath(path: self.path))
+    }
+    
+    var urlThumb: URL? {
+        return URL(string: MakeFullPath(path: self.thumbnail))
+    }
+    
     required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         

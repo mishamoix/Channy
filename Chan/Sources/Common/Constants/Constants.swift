@@ -24,3 +24,5 @@ typealias Response<Type> = Observable<Type>
 func MakeFullPath(path: String) -> String {
     return Enviroment.default.basePath + path
 }
+
+let DefaultDismissTime: TimeInterval = 2.0

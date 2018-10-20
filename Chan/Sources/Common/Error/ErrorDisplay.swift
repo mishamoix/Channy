@@ -26,6 +26,8 @@ enum ErrorButton {
 class ErrorDisplay: ErrorDisplayProtocol {
 
     
+    private static let disposeBag = DisposeBag()
+    
     let actions: PublishSubject<ErrorButton> = PublishSubject()
     private let error: Error
     private var buttons: [ErrorButton] = []
@@ -125,6 +127,18 @@ class ErrorDisplay: ErrorDisplayProtocol {
         return vc
 
     }
+    
+    static func presentAlert(with title: String?, message: String, dismiss after: TimeInterval) {
+        let vc = ErrorDisplay.presentAlert(with: title, message: message, styles: [])
+        
+        Single<UIViewController>
+            .just(vc)
+            .delay(after, scheduler: Helper.rxMainThread)
+            .subscribe(onSuccess: { vc in
+                vc.dismiss(animated: true, completion: nil)
+            }).disposed(by: ErrorDisplay.disposeBag)
+    }
+
     
     private static var topViewController: UIViewController? {
         if var topController = UIApplication.shared.keyWindow?.rootViewController {

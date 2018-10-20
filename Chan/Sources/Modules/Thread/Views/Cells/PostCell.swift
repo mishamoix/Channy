@@ -13,6 +13,7 @@ import RxSwift
 class PostCell: BasePostCell {
     
     private let textLabel = TGReusableLabel()
+//    private let textLabel = UILabel()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,6 +21,8 @@ class PostCell: BasePostCell {
     
     override func setupUI() {
         super.setupUI()
+      
+        self.textLabel.numberOfLines = 0
         
         self.contentView.addSubview(self.textLabel)
         self.textLabel.backgroundColor = .clear
@@ -38,7 +41,7 @@ class PostCell: BasePostCell {
                     let idx = TextSize.indexForPoint(text: textLabel.attributedText, point: point, container: textLabel.bounds.size)
                     
                     
-                  self?.textLabel.attributedText.enumerateAttribute(NSAttributedString.Key.chanlink, in: NSRange(location: idx, length: 1), options: NSAttributedString.EnumerationOptions.init(rawValue: 0)) { (result, range, stop) in
+                  self?.textLabel.attributedText?.enumerateAttribute(NSAttributedString.Key.chanlink, in: NSRange(location: idx, length: 1), options: NSAttributedString.EnumerationOptions.init(rawValue: 0)) { (result, range, stop) in
                         if let link = result as? URL {
                             self?.action?.on(.next(.tappedAtLink(url: link, cell: strongSelf)))
                         }
@@ -55,7 +58,6 @@ class PostCell: BasePostCell {
         self.textLabel.frame = model.textFrame
         
         self.textLabel.setNeedsDisplay()
-        
     }
     
     
