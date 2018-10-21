@@ -47,6 +47,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         super.didBecomeActive()
         self.setup()
         
+        self.presenter.showCentralActivity()
         self.load(reload: true)
     }
 
@@ -70,7 +71,6 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     func load(reload: Bool = false) {
-        self.presenter.startRefreshing()
 
         self.service
             .loadNext(realod: reload)?
@@ -84,10 +84,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     return errorManager.actions
                         .flatMap({ type -> Observable<Void> in
                             if type == .retry {
-                                self?.presenter.startRefreshing()
+                                self?.presenter.showCentralActivity()
                                 return Observable<Void>.just(Void())
                             } else {
-                                self?.presenter.endRefreshing()
+                                self?.presenter.stopAnyLoaders()
                                 return Observable<Void>.empty()
                             }
                         })
@@ -116,7 +116,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     allVM += threadsVM
                 }
             
-                self?.presenter.endRefreshing()
+                self?.presenter.stopAnyLoaders()
                 return Observable<[ThreadViewModel]>.just(allVM)
 
             })

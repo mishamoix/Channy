@@ -54,6 +54,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         super.viewWillTransition(to: size, with: coordinator)
         
         self.currentWidth = size.width
+//        self.collectionView.collectionViewLayout.invalidateLayout()
+
         self.collectionView.reloadData()
     }
     
@@ -216,7 +218,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     }
     
     private func refresh() {
-        self.refreshControl.beginRefreshing()
+//        self.refreshControl.beginRefreshing()
         
         self.listener?.viewActions.on(.next(.refresh))
     }

@@ -29,7 +29,6 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     //MARK: UI
     @IBOutlet weak var tableView: UITableView!
     private let seacrhBar: UISearchBar = UISearchBar()
-    @IBOutlet weak var loader: UIActivityIndicatorView!
   
   //MARK: Other
     private let disposeBag = DisposeBag()
@@ -43,10 +42,8 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     
     // MARK: ViewRefreshing
     func endRefresh() {
-        self.loader.stopAnimating()
     }
     func startRefresh() {
-        
     }
     
     //MARK: Private

@@ -143,6 +143,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
         
         self.listService.cancel()
         
+        self.presenter.showCentralActivity()
         self.listService
             .loadAllBoards()
             .observeOn(Helper.rxBackgroundThread)
@@ -185,10 +186,11 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
                         .sorted(by: { $0.name ?? "" < $1.name ?? "" })
                     
                     self?.data = sorted
-                    self?.presenter.endRefreshing()
+                    self?.presenter.stopAnyLoaders()
                     return Observable<[BoardCategoryModel]>.just(self?.search(with: self?.currentSearchText) ?? [])
                 }
                 
+                self?.presenter.stopAnyLoaders()
                 return Observable<[BoardCategoryModel]>.just([])
             })
             .bind(to: self.dataSource)

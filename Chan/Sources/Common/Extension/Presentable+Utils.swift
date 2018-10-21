@@ -8,6 +8,7 @@
 
 import Foundation
 import RIBs
+import MBProgressHUD
 
 public protocol ViewRefreshing {
     func endRefresh()
@@ -16,7 +17,29 @@ public protocol ViewRefreshing {
 
 
 public extension Presentable {
-    func startRefreshing() {
+    
+    func showCentralActivity() {
+        Helper.performOnMainThread {
+            if let view = (self as? UIViewController)?.view {
+                MBProgressHUD.showAdded(to: view, animated: true)
+            }
+            
+        }
+
+    }
+    
+    private func hideCentralActivity() {
+        Helper.performOnMainThread {
+            if let view = (self as? UIViewController)?.view {
+                MBProgressHUD.hide(for: view, animated: true)
+            }
+            
+        }
+
+    }
+    
+    
+    private func startRefreshing() {
         Helper.performOnMainThread {
             if let view = (self as? UIViewController)?.view {
                 let scrollViews: [UIScrollView] = view.subviews.filter({ $0.isKind(of: UIScrollView.self) }) as! [UIScrollView]
@@ -29,7 +52,7 @@ public extension Presentable {
         }
     }
     
-    func endRefreshing() {
+    private func endRefreshing() {
         Helper.performOnMainThread {
             if let view = (self as? UIViewController)?.view {
                 let scrollViews: [UIScrollView] = view.subviews.filter({ $0.isKind(of: UIScrollView.self) }) as! [UIScrollView]
@@ -40,5 +63,10 @@ public extension Presentable {
                 vc.endRefresh()
             }
         }
+    }
+    
+    func stopAnyLoaders() {
+        self.hideCentralActivity()
+        self.endRefreshing()
     }
 }

@@ -23,23 +23,17 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <sections/>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zZm-lk-Axc">
-                                <rect key="frame" x="150" y="274" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="HgA-Aw-ocO" firstAttribute="trailing" secondItem="KGg-7T-LhU" secondAttribute="trailing" id="6aa-KV-AzN"/>
-                            <constraint firstItem="zZm-lk-Axc" firstAttribute="centerY" secondItem="BNZ-bO-rhc" secondAttribute="centerY" id="XdF-Pt-dJq"/>
                             <constraint firstAttribute="bottom" secondItem="KGg-7T-LhU" secondAttribute="bottom" id="bK1-oK-mYY"/>
                             <constraint firstItem="KGg-7T-LhU" firstAttribute="leading" secondItem="HgA-Aw-ocO" secondAttribute="leading" id="dQ4-Gq-pXK"/>
                             <constraint firstItem="KGg-7T-LhU" firstAttribute="top" secondItem="HgA-Aw-ocO" secondAttribute="top" id="pzu-jk-wXR"/>
-                            <constraint firstItem="zZm-lk-Axc" firstAttribute="centerX" secondItem="BNZ-bO-rhc" secondAttribute="centerX" id="xAC-Fo-SzS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HgA-Aw-ocO"/>
                     </view>
                     <connections>
-                        <outlet property="loader" destination="zZm-lk-Axc" id="2vH-3a-6g2"/>
                         <outlet property="tableView" destination="KGg-7T-LhU" id="sE6-cb-OJ0"/>
                     </connections>
                 </viewController>

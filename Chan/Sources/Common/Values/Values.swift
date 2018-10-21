@@ -24,7 +24,7 @@ class Values {
             if Defaults.hasKey(.safeMode) {
                 return Defaults[.safeMode]
             }
-        return true
+            return false
         }
         
         set {

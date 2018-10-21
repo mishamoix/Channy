@@ -28,7 +28,7 @@ target 'Chan' do
     pod 'SnapKit'
     pod 'AXPhotoViewer'
     pod 'OGVKit/WebM'
-#    pod 'libvpx'
+    pod 'MBProgressHUD'
 
     # Firebase
     pod 'Firebase/Core'

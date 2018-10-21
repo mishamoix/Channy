@@ -9,7 +9,7 @@
 import UIKit
 
 class PostViewModel {
-    
+
     let modifier: PostPreparation
     let uid: String
     let media: [FileModel]

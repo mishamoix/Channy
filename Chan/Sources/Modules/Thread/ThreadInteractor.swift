@@ -80,6 +80,8 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     // MARK:Private
     private func setup() {
         self.setupRx()
+        
+        self.presenter.showCentralActivity()
         self.load()
     }
     
@@ -113,7 +115,6 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func load() {
-        self.presenter.startRefreshing()
         
         self.service
             .load()
@@ -128,11 +129,11 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                     return errorManager.actions
                         .flatMap({ [weak self] type -> Observable<()> in
                             if type == .retry {
-                                self?.presenter.startRefreshing()
+                                self?.presenter.showCentralActivity()
 
                                 return Observable<Void>.just(Void())
                             } else {
-                                self?.presenter.endRefreshing()
+                                self?.presenter.stopAnyLoaders()
                                 return Observable<Void>.empty()
                             }
                         })
@@ -166,7 +167,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 return self?.postsManager?.filtredPostsVM ?? []
             })
             .flatMap({ [weak self] models -> Observable<[PostViewModel]> in
-                self?.presenter.endRefreshing()
+                self?.presenter.stopAnyLoaders()
                 return Observable<[PostViewModel]>.just(self?.postsManager?.filtredPostsVM ?? [])
             })
             .bind(to: self.dataSource)
