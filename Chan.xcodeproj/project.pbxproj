@@ -72,6 +72,7 @@
 		0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC4214F995400AECE3C /* String+Utils.swift */; };
 		0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */; };
 		0A7349AA217A36E400244B59 /* PostMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7349A9217A36E400244B59 /* PostMediaView.swift */; };
+		0A78C0AF217CAD820050630D /* VPX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A78C0AE217CAD820050630D /* VPX.framework */; };
 		0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */; };
 		0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */; };
 		0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856292216E518900D053F7 /* ThreadImageViewer.swift */; };
@@ -125,6 +126,19 @@
 		0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDBB2149B06E0002E832 /* ResultBoardModel.swift */; };
 		F8ED25D60CB42EEFE45700F1 /* Pods_Chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5239A404CA4DD902961DB4 /* Pods_Chan.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0A78C0C1217CADF70050630D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0A11320B215EC1AD00BB3C79 /* Presentable+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Presentable+Utils.swift"; sourceTree = "<group>"; };
@@ -194,6 +208,12 @@
 		0A5B0EC4214F995400AECE3C /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.Key.swift; sourceTree = "<group>"; };
 		0A7349A9217A36E400244B59 /* PostMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaView.swift; sourceTree = "<group>"; };
+		0A78C08D217BEA5D0050630D /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		0A78C08F217BEA710050630D /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		0A78C091217BEA7B0050630D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0A78C093217BEA890050630D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0A78C095217BF2D00050630D /* VPX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VPX.framework; path = Pods/libvpx/VPX.framework; sourceTree = "<group>"; };
+		0A78C0AE217CAD820050630D /* VPX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VPX.framework; sourceTree = "<group>"; };
 		0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebmPlayerViewController.swift; sourceTree = "<group>"; };
 		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
@@ -258,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8ED25D60CB42EEFE45700F1 /* Pods_Chan.framework in Frameworks */,
+				0A78C0AF217CAD820050630D /* VPX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +520,7 @@
 		0ACC29452143EF0B00B4E53B = {
 			isa = PBXGroup;
 			children = (
+				0A78C0AE217CAD820050630D /* VPX.framework */,
 				0ACC29502143EF0B00B4E53B /* Chan */,
 				0ACC294F2143EF0B00B4E53B /* Products */,
 				E356FAB79158997F8BF0F98D /* Pods */,
@@ -723,6 +745,11 @@
 		4D36EE4DEAF72C13B7E89E56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A78C095217BF2D00050630D /* VPX.framework */,
+				0A78C093217BEA890050630D /* Foundation.framework */,
+				0A78C091217BEA7B0050630D /* SystemConfiguration.framework */,
+				0A78C08F217BEA710050630D /* libiconv.tbd */,
+				0A78C08D217BEA5D0050630D /* AVKit.framework */,
 				6E5239A404CA4DD902961DB4 /* Pods_Chan.framework */,
 			);
 			name = Frameworks;
@@ -750,6 +777,7 @@
 				0ACC294B2143EF0B00B4E53B /* Frameworks */,
 				E0B16D4835B3A34D7BB08FDB /* [CP] Embed Pods Frameworks */,
 				0A7349A82179ED3A00244B59 /* ShellScript */,
+				0A78C0C1217CADF70050630D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -875,7 +903,6 @@
 				"${BUILT_PRODUCTS_DIR}/libogg/ogg.framework",
 				"${BUILT_PRODUCTS_DIR}/libopus/libopus.framework",
 				"${BUILT_PRODUCTS_DIR}/libvorbis/vorbis.framework",
-				"${PODS_ROOT}/libvpx/VPX.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -900,7 +927,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ogg.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libopus.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/vorbis.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VPX.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1162,7 +1188,8 @@
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Chan/Sources/Common/3d\\ party/OGVKit/Classes/libvpx",
+					"$(PROJECT_DIR)/Pods/libvpx",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Chan/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1190,7 +1217,8 @@
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Chan/Sources/Common/3d\\ party/OGVKit/Classes/libvpx",
+					"$(PROJECT_DIR)/Pods/libvpx",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Chan/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

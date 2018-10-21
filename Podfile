@@ -3,6 +3,7 @@
 
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/brion/OGVKit-Specs.git'
+#source 'https://github.com/brion/OGVKit-Specs/blob/master/Specs/libvpx/1.5.0-937-g5994023/libvpx.podspec'
 
 target 'Chan' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -27,7 +28,8 @@ target 'Chan' do
     pod 'SnapKit'
     pod 'AXPhotoViewer'
     pod 'OGVKit/WebM'
-    
+#    pod 'libvpx'
+
     # Firebase
     pod 'Firebase/Core'
     pod 'Firebase/Database'
@@ -47,8 +49,8 @@ end
 #post_install do |installer|
 #    installer.pods_project.targets.each do |target|
 #        target.build_configurations.each do |config|
-##            config.build_settings['ENABLE_BITCODE'] = 'YES'
-#            config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'USE_ALLOCA', 'OPUS_BUILD']
+#            config.build_settings['ENABLE_BITCODE'] = 'NO'
+##            config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'USE_ALLOCA', 'OPUS_BUILD']
 #        end
 #    end
 #end
