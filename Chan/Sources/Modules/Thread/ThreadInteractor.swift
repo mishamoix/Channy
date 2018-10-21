@@ -250,7 +250,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     private func copyLinkOnThread() {
         if let link = self.service.thread.buildLink {
             UIPasteboard.general.string = link
-            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: DefaultDismissTime)
+            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: SmallDismissTime)
 
         } else {
             ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: DefaultDismissTime)

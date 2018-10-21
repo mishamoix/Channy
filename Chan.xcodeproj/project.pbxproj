@@ -70,9 +70,10 @@
 		0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EBD214F098400AECE3C /* PostCell.swift */; };
 		0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */; };
 		0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC4214F995400AECE3C /* String+Utils.swift */; };
+		0A5D7D99217CE9A4004429B0 /* VPX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5D7D98217CE9A4004429B0 /* VPX.framework */; };
+		0A5D7D9A217CE9AD004429B0 /* Pods_Chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5239A404CA4DD902961DB4 /* Pods_Chan.framework */; };
 		0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */; };
 		0A7349AA217A36E400244B59 /* PostMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7349A9217A36E400244B59 /* PostMediaView.swift */; };
-		0A78C0AF217CAD820050630D /* VPX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A78C0AE217CAD820050630D /* VPX.framework */; };
 		0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */; };
 		0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */; };
 		0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856292216E518900D053F7 /* ThreadImageViewer.swift */; };
@@ -124,21 +125,7 @@
 		0AFFFDB72149AC3D0002E832 /* ThreadConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDB62149AC3D0002E832 /* ThreadConstants.swift */; };
 		0AFFFDB92149AC640002E832 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDB82149AC640002E832 /* PostViewModel.swift */; };
 		0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDBB2149B06E0002E832 /* ResultBoardModel.swift */; };
-		F8ED25D60CB42EEFE45700F1 /* Pods_Chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5239A404CA4DD902961DB4 /* Pods_Chan.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		0A78C0C1217CADF70050630D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0A11320B215EC1AD00BB3C79 /* Presentable+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Presentable+Utils.swift"; sourceTree = "<group>"; };
@@ -206,6 +193,7 @@
 		0A5B0EBD214F098400AECE3C /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePostCell.swift; sourceTree = "<group>"; };
 		0A5B0EC4214F995400AECE3C /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		0A5D7D98217CE9A4004429B0 /* VPX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VPX.framework; sourceTree = "<group>"; };
 		0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.Key.swift; sourceTree = "<group>"; };
 		0A7349A9217A36E400244B59 /* PostMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaView.swift; sourceTree = "<group>"; };
 		0A78C08D217BEA5D0050630D /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -213,7 +201,6 @@
 		0A78C091217BEA7B0050630D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0A78C093217BEA890050630D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0A78C095217BF2D00050630D /* VPX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VPX.framework; path = Pods/libvpx/VPX.framework; sourceTree = "<group>"; };
-		0A78C0AE217CAD820050630D /* VPX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VPX.framework; sourceTree = "<group>"; };
 		0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebmPlayerViewController.swift; sourceTree = "<group>"; };
 		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
@@ -277,8 +264,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8ED25D60CB42EEFE45700F1 /* Pods_Chan.framework in Frameworks */,
-				0A78C0AF217CAD820050630D /* VPX.framework in Frameworks */,
+				0A5D7D99217CE9A4004429B0 /* VPX.framework in Frameworks */,
+				0A5D7D9A217CE9AD004429B0 /* Pods_Chan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,7 +507,7 @@
 		0ACC29452143EF0B00B4E53B = {
 			isa = PBXGroup;
 			children = (
-				0A78C0AE217CAD820050630D /* VPX.framework */,
+				0A5D7D98217CE9A4004429B0 /* VPX.framework */,
 				0ACC29502143EF0B00B4E53B /* Chan */,
 				0ACC294F2143EF0B00B4E53B /* Products */,
 				E356FAB79158997F8BF0F98D /* Pods */,
@@ -572,7 +559,6 @@
 		0ACC29652143F06A00B4E53B /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				0AE2471E217BC294000DB2FE /* 3d party */,
 				0A11321F2160111300BB3C79 /* Values */,
 				0A11321A215F9AC900BB3C79 /* Firebase */,
 				0A5B0EBA214EFD6E00AECE3C /* Styles */,
@@ -677,13 +663,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		0AE2471E217BC294000DB2FE /* 3d party */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "3d party";
-			sourceTree = "<group>";
-		};
 		0AFFB6D721596D4000A122A0 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,7 +756,6 @@
 				0ACC294B2143EF0B00B4E53B /* Frameworks */,
 				E0B16D4835B3A34D7BB08FDB /* [CP] Embed Pods Frameworks */,
 				0A7349A82179ED3A00244B59 /* ShellScript */,
-				0A78C0C1217CADF70050630D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1185,7 +1163,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = F5N53DM6KA;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/libvpx",
@@ -1214,10 +1192,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F5N53DM6KA;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/libvpx",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Chan/Info.plist;

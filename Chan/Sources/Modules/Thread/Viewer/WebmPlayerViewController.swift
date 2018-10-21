@@ -43,12 +43,11 @@ class WebmPlayerViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.setupPlayer()
-//        self.playerView.sizeToFit()
+        self.playerView.sizeToFit()
         self.closeButtonCanvas.layer.cornerRadius = self.closeButtonCanvas.frame.width / 2.0
         
-//        self.playerView.setNeedsLayout()
-//        self.playerView.layoutIfNeeded()
+        self.playerView.setNeedsLayout()
+        self.playerView.layoutIfNeeded()
         
 //        self.playerView.frame = self.playerView.frame
     }
@@ -98,7 +97,10 @@ class WebmPlayerViewController: UIViewController {
     
     
     private func updateConstraint() {
-        
+        self.playerView.snp.updateConstraints { make in
+            make.edges.equalToSuperview().inset(UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero)
+        }
+
         self.closeButtonCanvas.snp.updateConstraints { make in
             make.top.equalToSuperview().offset(DefaultMargin + (UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0))
             make.left.equalToSuperview().offset(DefaultMargin + (UIApplication.shared.keyWindow?.safeAreaInsets.left ?? 0))
@@ -112,17 +114,7 @@ class WebmPlayerViewController: UIViewController {
         
 
     }
-    
-    private func setupPlayer() {
-        self.playerView.removeFromSuperview()
-        self.view.addSubview(self.playerView)
         
-        self.playerView.snp.updateConstraints { make in
-            make.edges.equalToSuperview().inset(UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero)
-        }
-
-    }
-    
 
 }
 

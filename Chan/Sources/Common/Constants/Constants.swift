@@ -26,3 +26,4 @@ func MakeFullPath(path: String) -> String {
 }
 
 let DefaultDismissTime: TimeInterval = 2.0
+let SmallDismissTime: TimeInterval = 1.0
