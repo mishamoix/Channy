@@ -15,16 +15,18 @@ protocol BoardServiceProtocol: BaseServiceProtocol {
     typealias ResultType = ResultBoardModel<DataType>
     
     
-    var board: BoardModel { get }
+    var board: BoardModel? { get }
 //    var publish: PublishSubject<ResultType>? { get set }
   
     func loadNext(realod needReload: Bool) -> Observable<ResultType>?
+    func update(board: BoardModel)
+    func fetchHomeBoard() -> Observable<BoardModel?>
 }
 
 
 class BoardService: BaseService, BoardServiceProtocol {
     
-    let board: BoardModel
+    var board: BoardModel?
 //    var publish: PublishSubject<ResultType>? = nil
 
     private let provider = ChanProvider<BoardTarget>()
@@ -32,19 +34,29 @@ class BoardService: BaseService, BoardServiceProtocol {
     private var page = 0
     private var maxPage = 1
     
-    private var uid: String {
-        return self.board.uid
-    }
+//    private var uid: String {
+//        return self.board.uid
+//    }
     
     private var onLoading = false
 
     
-    init(board: BoardModel) {
+//    override init() {
+////        self.board = board
+////        super.init()
+//    }
+    
+    func update(board: BoardModel) {
         self.board = board
-        super.init()
     }
     
     func loadNext(realod needReload: Bool = false) -> Observable<ResultType>? {
+        
+        guard let board = self.board else {
+            return Observable<ResultType>.error(ChanError.noModel)
+        }
+        
+        let uid = board.uid
         
         if needReload {
             self.page = 0
@@ -56,9 +68,9 @@ class BoardService: BaseService, BoardServiceProtocol {
 
             var target: BoardTarget
             if self.page == 0 {
-                target = .mainPage(board: self.uid)
+                target = .mainPage(board: uid)
             } else {
-                target = .page(board: self.uid, page: self.page)
+                target = .page(board: uid, page: self.page)
             }
             
             return self.provider.rx
@@ -91,6 +103,11 @@ class BoardService: BaseService, BoardServiceProtocol {
         return nil
     }
     
+    func fetchHomeBoard() -> Observable<BoardModel?> {
+        // TODO:
+        return Observable<BoardModel?>.just(nil)
+    }
+    
     private func makeModel(data: Data) -> DataType {
         
         var result: DataType = []
@@ -115,6 +132,7 @@ class BoardService: BaseService, BoardServiceProtocol {
         return result
 
     }
+    
     
     
     

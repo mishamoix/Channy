@@ -41,6 +41,8 @@ class AppDependency: NSObject {
         FirebaseManager.setup()
       
         Fabric.with([Crashlytics.self])
+        
+        CoreDataStore.shared.setup()
     }
 
     

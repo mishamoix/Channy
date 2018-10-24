@@ -18,7 +18,7 @@ final class BoardComponent: Component<BoardDependency> {
 // MARK: - Builder
 
 protocol BoardBuildable: Buildable {
-    func build(withListener listener: BoardListener, board: BoardModel) -> BoardRouting
+    func build(withListener listener: BoardListener) -> BoardRouting
 }
 
 final class BoardBuilder: Builder<BoardDependency>, BoardBuildable {
@@ -27,11 +27,11 @@ final class BoardBuilder: Builder<BoardDependency>, BoardBuildable {
         super.init(dependency: dependency)
     }
 
-    func build(withListener listener: BoardListener, board: BoardModel) -> BoardRouting {
+    func build(withListener listener: BoardListener) -> BoardRouting {
         let component = BoardComponent(dependency: dependency)
         let viewController = UIStoryboard(name: "BoardViewController", bundle: nil).instantiateViewController(withIdentifier: "BoardViewController") as! BoardViewController
         
-        let service = BoardService(board: board)
+        let service = BoardService()
         let interactor = BoardInteractor(presenter: viewController, service: service)
         interactor.listener = listener
         

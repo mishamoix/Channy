@@ -17,10 +17,17 @@ protocol ErrorDisplayProtocol {
     var actions: PublishSubject<ErrorButton> { get }
 }
 
-enum ErrorButton {
+enum ErrorButton: Equatable {
     case ok
     case cancel
     case retry
+    
+    case input(result: String?)
+    
+    public static func == (lhs: ErrorButton, rhs: ErrorButton) -> Bool {
+        return String(reflecting: lhs) == String(reflecting: rhs)
+    }
+
 }
 
 class ErrorDisplay: ErrorDisplayProtocol {
@@ -31,6 +38,8 @@ class ErrorDisplay: ErrorDisplayProtocol {
     let actions: PublishSubject<ErrorButton> = PublishSubject()
     private let error: Error
     private var buttons: [ErrorButton] = []
+    
+    private var currentTextField: UITextField?
     
     required init(error: Error) {
         self.error = error
@@ -46,7 +55,6 @@ class ErrorDisplay: ErrorDisplayProtocol {
     
     func show() {
         let error = ErrorHelper(error: self.error).makeError()
-        
         
         if let err = error as? ChanError {
             self.chanErrorDisplay(err)
@@ -65,11 +73,17 @@ class ErrorDisplay: ErrorDisplayProtocol {
         case .offline:
             title = "Сетевая ошибка"
             message = "Похоже вы оффлайн"
+        case .notFound:
+            title = "Уупс"
+            message = "Не найдено 😒"
         case .somethingWrong(let description):
             title = "Неизвестная ошибка"
             if let descr = description {
                 message = descr
             }
+        case .error(let t, let description):
+            title = t
+            message = description
         default: break
         }
         
@@ -93,7 +107,19 @@ class ErrorDisplay: ErrorDisplayProtocol {
                 vc.addAction(UIAlertAction(title: "Попытаться снова", style: .default, handler: { _ in
                     self.actions.on(.next(.retry))
                 }))
-            
+                
+//            default: break
+                
+            case .input(let placeholder):
+                vc.addTextField { [weak self] textFiled in
+                    self?.currentTextField = textFiled
+                    textFiled.placeholder = placeholder
+                }
+                
+                vc.addAction(UIAlertAction(title: "ОК", style: .default, handler: { _ in
+                    self.actions.on(.next(.input(result: self.currentTextField?.text)))
+                }))
+
             }
         }
         
@@ -116,6 +142,7 @@ class ErrorDisplay: ErrorDisplayProtocol {
             case .retry:
                 vc.addAction(UIAlertAction(title: "Попытаться снова", style: .default, handler: { _ in
                 }))
+            default: break
                 
             }
         }
@@ -151,6 +178,11 @@ class ErrorDisplay: ErrorDisplayProtocol {
         
         return nil
 
+    }
+    
+    
+    deinit {
+        print("deinit error display")
     }
     
 }

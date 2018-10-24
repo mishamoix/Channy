@@ -10,11 +10,11 @@ import RIBs
 import RxSwift
 
 protocol BoardsListRouting: ViewableRouting {
-    func openBoard(with board: BoardModel)
-    func openSettings()
-    
-    func openAgreement(model: WebAcceptViewModel)
-    func closeAgreement()
+//    func openBoard(with board: BoardModel)
+//    func openSettings()
+//    
+//    func openAgreement(model: WebAcceptViewModel)
+//    func closeAgreement()
 }
 
 protocol BoardsListPresentable: Presentable {
@@ -73,8 +73,8 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     
     // MARK: WebAcceptDependency
     func accept() {
-        self.router?.closeAgreement()
-        Values.shared.privacyPolicy = true
+//        self.router?.closeAgreement()
+//        Values.shared.privacyPolicy = true
     }
     
     func endRefreshing() {
@@ -87,27 +87,27 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     }
     
     private func setupRx() {
-        self.viewActions
-            .asObservable()
-            .observeOn(Helper.rxMainThread)
-            .subscribe(onNext: { [weak self] action in
-                switch action {
-                case .seacrh(let text): do {
-                    self?.currentSearchText = text
-                    if let result = self?.search(with: text) {
-                        self?.dataSource.value = result
-                    }
-                }
-                case .openBoard(let index): do {
-                    if let model = self?.dataSource.value[index.section].boards[index.row] {
-                        self?.router?.openBoard(with: model)
-                    }
-                }
-                case .openSettings: do {
-                    self?.router?.openSettings()
-                }
-                }
-            }).disposed(by: self.disposeBag)
+//        self.viewActions
+//            .asObservable()
+//            .observeOn(Helper.rxMainThread)
+//            .subscribe(onNext: { [weak self] action in
+//                switch action {
+//                case .seacrh(let text): do {
+//                    self?.currentSearchText = text
+//                    if let result = self?.search(with: text) {
+//                        self?.dataSource.value = result
+//                    }
+//                }
+//                case .openBoard(let index): do {
+//                    if let model = self?.dataSource.value[index.section].boards[index.row] {
+//                        self?.router?.openBoard(with: model)
+//                    }
+//                }
+//                case .openSettings: do {
+//                    self?.router?.openSettings()
+//                }
+//                }
+//            }).disposed(by: self.disposeBag)
     }
     
     
@@ -141,72 +141,72 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     
     private func load() {
         
-        self.listService.cancel()
-        
-        self.presenter.showCentralActivity()
-        self.listService
-            .loadAllBoards()
-            .observeOn(Helper.rxBackgroundThread)
-            .retryWhen({ (errorOsb: Observable<Error>) in
-                return errorOsb.flatMap({ error -> Observable<Void>  in
-                    let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry])
-                    errorManager.show()
-                    
-                    return errorManager.actions
-                        .filter({ $0 == .retry })
-                        .flatMap({ type -> Observable<()> in
-                            return Observable<Void>.just(Void())
-                        })
-
-                })
-            })
-            .flatMap({  [weak self] (result) -> Observable<[BoardCategoryModel]> in
-                self?.checkAgreement()
-                if let result = result {
-                    
-                    var res: [BoardCategoryModel] = []
-                    
-                    for category in result {
-                        let cat = category.cp()
-                        cat.boards = category.boards
-                            .filter({ !FirebaseManager.shared.excludeBoards.contains($0.uid) })
-                            .sorted(by: { $0.uid < $1.uid })
-                        res.append(cat)
-                    }
-                    
-                    if let allow = FirebaseManager.shared.notFullAllowBoards, Values.shared.safeMode {
-                        for category in res {
-                            category.boards = category.boards
-                                .filter({ allow.contains($0.uid) })
-                        }
-                    }
-                    
-                    let sorted = res
-                        .filter({ $0.boards.count != 0 })
-                        .sorted(by: { $0.name ?? "" < $1.name ?? "" })
-                    
-                    self?.data = sorted
-                    self?.presenter.stopAnyLoaders()
-                    return Observable<[BoardCategoryModel]>.just(self?.search(with: self?.currentSearchText) ?? [])
-                }
-                
-                self?.presenter.stopAnyLoaders()
-                return Observable<[BoardCategoryModel]>.just([])
-            })
-            .bind(to: self.dataSource)
-            .disposed(by: self.listService.disposeBag)
+//        self.listService.cancel()
+//
+//        self.presenter.showCentralActivity()
+//        self.listService
+//            .loadAllBoards()
+//            .observeOn(Helper.rxBackgroundThread)
+//            .retryWhen({ (errorOsb: Observable<Error>) in
+//                return errorOsb.flatMap({ error -> Observable<Void>  in
+//                    let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry])
+//                    errorManager.show()
+//
+//                    return errorManager.actions
+//                        .filter({ $0 == .retry })
+//                        .flatMap({ type -> Observable<()> in
+//                            return Observable<Void>.just(Void())
+//                        })
+//
+//                })
+//            })
+//            .flatMap({  [weak self] (result) -> Observable<[BoardCategoryModel]> in
+//                self?.checkAgreement()
+//                if let result = result {
+//
+//                    var res: [BoardCategoryModel] = []
+//
+//                    for category in result {
+//                        let cat = category.cp()
+//                        cat.boards = category.boards
+//                            .filter({ !FirebaseManager.shared.excludeBoards.contains($0.uid) })
+//                            .sorted(by: { $0.uid < $1.uid })
+//                        res.append(cat)
+//                    }
+//
+//                    if let allow = FirebaseManager.shared.notFullAllowBoards, Values.shared.safeMode {
+//                        for category in res {
+//                            category.boards = category.boards
+//                                .filter({ allow.contains($0.uid) })
+//                        }
+//                    }
+//
+//                    let sorted = res
+//                        .filter({ $0.boards.count != 0 })
+//                        .sorted(by: { $0.name ?? "" < $1.name ?? "" })
+//
+//                    self?.data = sorted
+//                    self?.presenter.stopAnyLoaders()
+//                    return Observable<[BoardCategoryModel]>.just(self?.search(with: self?.currentSearchText) ?? [])
+//                }
+//
+//                self?.presenter.stopAnyLoaders()
+//                return Observable<[BoardCategoryModel]>.just([])
+//            })
+//            .bind(to: self.dataSource)
+//            .disposed(by: self.listService.disposeBag)
 
     }
     
     private func checkAgreement() {
-        if !Values.shared.privacyPolicy {
-            if let url = FirebaseManager.shared.agreementUrl {
-                let agreement = WebAcceptViewModel(url: url, title: "Соглашение")
-                
-                Helper.performOnMainThread {
-                    self.router?.openAgreement(model: agreement)
-                }
-            }
-        }
+//        if !Values.shared.privacyPolicy {
+//            if let url = FirebaseManager.shared.agreementUrl {
+//                let agreement = WebAcceptViewModel(url: url, title: "Соглашение")
+//                
+//                Helper.performOnMainThread {
+//                    self.router?.openAgreement(model: agreement)
+//                }
+//            }
+//        }
     }
 }

@@ -39,7 +39,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         super.init(presenter: presenter)
         presenter.listener = self
         
-        self.mainViewModel.value = BoardMainViewModel(title: self.service.board.name)
+        self.mainViewModel.value = BoardMainViewModel(title: "")
         
     }
 
@@ -48,7 +48,8 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         self.setup()
         
         self.presenter.showCentralActivity()
-        self.load(reload: true)
+        self.initialLoad()
+//        self.load(reload: true)
     }
 
     override func willResignActive() {
@@ -78,20 +79,37 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
             .observeOn(Helper.rxBackgroundThread)
             .retryWhen({ [weak self] errorObservable in
                 return errorObservable.flatMap({ error -> Observable<Void>  in
-                    let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry, .ok])
-                    errorManager.show()
                     
-                    return errorManager.actions
-                        .flatMap({ type -> Observable<Void> in
-                            if type == .retry {
+                    if let err = error as? ChanError, err == ChanError.noModel {
+                        self?.presenter.stopAnyLoaders()
+                        let noModelError = ChanError.error(title: "Введите код доски ", description: "Вы еще не добавили домашнюю доску 😱, введите код доски")
+                        let display = ErrorDisplay(error: noModelError, buttons: [.input(result: "Например pr")])
+                        display.show()
+                        
+                        return display.actions
+                            .flatMap({ action -> Observable<Void> in
+                                switch action {
+                                    case .input(let result): print(result)
+                                    default: break
+                                }
                                 self?.presenter.showCentralActivity()
                                 return Observable<Void>.just(Void())
-                            } else {
-                                self?.presenter.stopAnyLoaders()
-                                return Observable<Void>.empty()
-                            }
-                        })
-                    
+                            })
+                    } else {
+                        let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry, .ok])
+                        errorManager.show()
+                        
+                        return errorManager.actions
+                            .flatMap({ type -> Observable<Void> in
+                                if type == .retry {
+                                    self?.presenter.showCentralActivity()
+                                    return Observable<Void>.just(Void())
+                                } else {
+                                    self?.presenter.stopAnyLoaders()
+                                    return Observable<Void>.empty()
+                                }
+                            })
+                    }
                 })
             })
             .flatMap({ [weak self] result -> Observable<[ThreadViewModel]> in
@@ -129,7 +147,9 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
             .subscribe(onNext: { [weak self] action in
                 switch action {
                 case .loadNext: do {
-                    self?.load()
+                    if self?.data.count ?? 0 != 0 {
+                        self?.load()
+                    }
                 }
                 case .openThread(let idx): do {
                     if let thread = self?.data[idx] {
@@ -142,6 +162,39 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     }
                 }
             }).disposed(by: self.disposeBag)
+    }
+    
+//    .flatMap { model -> Observable<BoardModel?> in
+//    if model == nil {
+//    let err = ChanError.noHomeModel
+//    let display = ErrorDisplay(error: err, buttons: [.input(result: nil)])
+//    display.show()
+//
+//    return display.actions.flatMap({ action -> Observable<BoardModel?> in
+//    switch action {
+//    case .input(let result): print(result)
+//    default: break
+//    }
+//
+//    return Observable<BoardModel?>.just(nil)
+//    })
+//    } else {
+//    return Observable<BoardModel?>.just(model)
+//    }
+//    }
+    
+    
+    private func initialLoad() {
+        self.service
+            .fetchHomeBoard()
+            .subscribe(onNext: { [weak self] model in
+                if let model = model {
+                    self?.service.update(board: model)
+                }
+                
+                self?.load()
+            })
+            .disposed(by: self.service.disposeBag)
     }
     
 

@@ -22,7 +22,7 @@ class ThreadModel: BaseModel, Decodable {
         self.board = board
     }
     
-    func update(board: BoardModel) {
+    func update(board: BoardModel?) {
         self.board = board
     }
     

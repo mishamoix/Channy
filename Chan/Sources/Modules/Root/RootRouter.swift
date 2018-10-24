@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol RootInteractable: Interactable, BoardsListListener {
+protocol RootInteractable: Interactable, BoardListener {
     var router: RootRouting? { get set }
     var listener: RootListener? { get set }
 }
@@ -20,19 +20,19 @@ protocol RootViewControllable: ViewControllable {
 final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, RootRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: RootInteractable, viewController: RootViewControllable, boards: BoardsListBuildable) {
-      self.boardsBuilder = boards
+    init(interactor: RootInteractable, viewController: RootViewControllable, board: BoardBuildable) {
+      self.boardBuilder = board
       super.init(interactor: interactor, viewController: viewController)
       interactor.router = self
     }
 
     // MARK: Private
-    private let boardsBuilder: BoardsListBuildable
+    private let boardBuilder: BoardBuildable
     private weak var boards: ViewableRouting?
     
     internal func setupBoards() {
         if self.canDeattach(router: self.boards) {
-            let boards = self.boardsBuilder.build(withListener: self.interactor)
+            let boards = self.boardBuilder.build(withListener: self.interactor)
             self.boards = boards
             self.attachChild(boards)
             self.viewControllable.setupRoot(view: boards.viewControllable, animated: false)

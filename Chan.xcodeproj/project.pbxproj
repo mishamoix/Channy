@@ -57,6 +57,7 @@
 		0A2E0CDE2145B3F600CBD619 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDD2145B3F600CBD619 /* PostModel.swift */; };
 		0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDF2145B48300CBD619 /* FileModel.swift */; };
 		0A2E0CE22145C8D600CBD619 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */; };
+		0A4CB8672180FB9100E0F3CE /* CoreDataModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4CB8662180FB9100E0F3CE /* CoreDataModelProtocol.swift */; };
 		0A505D76216D060A0076F383 /* WebAcceptRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D71216D060A0076F383 /* WebAcceptRouter.swift */; };
 		0A505D77216D060A0076F383 /* WebAcceptViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */; };
 		0A505D78216D060A0076F383 /* WebAcceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D73216D060A0076F383 /* WebAcceptViewController.swift */; };
@@ -70,8 +71,8 @@
 		0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EBD214F098400AECE3C /* PostCell.swift */; };
 		0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */; };
 		0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EC4214F995400AECE3C /* String+Utils.swift */; };
-		0A5D7D99217CE9A4004429B0 /* VPX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5D7D98217CE9A4004429B0 /* VPX.framework */; };
 		0A5D7D9A217CE9AD004429B0 /* Pods_Chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5239A404CA4DD902961DB4 /* Pods_Chan.framework */; };
+		0A5D7D9E217D0835004429B0 /* Chan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D7D9C217D0835004429B0 /* Chan.xcdatamodeld */; };
 		0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */; };
 		0A7349AA217A36E400244B59 /* PostMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7349A9217A36E400244B59 /* PostMediaView.swift */; };
 		0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */; };
@@ -112,6 +113,9 @@
 		0AD5C2D8215AC7B900F68AF4 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2D7215AC7B900F68AF4 /* ErrorDisplay.swift */; };
 		0AD5C2DA215AC89700F68AF4 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2D9215AC89700F68AF4 /* ErrorManager.swift */; };
 		0AD5C2DC215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2DB215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift */; };
+		0AF77B37217E40D1007D8C5B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF77B36217E40D1007D8C5B /* CoreData.framework */; };
+		0AF77B42217E4C85007D8C5B /* CoreDataBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF77B41217E4C85007D8C5B /* CoreDataBoard.swift */; };
+		0AF77B44217E4F19007D8C5B /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF77B43217E4F19007D8C5B /* CoreDataStore.swift */; };
 		0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */; };
 		0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */; };
 		0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA421499C190002E832 /* TextStripper.swift */; };
@@ -180,6 +184,7 @@
 		0A2E0CDD2145B3F600CBD619 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		0A2E0CDF2145B48300CBD619 /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
+		0A4CB8662180FB9100E0F3CE /* CoreDataModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModelProtocol.swift; sourceTree = "<group>"; };
 		0A505D71216D060A0076F383 /* WebAcceptRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptRouter.swift; sourceTree = "<group>"; };
 		0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebAcceptViewController.storyboard; sourceTree = "<group>"; };
 		0A505D73216D060A0076F383 /* WebAcceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptViewController.swift; sourceTree = "<group>"; };
@@ -193,14 +198,13 @@
 		0A5B0EBD214F098400AECE3C /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		0A5B0EC1214F09A400AECE3C /* BasePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePostCell.swift; sourceTree = "<group>"; };
 		0A5B0EC4214F995400AECE3C /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
-		0A5D7D98217CE9A4004429B0 /* VPX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VPX.framework; sourceTree = "<group>"; };
+		0A5D7D9D217D0835004429B0 /* Chan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chan.xcdatamodel; sourceTree = "<group>"; };
 		0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.Key.swift; sourceTree = "<group>"; };
 		0A7349A9217A36E400244B59 /* PostMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaView.swift; sourceTree = "<group>"; };
 		0A78C08D217BEA5D0050630D /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		0A78C08F217BEA710050630D /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		0A78C091217BEA7B0050630D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0A78C093217BEA890050630D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		0A78C095217BF2D00050630D /* VPX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VPX.framework; path = Pods/libvpx/VPX.framework; sourceTree = "<group>"; };
 		0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebmPlayerViewController.swift; sourceTree = "<group>"; };
 		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
@@ -241,6 +245,9 @@
 		0AD5C2D7215AC7B900F68AF4 /* ErrorDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
 		0AD5C2D9215AC89700F68AF4 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
 		0AD5C2DB215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBoardsListDisplay.swift; sourceTree = "<group>"; };
+		0AF77B36217E40D1007D8C5B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0AF77B41217E4C85007D8C5B /* CoreDataBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBoard.swift; sourceTree = "<group>"; };
+		0AF77B43217E4F19007D8C5B /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDownButton.swift; sourceTree = "<group>"; };
 		0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		0AFFFDA421499C190002E832 /* TextStripper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStripper.swift; sourceTree = "<group>"; };
@@ -264,7 +271,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A5D7D99217CE9A4004429B0 /* VPX.framework in Frameworks */,
+				0AF77B37217E40D1007D8C5B /* CoreData.framework in Frameworks */,
 				0A5D7D9A217CE9AD004429B0 /* Pods_Chan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +491,15 @@
 			path = Styles;
 			sourceTree = "<group>";
 		};
+		0A5D7D9B217D0804004429B0 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				0A4CB8662180FB9100E0F3CE /* CoreDataModelProtocol.swift */,
+				0AF77B41217E4C85007D8C5B /* CoreDataBoard.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		0A856294216E58C700D053F7 /* Viewer */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,7 +523,6 @@
 		0ACC29452143EF0B00B4E53B = {
 			isa = PBXGroup;
 			children = (
-				0A5D7D98217CE9A4004429B0 /* VPX.framework */,
 				0ACC29502143EF0B00B4E53B /* Chan */,
 				0ACC294F2143EF0B00B4E53B /* Products */,
 				E356FAB79158997F8BF0F98D /* Pods */,
@@ -549,9 +564,9 @@
 				0A505D70216D05EF0076F383 /* WebAccept */,
 				0A11320F215F96D500BB3C79 /* Settings */,
 				0AFFFDA62149A1E20002E832 /* Thread */,
+				0ACC29662143F21D00B4E53B /* BoardsList */,
 				0A2E0CB6214578F500CBD619 /* Board */,
 				0ACC29822143F78F00B4E53B /* Root */,
-				0ACC29662143F21D00B4E53B /* BoardsList */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -559,6 +574,7 @@
 		0ACC29652143F06A00B4E53B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0AF77B3C217E41CC007D8C5B /* DB */,
 				0A11321F2160111300BB3C79 /* Values */,
 				0A11321A215F9AC900BB3C79 /* Firebase */,
 				0A5B0EBA214EFD6E00AECE3C /* Styles */,
@@ -632,6 +648,7 @@
 		0ACC297D2143F71400B4E53B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A5D7D9C217D0835004429B0 /* Chan.xcdatamodeld */,
 				0A11320D215F94CA00BB3C79 /* GoogleService-Info.plist */,
 				0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */,
 				0ACC29582143EF1200B4E53B /* Assets.xcassets */,
@@ -661,6 +678,15 @@
 				0A2E0CAC214557E900CBD619 /* BaseTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0AF77B3C217E41CC007D8C5B /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				0AF77B43217E4F19007D8C5B /* CoreDataStore.swift */,
+				0A5D7D9B217D0804004429B0 /* Entities */,
+			);
+			path = DB;
 			sourceTree = "<group>";
 		};
 		0AFFB6D721596D4000A122A0 /* Cells */ = {
@@ -724,7 +750,7 @@
 		4D36EE4DEAF72C13B7E89E56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0A78C095217BF2D00050630D /* VPX.framework */,
+				0AF77B36217E40D1007D8C5B /* CoreData.framework */,
 				0A78C093217BEA890050630D /* Foundation.framework */,
 				0A78C091217BEA7B0050630D /* SystemConfiguration.framework */,
 				0A78C08F217BEA710050630D /* libiconv.tbd */,
@@ -869,6 +895,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MagicalRecord/MagicalRecord.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/OGVKit/OGVKit.framework",
 				"${BUILT_PRODUCTS_DIR}/RIBs/RIBs.framework",
@@ -895,6 +922,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MagicalRecord.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OGVKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RIBs.framework",
@@ -936,6 +964,7 @@
 				0A2E0CC02145790300CBD619 /* BoardInteractor.swift in Sources */,
 				0A2E0C882145396400CBD619 /* BaseModel.swift in Sources */,
 				0A2E0CC721459F3300CBD619 /* BoardMainViewModel.swift in Sources */,
+				0A5D7D9E217D0835004429B0 /* Chan.xcdatamodeld in Sources */,
 				0A2E0C8A2145397600CBD619 /* BoardModel.swift in Sources */,
 				0ACC29752143F3AE00B4E53B /* BaseService.swift in Sources */,
 				0A2E0C9F2145467F00CBD619 /* ResultModel.swift in Sources */,
@@ -986,12 +1015,14 @@
 				0A113217215F96EA00BB3C79 /* SettingsViewController.swift in Sources */,
 				0A90E7882151988D00B71EAA /* ChanLinkModel.swift in Sources */,
 				0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */,
+				0A4CB8672180FB9100E0F3CE /* CoreDataModelProtocol.swift in Sources */,
 				0ACC296C2143F22F00B4E53B /* BoardsListRouter.swift in Sources */,
 				0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */,
 				0A90E7A12152DB4700B71EAA /* Helper.swift in Sources */,
 				0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */,
 				0A5B0EBC214EFD8000AECE3C /* Style.swift in Sources */,
 				0A505D78216D060A0076F383 /* WebAcceptViewController.swift in Sources */,
+				0AF77B44217E4F19007D8C5B /* CoreDataStore.swift in Sources */,
 				0A11321C215F9B3300BB3C79 /* FirebaseDB.swift in Sources */,
 				0A505D76216D060A0076F383 /* WebAcceptRouter.swift in Sources */,
 				0ACC298A2143F79900B4E53B /* RootInteractor.swift in Sources */,
@@ -1000,6 +1031,7 @@
 				0A2E0CBF2145790300CBD619 /* BoardBuilder.swift in Sources */,
 				0A90E78F2151A9A100B71EAA /* ResultThreadModel.swift in Sources */,
 				0A90E7A52152DF9800B71EAA /* ThreadRepledService.swift in Sources */,
+				0AF77B42217E4C85007D8C5B /* CoreDataBoard.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
 				0A113219215F96EA00BB3C79 /* SettingsInteractor.swift in Sources */,
 				0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */,
@@ -1238,6 +1270,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0A5D7D9C217D0835004429B0 /* Chan.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0A5D7D9D217D0835004429B0 /* Chan.xcdatamodel */,
+			);
+			currentVersion = 0A5D7D9D217D0835004429B0 /* Chan.xcdatamodel */;
+			path = Chan.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0ACC29462143EF0B00B4E53B /* Project object */;
 }

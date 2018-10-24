@@ -13,7 +13,7 @@ protocol RootDependency: Dependency {
     // created by this RIB.
 }
 
-final class RootComponent: Component<RootDependency>, BoardsListDependency {
+final class RootComponent: Component<RootDependency>, BoardDependency {
     var threadIsRoot: Bool {
         return true
     }
@@ -41,8 +41,8 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
 //    let listService = BoardsListService()
     let interactor = RootInteractor(presenter: viewController)
     
-    let boards = BoardsListBuilder(dependency: component)
+    let board = BoardBuilder(dependency: component)
     
-    return RootRouter(interactor: interactor, viewController: viewController, boards: boards)
+    return RootRouter(interactor: interactor, viewController: viewController, board: board)
   }
 }

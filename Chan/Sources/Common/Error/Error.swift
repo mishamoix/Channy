@@ -9,9 +9,10 @@
 import Foundation
 import Moya
 
-enum ChanError: Error {
+enum ChanError: Error, Equatable {
     
     case somethingWrong(description: String?)
+    case error(title: String, description: String)
     case offline
     case parseError
     
@@ -21,7 +22,15 @@ enum ChanError: Error {
     case serverError // 500
     case serverNotRespond // 502
     
+    case noModel
     
+    
+    public static func == (lhs: ChanError, rhs: ChanError) -> Bool {
+        return String(reflecting: lhs) == String(reflecting: rhs)
+    }
+    
+//    // Board
+//    case noHomeModel
     
 }
 
@@ -38,6 +47,8 @@ class ErrorHelper {
         if let error = self.error {
             if let moyaError = error as? MoyaError {
                 return self.make(moya: moyaError)
+            } else if let err = error as? ChanError {
+                return err
             }
         }
         return ChanError.somethingWrong(description: self.error?.localizedDescription)
@@ -48,6 +59,8 @@ class ErrorHelper {
         case .underlying(let err, let response):
             if response == nil {
                 return .offline
+            } else if response?.statusCode ?? 0 == 404 {
+                return .notFound
             }
         default: break
         }

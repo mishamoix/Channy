@@ -37,11 +37,11 @@ final class BoardsListBuilder: Builder<BoardsListDependency>, BoardsListBuildabl
         let interactor = self.buildInteractor(vc: viewController)
         interactor.listener = listener
         
-        let board = BoardBuilder(dependency: component)
+//        let board = BoardBuilder(dependency: component)
         let settings = SettingsBuilder(dependency: component)
-        let agreement = WebAcceptBuilder(dependency: component)
+//        let agreement = WebAcceptBuilder(dependency: component)
         
-        return BoardsListRouter(interactor: interactor, viewController: viewController, board: board, settings: settings, agreement: agreement)
+        return BoardsListRouter(interactor: interactor, viewController: viewController)
     }
     
     // MARK: Private

@@ -36,6 +36,9 @@ target 'Chan' do
     pod 'Fabric'
     pod 'Crashlytics'
     
+    #DB
+    pod 'MagicalRecord'
+    
     # Utils
     pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
 
