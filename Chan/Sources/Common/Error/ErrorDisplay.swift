@@ -13,7 +13,7 @@ protocol ErrorDisplayProtocol {
     init(error: Error)
     init(error: Error, buttons: [ErrorButton])
     func show()
-    
+    func show(on vc: UIViewController?)
     var actions: PublishSubject<ErrorButton> { get }
 }
 
@@ -31,7 +31,6 @@ enum ErrorButton: Equatable {
 }
 
 class ErrorDisplay: ErrorDisplayProtocol {
-
     
     private static let disposeBag = DisposeBag()
     
@@ -54,17 +53,21 @@ class ErrorDisplay: ErrorDisplayProtocol {
     }
     
     func show() {
+        self.show(on: nil)
+    }
+    
+    func show(on vc: UIViewController?) {
         let error = ErrorHelper(error: self.error).makeError()
         
         if let err = error as? ChanError {
-            self.chanErrorDisplay(err)
+            self.chanErrorDisplay(err, vc: vc)
         } else {
             let message = self.error.localizedDescription
-            self.showAlertView(with: nil, message: message)
+            self.showAlertView(with: nil, message: message, vc: vc)
         }
     }
     
-    func chanErrorDisplay(_ error: ChanError) {
+    func chanErrorDisplay(_ error: ChanError, vc: UIViewController? = nil) {
         
         var title = ""
         var message = ""
@@ -87,10 +90,10 @@ class ErrorDisplay: ErrorDisplayProtocol {
         default: break
         }
         
-        self.showAlertView(with: title, message: message)
+        self.showAlertView(with: title, message: message, vc: vc)
     }
     
-    private func showAlertView(with title: String?, message: String) {
+    private func showAlertView(with title: String?, message: String, vc viewController: UIViewController? = nil) {
         let vc = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         
         for button in self.buttons {
@@ -124,7 +127,7 @@ class ErrorDisplay: ErrorDisplayProtocol {
         }
         
         Helper.performOnMainThread {
-            ErrorDisplay.topViewController?.present(vc, animated: true, completion: nil)
+            (viewController ?? ErrorDisplay.topViewController)?.present(vc, animated: true, completion: nil)
         }
     }
     

@@ -43,6 +43,8 @@ class AppDependency: NSObject {
         Fabric.with([Crashlytics.self])
         
         CoreDataStore.shared.setup()
+        
+        CoreDataStore.shared.test()
     }
 
     

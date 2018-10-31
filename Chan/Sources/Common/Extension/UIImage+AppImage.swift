@@ -15,5 +15,8 @@ extension UIImage {
     static var settings: UIImage { return UIImage(named: "settings")!}
     static var play: UIImage { return UIImage(named: "play")!}
     static var cross: UIImage { return UIImage(named: "cross")!}
+    static var plus: UIImage { return UIImage(named: "plus")!}
+    static var home: UIImage { return UIImage(named: "home")!}
+
 
 }

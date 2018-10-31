@@ -14,13 +14,11 @@ public extension Router where InteractorType: Any {
     public func canDeattach(router: ViewableRouting?) -> Bool {
         if let router = router {
             let vc = router.viewControllable.uiviewController
+            vc.removeFromParent()
             if vc.parent != nil {
                 return false
             }
-            
             self.detachChild(router)
-            vc.removeFromParent()
-
         }
         
         return true

@@ -45,6 +45,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     private func setupUI() {
         
         self.limitorSwitch.isOn = Values.shared.safeMode
+        self.navigationItem.title = "Настройки"
 
         self.infoTextView.text = FirebaseManager.shared.mainInfo
 

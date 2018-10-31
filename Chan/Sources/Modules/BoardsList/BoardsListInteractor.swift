@@ -11,8 +11,8 @@ import RxSwift
 
 protocol BoardsListRouting: ViewableRouting {
 //    func openBoard(with board: BoardModel)
-//    func openSettings()
-//    
+    func openSettings()
+//
 //    func openAgreement(model: WebAcceptViewModel)
 //    func closeAgreement()
 }
@@ -22,7 +22,8 @@ protocol BoardsListPresentable: Presentable {
 }
 
 protocol BoardsListListener: class {
-    // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+    func open(board: BoardModel)
+    func closeBoardsList()
 }
 
 final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, BoardsListInteractable, BoardsListPresentableListener {
@@ -36,7 +37,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     private var listServiceResult: PublishSubject<BoardsListServiceProtocol.ResultType> = PublishSubject<BoardsListServiceProtocol.ResultType>()
     
     private let disposeBag = DisposeBag()
-    private var data: [BoardCategoryModel] = []
+    private var data: [BoardModel] = []
     
     private var currentSearchText: String? = nil
 
@@ -63,7 +64,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     }
     
     //MARK: BoardsListPresentableListener
-    let dataSource = Variable<[BoardCategoryModel]>([])
+    let dataSource = Variable<[BoardModel]>([])
     var viewActions: PublishSubject<BoardsListAction> = PublishSubject()
     
     // MARK: SettingsListener
@@ -87,118 +88,122 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     }
     
     private func setupRx() {
-//        self.viewActions
-//            .asObservable()
-//            .observeOn(Helper.rxMainThread)
-//            .subscribe(onNext: { [weak self] action in
-//                switch action {
-//                case .seacrh(let text): do {
-//                    self?.currentSearchText = text
-//                    if let result = self?.search(with: text) {
-//                        self?.dataSource.value = result
-//                    }
-//                }
-//                case .openBoard(let index): do {
-//                    if let model = self?.dataSource.value[index.section].boards[index.row] {
+        self.viewActions
+            .asObservable()
+            .observeOn(Helper.rxMainThread)
+            .subscribe(onNext: { [weak self] action in
+                switch action {
+                case .seacrh(let text): do {
+                    self?.currentSearchText = text
+                    if let result = self?.search(with: text) {
+                        self?.dataSource.value = result
+                    }
+                }
+                case .openBoard(let index): do {
+                    if let model = self?.data[index.row] {
+                        self?.listener?.open(board: model)
+                        self?.listener?.closeBoardsList()
 //                        self?.router?.openBoard(with: model)
-//                    }
-//                }
-//                case .openSettings: do {
-//                    self?.router?.openSettings()
-//                }
-//                }
-//            }).disposed(by: self.disposeBag)
+                    }
+                }
+                case .openSettings: do {
+                    self?.router?.openSettings()
+                }
+                    
+                case .addNewBoard: do {
+                    self?.addNewBoard()
+                }
+                case .close: do {
+                    self?.listener?.closeBoardsList()
+                }
+                    
+                case .delete(let uid): do {
+                    let board = BoardModel(uid: uid)
+                    self?.listService.delete(board: board)
+                    self?.load()
+                }
+                case .move(let from, let to): do {
+                    if let boards = self?.data {
+                        var brds = boards
+                        if from.row < boards.count && to.row < boards.count {
+//                            if from.row > to.row {
+//                                let reorderBoard = boards[from.row]
+//                                brds.remove(at: from.row)
+//                                brds.insert(reorderBoard, at: to.row)
+//                            } else {
+                                let reorderBoard = boards[from.row]
+                                brds.remove(at: from.row)
+                                brds.insert(reorderBoard, at: to.row)
+                                
+//                            }
+                            self?.listService.save(boards: brds)
+                        }
+                    }
+                    
+                    self?.load()
+                }
+                }
+            })
+            .disposed(by: self.disposeBag)
     }
     
     
-    private func search(with text: String?) -> [BoardCategoryModel] {
-        var result: [BoardCategoryModel] = []
+    private func search(with text: String?) -> [BoardModel] {
+        var result: [BoardModel] = []
         
         guard let text = text else {
             return self.data
         }
-        
         if text.count == 0 {
             return self.data
         }
-        
-        for section in self.data {
-            let copySection  = section.cp()
-            copySection.boards = section.boards.filter { $0.has(substring: text) }
-            
-            if copySection.boards.count > 0 || copySection.has(substring: text) {
-                result.append(copySection)
-            }
-        }
+        result = self.data.filter({ $0.has(substring: text )})
         
         return result
     }
     
     private func reload() {
-        self.listService.dropCache()
         self.load()
     }
     
     private func load() {
-        
-//        self.listService.cancel()
-//
-//        self.presenter.showCentralActivity()
-//        self.listService
-//            .loadAllBoards()
-//            .observeOn(Helper.rxBackgroundThread)
-//            .retryWhen({ (errorOsb: Observable<Error>) in
-//                return errorOsb.flatMap({ error -> Observable<Void>  in
-//                    let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry])
-//                    errorManager.show()
-//
-//                    return errorManager.actions
-//                        .filter({ $0 == .retry })
-//                        .flatMap({ type -> Observable<()> in
-//                            return Observable<Void>.just(Void())
-//                        })
-//
-//                })
-//            })
-//            .flatMap({  [weak self] (result) -> Observable<[BoardCategoryModel]> in
-//                self?.checkAgreement()
-//                if let result = result {
-//
-//                    var res: [BoardCategoryModel] = []
-//
-//                    for category in result {
-//                        let cat = category.cp()
-//                        cat.boards = category.boards
-//                            .filter({ !FirebaseManager.shared.excludeBoards.contains($0.uid) })
-//                            .sorted(by: { $0.uid < $1.uid })
-//                        res.append(cat)
-//                    }
-//
-//                    if let allow = FirebaseManager.shared.notFullAllowBoards, Values.shared.safeMode {
-//                        for category in res {
-//                            category.boards = category.boards
-//                                .filter({ allow.contains($0.uid) })
-//                        }
-//                    }
-//
-//                    let sorted = res
-//                        .filter({ $0.boards.count != 0 })
-//                        .sorted(by: { $0.name ?? "" < $1.name ?? "" })
-//
-//                    self?.data = sorted
-//                    self?.presenter.stopAnyLoaders()
-//                    return Observable<[BoardCategoryModel]>.just(self?.search(with: self?.currentSearchText) ?? [])
-//                }
-//
-//                self?.presenter.stopAnyLoaders()
-//                return Observable<[BoardCategoryModel]>.just([])
-//            })
-//            .bind(to: self.dataSource)
-//            .disposed(by: self.listService.disposeBag)
-
+        self.data = self.listService.loadCachedBoards()
+        self.dataSource.value = self.search(with: self.currentSearchText)
     }
     
-    private func checkAgreement() {
+    private func addNewBoard(title: String = "Добавление новой доски") {
+        let err = ChanError.error(title: title, description: "Введите название доски")
+        
+        let display = ErrorDisplay(error: err, buttons: [.input(result: "Например pr"), .cancel])
+        display.show()
+        
+        display
+            .actions
+            .subscribe(onNext: { [weak self] action in
+                switch action {
+                case .input(let result): do {
+                    if let uid = TextStripper.onlyChars(text: result) {
+                        let board = BoardModel(uid: uid)
+                        if self?.listService.save(board: board) ?? true {
+                            self?.load()
+                            return
+                        } else {
+                            self?.addNewBoard(title: "Доска \(board.uid) уже существует!")
+                            return
+                        }
+                    }
+                }
+                case .cancel: return
+                default: break
+                }
+                
+                self?.addNewBoard(title: "Вы не ввели название доски!")
+//                if let boardUid =
+            })
+            .disposed(by: self.disposeBag)
+    }
+    
+//    private func checkAgreement() {
 //        if !Values.shared.privacyPolicy {
 //            if let url = FirebaseManager.shared.agreementUrl {
 //                let agreement = WebAcceptViewModel(url: url, title: "Соглашение")
@@ -208,5 +213,5 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
 //                }
 //            }
 //        }
-    }
+//    }
 }

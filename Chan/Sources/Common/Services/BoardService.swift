@@ -16,35 +16,40 @@ protocol BoardServiceProtocol: BaseServiceProtocol {
     
     
     var board: BoardModel? { get }
-//    var publish: PublishSubject<ResultType>? { get set }
   
     func loadNext(realod needReload: Bool) -> Observable<ResultType>?
     func update(board: BoardModel)
-    func fetchHomeBoard() -> Observable<BoardModel?>
+    
+    var saveBoardAsHomeIfSuccess: Bool { get set }
+    
+    func reset()
 }
 
 
 class BoardService: BaseService, BoardServiceProtocol {
     
     var board: BoardModel?
-//    var publish: PublishSubject<ResultType>? = nil
+    var saveBoardAsHomeIfSuccess: Bool {
+        get {
+            return self.needUpdatedBoard
+        }
+        
+        set {
+            self.needUpdatedBoard = newValue
+        }
+    }
+    
+    private var needUpdatedBoard = false
 
     private let provider = ChanProvider<BoardTarget>()
     
     private var page = 0
     private var maxPage = 1
     
-//    private var uid: String {
-//        return self.board.uid
-//    }
-    
     private var onLoading = false
-
     
-//    override init() {
-////        self.board = board
-////        super.init()
-//    }
+    private let boardsListService = BoardsListService()
+
     
     func update(board: BoardModel) {
         self.board = board
@@ -52,15 +57,19 @@ class BoardService: BaseService, BoardServiceProtocol {
     
     func loadNext(realod needReload: Bool = false) -> Observable<ResultType>? {
         
+        if self.board == nil {
+            self.board = self.boardsListService.home
+        }
+        
         guard let board = self.board else {
+            
             return Observable<ResultType>.error(ChanError.noModel)
         }
         
         let uid = board.uid
         
         if needReload {
-            self.page = 0
-            self.onLoading = false
+            self.reset()
         }
         
         if (self.page < self.maxPage) && !self.onLoading {
@@ -78,9 +87,16 @@ class BoardService: BaseService, BoardServiceProtocol {
                 .asObservable()
                 .retry(RetryCount)
                 .flatMap({ [weak self] response -> Observable<ResultType> in
-                    
-
                     self?.onLoading = false
+                    
+                    
+                    if FirebaseManager.shared.needExcludeBoards {
+                        if let uid = self?.board?.uid, FirebaseManager.shared.excludeBoards.contains(uid) {
+                            return Observable<ResultType>.error(ChanError.notFound)
+                        }
+                    }
+
+                    
                     if let res = self?.makeModel(data: response.data) {
                         var type: ResultBoardModelType = .first
                         if let page = self?.page, page != 0 {
@@ -90,11 +106,14 @@ class BoardService: BaseService, BoardServiceProtocol {
                         let result = ResultType(result: res, type: type)
                         self?.page += 1
 
+                        self?.checkAndSaveHomeBoard()
+                        
+                        
                         return Observable<ResultType>.just(result)
                     } else {
                         let result = ResultType(result: [], type: ResultBoardModelType.page(idx: self?.page ?? 0))
                         self?.page += 1
-
+                        self?.checkAndSaveHomeBoard()
                         return Observable<ResultType>.just(result)
                     }
                 })
@@ -103,15 +122,23 @@ class BoardService: BaseService, BoardServiceProtocol {
         return nil
     }
     
-    func fetchHomeBoard() -> Observable<BoardModel?> {
-        // TODO:
-        return Observable<BoardModel?>.just(nil)
+    private func checkAndSaveHomeBoard() {
+        if let board = self.board, self.needUpdatedBoard {
+            let _ = self.boardsListService.save(board: board)
+            self.saveBoardAsHomeIfSuccess = false
+        }
     }
+    
     
     private func makeModel(data: Data) -> DataType {
         
         var result: DataType = []
         if let json = self.fromJson(data: data) {
+            
+            if let boardName = json["BoardName"] as? String, let board = board, board.name.count == 0 {
+                self.needUpdatedBoard = true
+                self.board?.name = boardName
+            }
             
             if let pages = json["pages"] as? [Int] {
                 if let max = pages.max() {
@@ -131,6 +158,14 @@ class BoardService: BaseService, BoardServiceProtocol {
 
         return result
 
+    }
+    
+    func reset() {
+        self.page = 0
+        self.cancel()
+        self.onLoading = false
+        self.saveBoardAsHomeIfSuccess = false
+        self.maxPage = 1
     }
     
     

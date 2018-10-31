@@ -29,6 +29,8 @@ target 'Chan' do
     pod 'AXPhotoViewer'
     pod 'OGVKit/WebM'
     pod 'MBProgressHUD'
+    pod 'SwiftReorder', '~> 6.0'
+
 
     # Firebase
     pod 'Firebase/Core'

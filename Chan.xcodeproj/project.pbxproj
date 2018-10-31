@@ -57,7 +57,6 @@
 		0A2E0CDE2145B3F600CBD619 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDD2145B3F600CBD619 /* PostModel.swift */; };
 		0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDF2145B48300CBD619 /* FileModel.swift */; };
 		0A2E0CE22145C8D600CBD619 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */; };
-		0A4CB8672180FB9100E0F3CE /* CoreDataModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4CB8662180FB9100E0F3CE /* CoreDataModelProtocol.swift */; };
 		0A505D76216D060A0076F383 /* WebAcceptRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D71216D060A0076F383 /* WebAcceptRouter.swift */; };
 		0A505D77216D060A0076F383 /* WebAcceptViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */; };
 		0A505D78216D060A0076F383 /* WebAcceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D73216D060A0076F383 /* WebAcceptViewController.swift */; };
@@ -90,6 +89,14 @@
 		0A90E7A12152DB4700B71EAA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7A02152DB4700B71EAA /* Helper.swift */; };
 		0A90E7A52152DF9800B71EAA /* ThreadRepledService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7A42152DF9700B71EAA /* ThreadRepledService.swift */; };
 		0AA1B6CD21542DC10063B5F7 /* PostMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1B6CC21542DC10063B5F7 /* PostMediaCell.swift */; };
+		0AACC185218A5A2A00B7BD19 /* OnboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC180218A5A2A00B7BD19 /* OnboardRouter.swift */; };
+		0AACC186218A5A2A00B7BD19 /* OnboardViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AACC181218A5A2A00B7BD19 /* OnboardViewController.storyboard */; };
+		0AACC187218A5A2A00B7BD19 /* OnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC182218A5A2A00B7BD19 /* OnboardViewController.swift */; };
+		0AACC188218A5A2A00B7BD19 /* OnboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC183218A5A2A00B7BD19 /* OnboardBuilder.swift */; };
+		0AACC189218A5A2A00B7BD19 /* OnboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC184218A5A2A00B7BD19 /* OnboardInteractor.swift */; };
+		0AACC190218A5A8800B7BD19 /* SwiftyOnboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC18D218A5A8700B7BD19 /* SwiftyOnboard.swift */; };
+		0AACC191218A5A8800B7BD19 /* SwiftyOnboardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC18E218A5A8800B7BD19 /* SwiftyOnboardOverlay.swift */; };
+		0AACC192218A5A8800B7BD19 /* SwiftyOnboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC18F218A5A8800B7BD19 /* SwiftyOnboardPage.swift */; };
 		0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29512143EF0B00B4E53B /* AppDelegate.swift */; };
 		0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC29582143EF1200B4E53B /* Assets.xcassets */; };
 		0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */; };
@@ -184,7 +191,6 @@
 		0A2E0CDD2145B3F600CBD619 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		0A2E0CDF2145B48300CBD619 /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
-		0A4CB8662180FB9100E0F3CE /* CoreDataModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModelProtocol.swift; sourceTree = "<group>"; };
 		0A505D71216D060A0076F383 /* WebAcceptRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptRouter.swift; sourceTree = "<group>"; };
 		0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebAcceptViewController.storyboard; sourceTree = "<group>"; };
 		0A505D73216D060A0076F383 /* WebAcceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +226,14 @@
 		0A90E7A02152DB4700B71EAA /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		0A90E7A42152DF9700B71EAA /* ThreadRepledService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadRepledService.swift; sourceTree = "<group>"; };
 		0AA1B6CC21542DC10063B5F7 /* PostMediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaCell.swift; sourceTree = "<group>"; };
+		0AACC180218A5A2A00B7BD19 /* OnboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardRouter.swift; sourceTree = "<group>"; };
+		0AACC181218A5A2A00B7BD19 /* OnboardViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnboardViewController.storyboard; sourceTree = "<group>"; };
+		0AACC182218A5A2A00B7BD19 /* OnboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
+		0AACC183218A5A2A00B7BD19 /* OnboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardBuilder.swift; sourceTree = "<group>"; };
+		0AACC184218A5A2A00B7BD19 /* OnboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardInteractor.swift; sourceTree = "<group>"; };
+		0AACC18D218A5A8700B7BD19 /* SwiftyOnboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyOnboard.swift; sourceTree = "<group>"; };
+		0AACC18E218A5A8800B7BD19 /* SwiftyOnboardOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyOnboardOverlay.swift; sourceTree = "<group>"; };
+		0AACC18F218A5A8800B7BD19 /* SwiftyOnboardPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyOnboardPage.swift; sourceTree = "<group>"; };
 		0ACC294E2143EF0B00B4E53B /* Chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC29512143EF0B00B4E53B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ACC29582143EF1200B4E53B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -494,7 +508,6 @@
 		0A5D7D9B217D0804004429B0 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				0A4CB8662180FB9100E0F3CE /* CoreDataModelProtocol.swift */,
 				0AF77B41217E4C85007D8C5B /* CoreDataBoard.swift */,
 			);
 			path = Entities;
@@ -518,6 +531,36 @@
 				0A90E7A42152DF9700B71EAA /* ThreadRepledService.swift */,
 			);
 			path = Thread;
+			sourceTree = "<group>";
+		};
+		0AACC175218A56D500B7BD19 /* Onboard */ = {
+			isa = PBXGroup;
+			children = (
+				0AACC180218A5A2A00B7BD19 /* OnboardRouter.swift */,
+				0AACC181218A5A2A00B7BD19 /* OnboardViewController.storyboard */,
+				0AACC182218A5A2A00B7BD19 /* OnboardViewController.swift */,
+				0AACC183218A5A2A00B7BD19 /* OnboardBuilder.swift */,
+				0AACC184218A5A2A00B7BD19 /* OnboardInteractor.swift */,
+			);
+			path = Onboard;
+			sourceTree = "<group>";
+		};
+		0AACC18B218A5A7200B7BD19 /* 3d party */ = {
+			isa = PBXGroup;
+			children = (
+				0AACC18C218A5A7B00B7BD19 /* SwiftyOnboard */,
+			);
+			path = "3d party";
+			sourceTree = "<group>";
+		};
+		0AACC18C218A5A7B00B7BD19 /* SwiftyOnboard */ = {
+			isa = PBXGroup;
+			children = (
+				0AACC18D218A5A8700B7BD19 /* SwiftyOnboard.swift */,
+				0AACC18E218A5A8800B7BD19 /* SwiftyOnboardOverlay.swift */,
+				0AACC18F218A5A8800B7BD19 /* SwiftyOnboardPage.swift */,
+			);
+			path = SwiftyOnboard;
 			sourceTree = "<group>";
 		};
 		0ACC29452143EF0B00B4E53B = {
@@ -561,6 +604,7 @@
 		0ACC29642143F06500B4E53B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0AACC175218A56D500B7BD19 /* Onboard */,
 				0A505D70216D05EF0076F383 /* WebAccept */,
 				0A11320F215F96D500BB3C79 /* Settings */,
 				0AFFFDA62149A1E20002E832 /* Thread */,
@@ -574,6 +618,7 @@
 		0ACC29652143F06A00B4E53B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0AACC18B218A5A7200B7BD19 /* 3d party */,
 				0AF77B3C217E41CC007D8C5B /* DB */,
 				0A11321F2160111300BB3C79 /* Values */,
 				0A11321A215F9AC900BB3C79 /* Firebase */,
@@ -648,7 +693,6 @@
 		0ACC297D2143F71400B4E53B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0A5D7D9C217D0835004429B0 /* Chan.xcdatamodeld */,
 				0A11320D215F94CA00BB3C79 /* GoogleService-Info.plist */,
 				0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */,
 				0ACC29582143EF1200B4E53B /* Assets.xcassets */,
@@ -683,6 +727,7 @@
 		0AF77B3C217E41CC007D8C5B /* DB */ = {
 			isa = PBXGroup;
 			children = (
+				0A5D7D9C217D0835004429B0 /* Chan.xcdatamodeld */,
 				0AF77B43217E4F19007D8C5B /* CoreDataStore.swift */,
 				0A5D7D9B217D0804004429B0 /* Entities */,
 			);
@@ -840,6 +885,7 @@
 				0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */,
 				0A2E0CB12145589600CBD619 /* BoardsTableHeader.xib in Resources */,
 				0A2E0CBD2145790300CBD619 /* BoardViewController.storyboard in Resources */,
+				0AACC186218A5A2A00B7BD19 /* OnboardViewController.storyboard in Resources */,
 				0A2E0C82214460FB00CBD619 /* Main.storyboard in Resources */,
 				0A505D77216D060A0076F383 /* WebAcceptViewController.storyboard in Resources */,
 				0A2E0CD42145A3FE00CBD619 /* ThreadCell.xib in Resources */,
@@ -903,6 +949,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftReorder/SwiftReorder.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/libnestegg/nestegg.framework",
@@ -930,6 +977,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftReorder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nestegg.framework",
@@ -958,6 +1006,7 @@
 				0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */,
 				0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */,
 				0A2E0CA32145561E00CBD619 /* BoardsListCell.swift in Sources */,
+				0AACC191218A5A8800B7BD19 /* SwiftyOnboardOverlay.swift in Sources */,
 				0A1132212160112400BB3C79 /* Values.swift in Sources */,
 				0A90E786215194E000B71EAA /* RegexChecker.swift in Sources */,
 				0A2E0CD32145A3FE00CBD619 /* ThreadCell.swift in Sources */,
@@ -979,6 +1028,7 @@
 				0AFFFDB02149A1F50002E832 /* ThreadInteractor.swift in Sources */,
 				0A2E0CA92145565100CBD619 /* ChanView.swift in Sources */,
 				0AD5C2D8215AC7B900F68AF4 /* ErrorDisplay.swift in Sources */,
+				0AACC189218A5A2A00B7BD19 /* OnboardInteractor.swift in Sources */,
 				0A2E0C9321453C1000CBD619 /* UIViewController+Utils.swift in Sources */,
 				0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */,
 				0ACC29782143F44400B4E53B /* BoardsListTarget.swift in Sources */,
@@ -990,6 +1040,8 @@
 				0A2E0CAD214557E900CBD619 /* BaseTableViewCell.swift in Sources */,
 				0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */,
 				0A2E0CCE2145A36300CBD619 /* TGReusableLabel.mm in Sources */,
+				0AACC187218A5A2A00B7BD19 /* OnboardViewController.swift in Sources */,
+				0AACC190218A5A8800B7BD19 /* SwiftyOnboard.swift in Sources */,
 				0A505D7C216D074B0076F383 /* WebAcceptViewModel.swift in Sources */,
 				0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */,
 				0A2E0CBC2145790300CBD619 /* BoardRouter.swift in Sources */,
@@ -1005,6 +1057,7 @@
 				0ACC29872143F79900B4E53B /* RootRouter.swift in Sources */,
 				0A90E78D2151A76B00B71EAA /* ThreadReplyService.swift in Sources */,
 				0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */,
+				0AACC192218A5A8800B7BD19 /* SwiftyOnboardPage.swift in Sources */,
 				0A2E0CE22145C8D600CBD619 /* UIImage+Utils.swift in Sources */,
 				0A2E0CD62145A41800CBD619 /* ThreadModel.swift in Sources */,
 				0ACC29702143F22F00B4E53B /* BoardsListInteractor.swift in Sources */,
@@ -1015,7 +1068,6 @@
 				0A113217215F96EA00BB3C79 /* SettingsViewController.swift in Sources */,
 				0A90E7882151988D00B71EAA /* ChanLinkModel.swift in Sources */,
 				0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */,
-				0A4CB8672180FB9100E0F3CE /* CoreDataModelProtocol.swift in Sources */,
 				0ACC296C2143F22F00B4E53B /* BoardsListRouter.swift in Sources */,
 				0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */,
 				0A90E7A12152DB4700B71EAA /* Helper.swift in Sources */,
@@ -1032,6 +1084,7 @@
 				0A90E78F2151A9A100B71EAA /* ResultThreadModel.swift in Sources */,
 				0A90E7A52152DF9800B71EAA /* ThreadRepledService.swift in Sources */,
 				0AF77B42217E4C85007D8C5B /* CoreDataBoard.swift in Sources */,
+				0AACC188218A5A2A00B7BD19 /* OnboardBuilder.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
 				0A113219215F96EA00BB3C79 /* SettingsInteractor.swift in Sources */,
 				0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */,
@@ -1040,6 +1093,7 @@
 				0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */,
 				0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */,
 				0A113218215F96EA00BB3C79 /* SettingsBuilder.swift in Sources */,
+				0AACC185218A5A2A00B7BD19 /* OnboardRouter.swift in Sources */,
 				0A90E7912151AD0300B71EAA /* PostMainViewModel.swift in Sources */,
 				0ACC296F2143F22F00B4E53B /* BoardsListBuilder.swift in Sources */,
 				0ACC29812143F77500B4E53B /* AppComponent.swift in Sources */,

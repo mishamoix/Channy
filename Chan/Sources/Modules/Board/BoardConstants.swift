@@ -22,6 +22,9 @@ enum BoardAction {
     case loadNext
     case openThread(idx: Int)
     case reload
+    case goToNewBoard
+    case openHome
+    case copyLinkOnBoard
 }
 
 enum BoardCellAction {

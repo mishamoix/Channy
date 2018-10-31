@@ -8,10 +8,10 @@
 
 import RIBs
 
-protocol BoardDependency: Dependency, ThreadDependency {
+protocol BoardDependency: Dependency {
 }
 
-final class BoardComponent: Component<BoardDependency> {
+final class BoardComponent: Component<BoardDependency>, ThreadDependency, BoardsListDependency, WebAcceptDependency {
 
 }
 
@@ -35,8 +35,11 @@ final class BoardBuilder: Builder<BoardDependency>, BoardBuildable {
         let interactor = BoardInteractor(presenter: viewController, service: service)
         interactor.listener = listener
         
-        let threadBuilder = ThreadBuilder(dependency: self.dependency)
+        let threadBuilder = ThreadBuilder(dependency: component)
+        let boardListBuilder = BoardsListBuilder(dependency: component)
+        let agreement = WebAcceptBuilder(dependency: component)
+
         
-        return BoardRouter(interactor: interactor, viewController: viewController, thread: threadBuilder)
+        return BoardRouter(interactor: interactor, viewController: viewController, thread: threadBuilder, boardList: boardListBuilder, agreement: agreement)
     }
 }

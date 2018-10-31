@@ -3,9 +3,10 @@
     <entity name="CoreDataBoard" representedClassName="CoreDataBoard" syncable="YES">
         <attribute name="isHome" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sort" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CoreDataBoard" positionX="-63" positionY="-1239.83203125" width="128" height="90"/>
+        <element name="CoreDataBoard" positionX="-63" positionY="-1239.83203125" width="128" height="105"/>
     </elements>
 </model>

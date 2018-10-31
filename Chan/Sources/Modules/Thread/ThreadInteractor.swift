@@ -254,7 +254,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
             ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: SmallDismissTime)
 
         } else {
-            ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: DefaultDismissTime)
+            ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
         }
     }
 

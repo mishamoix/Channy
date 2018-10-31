@@ -44,17 +44,18 @@ class BaseNavigationController: UINavigationController {
   
   
   
-  private func addPanGestureRecognizer() {
-    if let interactivePopGestureRecognizer = self.interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "_targets") as? NSArray {
-      let interactivePanTarget = (targets.firstObject as AnyObject).value(forKey: "target")
-      
-      let pan = UIPanGestureRecognizer(target: interactivePanTarget, action: NSSelectorFromString("handleNavigationTransition:"))
-      self.view.addGestureRecognizer(pan)
-      self.interactivePopPanGestureRecognizer = pan
-      self.interactivePopGestureRecognizer?.isEnabled = false
-      
+    private func addPanGestureRecognizer() {
+        if let interactivePopGestureRecognizer = self.interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "_targets") as? NSArray {
+            let interactivePanTarget = (targets.firstObject as AnyObject).value(forKey: "target")
+
+            let pan = UIPanGestureRecognizer(target: interactivePanTarget, action: NSSelectorFromString("handleNavigationTransition:"))
+            self.view.addGestureRecognizer(pan)
+            self.interactivePopPanGestureRecognizer = pan
+            self.interactivePopGestureRecognizer?.isEnabled = false
+            pan.delegate = self
+            
+        }
     }
-  }
   
   private func baseUI() {
 //    self.navigationBar.barTintColor = .main
@@ -66,17 +67,14 @@ class BaseNavigationController: UINavigationController {
     //    self.navigationBar.backIndicatorTransitionMaskImage = image
     
   }
-  
-  
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
+}
 
+
+extension BaseNavigationController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        return true
+//    }
 }

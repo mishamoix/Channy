@@ -11,6 +11,7 @@ import RxSwift
 
 protocol RootRouting: ViewableRouting {
     func setupBoards()
+    func setupOnboard()
 }
 
 protocol RootPresentable: Presentable {
@@ -38,6 +39,7 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
         super.didBecomeActive()
 
         self.router?.setupBoards()
+//        self.router?.setupOnboard()
     }
 
     override func willResignActive() {

@@ -26,6 +26,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     
     // MARK: Other
     weak var listener: BoardPresentableListener?
+    var vc: UIViewController { return self }
+
     private let disposeBag = DisposeBag()
     private var cellActions: PublishSubject<BoardCellAction> = PublishSubject()
     
@@ -33,6 +35,10 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     @IBOutlet weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
     @IBOutlet weak var bgImage: UIImageView!
+    
+    weak var addBoardButton: UIBarButtonItem?
+    weak var moreButton: UIBarButtonItem?
+    weak var homeButton: UIButton?
     
     // MARK: Data
     private var data: [ThreadViewModel] = []
@@ -53,6 +59,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     
     private func setupUI() {
         self.setupTableView()
+        self.setupNavBar()
         
         self.bgImage.alpha = 0.15
         self.bgImage.clipsToBounds = true
@@ -63,6 +70,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     private func setupRx() {
         self.listener?.mainViewModel
             .asObservable()
+            .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] model in
                 self?.navigationItem.title = model.title
             }).disposed(by: self.disposeBag)
@@ -82,9 +90,9 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                     let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
                     self?.data = result
                     tableView.performBatchUpdates({
-                        tableView.deleteRows(at: diff.deletes, with: .automatic)
-                        tableView.insertRows(at: diff.inserts, with: .automatic)
-                        tableView.reloadRows(at: diff.updates, with: .automatic)
+                        tableView.deleteRows(at: diff.deletes, with: .fade)
+                        tableView.insertRows(at: diff.inserts, with: .fade)
+                        tableView.reloadRows(at: diff.updates, with: .fade)
                         for move in diff.moves {
                             tableView.moveRow(at: move.from, to: move.to)
                         }
@@ -116,6 +124,37 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 self?.listener?.viewActions.on(.next(.reload))
             }).disposed(by: self.disposeBag)
         
+        self.moreButton?
+            .rx
+            .tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                
+                let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+                
+                
+                actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на доску", style: .default, handler: { [weak self] _ in
+                    self?.listener?.viewActions.on(.next(.copyLinkOnBoard))
+                }))
+                
+                actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
+                
+                self?.present(actionSheet, animated: true)
+
+                
+//                self?.listener?.viewActions.on(.next(.goToNewBoard))
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.homeButton?
+            .rx
+            .tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                self?.listener?.viewActions.on(.next(.openHome))
+            })
+            .disposed(by: self.disposeBag)
+        
     }
     
     private func setupTableView() {
@@ -131,6 +170,29 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
 //        self.tableView.backgroundColor = .snow
         self.tableView.backgroundColor = .clear
         self.tableView.contentInset = UIEdgeInsets(top: DefaultMargin, left: 0, bottom: DefaultMargin, right: 0)
+    }
+    
+    private func setupNavBar() {
+//        let addBoard = UIBarButtonItem(image: .plus, style: UIBarButtonItem.Style.done, target: nil, action: nil)
+        let more = UIBarButtonItem(image: .more, style: UIBarButtonItem.Style.done, target: nil, action: nil)
+        
+//        self.homeButton = home
+        self.moreButton = more
+        
+        let homeCanvas = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let homeButton = UIBarButtonItem(customView: homeCanvas)
+        
+        self.navigationItem.setRightBarButtonItems([more], animated: false)
+        self.navigationItem.setLeftBarButtonItems([homeButton], animated: false)
+        
+        let home = UIButton(frame: .zero)
+        home.setImage(.home, for: .normal)
+        home.tintColor = .main
+        homeCanvas.addSubview(home)
+        
+        home.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        
+        self.homeButton = home
     }
 }
 
@@ -148,7 +210,7 @@ extension BoardViewController: UITableViewDelegate {
             self.listener?.viewActions.on(.next(.loadNext))
         }
     }
-    
+
 }
 
 extension BoardViewController: UITableViewDataSource {

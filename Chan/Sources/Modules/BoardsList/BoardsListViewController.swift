@@ -9,26 +9,32 @@
 import RIBs
 import RxSwift
 import UIKit
+import SwiftReorder
+import IGListKit
+
 
 let BoardsListCellIdentifier = "BoardsListCell"
 let BoardsTableHeaderIdentifier = "BoardsTableHeader"
 
 protocol BoardsListPresentableListener: class {
-    var dataSource: Variable<[BoardCategoryModel]> { get }
+    var dataSource: Variable<[BoardModel]> { get }
     var viewActions: PublishSubject<BoardsListAction> { get }
+
 }
 
 final class BoardsListViewController: BaseViewController, BoardsListPresentable, BoardsListViewControllable, ViewRefreshing {
     weak var listener: BoardsListPresentableListener?
     
     // MARK: Data
-    private var category: [BoardCategoryModel] {
-        return self.listener?.dataSource.value ?? []
-    }
+    private var boards: [BoardModel] = []
     
     //MARK: UI
     @IBOutlet weak var tableView: UITableView!
     private let seacrhBar: UISearchBar = UISearchBar()
+    
+    private weak var settingButton: UIButton?
+    private weak var plusButton: UIButton?
+    private weak var closeButton: UIButton?
   
   //MARK: Other
     private let disposeBag = DisposeBag()
@@ -57,7 +63,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.setupTableView()
         self.setupSearchBar()
         
-        self.navigationItem.title = "Главная"
+        self.navigationItem.title = "Список досок"
         
     }
     
@@ -66,16 +72,62 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
             .asObservable()
             .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] result in
+//                self?.boards = result
+                
+                
+                if let oldData = self?.boards, let tableView = self?.tableView {
+                    let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
+                    self?.boards = result
+                    
+                    if diff.moves.count == 0 {
+                        tableView.beginUpdates()
+                        tableView.deleteRows(at: diff.deletes, with: .automatic)
+                        tableView.insertRows(at: diff.inserts, with: .right)
+                        tableView.reloadRows(at: diff.updates, with: .fade)
+//                            for move in diff.moves {
+//                                tableView.moveRow(at: move.from, to: move.to)
+//                            }
+                        tableView.endUpdates()
+                        
+                        return
+
+                    }
+
+                }
+            
+                self?.boards = result
                 self?.tableView.reloadData()
             }).disposed(by: self.disposeBag)
         
-        self.navigationItem.rightBarButtonItem?
+        self.settingButton?
             .rx
             .tap
             .asObservable()
             .subscribe(onNext: { [weak self] in
                 self?.listener?.viewActions.on(.next(.openSettings))
-            }).disposed(by: self.disposeBag)
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.plusButton?
+            .rx
+            .tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.listener?.viewActions.on(.next(.addNewBoard))
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.closeButton?
+            .rx
+            .tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
+//                self?.navigationController?.dismiss(animated: true, completion: nil)
+                self?.listener?.viewActions.on(.next(.close))
+            })
+            .disposed(by: self.disposeBag)
+        
+        
     }
     
     private func setupTableView() {
@@ -86,7 +138,8 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.tableView.dataSource = self
         
         self.tableView.keyboardDismissMode = .interactive
-
+        self.tableView.reorder.delegate = self
+        
     }
     
     private func setupSearchBar() {
@@ -94,50 +147,95 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.seacrhBar.placeholder = "Фильтр по доскам"
         self.navigationItem.titleView = self.seacrhBar
         self.seacrhBar.delegate = self
+//
+        let settings = UIButton(frame: .zero)
+        settings.setImage(.settings, for: .normal)
+        settings.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        settings.tintColor = .main
+
+        let plus = UIButton(frame: .zero)
+        plus.setImage(.plus, for: .normal)
+        plus.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        plus.tintColor = .main
+
+        let settingButton = UIBarButtonItem(customView: settings)
+        let plusButton = UIBarButtonItem(customView: plus)
         
-        let settingButton = UIBarButtonItem(image: .settings, style: .plain, target: nil, action: nil)
-        self.navigationItem.rightBarButtonItem = settingButton
+        self.settingButton = settings
+        self.plusButton = plus
+        
+        self.navigationItem.setRightBarButtonItems([settingButton, plusButton], animated: false)
+//        self.navigationItem.rightBarButtonItem = settingButton
+        
+        let closeCanvas = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let closeButton = UIBarButtonItem(customView: closeCanvas)
+        self.navigationItem.leftBarButtonItem = closeButton
+        
+        
+        let close = UIButton(frame: .zero)
+        closeCanvas.addSubview(close)
+        close.setImage(.cross, for: .normal)
+        close.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
+        close.tintColor = .main
+        self.closeButton = close
+
     }
 }
 
 extension BoardsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         self.listener?.viewActions.on(.next(.openBoard(index: indexPath)))
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return BoardsListCellHeight
     }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            let board = self.boards[indexPath.row]
+//            self.listener?.viewActions.on(.next(.delete(uid: board.uid)))
+//        }
+    }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return BoardsTableHeaderHeight
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        return [UITableViewRowAction(style: .destructive, title: "Удалить", handler: { [weak self] (action, idexPath) in
+            
+            if let board = self?.boards[indexPath.row] {
+                self?.listener?.viewActions.on(.next(.delete(uid: board.uid)))
+            }
+
+            
+        })]
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }
 
 extension BoardsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if let spacer = tableView.reorder.spacerCell(for: indexPath) {
+            return spacer
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: BoardsListCellIdentifier, for: indexPath) as! BoardsListCell
-        let data = self.category[indexPath.section].boards[indexPath.row]
+        let data = self.boards[indexPath.row]
         cell.update(with: data)
         return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.category.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.category[section].boards.count
+        return self.boards.count
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: BoardsTableHeaderIdentifier) as! BoardsTableHeader
-        header.update(with: self.category[section])
-        return header
-        
-    }
+
 }
 
 extension BoardsListViewController: UISearchBarDelegate {
@@ -145,3 +243,18 @@ extension BoardsListViewController: UISearchBarDelegate {
         self.listener?.viewActions.on(.next(.seacrh(text: searchText)))
     }
 }
+
+extension BoardsListViewController: TableViewReorderDelegate {
+    func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+
+    }
+    
+    func tableViewDidFinishReordering(_ tableView: UITableView, from initialSourceIndexPath: IndexPath, to finalDestinationIndexPath: IndexPath) {
+//        print("From \(sourceIndexPath), to: \(destinationIndexPath)")
+        self.listener?.viewActions.on(.next(.move(from: initialSourceIndexPath, to: finalDestinationIndexPath)))
+
+    }
+
+}
+
+

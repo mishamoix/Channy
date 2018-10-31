@@ -41,7 +41,7 @@ final class BoardsListBuilder: Builder<BoardsListDependency>, BoardsListBuildabl
         let settings = SettingsBuilder(dependency: component)
 //        let agreement = WebAcceptBuilder(dependency: component)
         
-        return BoardsListRouter(interactor: interactor, viewController: viewController)
+        return BoardsListRouter(interactor: interactor, viewController: viewController, settings: settings)
     }
     
     // MARK: Private

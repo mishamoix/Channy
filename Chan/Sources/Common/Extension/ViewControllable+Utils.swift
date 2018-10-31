@@ -21,6 +21,11 @@ public extension ViewControllable {
         self.uiviewController.present(controllable.uiviewController, animated: animated, completion: nil)
     }
     
+    func present(vc: UIViewController, animated: Bool = true) {
+        self.uiviewController.present(vc, animated: animated, completion: nil)
+    }
+
+    
     func setupRoot(view controllable: ViewControllable, animated: Bool = true) {
         if let nc = self.uiviewController as? UINavigationController {
             nc.setViewControllers([controllable.uiviewController], animated: animated)

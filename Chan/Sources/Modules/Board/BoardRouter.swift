@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol BoardInteractable: Interactable, ThreadListener {
+protocol BoardInteractable: Interactable, ThreadListener, BoardsListListener, WebAcceptListener {
     var router: BoardRouting? { get set }
     var listener: BoardListener? { get set }
 }
@@ -18,11 +18,12 @@ protocol BoardViewControllable: ViewControllable {
 }
 
 final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable>, BoardRouting {
-
     // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: BoardInteractable, viewController: BoardViewControllable, thread: ThreadBuildable) {
+    init(interactor: BoardInteractable, viewController: BoardViewControllable, thread: ThreadBuildable, boardList: BoardsListBuildable, agreement: WebAcceptBuildable) {
         
         self.threadBuildable = thread
+        self.boardListBuildable = boardList
+        self.agreementBuildable = agreement
         
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
@@ -44,8 +45,55 @@ final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable
         }
     }
     
+    func openBoardList() {
+        if self.canDeattach(router: self.boardList) {
+            
+            self.boardList = nil
+            
+            let boardList = self.boardListBuildable.build(withListener: self.interactor)
+            self.attachChild(boardList)
+            self.boardList = boardList
+            
+            self.viewController.present(vc: BaseNavigationController(rootViewController: boardList.viewControllable.uiviewController))
+        }
+    }
+    
+    func closeBoardsList() {
+        self.boardList?.viewControllable.uiviewController.navigationController?.dismiss(animated: true, completion: nil)
+        self.tryDeattach(router: self.boardList) {
+            self.boardList = nil
+        }
+    }
+    
+    
+    func openAgreement(model: WebAcceptViewModel) {
+        self.closeAgreement()
+        self.tryDeattach(router: self.agreement) {
+            let agreement = self.agreementBuildable.build(withListener: self.interactor, model: model)
+            self.agreement = agreement
+            self.attachChild(agreement)
+
+            self.viewController.present(view: agreement.viewControllable)
+        }
+    }
+
+    func closeAgreement() {
+        self.agreement?.viewControllable.dismiss()
+        self.tryDeattach(router: self.agreement) {
+            self.agreement = nil
+        }
+    }
+    //
+    
     // MARK: Private
     private let threadBuildable: ThreadBuildable
     private weak var thread: ViewableRouting?
+    
+    private let boardListBuildable: BoardsListBuildable
+    private weak var boardList: ViewableRouting?
+    
+    
+    private let agreementBuildable: WebAcceptBuildable
+    private weak var agreement: ViewableRouting?
     
 }

@@ -26,8 +26,17 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
     
     override func update(with model: BoardModel) {
         super.update(with: model)
+        if model.isHome {
+            self.arrow.image = .home
+        } else {
+            self.arrow.image = .more
+        }
         
-        self.title.text = "\(model.name) /\(model.uid)/" 
+        if model.name.count != 0 {
+            self.title.text = "\(model.name) /\(model.uid)/"
+        } else {
+            self.title.text = "/\(model.uid)/"
+        }
     }
     
     

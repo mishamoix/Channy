@@ -18,4 +18,8 @@ enum BoardsListAction {
     case seacrh(text: String?)
     case openBoard(index: IndexPath)
     case openSettings
+    case addNewBoard
+    case close
+    case delete(uid: String)
+    case move(from: IndexPath, to: IndexPath)
 }

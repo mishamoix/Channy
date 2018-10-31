@@ -25,7 +25,9 @@ class FirebaseManager {
     private(set) var tg: String? = nil
     private(set) var mainInfo: String? = nil
     private(set) var disableImages: Bool = false
+    private(set) var needExcludeBoards: Bool = false
     private(set) var agreementUrl: URL? = nil
+    
 
     
     init() {
@@ -75,6 +77,11 @@ class FirebaseManager {
         if let disableImages = result["disbale_images"] as? Bool {
             self.disableImages = disableImages
         }
+        
+        if let needExcludeBoards = result["need_exclude_boards"] as? Bool {
+            self.needExcludeBoards = needExcludeBoards
+        }
+        
         
         if let excludeThreads = result["exclude_threads"] as? [String] {
             self.excludeThreads = excludeThreads

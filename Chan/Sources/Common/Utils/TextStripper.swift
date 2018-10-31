@@ -73,6 +73,14 @@ class TextStripper {
         return newText
     }
     
+    static func onlyChars(text: String?) -> String? {
+        if let text = text {
+            let result = text.trimmingCharacters(in: NSCharacterSet.alphanumerics.inverted)
+            return result.count == 0 ? nil : result
+        }
+        return nil
+    }
+    
     
     
 //    static func replaceToNormal(in text: String) -> String {

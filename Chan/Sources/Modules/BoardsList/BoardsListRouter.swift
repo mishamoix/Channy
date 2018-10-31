@@ -20,9 +20,9 @@ protocol BoardsListViewControllable: ViewControllable {
 final class BoardsListRouter: ViewableRouter<BoardsListInteractable, BoardsListViewControllable>, BoardsListRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    override init(interactor: BoardsListInteractable, viewController: BoardsListViewControllable) {
+    init(interactor: BoardsListInteractable, viewController: BoardsListViewControllable, settings: SettingsBuildable) {
 //        self.boardBuildable = board
-//        self.settingsBuildable = settings
+        self.settingsBuildable = settings
 //        self.agreementBuildable = agreement
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
@@ -42,15 +42,15 @@ final class BoardsListRouter: ViewableRouter<BoardsListInteractable, BoardsListV
 //
 //    }
 //
-//    func openSettings() {
-//        self.tryDeattach(router: self.setting) {
-//            let setting = self.settingsBuildable.build(withListener: self.interactor)
-//            self.attachChild(setting)
-//            self.setting = setting
-//
-//            self.viewController.push(view: setting.viewControllable)
-//        }
-//    }
+    func openSettings() {
+        self.tryDeattach(router: self.setting) {
+            let setting = self.settingsBuildable.build(withListener: self.interactor)
+            self.attachChild(setting)
+            self.setting = setting
+
+            self.viewController.push(view: setting.viewControllable)
+        }
+    }
 //
 //    func openAgreement(model: WebAcceptViewModel) {
 //        self.closeAgreement()
@@ -76,10 +76,9 @@ final class BoardsListRouter: ViewableRouter<BoardsListInteractable, BoardsListV
 //    private let boardBuildable: BoardBuildable
 //    private weak var board: ViewableRouting?
 //
-//    private let settingsBuildable: SettingsBuildable
-//    private weak var setting: ViewableRouting?
+    private let settingsBuildable: SettingsBuildable
+    private weak var setting: ViewableRouting?
 //
-//    private let agreementBuildable: WebAcceptBuildable
-//    private weak var agreement: ViewableRouting?
+
 
 }

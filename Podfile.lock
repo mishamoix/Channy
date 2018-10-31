@@ -128,6 +128,7 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.3.1)
   - SnapKit (4.0.1)
+  - SwiftReorder (6.0.0)
   - SwiftyUserDefaults (4.0.0-alpha.1)
 
 DEPENDENCIES:
@@ -148,6 +149,7 @@ DEPENDENCIES:
   - RxCocoa
   - RxSwift
   - SnapKit
+  - SwiftReorder (~> 6.0)
   - SwiftyUserDefaults (= 4.0.0-alpha.1)
 
 SPEC REPOS:
@@ -184,6 +186,7 @@ SPEC REPOS:
     - RxCocoa
     - RxSwift
     - SnapKit
+    - SwiftReorder
     - SwiftyUserDefaults
 
 SPEC CHECKSUMS:
@@ -218,8 +221,9 @@ SPEC CHECKSUMS:
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftReorder: 0eefefe5e469c70a98d129e9aa2952862a2b34d2
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
 
-PODFILE CHECKSUM: 4c1e4eb800f15a381b3a6d5109f05f2ac2fc38f6
+PODFILE CHECKSUM: 6990fb7da07f87f1ab6a1828f7c4267bcb94323d
 
 COCOAPODS: 1.5.3

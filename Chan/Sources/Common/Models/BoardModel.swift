@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import IGListKit
+
 
 class BoardModel: BaseModel, Decodable {
 
     var uid = ""
     var name = ""
+    var isHome = false
+    var sort = 0
 
     enum CodingKeys : String, CodingKey {
         case name
@@ -31,10 +35,29 @@ class BoardModel: BaseModel, Decodable {
         return false
     }
     
+    var buildLink: String? {
+        let result = "\(Enviroment.default.basePath)/\(self.uid)/"
+        return result
+    }
+
     
     override var debugDescription: String {
-        return "uid - \(self.uid), name - \(self.name)"
+        return "uid - \(self.uid), name - \(self.name), sort: \(self.sort)"
+    }
+}
+
+
+extension BoardModel: ListDiffable {
+    func diffIdentifier() -> NSObjectProtocol {
+        return self.uid as NSObjectProtocol
     }
     
-  
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        if let obj = object as? BoardModel {
+            return obj.uid == self.uid
+        }
+        
+        return false
+    }
+    
 }
