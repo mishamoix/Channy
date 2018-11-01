@@ -11,6 +11,8 @@ import UIKit
 class BaseNavigationController: UINavigationController {
 
   public var interactivePopPanGestureRecognizer: UIPanGestureRecognizer?
+    
+    var shouldRecognizeSimultaneously = false
   
   public override init(rootViewController: UIViewController) {
     super.init(rootViewController: rootViewController)
@@ -72,7 +74,7 @@ class BaseNavigationController: UINavigationController {
 
 extension BaseNavigationController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        return self.shouldRecognizeSimultaneously
     }
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 //        return true

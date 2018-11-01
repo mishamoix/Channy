@@ -44,6 +44,24 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.setup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let nav = self.navigationController as? BaseNavigationController {
+            nav.shouldRecognizeSimultaneously = true
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let nav = self.navigationController as? BaseNavigationController {
+            nav.shouldRecognizeSimultaneously = false
+        }
+    }
+    
+    private var canAction: Bool {
+        return (self.seacrhBar.text?.count ?? 0) == 0 ? true : false
+    }
+    
     // MARK: BoardsListPresentable
     
     // MARK: ViewRefreshing
@@ -143,10 +161,10 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     }
     
     private func setupSearchBar() {
-        self.seacrhBar.searchBarStyle = .prominent
-        self.seacrhBar.placeholder = "Фильтр по доскам"
-        self.navigationItem.titleView = self.seacrhBar
-        self.seacrhBar.delegate = self
+//        self.seacrhBar.searchBarStyle = .prominent
+//        self.seacrhBar.placeholder = "Фильтр по доскам"
+//        self.navigationItem.titleView = self.seacrhBar
+//        self.seacrhBar.delegate = self
 //
         let settings = UIButton(frame: .zero)
         settings.setImage(.settings, for: .normal)
@@ -200,19 +218,25 @@ extension BoardsListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        return [UITableViewRowAction(style: .destructive, title: "Удалить", handler: { [weak self] (action, idexPath) in
-            
-            if let board = self?.boards[indexPath.row] {
-                self?.listener?.viewActions.on(.next(.delete(uid: board.uid)))
-            }
+        if self.canAction {
+            return [UITableViewRowAction(style: .destructive, title: "Удалить", handler: { [weak self] (action, idexPath) in
+                
+                if let board = self?.boards[indexPath.row] {
+                    self?.listener?.viewActions.on(.next(.delete(uid: board.uid)))
+                }
 
-            
-        })]
+                
+            })]
+        } else {
+            return nil
+        }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
+    
 }
 
 extension BoardsListViewController: UITableViewDataSource {
@@ -240,6 +264,7 @@ extension BoardsListViewController: UITableViewDataSource {
 
 extension BoardsListViewController: UISearchBarDelegate {
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.tableView.reorder.isEnabled = self.canAction
         self.listener?.viewActions.on(.next(.seacrh(text: searchText)))
     }
 }

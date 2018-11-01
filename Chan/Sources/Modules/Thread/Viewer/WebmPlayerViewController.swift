@@ -98,12 +98,22 @@ class WebmPlayerViewController: UIViewController {
     
     private func updateConstraint() {
         self.playerView.snp.updateConstraints { make in
-            make.edges.equalToSuperview().inset(UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero)
+            if #available(iOS 11.0, *) {
+                make.edges.equalToSuperview().inset(UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero)
+            } else {
+                make.edges.equalToSuperview()
+            }
         }
 
         self.closeButtonCanvas.snp.updateConstraints { make in
-            make.top.equalToSuperview().offset(DefaultMargin + (UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0))
-            make.left.equalToSuperview().offset(DefaultMargin + (UIApplication.shared.keyWindow?.safeAreaInsets.left ?? 0))
+            if #available(iOS 11.0, *) {
+                make.top.equalToSuperview().offset(DefaultMargin + (UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0))
+                make.left.equalToSuperview().offset(DefaultMargin + (UIApplication.shared.keyWindow?.safeAreaInsets.left ?? 0))
+
+            } else {
+                make.top.equalToSuperview().offset(DefaultMargin)
+                make.left.equalToSuperview().offset(DefaultMargin)
+            }
             make.size.equalTo(PostScrollDownButtonSize)
         }
         

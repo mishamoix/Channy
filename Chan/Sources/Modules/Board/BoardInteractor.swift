@@ -156,6 +156,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 self?.dataSource.value = models
             })
             .disposed(by: self.disposeBag)
+        
+        
+        self.updateHeader()
+
     }
     
     func setupRx() {
@@ -221,7 +225,6 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     private func initialLoad() {
         self.load(reload: true)
-        self.updateHeader()
     }
     
     private func updateHeader() {

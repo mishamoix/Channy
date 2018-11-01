@@ -116,6 +116,15 @@ class BoardService: BaseService, BoardServiceProtocol {
                         self?.checkAndSaveHomeBoard()
                         return Observable<ResultType>.just(result)
                     }
+                }).catchError({ (error) -> Observable<ResultType> in
+                    
+                    if let err = ErrorHelper(error: error).makeError() as? ChanError, let board = self.board {
+                        if err == .notFound {
+                            self.boardsListService.delete(board: board)
+                        }
+                    }
+                    
+                    return Observable<ResultType>.error(error)
                 })
             }
         
@@ -135,7 +144,7 @@ class BoardService: BaseService, BoardServiceProtocol {
         var result: DataType = []
         if let json = self.fromJson(data: data) {
             
-            if let boardName = json["BoardName"] as? String, let board = board, board.name.count == 0 {
+            if let boardName = json["BoardName"] as? String, let board = board, board.name.count == 0, boardName.count != 0 {
                 self.needUpdatedBoard = true
                 self.board?.name = boardName
             }

@@ -228,7 +228,12 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     }
     
     private func scrollDown() {
-        let offset = self.collectionView.contentSize.height + self.collectionView.contentInset.bottom + self.collectionView.safeAreaInsets.bottom - self.collectionView.frame.height
+        var offset: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            offset = self.collectionView.contentSize.height + self.collectionView.contentInset.bottom + self.collectionView.safeAreaInsets.bottom - self.collectionView.frame.height
+        } else {
+            offset = self.collectionView.contentSize.height + self.collectionView.contentInset.bottom - self.collectionView.frame.height
+        }
         if offset > 0 {
             self.collectionView.setContentOffset(CGPoint(x: self.collectionView.contentOffset.x, y: offset), animated: true)
         }

@@ -54,7 +54,8 @@ final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable
             self.attachChild(boardList)
             self.boardList = boardList
             
-            self.viewController.present(vc: BaseNavigationController(rootViewController: boardList.viewControllable.uiviewController))
+            let nav = UINavigationController(rootViewController: boardList.viewControllable.uiviewController)
+            self.viewController.present(vc: nav)
         }
     }
     

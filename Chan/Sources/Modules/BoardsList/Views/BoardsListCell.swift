@@ -29,7 +29,7 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
         if model.isHome {
             self.arrow.image = .home
         } else {
-            self.arrow.image = .more
+            self.arrow.image = .dragReorder
         }
         
         if model.name.count != 0 {

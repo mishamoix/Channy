@@ -89,16 +89,20 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
 //                    let diff = ListDiff(oldArray: oldData, newArray: result, option: .equality)
                     let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
                     self?.data = result
-                    tableView.performBatchUpdates({
+                    
+                    tableView.beginUpdates()
+//                    tableView.performBatchUpdates({
                         tableView.deleteRows(at: diff.deletes, with: .fade)
                         tableView.insertRows(at: diff.inserts, with: .fade)
                         tableView.reloadRows(at: diff.updates, with: .fade)
                         for move in diff.moves {
                             tableView.moveRow(at: move.from, to: move.to)
                         }
-                    }, completion: { finished in
-                        
-                    })
+//                    }, completion: { finished in
+//
+//                    })
+                    
+                    tableView.endUpdates()
                 } else {
                     self?.data = result
                     self?.tableView.reloadData()

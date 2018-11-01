@@ -17,6 +17,7 @@ extension UIImage {
     static var cross: UIImage { return UIImage(named: "cross")!}
     static var plus: UIImage { return UIImage(named: "plus")!}
     static var home: UIImage { return UIImage(named: "home")!}
+    static var dragReorder: UIImage { return UIImage(named: "dragReorder")!}
 
 
 }

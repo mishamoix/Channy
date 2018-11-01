@@ -25,9 +25,9 @@ final class WebAcceptViewController: BaseViewController, WebAcceptPresentable, W
     weak var listener: WebAcceptPresentableListener?
     
     @IBOutlet weak var mainTitle: UILabel!
-    @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var accept: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var webView: UIWebView!
     
     private let disposeBag = DisposeBag()
     
@@ -41,7 +41,8 @@ final class WebAcceptViewController: BaseViewController, WebAcceptPresentable, W
         self.setupUI()
         self.setupRx()
         
-        self.webView.navigationDelegate = self
+        self.webView.delegate = self
+//        self.webView.navigationDelegate = self
     }
     
     private func setupUI() {
@@ -71,13 +72,18 @@ final class WebAcceptViewController: BaseViewController, WebAcceptPresentable, W
     
     private func update(model: WebAcceptViewModel) {
         self.mainTitle.text = model.title
-        self.webView.load(URLRequest(url: model.url))
+        self.webView.loadRequest(URLRequest(url: model.url))
+//        self.webView.load(URLRequest(url: model.url))
     }
 }
 
 
-extension WebAcceptViewController: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+extension WebAcceptViewController: UIWebViewDelegate {
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         self.activityIndicator.stopAnimating()
     }
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        self.activityIndicator.stopAnimating()
+//    }
 }

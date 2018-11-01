@@ -100,7 +100,8 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
                     }
                 }
                 case .openBoard(let index): do {
-                    if let model = self?.data[index.row] {
+                    if let models = self?.search(with: self?.currentSearchText), models.count > index.row {
+                        let model = models[index.row]
                         self?.listener?.open(board: model)
                         self?.listener?.closeBoardsList()
 //                        self?.router?.openBoard(with: model)
