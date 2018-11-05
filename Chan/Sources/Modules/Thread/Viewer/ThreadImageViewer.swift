@@ -12,14 +12,17 @@ import AlamofireImage
 
 
 class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
-    
-    private let imageDownloader = ImageDownloader(
+  
+    private static let cache = AutoPurgingImageCache()
+
+    private static let imageDownloader = ImageDownloader(
         configuration: ImageDownloader.defaultURLSessionConfiguration(),
-        downloadPrioritization: .fifo,
+        downloadPrioritization: .lifo,
         maximumActiveDownloads: 4,
-        imageCache: AutoPurgingImageCache()
+        imageCache: ImageNetworkIntegration.cache
     )
-    
+  
+  
     private let requests: [URLRequest] = []
 
     
@@ -28,8 +31,14 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
     func loadPhoto(_ photo: AXPhotoProtocol) {
         if let url = photo.url {
             let request = URLRequest(url: url)
-//            self.requests.append(request)
-            self.imageDownloader.download([request], filter: nil, progress: { [weak self, photo] progress in
+
+            if let img = ImageNetworkIntegration.cache.image(for: request) {
+                photo.image = img
+                self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
+                return
+            }
+
+            ImageNetworkIntegration.imageDownloader.download([request], filter: nil, progress: { [weak self, photo] progress in
                 guard let self = self else {
                     return
                 }
