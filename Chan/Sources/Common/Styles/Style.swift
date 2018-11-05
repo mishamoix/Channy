@@ -15,11 +15,11 @@ class Style {
 //    }
     
     class func post(text: String) -> NSMutableAttributedString {
-      return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.text, NSAttributedString.Key.foregroundColor: UIColor.black])
+      return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.text, NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.mainText])
     }
     
     class func postTitle(text: String) -> NSMutableAttributedString {
-        return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.postTitle, NSAttributedString.Key.foregroundColor: UIColor.black])
+        return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.postTitle, NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.mainText])
     }
     
     class func em(text: NSMutableAttributedString, range: NSRange) {

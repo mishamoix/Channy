@@ -86,4 +86,11 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     override func layoutSubviews() {
         super.layoutSubviews()
     }
+    
+//    self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
+
+    func setupTheme() {
+        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
+//        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
+    }
 }

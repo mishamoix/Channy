@@ -75,6 +75,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             make.bottom.equalToSuperview().offset(-PostScrollDownButtonBottomMargin)
         }
         
+        self.setupTheme()
+        
     }
     
     
@@ -154,6 +156,12 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .subscribe(onNext: { [weak self] in
                 self?.scrollDown()
             }).disposed(by: self.disposeBag)
+    }
+    
+    private func setupTheme() {
+        
+        self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
+        
     }
     
     private func setupNavBar() {

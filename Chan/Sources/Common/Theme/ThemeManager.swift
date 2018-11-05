@@ -59,34 +59,55 @@ class ThemeView {
         if self.view == nil {
             return
         }
-        if let tableView = self.view as? UITableView, self.type == .table {
-            tableView.backgroundColor = theme.background
-        } else if let navBar = self.view as? UINavigationBar, self.type == .navBar {
-            navBar.barTintColor = theme.navigationBar
-            navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.navigationBarTitle]
-            navBar.layoutIfNeeded()
-        } else if let textView = self.view as? UITextView, self.type == .input {
-            textView.backgroundColor = theme.background
-            textView.textColor = theme.mainText
-        } else if let view = self.view as? UIView {
-            if self.type == .cell {
-                view.backgroundColor = theme.cell
-            } else if self.type == .text {
-                let color = self.subtype == .second ? theme.secondText : theme.mainText
-                (view as? UILabel)?.textColor = color
-                (view as? TGReusableLabel)?.textColor = color
-                 (view as? TGReusableLabel)?.setNeedsDisplay()
-            } else if self.type == .viewControllerBG {
-                view.backgroundColor = theme.background
-            } else if self.type == .separator {
-                view.backgroundColor = theme.border
+        
+        switch self.type {
+        case .table:
+            (self.view as? UITableView)?.backgroundColor = theme.background
+            break
+        case .collection:
+            (self.view as? UICollectionView)?.backgroundColor = theme.background
+            break
+        case .viewControllerBG:
+            (self.view as? UIView)?.backgroundColor = theme.background
+            break
+        case .separator:
+            (self.view as? UIView)?.backgroundColor = theme.border
+            break
+        case .cell:
+            (self.view as? UIView)?.backgroundColor = theme.cell
+            break
+
+        case .input:
+            if let textView = self.view as? UITextView {
+                textView.backgroundColor = theme.background
+                textView.textColor = theme.mainText
             }
+            break
+        case .text:
+            let color = self.subtype == .second ? theme.secondText : theme.mainText
+            (view as? UILabel)?.textColor = color
+            (view as? TGReusableLabel)?.textColor = color
+            (view as? TGReusableLabel)?.setNeedsDisplay()
+            break
+        case .navBar:
+            if let navBar = self.view as? UINavigationBar {
+                navBar.barTintColor = theme.navigationBar
+                navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.navigationBarTitle]
+                navBar.layoutIfNeeded()
+            }
+        case .navBarButton:
+            break
+        case .viewController:
+            break
         }
+        
     }
     
     func reloadStatusBar() {
-        if let vc = self.view as? UIViewController, self.type == .viewController {
-            vc.setNeedsStatusBarAppearanceUpdate()
+        if self.type == .viewController {
+            if let vc = self.view as? UIViewController {
+                vc.setNeedsStatusBarAppearanceUpdate()
+            }
         }
     }
 }
@@ -112,7 +133,7 @@ class ThemeManager {
 //    private let _views: NSHashTable<ThemeView> = NSHashTable<ThemeView>(options: NSPointerFunctions.Options.weakMemory)
     private var views: [ThemeView] = []
     
-    private var theme: Theme!
+    private(set) var theme: Theme!
     
     init() {
         self.theme = self.theme(for: self.savedThemeType)
