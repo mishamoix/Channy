@@ -77,6 +77,8 @@
 		0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */; };
 		0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */; };
 		0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856292216E518900D053F7 /* ThreadImageViewer.swift */; };
+		0A8BFED9218F4451004AA360 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BFED8218F4451004AA360 /* Theme.swift */; };
+		0A8BFEDB218F45C9004AA360 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BFEDA218F45C9004AA360 /* ThemeManager.swift */; };
 		0A90E7822151886900B71EAA /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7812151886900B71EAA /* PostManager.swift */; };
 		0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E78321518B2600B71EAA /* LinkParser.swift */; };
 		0A90E786215194E000B71EAA /* RegexChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E785215194DF00B71EAA /* RegexChecker.swift */; };
@@ -214,6 +216,8 @@
 		0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebmPlayerViewController.swift; sourceTree = "<group>"; };
 		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
+		0A8BFED8218F4451004AA360 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		0A8BFEDA218F45C9004AA360 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		0A90E7812151886900B71EAA /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 		0A90E78321518B2600B71EAA /* LinkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkParser.swift; sourceTree = "<group>"; };
 		0A90E785215194DF00B71EAA /* RegexChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexChecker.swift; sourceTree = "<group>"; };
@@ -523,6 +527,15 @@
 			path = Viewer;
 			sourceTree = "<group>";
 		};
+		0A8BFED7218F4440004AA360 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				0A8BFED8218F4451004AA360 /* Theme.swift */,
+				0A8BFEDA218F45C9004AA360 /* ThemeManager.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		0A90E78B2151A75700B71EAA /* Thread */ = {
 			isa = PBXGroup;
 			children = (
@@ -618,6 +631,7 @@
 		0ACC29652143F06A00B4E53B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0A8BFED7218F4440004AA360 /* Theme */,
 				0AACC18B218A5A7200B7BD19 /* 3d party */,
 				0AF77B3C217E41CC007D8C5B /* DB */,
 				0A11321F2160111300BB3C79 /* Values */,
@@ -1071,6 +1085,7 @@
 				0ACC296C2143F22F00B4E53B /* BoardsListRouter.swift in Sources */,
 				0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */,
 				0A90E7A12152DB4700B71EAA /* Helper.swift in Sources */,
+				0A8BFED9218F4451004AA360 /* Theme.swift in Sources */,
 				0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */,
 				0A5B0EBC214EFD8000AECE3C /* Style.swift in Sources */,
 				0A505D78216D060A0076F383 /* WebAcceptViewController.swift in Sources */,
@@ -1113,6 +1128,7 @@
 				0A90E7822151886900B71EAA /* PostManager.swift in Sources */,
 				0ACC296E2143F22F00B4E53B /* BoardsListViewController.swift in Sources */,
 				0A2E0CBE2145790300CBD619 /* BoardViewController.swift in Sources */,
+				0A8BFEDB218F45C9004AA360 /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

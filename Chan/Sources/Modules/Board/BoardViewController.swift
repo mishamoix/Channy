@@ -49,6 +49,12 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         self.setup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.listener?.viewActions.on(.next(.viewWillAppear))
+    }
+    
     // MARK: BoardPresentable
     
     //MARK: Private
@@ -63,6 +69,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         
         self.bgImage.alpha = 0.15
         self.bgImage.clipsToBounds = true
+        
+        self.setupTheme()
         
 //        self.refreshControl.beginRefreshing()
     }
@@ -197,6 +205,10 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         home.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         
         self.homeButton = home
+    }
+    
+    private func setupTheme() {
+        self.themeManager.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
     }
 }
 

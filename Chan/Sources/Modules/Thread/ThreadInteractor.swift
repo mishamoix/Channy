@@ -124,7 +124,10 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
             .retryWhen({ [weak self] (errorObservable) -> Observable<Void> in
                 return errorObservable.flatMap({ [weak self] error -> Observable<Void> in
                     let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry, .ok])
-                    errorManager.show()
+                    Helper.performOnMainThread {
+                        self?.presenter.stopAnyLoaders()
+                        errorManager.show()
+                    }
 
                     return errorManager.actions
                         .flatMap({ [weak self] type -> Observable<()> in

@@ -66,6 +66,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="arrow" destination="8iK-pe-iiG" id="yVm-Kp-T3D"/>
+                <outlet property="canvas" destination="RD5-jo-O6Q" id="aFn-gk-iBz"/>
+                <outlet property="separator" destination="dkB-dZ-uPY" id="xo7-hw-s9M"/>
                 <outlet property="title" destination="TBo-bG-DRC" id="6GH-4S-yr7"/>
             </connections>
             <point key="canvasLocation" x="43.200000000000003" y="51.27436281859071"/>

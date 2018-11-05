@@ -20,7 +20,31 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     @IBOutlet weak var writeToDevelopers: UIButton!
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var appVersionLabel: UILabel!
+    @IBOutlet weak var nightMode: UISwitch!
     
+    
+    @IBOutlet weak var cellCanvasLimitor: UIView!
+    @IBOutlet weak var cellCanvasNightMode: UIView!
+    @IBOutlet weak var cellCanvasVersion: UIView!
+    
+    @IBOutlet weak var titleLimitor: UILabel!
+    @IBOutlet weak var subtitleLimitor: UILabel!
+    @IBOutlet weak var titleNightMode: UILabel!
+    @IBOutlet weak var subtitleNightMode: UILabel!
+    @IBOutlet weak var titleVersion: UILabel!
+    @IBOutlet weak var subtitleVersion: UILabel!
+    
+    private var canvas: [UIView] {
+        return [cellCanvasLimitor, cellCanvasNightMode, cellCanvasVersion]
+    }
+    
+    private var titles: [UILabel] {
+        return [titleLimitor, titleNightMode, titleVersion]
+    }
+    
+    private var subtitels: [UILabel] {
+        return [subtitleLimitor, subtitleNightMode, subtitleVersion]
+    }
     
     weak var listener: SettingsPresentableListener?
     
@@ -50,6 +74,10 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         self.infoTextView.text = FirebaseManager.shared.mainInfo
 
         self.setupVersion()
+        
+        self.nightMode.isOn = self.themeManager.savedThemeType == .dark
+        
+        self.setupTheme()
     }
     
     private func setupRx() {
@@ -104,6 +132,24 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                 }
             }).disposed(by: self.disposeBag)
         
+        
+        self.nightMode
+            .rx
+            .controlEvent(UIControl.Event.valueChanged)
+            .asDriver()
+            .drive(onNext: { [weak self] _ in
+                if let result = self?.nightMode.isOn {
+                    
+                    if result {
+                        self?.themeManager.save(theme: .dark)
+                    } else {
+                        self?.themeManager.save(theme: .light)
+                    }
+                    
+                }
+            }).disposed(by: self.disposeBag)
+
+        
     }
     
     private func setupVersion() {
@@ -112,6 +158,20 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
             let result = "\(version).\(build)"
             self.appVersionLabel.text = result
         }
+
+    }
+    
+    private func setupTheme() {
+        self.themeManager.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
+        let _ = self.canvas.map({ self.themeManager.append(view: ThemeView(view: $0, type: .cell, subtype: .none)) })
+        let _ = self.titles.map({ self.themeManager.append(view: ThemeView(view: $0, type: .text, subtype: .none)) })
+        let _ = self.subtitels.map({ self.themeManager.append(view: ThemeView(view: $0, type: .text, subtype: .second)) })
+        
+        let _ = self.subtitels.map({ $0.backgroundColor = .clear })
+        let _ = self.titles.map({ $0.backgroundColor = .clear })
+        
+        self.themeManager.append(view: ThemeView(view: self.infoTextView, type: .input, subtype: .none))
+        
 
     }
 }

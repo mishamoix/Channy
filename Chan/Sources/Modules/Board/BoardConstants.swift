@@ -25,6 +25,7 @@ enum BoardAction {
     case goToNewBoard
     case openHome
     case copyLinkOnBoard
+    case viewWillAppear
 }
 
 enum BoardCellAction {

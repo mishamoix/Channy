@@ -46,16 +46,10 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let nav = self.navigationController as? BaseNavigationController {
-            nav.shouldRecognizeSimultaneously = true
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if let nav = self.navigationController as? BaseNavigationController {
-            nav.shouldRecognizeSimultaneously = false
-        }
     }
     
     private var canAction: Bool {
@@ -83,6 +77,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         
         self.navigationItem.title = "Список досок"
         
+        self.setupTheme()
     }
     
     private func setupRx() {
@@ -197,6 +192,11 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         close.tintColor = .main
         self.closeButton = close
 
+    }
+    
+    private func setupTheme() {
+        self.themeManager.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
+//        ThemeManager.shared.append(view: ThemeView(object: self.navigationController?.navigationBar, type: .navBar, subtype: .none))
     }
 }
 

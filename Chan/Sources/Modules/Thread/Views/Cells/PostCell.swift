@@ -60,6 +60,6 @@ class PostCell: BasePostCell {
         self.textLabel.setNeedsDisplay()
     }
     
-    
+
 
 }

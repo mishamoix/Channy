@@ -21,11 +21,20 @@ open class BaseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+
     deinit {
+        self.themeManager.clean()
         self.printDeinit()
     }
     
-    override open var preferredStatusBarStyle: UIStatusBarStyle { return .default }
+    override open var preferredStatusBarStyle: UIStatusBarStyle { return self.themeManager.statusBar }
+    
+    
+    private func setupTheme() {
+        self.themeManager.append(view: ThemeView(view: self.view, type: .viewControllerBG, subtype: .none))
+        self.themeManager.append(view: ThemeView(object: self, type: .viewController, subtype: .none))
+
+    }
     
     
     /*

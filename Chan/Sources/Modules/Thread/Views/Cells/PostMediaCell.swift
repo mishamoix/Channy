@@ -37,11 +37,12 @@ class PostMediaCell: PostCell {
         
         let _ = self.images.map { $0.cancelLoad() }
         let _ = self.images.map { $0.isHidden = true }
-        
-        
+                
         for (idx, media) in model.media.enumerated() {
-            let imgView = self.images[idx]
-            imgView.update(with: media)
+            if idx < self.images.count {
+                let imgView = self.images[idx]
+                imgView.update(with: media)
+            }
         }
     }
     

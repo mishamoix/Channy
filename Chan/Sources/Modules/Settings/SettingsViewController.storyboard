@@ -53,12 +53,45 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="lBu-sU-dPg">
+                                        <rect key="frame" x="0.0" y="111.5" width="320" height="56"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lBu-sU-dPg" id="03v-Ii-JDe">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Ночная тема" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="we7-Gi-LLB">
+                                                    <rect key="frame" x="16" y="9.5" width="102.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wyF-27-LQq">
+                                                    <rect key="frame" x="255" y="12.5" width="51" height="31"/>
+                                                </switch>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Текст становится белым" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVx-ih-KM1">
+                                                    <rect key="frame" x="16" y="33.5" width="144.5" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="TVx-ih-KM1" firstAttribute="leading" secondItem="we7-Gi-LLB" secondAttribute="leading" id="3Ot-03-gfB"/>
+                                                <constraint firstItem="TVx-ih-KM1" firstAttribute="top" secondItem="we7-Gi-LLB" secondAttribute="bottom" constant="3.5" id="GZq-Vi-COH"/>
+                                                <constraint firstItem="we7-Gi-LLB" firstAttribute="centerY" secondItem="03v-Ii-JDe" secondAttribute="centerY" constant="-8" id="S75-Mr-4Gr"/>
+                                                <constraint firstItem="wyF-27-LQq" firstAttribute="centerY" secondItem="03v-Ii-JDe" secondAttribute="centerY" id="c5e-bU-XHB"/>
+                                                <constraint firstAttribute="trailing" secondItem="wyF-27-LQq" secondAttribute="trailing" constant="16" id="jEK-D8-IF6"/>
+                                                <constraint firstItem="we7-Gi-LLB" firstAttribute="leading" secondItem="03v-Ii-JDe" secondAttribute="leading" constant="16" id="pSH-wz-fl4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Дополнительная информация" id="8zA-KP-zre">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Mz8-tx-o4r" detailTextLabel="H0h-yj-Nnt" rowHeight="56" style="IBUITableViewCellStyleValue1" id="Xpl-fV-NuL">
-                                        <rect key="frame" x="0.0" y="167.5" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="223.5" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xpl-fV-NuL" id="k6F-RS-EAJ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
@@ -82,7 +115,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="EiM-Un-57e">
-                                        <rect key="frame" x="0.0" y="223.5" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="279.5" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EiM-Un-57e" id="yFR-hO-Gbe">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
@@ -106,7 +139,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="200" id="9Qj-eU-1Ee">
-                                        <rect key="frame" x="0.0" y="279.5" width="320" height="200"/>
+                                        <rect key="frame" x="0.0" y="335.5" width="320" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9Qj-eU-1Ee" id="Dy6-8o-iAX">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="199.5"/>
@@ -138,8 +171,18 @@
                     </tableView>
                     <connections>
                         <outlet property="appVersionLabel" destination="H0h-yj-Nnt" id="AHA-JZ-mmg"/>
+                        <outlet property="cellCanvasLimitor" destination="1dp-qa-DZy" id="wLd-bI-elv"/>
+                        <outlet property="cellCanvasNightMode" destination="03v-Ii-JDe" id="EPI-yV-jOE"/>
+                        <outlet property="cellCanvasVersion" destination="k6F-RS-EAJ" id="v2c-vT-xtR"/>
                         <outlet property="infoTextView" destination="z7J-6h-SRD" id="OzI-Qx-40W"/>
                         <outlet property="limitorSwitch" destination="2w0-l8-7pB" id="QFM-st-eoy"/>
+                        <outlet property="nightMode" destination="wyF-27-LQq" id="pyH-I1-Wny"/>
+                        <outlet property="subtitleLimitor" destination="5bT-wn-Aic" id="LrA-cm-k46"/>
+                        <outlet property="subtitleNightMode" destination="TVx-ih-KM1" id="n15-x3-dkU"/>
+                        <outlet property="subtitleVersion" destination="H0h-yj-Nnt" id="jUk-8P-80V"/>
+                        <outlet property="titleLimitor" destination="9Eq-TS-eMb" id="PHe-09-dIG"/>
+                        <outlet property="titleNightMode" destination="we7-Gi-LLB" id="JAW-q5-7Ds"/>
+                        <outlet property="titleVersion" destination="Mz8-tx-o4r" id="fza-RZ-hta"/>
                         <outlet property="writeToDevelopers" destination="l2p-lu-s42" id="AJh-L4-vzf"/>
                     </connections>
                 </tableViewController>

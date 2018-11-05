@@ -12,6 +12,7 @@ import SwiftyUserDefaults
 extension DefaultsKeys {
     static let safeMode = DefaultsKey<Bool>("safeMode")
     static let privacyPolicy = DefaultsKey<Bool>("privacyPolicy")
+    static let currentTheme = DefaultsKey<String?>("currentTheme")
 }
 
 class Values {
@@ -39,6 +40,20 @@ class Values {
         
         set {
             Defaults[.privacyPolicy] = newValue
+        }
+    }
+    
+    var currentTheme: String {
+        get {
+            if let result = Defaults[.currentTheme] {
+                return result
+            }
+            
+            return "light"
+        }
+        
+        set {
+            Defaults[.currentTheme] = newValue
         }
     }
     

@@ -19,4 +19,9 @@ extension UIColor {
     static var unkfunc: UIColor { return #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) }
     
     static var scrollDown: UIColor { return #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1) }
+    
+    
+    static var subTextLight: UIColor { return #colorLiteral(red: 0.5411764706, green: 0.5411764706, blue: 0.5607843137, alpha: 1) }
+    static var subTextDark: UIColor { return #colorLiteral(red: 0.7498029101, green: 0.7478397134, blue: 0.7821318708, alpha: 1) }
+
 }

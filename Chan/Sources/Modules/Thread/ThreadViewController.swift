@@ -209,7 +209,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         } else {
             cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: PostCellIdentifier, for: index)
         }
-        
+    
         if let cl = cell as? BasePostCellProtocol {
             cl.update(with: data)
             cl.update(action: self.cellActions)

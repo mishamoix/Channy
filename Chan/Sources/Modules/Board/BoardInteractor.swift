@@ -38,6 +38,8 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     private var data: [ThreadModel] = []
     private var viewModels: [ThreadViewModel] = []
+    
+    private var isFirst = true
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
@@ -51,9 +53,6 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         super.didBecomeActive()
         self.setup()
         
-        self.presenter.showCentralActivity()
-        self.initialLoad()
-//        self.load(reload: true)
     }
 
     override func willResignActive() {
@@ -85,10 +84,13 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 return errorObservable.flatMap({ error -> Observable<Void>  in
                     
                     if let err = error as? ChanError, err == ChanError.noModel {
-                        self?.presenter.stopAnyLoaders()
                         let noModelError = ChanError.error(title: "Введите код доски ", description: "Вы еще не добавили домашнюю доску 😱, введите код доски")
                         let display = ErrorDisplay(error: noModelError, buttons: [.input(result: "Например pr")])
-                        display.show()
+
+                        Helper.performOnMainThread {
+                            self?.presenter.stopAnyLoaders()
+                            display.show(on: self?.presenter.vc)
+                        }
                         
                         return display.actions
                             .flatMap({ action -> Observable<Void> in
@@ -109,10 +111,14 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                                 return Observable<Void>.error(ChanError.noModel)
                             })
                     } else {
-                        self?.presenter.stopAnyLoaders()
+                        
 
                         let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry, .ok])
-                        errorManager.show(on: self?.presenter.vc)
+                        
+                        Helper.performOnMainThread {
+                            self?.presenter.stopAnyLoaders()
+                            errorManager.show(on: self?.presenter.vc)
+                        }
                         
                         return errorManager.actions
                             .flatMap({ type -> Observable<Void> in
@@ -201,6 +207,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     }
 
                 }
+                case .viewWillAppear: self?.viewWillAppear()
                 }
             }).disposed(by: self.disposeBag)
     }
@@ -223,7 +230,18 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         self.router?.closeAgreement()
     }
     
+    
+    // MARK: Private
+    private func viewWillAppear() {
+        if self.isFirst {
+            self.isFirst = false
+            
+            self.initialLoad()
+
+        }
+    }
     private func initialLoad() {
+        self.presenter.showCentralActivity()
         self.load(reload: true)
     }
     

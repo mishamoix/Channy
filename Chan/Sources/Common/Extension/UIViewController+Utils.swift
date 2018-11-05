@@ -16,4 +16,9 @@ extension UIViewController {
         print("Deinit \(ownName)")
         
     }
+    
+    
+    var themeManager: ThemeManager {
+        return ThemeManager.shared
+    }
 }

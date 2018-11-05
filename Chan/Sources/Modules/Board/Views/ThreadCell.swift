@@ -59,6 +59,8 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
         
         self.canvas.backgroundColor = .snow
         
+        self.setupTheme()
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -75,7 +77,7 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
         
         self.message.text = model.displayText
         self.message.font = .text
-        self.message.textColor = .black
+//        self.message.textColor = .black
         self.message.backgroundColor = .clear
         
         self.message.setNeedsDisplay()
@@ -88,6 +90,13 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
 //            self.iconView.af_setImage(withURL: thumbnail)
         }
       
+    }
+    
+    
+    private func setupTheme() {
+        ThemeManager.shared.append(view: ThemeView(view: self.canvas, type: .cell, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self.message, type: .text, subtype: .none))
+
     }
     
 
