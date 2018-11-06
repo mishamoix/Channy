@@ -54,9 +54,8 @@ final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable
             self.attachChild(boardList)
             self.boardList = boardList
             
-            let nav = BaseNavigationController(rootViewController: boardList.viewControllable.uiviewController)
-            nav.disableSwipe = true
-            self.viewController.present(vc: nav)
+            let nav = DefaultNavigationController(rootViewController: boardList.viewControllable.uiviewController)
+                        self.viewController.present(vc: nav)
         }
     }
     

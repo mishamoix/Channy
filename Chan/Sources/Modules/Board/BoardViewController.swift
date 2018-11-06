@@ -27,6 +27,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     // MARK: Other
     weak var listener: BoardPresentableListener?
     var vc: UIViewController { return self }
+    var isVisible: Bool { return self.viewIfLoaded?.window != nil }
+
 
     private let disposeBag = DisposeBag()
     private var cellActions: PublishSubject<BoardCellAction> = PublishSubject()
@@ -148,6 +150,11 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на доску", style: .default, handler: { [weak self] _ in
                     self?.listener?.viewActions.on(.next(.copyLinkOnBoard))
                 }))
+                
+                actionSheet.addAction(UIAlertAction(title: "Открыть по ссылке", style: .default, handler: { [weak self] _ in
+                    self?.listener?.viewActions.on(.next(.openByLink))
+                }))
+                
                 
                 actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
                 

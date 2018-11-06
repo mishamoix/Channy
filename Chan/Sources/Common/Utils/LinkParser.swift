@@ -36,22 +36,24 @@ class LinkParser {
     }
     
     func processType() {
+        
         guard let url = URL(string: self.path) else {
             return
         }
         
         if let host = url.host {
             // may be external link
-            
             let wwwBaseHosts = self.baseUrl.map({ "www." + $0 }) + self.baseUrl
-            if wwwBaseHosts.contains(host) {
-                self.parse2ch(link: url)
+            if let url2ch = URL(string: self.preprocess(link: self.path)), wwwBaseHosts.contains(host) {
+                self.parse2ch(link: url2ch)
             } else {
                 self.type = .externalLink
             }
         } else {
             // it's 2ch link
-            self.parse2ch(link: url)
+            if let url2ch = URL(string: self.preprocess(link: self.path)) {
+                self.parse2ch(link: url2ch)
+            }
         }
     }
     
@@ -71,7 +73,7 @@ class LinkParser {
             self.post = fragment
         }
         
-        if !RegexChecker.check(regex: "[a-z, A-Z]+", value: self.board) || !RegexChecker.check(regex: "[0-9]+.html", value: self.thread) || !RegexChecker.check(regex: "[0-9]+", value: self.post) {
+        if !RegexChecker.check(regex: "[a-z, A-Z]+", value: self.board) || (!RegexChecker.check(regex: "[0-9]+.html", value: self.thread) && !RegexChecker.check(regex: "[0-9]+", value: self.thread)) || !RegexChecker.check(regex: "[0-9]+", value: self.post) {
             self.type = .externalLink
         } else {
             self.thread = self.thread?.replacingOccurrences(of: ".html", with: "")
@@ -79,6 +81,15 @@ class LinkParser {
             self.type = .boardLink(link: chanLink)
         }
         
+    }
+    
+    private func preprocess(link: String) -> String {
+        var result = link
+        if !(link.hasPrefix("https://") || link.hasPrefix("http://")) && !link.hasPrefix("/") {
+            result = "https://" + link
+        }
+        
+        return result
     }
 }
 

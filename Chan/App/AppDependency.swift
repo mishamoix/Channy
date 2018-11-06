@@ -15,6 +15,11 @@ import Firebase
 import FirebaseDatabase
 import Fabric
 import Crashlytics
+import AVKit
+
+enum AppAction {
+    case willActive
+}
 
 class AppDependency: NSObject {
     
@@ -22,6 +27,12 @@ class AppDependency: NSObject {
     
     static var shared = AppDependency()
     private var launchRouter: LaunchRouting?
+    
+    
+    private let _appAction: PublishSubject<AppAction> = PublishSubject()
+    var appAction: Observable<AppAction> {
+        return self._appAction.asObservable()
+    }
 
     var interfaceImageDownloader: ImageDownloader = ImageDownloader()
 
@@ -44,7 +55,12 @@ class AppDependency: NSObject {
         
         CoreDataStore.shared.setup()
         
-        CoreDataStore.shared.test()
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: AVAudioSession.CategoryOptions.allowBluetoothA2DP)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print(error)
+        }
     }
 
     
@@ -58,7 +74,9 @@ class AppDependency: NSObject {
         Database.database().isPersistenceEnabled = true
     }
     
-    
+    func updateAction(app action: AppAction) {
+        self._appAction.on(.next(action))
+    }
 
     
 

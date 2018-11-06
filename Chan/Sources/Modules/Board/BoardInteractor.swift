@@ -22,6 +22,7 @@ protocol BoardRouting: ViewableRouting {
 protocol BoardPresentable: Presentable {
     var listener: BoardPresentableListener? { get set }
     var vc: UIViewController { get }
+    var isVisible: Bool { get }
 }
 
 protocol BoardListener: class {
@@ -40,6 +41,8 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     private var viewModels: [ThreadViewModel] = []
     
     private var isFirst = true
+    
+    private var isLoading = false
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
@@ -75,7 +78,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     func load(reload: Bool = false) {
-        
+        self.isLoading = true
         self.service
             .loadNext(realod: reload)?
             .asObservable()
@@ -160,6 +163,9 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
             })
             .subscribe(onNext: { [weak self] models in
                 self?.dataSource.value = models
+                self?.isLoading = false
+            }, onError: { [weak self] _ in
+                self?.isLoading = false
             })
             .disposed(by: self.disposeBag)
         
@@ -208,8 +214,18 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
 
                 }
                 case .viewWillAppear: self?.viewWillAppear()
+                case .openByLink: self?.openByLink()
                 }
             }).disposed(by: self.disposeBag)
+        
+        
+        AppDependency
+            .shared
+            .appAction
+            .subscribe(onNext: { [weak self] action in
+                self?.detectUrlAfterOpenApp()
+            })
+            .disposed(by: self.disposeBag)
     }
     
     
@@ -260,6 +276,79 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     self.router?.openAgreement(model: agreement)
                 }
             }
+        }
+    }
+    
+    private func openByLink() {
+        let error = ChanError.error(title: "Открытие по ссылке", description: "Введите ссылку и мы попытаемся открыть тред или доску")
+        let display = ErrorDisplay(error: error, buttons: [.input(result: "Например 2ch.hk/pr/res/999999"), .cancel])
+        display.show()
+        display
+            .actions
+            .subscribe(onNext: { action in
+                switch action {
+                case .input(let result):
+                    self.openUrlIfCan(url: result)
+                default: break
+                }
+            })
+            .disposed(by: self.disposeBag)
+    }
+    
+    private func detectUrlAfterOpenApp() {
+        
+        if !self.isLoading && self.presenter.isVisible {
+            let link = UIPasteboard.general.string
+            if let model = self.canOpenChan(url: link) {
+                if model.board != nil || (model.thread != nil && model.board != nil) {
+                let error = ChanError.error(title: "Открытие по ссылке", description: "В буфере обмена мы обнаружили ссылку на Двач, перейти по ней?")
+                let display = ErrorDisplay(error: error, buttons: [.ok, .cancel])
+                display.show()
+                display
+                    .actions
+                    .subscribe(onNext: { action in
+                        switch action {
+                        case .ok: self.openUrlIfCan(url: link)
+                        default: break
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
+                }
+            }
+        }
+        
+
+    }
+    
+    private func openUrlIfCan(url: String?) {
+        if let model = self.canOpenChan(url: url) {
+            
+            if let boardUid = model.board, let threadUid = model.thread {
+                let board = BoardModel(uid: boardUid)
+                let thread = ThreadModel(uid: threadUid, board: board)
+                self.router?.open(thread: thread)
+            } else if let boardUid = model.board {
+                let board = BoardModel(uid: boardUid)
+                self.service.cancel()
+                self.service.update(board: board)
+                self.load(reload: true)
+                self.presenter.showCentralActivity()
+            }
+        }
+    }
+    
+    private func canOpenChan(url: String?) -> ChanLinkModel? {
+        guard let url = url else {
+            return nil
+        }
+        
+        let parser = LinkParser(path: url)
+        parser.processType()
+        switch parser.type {
+        case .boardLink(let model):
+            return model
+        default:
+            return nil
         }
     }
 

@@ -146,6 +146,8 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
                 }
             })
             .disposed(by: self.disposeBag)
+        
+        
     }
     
     

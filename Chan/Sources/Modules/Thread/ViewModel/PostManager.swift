@@ -81,6 +81,7 @@ class PostManager {
         var postsVM: [PostViewModel] = []
         for post in self.posts {
             if self.cancellationToken.isCancelled {
+                print("Cancelled mapping")
                 return
             }
             

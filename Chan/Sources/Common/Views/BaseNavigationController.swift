@@ -31,8 +31,8 @@ class BaseNavigationController: UINavigationController {
     }
 
     override open func viewDidLoad() {
-    super.viewDidLoad()
-    self.addPanGestureRecognizer()
+        super.viewDidLoad()
+        self.addPanGestureRecognizer()
         self.setupTheme()
         // Do any additional setup after loading the view.
     }
