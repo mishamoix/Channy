@@ -153,10 +153,12 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     }
     
     private func setupVersion() {
-        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString"),
-            let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") {
-            let result = "\(version).\(build)"
+        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") {
+//            let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") {
+            let result = "\(version) (BETA)"
             self.appVersionLabel.text = result
+        } else {
+          self.appVersionLabel.text = "BETA"
         }
 
     }
@@ -171,7 +173,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         let _ = self.titles.map({ $0.backgroundColor = .clear })
         
         self.themeManager.append(view: ThemeView(view: self.infoTextView, type: .input, subtype: .none))
-        
-
+      
+        self.themeManager.append(view: ThemeView(view: self.view, type: .viewControllerBG, subtype: .none))
     }
 }

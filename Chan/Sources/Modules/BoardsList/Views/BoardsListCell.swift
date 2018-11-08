@@ -45,7 +45,7 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
     }
     
     private func setupTheme() {
-        ThemeManager.shared.append(view: ThemeView(view: self.canvas, type: .cell, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self.canvas, type: .viewControllerBG, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.title, type: .text, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.separator, type: .separator, subtype: .none))
     }

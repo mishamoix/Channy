@@ -23,29 +23,32 @@ struct Theme {
     var secondText: UIColor
     var border: UIColor
     var cell: UIColor
+    var icon: UIColor
 }
 
 
 extension Theme {
     static var light = Theme(
-        background: .white,
-        navigationBar: .snow,
+        background: .bgLight,
+        navigationBar: .navBarLight,
         navigationBarItem: .main,
-        navigationBarTitle: .black,
-        mainText: .black,
+        navigationBarTitle: .barTitleLight,
+        mainText: .textLight,
         secondText: .subTextLight,
-        border: .spoiler,
-        cell: .snow
+        border: .borderLight,
+        cell: .cellLight,
+        icon: .iconLight
     )
     
     static var dark = Theme(
-        background: .black,
-        navigationBar: .black,
+        background: .bgDark,
+        navigationBar: .navBarDark,
         navigationBarItem: .main,
-        navigationBarTitle: .snow,
-        mainText: .snow,
+        navigationBarTitle: .barTitleDark,
+        mainText: .textDark,
         secondText: .subTextDark,
-        border: .spoiler,
-        cell: .black
+        border: .borderDark,
+        cell: .cellDark,
+        icon: .iconDark
     )
 }

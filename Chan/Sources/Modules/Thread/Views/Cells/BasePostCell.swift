@@ -68,6 +68,8 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
                 }
             }).disposed(by: self.disposeBag)
         
+        self.setupTheme()
+        
     }
     
     func update(with model: PostViewModel) {
@@ -90,7 +92,9 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
 //    self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
 
     func setupTheme() {
-        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .border))
+//        ThemeManager.shared.append(view: ThemeView(view: self.contentView, type: .cell, subtype: .border))
+
 //        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
     }
 }

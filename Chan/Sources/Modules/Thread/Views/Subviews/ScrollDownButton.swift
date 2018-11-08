@@ -60,6 +60,8 @@ class ScrollDownButton: UIButton {
                     self?.show()
                 }
             }).disposed(by: self.disposeBag)
+        
+        self.setupTheme()
     }
     
     private func hide(animated: Bool = true) {
@@ -91,6 +93,11 @@ class ScrollDownButton: UIButton {
             }
         }
 
+    }
+    
+    private func setupTheme() {
+        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .border))
+        ThemeManager.shared.append(view: ThemeView(view: self.imageView, type: .icon, subtype: .none))
     }
 
 }

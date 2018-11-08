@@ -21,12 +21,14 @@ enum ThemeViewType {
     case separator
     case viewController
     case input
+    case icon
 }
 
 enum ThemeViewSubtype {
     case none
     case scrollButton
     case second
+    case border
 }
 
 class ThemeView {
@@ -75,6 +77,9 @@ class ThemeView {
             break
         case .cell:
             (self.view as? UIView)?.backgroundColor = theme.cell
+            if self.subtype == .border {
+                (self.view as? UIView)?.layer.borderColor = theme.border.cgColor
+            }
             break
 
         case .input:
@@ -95,6 +100,8 @@ class ThemeView {
                 navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.navigationBarTitle]
                 navBar.layoutIfNeeded()
             }
+        case .icon:
+            (view as? UIImageView)?.tintColor = theme.icon
         case .navBarButton:
             break
         case .viewController:

@@ -12,6 +12,7 @@ open class BaseViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        self.setupTheme()
         
         // Do any additional setup after loading the view.
     }
