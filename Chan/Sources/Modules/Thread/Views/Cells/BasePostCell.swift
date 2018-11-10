@@ -22,6 +22,8 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     private let titleLabel = TGReusableLabel()
     private let replyedButton = UIButton()
     let disposeBag = DisposeBag()
+    
+    var canPerformAction: Bool = true
         
     weak var action: PublishSubject<PostCellAction>?
 
@@ -33,6 +35,11 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.canPerformAction = true
     }
     
     func setupUI() {
@@ -96,5 +103,18 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
 //        ThemeManager.shared.append(view: ThemeView(view: self.contentView, type: .cell, subtype: .border))
 
 //        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        return self.canPerformAction && ThreadAvailableContextMenu.contains(action.description) 
+    }
+    
+    
+    @objc public func copyText() {
+        self.action?.on(.next(.copyText(cell: self)))
+    }
+    
+    @objc public func copyOrigianlText() {
+        self.action?.on(.next(.copyOriginalText(cell: self)))
     }
 }

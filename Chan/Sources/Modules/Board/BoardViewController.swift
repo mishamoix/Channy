@@ -184,7 +184,11 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         
         self.tableWidth = self.tableView.frame.width
         
-        self.tableView.refreshControl = self.refreshControl
+        if #available(iOS 10.0, *) {
+            self.tableView.refreshControl = self.refreshControl
+        } else {
+            self.tableView.addSubview(self.refreshControl)
+        }
         
 //        self.tableView.backgroundColor = .snow
         self.tableView.backgroundColor = .clear
@@ -216,6 +220,13 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     
     private func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
+    }
+  
+}
+
+extension BoardViewController: RefreshingViewController {
+    var refresher: UIRefreshControl? {
+        return self.refreshControl
     }
 }
 

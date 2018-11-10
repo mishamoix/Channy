@@ -96,6 +96,8 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
     private func setupTheme() {
         ThemeManager.shared.append(view: ThemeView(view: self.canvas, type: .cell, subtype: .border))
         ThemeManager.shared.append(view: ThemeView(view: self.message, type: .text, subtype: .none))
+      
+        self.backgroundColor = .clear
 
     }
     

@@ -43,7 +43,11 @@ public extension Presentable {
         Helper.performOnMainThread {
             if let view = (self as? UIViewController)?.view {
                 let scrollViews: [UIScrollView] = view.subviews.filter({ $0.isKind(of: UIScrollView.self) }) as! [UIScrollView]
+              if #available(iOS 10.0, *) {
                 let _ = scrollViews.map({ $0.refreshControl?.beginRefreshing() })
+              } else {
+                (self as? RefreshingViewController)?.refresher?.beginRefreshing()
+              }
             }
             
             if let vc = self as? ViewRefreshing {
@@ -56,7 +60,12 @@ public extension Presentable {
         Helper.performOnMainThread {
             if let view = (self as? UIViewController)?.view {
                 let scrollViews: [UIScrollView] = view.subviews.filter({ $0.isKind(of: UIScrollView.self) }) as! [UIScrollView]
+              if #available(iOS 10.0, *) {
+
                 let _ = scrollViews.map({ $0.refreshControl?.endRefreshing() })
+              } else {
+                (self as? RefreshingViewController)?.refresher?.endRefreshing()
+              }
             }
             
             if let vc = self as? ViewRefreshing {

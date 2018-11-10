@@ -56,16 +56,31 @@ class AppDependency: NSObject {
         CoreDataStore.shared.setup()
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: AVAudioSession.CategoryOptions.allowBluetoothA2DP)
+            if #available(iOS 10.0, *) {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: AVAudioSession.CategoryOptions.allowBluetoothA2DP)
+            } else {
+//                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+                
+            }
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print(error)
         }
+        
+        let copyOrigianlText = UIMenuItem(title: "Скопировать оригинал", action: Selector(("copyOrigianlText")))
+        let copyText = UIMenuItem(title: "Скопировать", action: Selector(("copyText")))
+        let copyLink = UIMenuItem(title: "Скопировать ссылку", action: Selector(("copyLink")))
+
+        UIMenuController.shared.menuItems = [copyOrigianlText, copyText, copyLink]
+        UIMenuController.shared.update()
+        UIMenuController.shared.setMenuVisible(true, animated: true)
+
     }
 
     
     func setupMainAppearance() {
         UIBarButtonItem.appearance().tintColor = .main
+        
     }
     
     func setupFirebase() {

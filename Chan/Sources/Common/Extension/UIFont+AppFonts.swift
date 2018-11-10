@@ -12,12 +12,12 @@ import UIKit
 extension UIFont {
     static var title: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .medium) }
     
-    static var text: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize) }
-    static var textStrong: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold) }
-    static var textItalic: UIFont { return UIFont.italicSystemFont(ofSize: UIFont.systemFontSize) }
+    static var text: UIFont { return UIFont.systemFont(ofSize: UIFont.fontSize) }
+    static var textStrong: UIFont { return UIFont.systemFont(ofSize: UIFont.fontSize, weight: .bold) }
+    static var textItalic: UIFont { return UIFont.italicSystemFont(ofSize: UIFont.fontSize) }
     static var textItalicStrong: UIFont { return UIFont.text.with(traits: [.traitBold, .traitItalic]) }
     
-    static var postTitle: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize - 2) }
+    static var postTitle: UIFont { return UIFont.systemFont(ofSize: UIFont.fontSize - 2) }
 
     
     func with(traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
@@ -26,6 +26,12 @@ extension UIFont {
         }
         
         return UIFont(descriptor: descriptor, size: 0)
+    }
+    
+    static var fontSize: CGFloat {
+        let userFont =  UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.body)
+        
+        return userFont.pointSize - 2
     }
     
     

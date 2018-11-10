@@ -22,6 +22,8 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
         self.arrow.tintColor = UIColor.gray
         
         self.setupTheme()
+      
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -45,9 +47,14 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
     }
     
     private func setupTheme() {
+        let bgColorView = UIView()
+        self.selectedBackgroundView = bgColorView
+
         ThemeManager.shared.append(view: ThemeView(view: self.canvas, type: .viewControllerBG, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.title, type: .text, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.separator, type: .separator, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: bgColorView, type: .cell, subtype: .selected))
+        
     }
     
     

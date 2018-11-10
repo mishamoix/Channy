@@ -81,7 +81,9 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     private func setup() {
         self.setupRx()
         
-        self.presenter.showCentralActivity()
+        if self.moduleIsRoot {
+            self.presenter.showCentralActivity()
+        }
         self.load()
     }
     
@@ -110,6 +112,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .cutPost(let postUid): self?.cutPost(uid: postUid)
                 case .open(let media): self?.showMedia(with: media)
                 case .copyLinkOnThread: self?.copyLinkOnThread()
+                case .copyMedia(let media): self?.copyMedia(media: media)
                 }
             }).disposed(by: self.disposeBag)
     }
@@ -228,6 +231,12 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
             UIPasteboard.general.string = post.text.string
         }
     }
+    
+    private func copyMedia(media: FileModel) {
+        let url = MakeFullPath(path: media.path)
+        UIPasteboard.general.string = url
+    }
+
     
     private func showMedia(with anchor: FileModel) {
         if anchor.type == .image {

@@ -24,8 +24,15 @@ class DefaultNavigationController: UINavigationController {
         self.themeManager.append(view: ThemeView(object: self.navigationBar, type: .navBar, subtype: .none))
         self.themeManager.append(view: ThemeView(object: self, type: .viewController, subtype: .none))
         self.themeManager.append(view: ThemeView(object: self.view, type: .viewControllerBG, subtype: .none))
+        
+        self.navigationBar.tintColor = .main
     }
     
+    deinit {
+        self.themeManager.clean()
+        self.printDeinit()
+    }
+
 
     /*
     // MARK: - Navigation

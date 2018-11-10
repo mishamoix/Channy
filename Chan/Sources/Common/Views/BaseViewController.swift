@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol RefreshingViewController {
+  var refresher: UIRefreshControl? { get }
+}
+
 open class BaseViewController: UIViewController {
     
     override open func viewDidLoad() {

@@ -48,6 +48,8 @@ enum PostAction {
     case reportThread
     case copyPost(postUid: String)
     case cutPost(postUid: String)
+    case copyMedia(media: FileModel)
+
     case open(media: FileModel)
     case copyLinkOnThread
 
@@ -57,5 +59,9 @@ enum PostCellAction {
     case openReplys(cell: UICollectionViewCell)
     case tappedAtLink(url: URL, cell: UICollectionViewCell)
     case openMedia(idx: Int, cell: UICollectionViewCell, view: UIImageView)
+    
+    case copyText(cell: UICollectionViewCell)
+    case copyOriginalText(cell: UICollectionViewCell)
+    case copyMediaLink(cell: UICollectionViewCell, idx: Int)
 }
 

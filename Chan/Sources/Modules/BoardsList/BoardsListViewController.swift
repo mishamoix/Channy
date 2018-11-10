@@ -153,6 +153,9 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.tableView.keyboardDismissMode = .interactive
         self.tableView.reorder.delegate = self
         
+        if #available(iOS 11.0, *) {} else {
+            self.automaticallyAdjustsScrollViewInsets = false
+        }
     }
     
     private func setupSearchBar() {

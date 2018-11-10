@@ -20,29 +20,44 @@ extension UIColor {
     
     static var scrollDown: UIColor { return #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1) }
     
-    static var subTextLight: UIColor { return #colorLiteral(red: 0.5411764706, green: 0.5411764706, blue: 0.5607843137, alpha: 1) }
-    static var subTextDark: UIColor { return #colorLiteral(red: 0.7498029101, green: 0.7478397134, blue: 0.7821318708, alpha: 1) }
-    
+
     static var bgLight: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) }
     static var bgDark: UIColor { return #colorLiteral(red: 0.05195837373, green: 0.05195837373, blue: 0.05195837373, alpha: 1) }
-    
+    static var bgDarkBlue: UIColor { return #colorLiteral(red: 0.09411764706, green: 0.1333333333, blue: 0.1764705882, alpha: 1) }
+
     static var borderLight: UIColor { return #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1) }
     static var borderDark: UIColor { return #colorLiteral(red: 0.3928315212, green: 0.3918029768, blue: 0.4097690853, alpha: 1) }
-    
+    static var borderDarkBlue: UIColor { return #colorLiteral(red: 0.3928315212, green: 0.3918029768, blue: 0.4097690853, alpha: 1) }
+
     static var textLight: UIColor { return #colorLiteral(red: 0.07190619324, green: 0.07190619324, blue: 0.07190619324, alpha: 1) }
-    static var textDark: UIColor { return #colorLiteral(red: 0.8521287521, green: 0.8498976372, blue: 0.8888696563, alpha: 1) }
+    static var textDark: UIColor { return #colorLiteral(red: 0.7851398083, green: 0.7819882887, blue: 0.8370374863, alpha: 1) }
+    static var textDarkBlue: UIColor { return #colorLiteral(red: 0.8430974548, green: 0.8324901531, blue: 0.8875213061, alpha: 1) }
     
+    static var subTextLight: UIColor { return #colorLiteral(red: 0.5411764706, green: 0.5411764706, blue: 0.5607843137, alpha: 1) }
+    static var subTextDark: UIColor { return #colorLiteral(red: 0.6751537359, green: 0.6791384756, blue: 0.7099554748, alpha: 1) }
+    static var subTextDarkBlue: UIColor { return #colorLiteral(red: 0.822254744, green: 0.82710767, blue: 0.8646390091, alpha: 1) }
+
     static var cellLight: UIColor { return #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1) }
     static var cellDark: UIColor { return #colorLiteral(red: 0.116964603, green: 0.1160805009, blue: 0.1225506525, alpha: 1) }
-    
+    static var cellDarkBlue: UIColor { return #colorLiteral(red: 0.1333333333, green: 0.1882352941, blue: 0.2470588235, alpha: 1) }
+
     static var navBarLight: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) }
     static var navBarDark: UIColor { return #colorLiteral(red: 0.05195837373, green: 0.05195837373, blue: 0.05195837373, alpha: 1) }
+    static var navBarDarkBlue: UIColor { return #colorLiteral(red: 0.09411764706, green: 0.1333333333, blue: 0.1764705882, alpha: 1) }
 
     static var barTitleLight: UIColor { return #colorLiteral(red: 0.05195837373, green: 0.05195837373, blue: 0.05195837373, alpha: 1)  }
     static var barTitleDark: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) }
+    static var barTitleDarkBlue: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) }
     
     static var iconLight: UIColor { return #colorLiteral(red: 0.5423502326, green: 0.5423502326, blue: 0.5423502326, alpha: 1)  }
     static var iconDark: UIColor { return #colorLiteral(red: 0.7609416032, green: 0.7609416032, blue: 0.7609416032, alpha: 1) }
+    static var iconDarkBlue: UIColor { return #colorLiteral(red: 0.7609416032, green: 0.7609416032, blue: 0.7609416032, alpha: 1) }
+    
+    static var cellSelectedLight: UIColor { return #colorLiteral(red: 0.8056949344, green: 0.8056949344, blue: 0.8056949344, alpha: 1)  }
+    static var cellSelectedDark: UIColor { return #colorLiteral(red: 0.2575905562, green: 0.2575905562, blue: 0.2575905562, alpha: 1) }
+    static var cellSelectedDarkBlue: UIColor { return #colorLiteral(red: 0.2575905562, green: 0.2575905562, blue: 0.2575905562, alpha: 1) }
+
+
     
     
 }

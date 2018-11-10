@@ -29,6 +29,9 @@ class PostMediaCell: PostCell {
         self.prepare(image: self.secondImage)
         self.prepare(image: self.thirdImage)
         self.prepare(image: self.forthImage)
+        
+        self.addCopyLinkMenuItems()
+        
     }
     
     override func update(with model: PostViewModel) {
@@ -74,6 +77,28 @@ class PostMediaCell: PostCell {
         self.secondImage.frame = CGRect(x: self.firstImage.frame.maxX + PostMediaMargin, y: self.firstImage.frame.minY, width: model.mediaFrame.width, height: model.mediaFrame.height)
         self.thirdImage.frame = CGRect(x: self.secondImage.frame.maxX + PostMediaMargin, y: self.firstImage.frame.minY, width: model.mediaFrame.width, height: model.mediaFrame.height)
         self.forthImage.frame = CGRect(x: self.thirdImage.frame.maxX + PostMediaMargin, y: self.firstImage.frame.minY, width: model.mediaFrame.width, height: model.mediaFrame.height)
+    }
+    
+    
+    private func addCopyLinkMenuItems() {
+        for media in self.images {
+            media
+                .shouldCopyLink.subscribe(onNext: { [weak self, weak media] action in
+                    
+                    switch action {
+                    case .disableParentActions: self?.canPerformAction = false
+                    case .enableParentActions: self?.canPerformAction = true
+                    case .copy:
+                        if let media = media, let self = self {
+                            if let idx = self.images.firstIndex(of: media) {
+                                self.action?.on(.next(.copyMediaLink(cell: self, idx: idx)))
+                            }
+                        }
+                    }
+                    
+                })
+                .disposed(by: self.disposeBag)
+        }
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 
 enum ThemeViewType {
@@ -29,6 +30,7 @@ enum ThemeViewSubtype {
     case scrollButton
     case second
     case border
+    case selected
 }
 
 class ThemeView {
@@ -79,6 +81,8 @@ class ThemeView {
             (self.view as? UIView)?.backgroundColor = theme.cell
             if self.subtype == .border {
                 (self.view as? UIView)?.layer.borderColor = theme.border.cgColor
+            } else if self.subtype == .selected {
+                (self.view as? UIView)?.backgroundColor = theme.cellSelected
             }
             break
 
@@ -98,6 +102,7 @@ class ThemeView {
             if let navBar = self.view as? UINavigationBar {
                 navBar.barTintColor = theme.navigationBar
                 navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.navigationBarTitle]
+                navBar.isTranslucent = false
                 navBar.layoutIfNeeded()
             }
         case .icon:
@@ -124,7 +129,7 @@ class ThemeManager {
     static let shared = ThemeManager()
     
     var statusBar: UIStatusBarStyle {
-        if self.savedThemeType == .dark {
+        if [.dark, .darkBlue].contains(self.savedThemeType) {
             return UIStatusBarStyle.lightContent
         }
         
@@ -166,6 +171,11 @@ class ThemeManager {
         if theme != self.savedThemeType {
             Values.shared.currentTheme = theme.rawValue
             self.themeChanged()
+            
+            Helper.performOnUtilityThread {
+                Analytics.logEvent("change_theme", parameters: ["type" : ThemeManager.shared.savedThemeType.rawValue])
+            }
+            
         }
     }
     
@@ -187,6 +197,8 @@ class ThemeManager {
     private func theme(for type: ThemeType) -> Theme {
         if type == .dark {
             return Theme.dark
+        } else if type == .darkBlue {
+            return Theme.darkBlue
         }
         
         return Theme.light
@@ -195,6 +207,8 @@ class ThemeManager {
     private func themeType(from string: String) -> ThemeType {
         if string == "dark" {
             return .dark
+        } else if string == "darkBlue" {
+            return .darkBlue
         }
         
         return .light

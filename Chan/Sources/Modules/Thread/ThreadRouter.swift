@@ -8,6 +8,7 @@
 
 import RIBs
 
+
 protocol ThreadInteractable: Interactable, ThreadListener {
     var router: ThreadRouting? { get set }
     var listener: ThreadListener? { get set }

@@ -43,6 +43,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     private var isFirst = true
     
     private var isLoading = false
+    private var checkLinkPopupOpened = false
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
@@ -296,23 +297,31 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     private func detectUrlAfterOpenApp() {
-        
-        if !self.isLoading && self.presenter.isVisible {
+        print(self.checkLinkPopupOpened)
+        if !self.isLoading && self.presenter.isVisible && !self.checkLinkPopupOpened {
             let link = UIPasteboard.general.string
             if let model = self.canOpenChan(url: link) {
                 if model.board != nil || (model.thread != nil && model.board != nil) {
-                let error = ChanError.error(title: "Открытие по ссылке", description: "В буфере обмена мы обнаружили ссылку на Двач, перейти по ней?")
-                let display = ErrorDisplay(error: error, buttons: [.ok, .cancel])
-                display.show()
-                display
-                    .actions
-                    .subscribe(onNext: { action in
-                        switch action {
-                        case .ok: self.openUrlIfCan(url: link)
-                        default: break
-                        }
-                    })
-                    .disposed(by: self.disposeBag)
+                    
+                    if let board = model.board, let currentBoard = self.service.board, model.thread == nil, currentBoard.uid == board {
+                        return
+                    }
+                    
+                    let error = ChanError.error(title: "Открытие по ссылке", description: "В буфере обмена мы обнаружили ссылку на Двач, перейти по ней?")
+                    self.checkLinkPopupOpened = true
+                    let display = ErrorDisplay(error: error, buttons: [.ok, .cancel])
+                    display.show()
+                    display
+                        .actions
+                        .subscribe(onNext: { action in
+                            switch action {
+                            case .ok: self.openUrlIfCan(url: link)
+                            default: break
+                            }
+                            
+                            self.checkLinkPopupOpened = false
+                        })
+                        .disposed(by: self.disposeBag)
                 }
             }
         }

@@ -11,6 +11,7 @@ import UIKit
 enum ThemeType: String {
     case light = "light"
     case dark = "dark"
+    case darkBlue = "darkBlue"
 }
 
 
@@ -23,6 +24,7 @@ struct Theme {
     var secondText: UIColor
     var border: UIColor
     var cell: UIColor
+    var cellSelected: UIColor
     var icon: UIColor
 }
 
@@ -37,6 +39,7 @@ extension Theme {
         secondText: .subTextLight,
         border: .borderLight,
         cell: .cellLight,
+        cellSelected: .cellSelectedLight,
         icon: .iconLight
     )
     
@@ -49,6 +52,21 @@ extension Theme {
         secondText: .subTextDark,
         border: .borderDark,
         cell: .cellDark,
+        cellSelected: .cellSelectedDark,
         icon: .iconDark
     )
+    
+    static var darkBlue = Theme(
+        background: .bgDarkBlue,
+        navigationBar: .navBarDarkBlue,
+        navigationBarItem: .main,
+        navigationBarTitle: .barTitleDarkBlue,
+        mainText: .textDarkBlue,
+        secondText: .subTextDarkBlue,
+        border: .borderDarkBlue,
+        cell: .cellDarkBlue,
+        cellSelected: .cellSelectedDarkBlue,
+        icon: .iconDarkBlue
+    )
+
 }

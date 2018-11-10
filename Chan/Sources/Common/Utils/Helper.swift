@@ -12,7 +12,11 @@ import RxSwift
 class Helper {
     class func open(url: URL) {
 //        UIApplication.shared.openURL(url)
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
     }
     
     static var rxBackgroundThread = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -20,6 +24,12 @@ class Helper {
     
     static func performOnMainThread(_ block: @escaping () -> ()) {
         DispatchQueue.main.async {
+            block()
+        }
+    }
+    
+    static func performOnUtilityThread(_ block: @escaping () -> ()) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.utility).async {
             block()
         }
     }

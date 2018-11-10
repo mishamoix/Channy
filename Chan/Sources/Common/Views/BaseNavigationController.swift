@@ -8,12 +8,10 @@
 
 import UIKit
 
-class BaseNavigationController: UINavigationController {
+class BaseNavigationController: DefaultNavigationController {
 
     public var interactivePopPanGestureRecognizer: UIPanGestureRecognizer?
-    
-    var disableSwipe = false
-  
+      
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
     }
@@ -33,14 +31,14 @@ class BaseNavigationController: UINavigationController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         self.addPanGestureRecognizer()
-        self.setupTheme()
+//        self.setupTheme()
         // Do any additional setup after loading the view.
     }
     
-    deinit {
-        self.themeManager.clean()
-        self.printDeinit()
-    }
+//    deinit {
+//        self.themeManager.clean()
+//        self.printDeinit()
+//    }
     
     
       override open func didReceiveMemoryWarning() {
@@ -48,11 +46,11 @@ class BaseNavigationController: UINavigationController {
         // Dispose of any resources that can be recreated.
       }
     
-      override open var preferredStatusBarStyle: UIStatusBarStyle { return self.themeManager.statusBar }
+//      override open var preferredStatusBarStyle: UIStatusBarStyle { return self.themeManager.statusBar }
     
     
         private func addPanGestureRecognizer() {
-            if !self.disableSwipe {
+//            if !self.disableSwipe {
                 if let interactivePopGestureRecognizer = self.interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "_targets") as? NSArray {
                     let interactivePanTarget = (targets.firstObject as AnyObject).value(forKey: "target")
 
@@ -63,14 +61,14 @@ class BaseNavigationController: UINavigationController {
                     pan.delegate = self
                     
                 }
-            }
+//            }
         }
     
-      private func setupTheme() {
-        self.themeManager.append(view: ThemeView(object: self.navigationBar, type: .navBar, subtype: .none))
-        self.themeManager.append(view: ThemeView(object: self, type: .viewController, subtype: .none))
-
-      }
+//      private func setupTheme() {
+//        self.themeManager.append(view: ThemeView(object: self.navigationBar, type: .navBar, subtype: .none))
+//        self.themeManager.append(view: ThemeView(object: self, type: .viewController, subtype: .none))
+//
+//      }
 }
 
 

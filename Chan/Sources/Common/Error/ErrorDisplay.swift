@@ -131,6 +131,7 @@ class ErrorDisplay: ErrorDisplayProtocol {
         }
     }
     
+    @discardableResult
     static func presentAlert(with title: String?, message: String, styles: [ErrorButton] = []) -> UIViewController {
         let vc = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         

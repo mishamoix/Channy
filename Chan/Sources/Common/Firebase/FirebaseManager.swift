@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 
+
 class FirebaseManager {
     
     static let shared = FirebaseManager()
@@ -78,7 +79,7 @@ class FirebaseManager {
             self.disableImages = disableImages
         }
         
-        if let needExcludeBoards = result["need_exclude_boards"] as? Bool {
+        if let needExcludeBoards = result["need_exclude_boards_v0_3"] as? Bool {
             self.needExcludeBoards = needExcludeBoards
         }
         

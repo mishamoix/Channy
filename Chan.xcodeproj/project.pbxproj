@@ -733,10 +733,10 @@
 			isa = PBXGroup;
 			children = (
 				0A2E0CA52145562D00CBD619 /* UIComponents */,
+				0A5D948F21923CB500E84314 /* DefaultNavigationController.swift */,
 				0ACC298C2143F7E100B4E53B /* BaseNavigationController.swift */,
 				0A2E0C8D21453BE100CBD619 /* BaseViewController.swift */,
 				0A2E0CAC214557E900CBD619 /* BaseTableViewCell.swift */,
-				0A5D948F21923CB500E84314 /* DefaultNavigationController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1280,7 +1280,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Chan/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1308,7 +1308,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Chan/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

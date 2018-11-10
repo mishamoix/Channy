@@ -13,6 +13,9 @@ import SnapKit
 import AVKit
 
 
+let ThreadAvailableContextMenu = ["copyOrigianlText", "copyText"]
+
+
 private let PostCellIdentifier = "PostCell"
 private let PostMediaCellIdentifier = "PostMediaCell"
 
@@ -54,9 +57,21 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         super.viewWillTransition(to: size, with: coordinator)
         
         self.currentWidth = size.width
-//        self.collectionView.collectionViewLayout.invalidateLayout()
+        self.collectionView.collectionViewLayout.invalidateLayout()
+        self.collectionView.layoutSubviews()
+        
+        for visibleCell in self.collectionView.visibleCells {
+            if let idx = self.collectionView.indexPath(for: visibleCell) {
+                if let cell = visibleCell as? BasePostCellProtocol {
+                    cell.update(with: self.data[idx.item])
+                }
+            }
+        }
 
-        self.collectionView.reloadData()
+//        for visibleCellIdx in self.collectionView.indexPathsForVisibleItems {
+//            self.collectionView(self.collectionView, cellForItemAt: visibleCellIdx)
+//        }
+//        self.collectionView.reloadData()
     }
     
     //MARK: Private
@@ -87,9 +102,19 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .subscribe(onNext: { [weak self] model in
                 self?.navigationItem.title = model.title
                 if model.canRefresh {
-                    self?.collectionView.refreshControl = self?.refreshControl
+                    if #available(iOS 10.0, *) {
+                        self?.collectionView.refreshControl = self?.refreshControl
+                    } else {
+                        if let refresher = self?.refreshControl {
+                            self?.collectionView.addSubview(refresher)
+                        }
+                    }
                 } else {
-                    self?.collectionView.refreshControl = nil
+                    if #available(iOS 10.0, *) {
+                        self?.collectionView.refreshControl = nil
+                    } else {
+                        self?.refreshControl.removeFromSuperview()
+                    }
                 }
             }).disposed(by: self.disposeBag)
         
@@ -119,7 +144,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                         self?.listener?.viewActions.on(.next(.openLink(postUid: post.uid, url: url)))
                     }
                 }
-                case .openMedia(let idx, let cell, let view): do {
+                case .openMedia(let idx, let cell, _): do {
                     if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
                         let media = post.media[idx]
                         
@@ -138,7 +163,21 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                         }
                     }
                 }
+                    
+                case .copyOriginalText(let cell):
+                    if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
+                        self?.listener?.viewActions.on(.next(.copyPost(postUid: post.uid)))
+                    }
 
+                case .copyText(let cell):
+                    if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
+                        self?.listener?.viewActions.on(.next(.cutPost(postUid: post.uid)))
+                    }
+                    
+                case .copyMediaLink(let cell, let idx):
+                    if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item], post.media.count > idx {
+                        self?.listener?.viewActions.on(.next(.copyMedia(media: post.media[idx])))
+                    }
                 }
                 
             }).disposed(by: self.disposeBag)
@@ -205,6 +244,10 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         
         self.collectionView.contentInset = UIEdgeInsets(top: PostCellTopMargin, left: 0, bottom: self.collectionView.contentInset.bottom + PostCellBottomMargin, right: 0)
         
+        if #available(iOS 11.0, *) {} else {
+            self.automaticallyAdjustsScrollViewInsets = false
+        }
+        
         self.collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCellIdentifier)
         self.collectionView.register(PostMediaCell.self, forCellWithReuseIdentifier: PostMediaCellIdentifier)
     }
@@ -264,6 +307,12 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     }
 }
 
+extension ThreadViewController: RefreshingViewController {
+    var refresher: UIRefreshControl? {
+        return self.refreshControl
+    }
+}
+
 extension ThreadViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.data.count
@@ -278,14 +327,14 @@ extension ThreadViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return ["copy:", "cut:"].contains(action.description)
+        return ThreadAvailableContextMenu.contains(action.description)
     }
     
     func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         let post = self.data[indexPath.row]
-        if action.description == "copy:" {
+        if action.description == "copyText" {
             self.listener?.viewActions.on(.next(.copyPost(postUid: post.uid)))
-        } else if action.description == "cut:" {
+        } else if action.description == "copyOrigianlText" {
             self.listener?.viewActions.on(.next(.cutPost(postUid: post.uid)))
         }
     }

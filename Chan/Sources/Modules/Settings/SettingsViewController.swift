@@ -20,7 +20,6 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     @IBOutlet weak var writeToDevelopers: UIButton!
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var appVersionLabel: UILabel!
-    @IBOutlet weak var nightMode: UISwitch!
     
     
     @IBOutlet weak var cellCanvasLimitor: UIView!
@@ -29,21 +28,21 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     
     @IBOutlet weak var titleLimitor: UILabel!
     @IBOutlet weak var subtitleLimitor: UILabel!
-    @IBOutlet weak var titleNightMode: UILabel!
-    @IBOutlet weak var subtitleNightMode: UILabel!
     @IBOutlet weak var titleVersion: UILabel!
-    @IBOutlet weak var subtitleVersion: UILabel!
+//    @IBOutlet weak var subtitleVersion: UILabel!
+    
+    @IBOutlet weak var changeThemeButton: UIButton!
     
     private var canvas: [UIView] {
         return [cellCanvasLimitor, cellCanvasNightMode, cellCanvasVersion]
     }
     
     private var titles: [UILabel] {
-        return [titleLimitor, titleNightMode, titleVersion]
+        return [titleLimitor, titleVersion]
     }
     
     private var subtitels: [UILabel] {
-        return [subtitleLimitor, subtitleNightMode, subtitleVersion]
+        return [subtitleLimitor]
     }
     
     weak var listener: SettingsPresentableListener?
@@ -75,8 +74,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
 
         self.setupVersion()
         
-        self.nightMode.isOn = self.themeManager.savedThemeType == .dark
-        
+        self.updateThemeText()
         self.setupTheme()
     }
     
@@ -133,21 +131,68 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
             }).disposed(by: self.disposeBag)
         
         
-        self.nightMode
+        self.changeThemeButton
             .rx
-            .controlEvent(UIControl.Event.valueChanged)
+            .tap
             .asDriver()
-            .drive(onNext: { [weak self] _ in
-                if let result = self?.nightMode.isOn {
-                    
-                    if result {
-                        self?.themeManager.save(theme: .dark)
-                    } else {
-                        self?.themeManager.save(theme: .light)
-                    }
-                    
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                let vc = UIAlertController(title: "Выберите тему", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+                
+                let currentType = self.themeManager.savedThemeType
+                
+                if currentType != .light {
+                    vc.addAction(UIAlertAction(title: "Светлая", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.themeManager.save(theme: .light)
+                        self.updateThemeText()
+                        
+                    }))
                 }
-            }).disposed(by: self.disposeBag)
+                
+                if currentType != .dark {
+                    vc.addAction(UIAlertAction(title: "Темная", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.themeManager.save(theme: .dark)
+                        self.updateThemeText()
+
+                    }))
+                }
+                
+                if currentType != .darkBlue {
+
+                    vc.addAction(UIAlertAction(title: "Темно-синяя", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.themeManager.save(theme: .darkBlue)
+                        self.updateThemeText()
+
+                    }))
+                }
+                
+                vc.addAction(UIAlertAction(title: "Отменить", style: UIAlertAction.Style.cancel, handler: nil))
+                
+                self.present(vc: vc, animated: true)
+//                vc.prese
+
+            })
+            .disposed(by: self.disposeBag)
+        
+//        self.nightMode
+//            .rx
+//            .controlEvent(UIControl.Event.valueChanged)
+//            .asDriver()
+//            .drive(onNext: { [weak self] _ in
+//                if let result = self?.nightMode.isOn {
+//
+//                    if result {
+//                        self?.themeManager.save(theme: .dark)
+//                    } else {
+//                        self?.themeManager.save(theme: .light)
+//                    }
+//
+//                }
+//            }).disposed(by: self.disposeBag)
 
         
     }
@@ -176,4 +221,20 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
       
         self.themeManager.append(view: ThemeView(view: self.view, type: .viewControllerBG, subtype: .none))
     }
+    
+    
+    private func updateThemeText() {
+        var text = "светлая"
+        switch self.themeManager.savedThemeType {
+        case .dark:
+            text = "темная"
+        case .darkBlue:
+            text = "темно-синяя"
+        case .light:
+            text = "светлая"
+        }
+        self.changeThemeButton.setTitle("Выберите тему: сейчас \(text)", for: UIControl.State.normal)
+
+    }
 }
+
