@@ -40,6 +40,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private let scrollDownButton = ScrollDownButton()
 
     private var currentWidth: CGFloat = 0
+    private var savedIndexForRotate: IndexPath? = nil
+
     // MARK: Data
     private var data: [PostViewModel] = []
     
@@ -53,8 +55,22 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         self.updateScrollDownButton()
     }
     
+    
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        
+        let target = self.collectionView.contentOffset.y
+        var result: CGFloat = 0
+        for (i, item) in self.data.enumerated() {
+            result += PostCellTopMargin
+            result += item.height
+            if result > target {
+                self.savedIndexForRotate = IndexPath(item: i, section: 0)
+                break
+            }
+        }
+        
         
         self.currentWidth = size.width
         self.collectionView.collectionViewLayout.invalidateLayout()
@@ -362,6 +378,33 @@ extension ThreadViewController: UICollectionViewDelegateFlowLayout {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateScrollDownButton()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        
+        guard let oldCenter = self.savedIndexForRotate else {
+            return proposedContentOffset
+        }
+        self.savedIndexForRotate = nil
+        
+        let attrs = collectionView.layoutAttributesForItem(at: oldCenter)
+        if let newFrame = attrs?.frame {
+            return CGPoint(x: 0, y: newFrame.minY)
+        }
+        return proposedContentOffset
+
+
+        
+//        if let centerCellIdx = self.savedIndexForRotate {
+//            self.savedIndexForRotate = nil
+//            if let centerCellFrame = self.collectionView.layoutAttributesForItem(at: centerCellIdx)?.frame {
+//                let b = centerCellFrame.minY - self.collectionView.frame.height / 2.0
+//                return CGPoint(x: 0, y: centerCellFrame.origin.y)
+//            }
+//
+//        }
+//
+//        return CGPoint(x: 0, y: 0)
     }
 }
 
