@@ -14,6 +14,7 @@ protocol ThreadRouting: ViewableRouting {
     func openNewThread(with thread: ThreadModel)
     func popToCurrent()
     func showMediaViewer(_ vc: UIViewController)
+    func closeThread()
 }
 
 protocol ThreadPresentable: Presentable {
@@ -22,9 +23,12 @@ protocol ThreadPresentable: Presentable {
 
 protocol ThreadListener: class {
     func popToRoot()
+    func open(board: BoardModel)
 }
 
 final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadInteractable, ThreadPresentableListener {
+
+    
 
     weak var router: ThreadRouting?
     weak var listener: ThreadListener?
@@ -206,7 +210,9 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 
                         }
                     }
-                } else {
+                } else if let boardUid = boardLink.board {
+                    let board = BoardModel(uid: boardUid)
+                    self.open(board: board)
                     // TODO: Если ссылка вида /hw/catalog.html, '/web/'
                 }
             }
@@ -214,6 +220,12 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
             case .externalLink: Helper.open(url: url)
             }
         }
+    }
+    
+    func open(board: BoardModel) {
+        self.router?.closeThread()
+        self.listener?.open(board: board)
+
     }
     
     private func reportThread() {
@@ -259,6 +271,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         }
         
     }
+    
     
     private func copyLinkOnThread() {
         if let link = self.service.thread.buildLink {

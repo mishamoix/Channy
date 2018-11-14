@@ -170,6 +170,16 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                     }))
                 }
                 
+                if currentType != .macaba {
+                    
+                    vc.addAction(UIAlertAction(title: "Macaba", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.themeManager.save(theme: .macaba)
+                        self.updateThemeText()
+                        
+                    }))
+                }
+                
                 vc.addAction(UIAlertAction(title: "Отменить", style: UIAlertAction.Style.cancel, handler: nil))
                 
                 self.present(vc: vc, animated: true)
@@ -232,6 +242,8 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
             text = "темно-синяя"
         case .light:
             text = "светлая"
+        case .macaba:
+            text = "macaba"
         }
         self.changeThemeButton.setTitle("Выберите тему: сейчас \(text)", for: UIControl.State.normal)
 

@@ -12,6 +12,7 @@ enum ThemeType: String {
     case light = "light"
     case dark = "dark"
     case darkBlue = "darkBlue"
+    case macaba = "macaba"
 }
 
 
@@ -67,6 +68,19 @@ extension Theme {
         cell: .cellDarkBlue,
         cellSelected: .cellSelectedDarkBlue,
         icon: .iconDarkBlue
+    )
+    
+    static var macaba = Theme(
+        background: .bgMacaba,
+        navigationBar: .navBarMacaba,
+        navigationBarItem: .mainMacaba,
+        navigationBarTitle: .barTitleMacaba,
+        mainText: .textMacaba,
+        secondText: .subTextMacaba,
+        border: .borderMacaba,
+        cell: .cellMacaba,
+        cellSelected: .cellSelectedMacaba,
+        icon: .iconMacaba
     )
 
 }

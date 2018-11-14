@@ -198,6 +198,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     private func setupNavBar() {
 //        let addBoard = UIBarButtonItem(image: .plus, style: UIBarButtonItem.Style.done, target: nil, action: nil)
         let more = UIBarButtonItem(image: .more, style: UIBarButtonItem.Style.done, target: nil, action: nil)
+        self.themeManager.append(view: ThemeView(object: more, type: ThemeViewType.navBarButton, subtype: .none))
         
 //        self.homeButton = home
         self.moreButton = more
@@ -212,6 +213,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         home.setImage(.home, for: .normal)
         home.tintColor = .main
         homeCanvas.addSubview(home)
+        
+        self.themeManager.append(view: ThemeView(object: home, type: .navBarButton, subtype: .none))
         
         home.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         

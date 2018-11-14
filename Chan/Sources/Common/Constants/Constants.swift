@@ -13,7 +13,7 @@ let DefaultMargin: CGFloat = 8
 let MediumMargin: CGFloat = 16
 let LargeMargin: CGFloat = 24
 
-let DefaultCornerRadius: CGFloat = 4
+let DefaultCornerRadius: CGFloat = 8
 let AnimationDuration: TimeInterval = 0.25
 
 let RetryCount = 3

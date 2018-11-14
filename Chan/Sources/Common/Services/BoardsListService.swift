@@ -67,6 +67,8 @@ class BoardsListService: BaseService, BoardsListServiceProtocol {
     
     func delete(board: BoardModel) {
         CoreDataStore.shared.delete(with: CoreDataBoard.self, predicate: board.fetching)
+        let cached = self.loadCachedBoards()
+        self.save(boards: cached)
     }
     
     

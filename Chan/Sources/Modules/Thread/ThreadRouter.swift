@@ -50,6 +50,12 @@ final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControlla
         self.viewControllable.pop(animated: true, view: self.viewControllable)
     }
     
+    func closeThread() {
+        if let controller = self.self.viewController.uiviewController.navigationController?.viewControllers.last(where: { !$0.isKind(of: ThreadViewController.self) }) {
+            self.viewController.uiviewController.navigationController?.popToViewController(controller, animated: true)
+        }
+    }
+    
     func showMediaViewer(_ vc: UIViewController) {
 //        self.viewController.uiviewController.present(vc, animated: true, completion: nil)
         self.viewController.uiviewController.present(vc, animated: true, completion: nil)

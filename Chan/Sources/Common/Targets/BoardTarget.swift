@@ -35,7 +35,7 @@ extension BoardTarget: TargetType {
     }
     
     public var task: Task {
-        return .requestParameters(parameters: [:], encoding: URLEncoding.default)
+        return .requestPlain
     }
     
     public var validationType: ValidationType {

@@ -221,6 +221,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     
     private func setupNavBar() {
         let rightNav = UIBarButtonItem(image: .more, style: .plain, target: nil, action: nil)
+        self.themeManager.append(view: ThemeView(object: rightNav, type: .navBarButton, subtype: .none))
         self.navigationItem.rightBarButtonItem = rightNav
         rightNav.rx
             .tap

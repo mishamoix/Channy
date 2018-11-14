@@ -108,19 +108,22 @@ class ThemeView {
         case .icon:
             (view as? UIImageView)?.tintColor = theme.icon
         case .navBarButton:
-            break
+            (view as? UIBarButtonItem)?.tintColor = theme.navigationBarItem
+            (view as? UIButton)?.tintColor = theme.navigationBarItem
         case .viewController:
             break
         }
         
     }
     
-    func reloadStatusBar() {
+    func reloadStatusBar(theme: Theme) {
         if self.type == .viewController {
             if let vc = self.view as? UIViewController {
                 vc.setNeedsStatusBarAppearanceUpdate()
             }
         }
+        
+        UIBarButtonItem.appearance().tintColor = theme.navigationBarItem
     }
 }
 
@@ -185,7 +188,7 @@ class ThemeManager {
         UIView.animate(withDuration: AnimationDuration) {
             for view in self.views {
                 view.apply(theme: self.theme)
-                view.reloadStatusBar()
+                view.reloadStatusBar(theme: self.theme)
             }
         }
     }
@@ -199,6 +202,8 @@ class ThemeManager {
             return Theme.dark
         } else if type == .darkBlue {
             return Theme.darkBlue
+        } else if type == .macaba {
+            return Theme.macaba
         }
         
         return Theme.light
@@ -209,6 +214,8 @@ class ThemeManager {
             return .dark
         } else if string == "darkBlue" {
             return .darkBlue
+        } else if  string == "macaba" {
+            return .macaba
         }
         
         return .light

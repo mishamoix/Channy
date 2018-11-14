@@ -173,6 +173,9 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         plus.setImage(.plus, for: .normal)
         plus.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         plus.tintColor = .main
+        
+        self.themeManager.append(view: ThemeView(object: settings, type: .navBarButton, subtype: .none))
+        self.themeManager.append(view: ThemeView(object: plus, type: .navBarButton, subtype: .none))
 
         let settingButton = UIBarButtonItem(customView: settings)
         let plusButton = UIBarButtonItem(customView: plus)
@@ -186,7 +189,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         let closeCanvas = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         let closeButton = UIBarButtonItem(customView: closeCanvas)
         self.navigationItem.leftBarButtonItem = closeButton
-        
+
         
         let close = UIButton(frame: .zero)
         closeCanvas.addSubview(close)
@@ -194,6 +197,9 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         close.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
         close.tintColor = .main
         self.closeButton = close
+        
+        self.themeManager.append(view: ThemeView(object: close, type: .navBarButton, subtype: .none))
+
 
     }
     

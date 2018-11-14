@@ -8,11 +8,12 @@
 
 import UIKit
 
+class CancellationToken {
+    var isCancelled = false
+}
+
 class PostManager {
     
-    class CancellationToken {
-        var isCancelled = false
-    }
     
     private var posts: [PostModel] = []
     private let thread: ThreadModel

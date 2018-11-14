@@ -16,6 +16,10 @@ class Enviroment {
         return URL(string: self.basePath)!
     }
     
+    var baseUrlCensor: URL {
+        return URL(string: "https://censor.yablach.co")!
+    }
+    
     var basePath: String {
         return "https://2ch.hk"
     }

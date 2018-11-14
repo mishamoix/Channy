@@ -54,7 +54,7 @@ extension BoardModel: ListDiffable {
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if let obj = object as? BoardModel {
-            return obj.uid == self.uid
+            return obj.uid == self.uid && obj.isHome == self.isHome
         }
         
         return false

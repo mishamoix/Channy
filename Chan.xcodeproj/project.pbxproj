@@ -17,6 +17,9 @@
 		0A11321C215F9B3300BB3C79 /* FirebaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11321B215F9B3300BB3C79 /* FirebaseDB.swift */; };
 		0A11321E215F9E4C00BB3C79 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11321D215F9E4C00BB3C79 /* FirebaseManager.swift */; };
 		0A1132212160112400BB3C79 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1132202160112400BB3C79 /* Values.swift */; };
+		0A203F15219C9CCA00A51554 /* CensorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203F14219C9CCA00A51554 /* CensorService.swift */; };
+		0A203F17219C9CEC00A51554 /* CensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203F16219C9CEC00A51554 /* CensorManager.swift */; };
+		0A203F19219C9E6700A51554 /* CensorTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203F18219C9E6700A51554 /* CensorTarget.swift */; };
 		0A2E0C82214460FB00CBD619 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E0C81214460FB00CBD619 /* Main.storyboard */; };
 		0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C842145391F00CBD619 /* ChanProvider.swift */; };
 		0A2E0C882145396400CBD619 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C872145396400CBD619 /* BaseModel.swift */; };
@@ -152,6 +155,9 @@
 		0A11321B215F9B3300BB3C79 /* FirebaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDB.swift; sourceTree = "<group>"; };
 		0A11321D215F9E4C00BB3C79 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		0A1132202160112400BB3C79 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
+		0A203F14219C9CCA00A51554 /* CensorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorService.swift; sourceTree = "<group>"; };
+		0A203F16219C9CEC00A51554 /* CensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorManager.swift; sourceTree = "<group>"; };
+		0A203F18219C9E6700A51554 /* CensorTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorTarget.swift; sourceTree = "<group>"; };
 		0A2E0C81214460FB00CBD619 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0A2E0C842145391F00CBD619 /* ChanProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanProvider.swift; sourceTree = "<group>"; };
 		0A2E0C872145396400CBD619 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -433,6 +439,7 @@
 				0A90E78321518B2600B71EAA /* LinkParser.swift */,
 				0A90E785215194DF00B71EAA /* RegexChecker.swift */,
 				0A90E7A02152DB4700B71EAA /* Helper.swift */,
+				0A203F16219C9CEC00A51554 /* CensorManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -673,6 +680,7 @@
 				0ACC29742143F3AE00B4E53B /* BaseService.swift */,
 				0ACC29722143F3A400B4E53B /* BoardsListService.swift */,
 				0A2E0CC12145968000CBD619 /* BoardService.swift */,
+				0A203F14219C9CCA00A51554 /* CensorService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -683,6 +691,7 @@
 				0ACC29772143F44400B4E53B /* BoardsListTarget.swift */,
 				0A2E0CC32145969D00CBD619 /* BoardTarget.swift */,
 				0AFFFDB12149A95E0002E832 /* ThreadTarget.swift */,
+				0A203F18219C9E6700A51554 /* CensorTarget.swift */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -1019,6 +1028,7 @@
 				0A2E0C99214545E200CBD619 /* Constants.swift in Sources */,
 				0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */,
 				0A113215215F96EA00BB3C79 /* SettingsRouter.swift in Sources */,
+				0A203F15219C9CCA00A51554 /* CensorService.swift in Sources */,
 				0A2E0C8C2145399400CBD619 /* BoardCategoryModel.swift in Sources */,
 				0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */,
 				0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */,
@@ -1033,6 +1043,7 @@
 				0A5D7D9E217D0835004429B0 /* Chan.xcdatamodeld in Sources */,
 				0A2E0C8A2145397600CBD619 /* BoardModel.swift in Sources */,
 				0ACC29752143F3AE00B4E53B /* BaseService.swift in Sources */,
+				0A203F17219C9CEC00A51554 /* CensorManager.swift in Sources */,
 				0A2E0C9F2145467F00CBD619 /* ResultModel.swift in Sources */,
 				0AD5C2DC215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift in Sources */,
 				0ACC29892143F79900B4E53B /* RootBuilder.swift in Sources */,
@@ -1052,6 +1063,7 @@
 				0AD5C2D4215A7F2B00F68AF4 /* NetworkManager.swift in Sources */,
 				0AFFFDB92149AC640002E832 /* PostViewModel.swift in Sources */,
 				0A2E0C9521453CB600CBD619 /* ViewControllable+Utils.swift in Sources */,
+				0A203F19219C9E6700A51554 /* CensorTarget.swift in Sources */,
 				0ACC297B2143F4C100B4E53B /* Enviroment.swift in Sources */,
 				0ACC29732143F3A400B4E53B /* BoardsListService.swift in Sources */,
 				0A2E0CAD214557E900CBD619 /* BaseTableViewCell.swift in Sources */,
