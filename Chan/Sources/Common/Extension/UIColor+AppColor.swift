@@ -18,6 +18,7 @@ extension UIColor {
     
     static var spoiler: UIColor { return #colorLiteral(red: 0.5423502326, green: 0.5423502326, blue: 0.5423502326, alpha: 1) }
     static var unkfunc: UIColor { return #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) }
+    static var unkfuncMacaba: UIColor { return #colorLiteral(red: 0.4705882353, green: 0.6, blue: 0.1333333333, alpha: 1) }
     
     static var scrollDown: UIColor { return #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1) }
     

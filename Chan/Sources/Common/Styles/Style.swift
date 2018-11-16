@@ -43,11 +43,11 @@ class Style {
     }
     
     class func quote(text: NSMutableAttributedString, range: NSRange) {
-        text.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.unkfunc], range: range)
+        text.addAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.quote], range: range)
     }
     
     class func linkPost(text: NSMutableAttributedString, range: NSRange, url: URL? = nil) {
-        let attrs: [NSAttributedString.Key:Any] = [NSAttributedString.Key.foregroundColor: UIColor.reply]
+        let attrs: [NSAttributedString.Key:Any] = [NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.link]
         if let url = url {
           let linkAttrs = [NSAttributedString.Key.chanlink: url]
           text.addAttributes(linkAttrs, range: range)

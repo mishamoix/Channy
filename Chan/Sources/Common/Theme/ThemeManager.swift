@@ -23,6 +23,7 @@ enum ThemeViewType {
     case viewController
     case input
     case icon
+    case action
 }
 
 enum ThemeViewSubtype {
@@ -111,6 +112,13 @@ class ThemeView {
             (view as? UIBarButtonItem)?.tintColor = theme.navigationBarItem
             (view as? UIButton)?.tintColor = theme.navigationBarItem
         case .viewController:
+            break
+        case .action:
+            (self.view as? UIView)?.backgroundColor = theme.cell
+            if self.subtype == .border {
+                (self.view as? UIView)?.layer.borderColor = theme.actionButtonBorder.cgColor
+            }
+
             break
         }
         

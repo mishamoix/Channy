@@ -17,6 +17,7 @@ enum ThemeType: String {
 
 
 struct Theme {
+    var main: UIColor
     var background: UIColor
     var navigationBar: UIColor
     var navigationBarItem: UIColor
@@ -27,11 +28,16 @@ struct Theme {
     var cell: UIColor
     var cellSelected: UIColor
     var icon: UIColor
+    var link: UIColor
+    var quote: UIColor
+    var actionButtonBorder: UIColor
+
 }
 
 
 extension Theme {
     static var light = Theme(
+        main: .main,
         background: .bgLight,
         navigationBar: .navBarLight,
         navigationBarItem: .main,
@@ -41,10 +47,14 @@ extension Theme {
         border: .borderLight,
         cell: .cellLight,
         cellSelected: .cellSelectedLight,
-        icon: .iconLight
+        icon: .iconLight,
+        link: .main,
+        quote: .unkfunc,
+        actionButtonBorder: .borderLight
     )
     
     static var dark = Theme(
+        main: .main,
         background: .bgDark,
         navigationBar: .navBarDark,
         navigationBarItem: .main,
@@ -54,10 +64,15 @@ extension Theme {
         border: .borderDark,
         cell: .cellDark,
         cellSelected: .cellSelectedDark,
-        icon: .iconDark
+        icon: .iconDark,
+        link: .main,
+        quote: .unkfunc,
+        actionButtonBorder: .borderDarkBlue
+        
     )
     
     static var darkBlue = Theme(
+        main: .main,
         background: .bgDarkBlue,
         navigationBar: .navBarDarkBlue,
         navigationBarItem: .main,
@@ -67,10 +82,14 @@ extension Theme {
         border: .borderDarkBlue,
         cell: .cellDarkBlue,
         cellSelected: .cellSelectedDarkBlue,
-        icon: .iconDarkBlue
+        icon: .iconDarkBlue,
+        link: .main,
+        quote: .unkfunc,
+        actionButtonBorder: .borderDarkBlue
     )
     
     static var macaba = Theme(
+        main: .mainMacaba,
         background: .bgMacaba,
         navigationBar: .navBarMacaba,
         navigationBarItem: .mainMacaba,
@@ -80,7 +99,10 @@ extension Theme {
         border: .borderMacaba,
         cell: .cellMacaba,
         cellSelected: .cellSelectedMacaba,
-        icon: .iconMacaba
+        icon: .iconMacaba,
+        link: .mainMacaba,
+        quote: .unkfuncMacaba,
+        actionButtonBorder: .borderMacaba
     )
 
 }

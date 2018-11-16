@@ -54,9 +54,9 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         
         self.contentView.addSubview(self.replyedButton)
         self.replyedButton.layer.cornerRadius = DefaultCornerRadius
-        self.replyedButton.layer.borderColor = UIColor.main.cgColor
+        self.replyedButton.layer.borderColor = ThemeManager.shared.theme.main.cgColor
         self.replyedButton.layer.borderWidth = 1
-        self.replyedButton.setTitleColor(.main, for: .normal)
+        self.replyedButton.setTitleColor(ThemeManager.shared.theme.main, for: .normal)
         self.replyedButton.titleLabel?.font = UIFont.postTitle
         
         self.replyedButton.snp.makeConstraints { make in

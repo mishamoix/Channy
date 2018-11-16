@@ -96,7 +96,7 @@ class ScrollDownButton: UIButton {
     }
     
     private func setupTheme() {
-        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .border))
+        ThemeManager.shared.append(view: ThemeView(view: self, type: .action, subtype: .border))
         ThemeManager.shared.append(view: ThemeView(view: self.imageView, type: .icon, subtype: .none))
     }
 
