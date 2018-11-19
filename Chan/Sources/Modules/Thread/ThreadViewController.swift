@@ -11,6 +11,8 @@ import RxSwift
 import UIKit
 import SnapKit
 import AVKit
+import KafkaRefresh
+//import KRPullLoader
 
 
 let ThreadAvailableContextMenu = ["copyOrigianlText", "copyText"]
@@ -38,6 +40,10 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     @IBOutlet weak var collectionView: UICollectionView!
     private let refreshControl = UIRefreshControl()
     private let scrollDownButton = ScrollDownButton()
+    private let scrollUpButton = ScrollDownButton()
+    
+//    private let topRefresher = KRPullLoadView()
+//    private let bottomRefresher = KRPullLoadView()
 
     private var currentWidth: CGFloat = 0
     private var savedIndexForRotate: IndexPath? = nil
@@ -71,7 +77,6 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             }
         }
         
-        
         self.currentWidth = size.width
         self.collectionView.collectionViewLayout.invalidateLayout()
         self.collectionView.layoutSubviews()
@@ -83,11 +88,6 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 }
             }
         }
-
-//        for visibleCellIdx in self.collectionView.indexPathsForVisibleItems {
-//            self.collectionView(self.collectionView, cellForItemAt: visibleCellIdx)
-//        }
-//        self.collectionView.reloadData()
     }
     
     //MARK: Private
@@ -107,7 +107,6 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         }
         
         self.setupTheme()
-        
     }
     
     
@@ -117,6 +116,9 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] model in
                 self?.navigationItem.title = model.title
+                
+                self?.setupRefreshers(can: model.canRefresh)
+                
                 if model.canRefresh {
                     if #available(iOS 10.0, *) {
                         self?.collectionView.refreshControl = self?.refreshControl
@@ -138,12 +140,18 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .asObservable()
             .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] posts in
-                self?.data = posts
-                self?.collectionView.reloadData()
-                self?.collectionView.performBatchUpdates({
-                }, completion: { completed in
-                })
-                self?.updateScrollDownButton()
+                guard let self = self else { return }
+                self.data = posts
+                let needScrollDown =  self.collectionView.footRefreshControl?.isAnimating ?? false
+                
+                self.collectionView.reloadData()
+                self.collectionView.performBatchUpdates({}, completion: nil)
+
+                if needScrollDown {
+                    self.scrollDown()
+                } else {
+                    self.updateScrollDownButton()
+                }
             }).disposed(by: self.disposeBag)
         
         self.cellActions
@@ -166,8 +174,9 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                         
                         if FirebaseManager.shared.disableImages {
                             ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Медиа отключено по требованию Apple", styles: [.ok])
-                        } else if Values.shared.safeMode {
-                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Включен безопасный режим", styles: [.ok])
+//                        }
+//                        else if Values.shared.safeMode {
+//                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Включен безопасный режим", styles: [.ok])
                         } else {
                           
 
@@ -196,21 +205,33 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                     }
                 }
                 
-            }).disposed(by: self.disposeBag)
+            })
+            .disposed(by: self.disposeBag)
         
         self.refreshControl
             .rx
             .controlEvent(.valueChanged)
             .subscribe(onNext: { [weak self] in
                 self?.refresh()
-            }).disposed(by: self.disposeBag)
+            })
+            .disposed(by: self.disposeBag)
         
         self.scrollDownButton
             .rx
             .controlEvent(.touchUpInside)
             .subscribe(onNext: { [weak self] in
                 self?.scrollDown()
-            }).disposed(by: self.disposeBag)
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.scrollUpButton
+            .rx
+            .controlEvent(.touchUpInside)
+            .subscribe(onNext: { [weak self] in
+                self?.scrollUp()
+            })
+            .disposed(by: self.disposeBag)
+
     }
     
     private func setupTheme() {
@@ -269,6 +290,62 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         self.collectionView.register(PostMediaCell.self, forCellWithReuseIdentifier: PostMediaCellIdentifier)
     }
     
+    private func setupRefreshers(can refresh: Bool) {
+        
+        
+        if refresh {
+            if self.refreshControl.superview == nil {
+                if #available(iOS 10.0, *) {
+                    self.collectionView.refreshControl = self.refreshControl
+                } else {
+                    self.collectionView.addSubview(self.refreshControl)
+                }
+//                self.collectionView.bindHeadRefreshHandler({ [weak self] in
+//                    self?.refresh()
+//                }, themeColor: self.themeManager.theme.main, refreshStyle: KafkaRefreshStyle.native)
+//
+//
+//                if let refreshControl = self.collectionView.headRefreshControl.value(forKey: "_indicator") as? UIActivityIndicatorView {
+//                    refreshControl.color = self.themeManager.theme.main
+//                }
+            }
+            
+            if self.collectionView.footRefreshControl == nil {
+                self.collectionView.bindFootRefreshHandler({ [weak self] in
+                    self?.refresh()
+                }, themeColor: self.themeManager.theme.main, refreshStyle: KafkaRefreshStyle.native)
+                
+                
+                if let refreshControl = self.collectionView.footRefreshControl.value(forKey: "_indicator") as? UIActivityIndicatorView {
+                    refreshControl.color = UIColor.refreshControl
+                }
+            }
+        } else {
+            self.refreshControl.removeFromSuperview()
+            self.collectionView.footRefreshControl?.removeFromSuperview()
+        }
+//        self.collectionView.configRefreshFooter(container: self as AnyObject) { [weak self] in
+//            self?.refresh()
+//        }
+//
+//        self.collectionView.configRefreshFooter(container: self as AnyObject) {[weak self] in
+//            self?.refresh()
+//        }
+//
+//        self.topRefresher.messageLabel.text = "Обновляем"
+//        self.bottomRefresher.messageLabel.text = "Обновляем"
+//        self.topRefresher.delegate = self
+//        self.bottomRefresher.delegate = self
+//
+//        if refresh {
+//            self.collectionView.addPullLoadableView(self.topRefresher, type: .refresh)
+//            self.collectionView.addPullLoadableView(self.bottomRefresher, type: .loadMore)
+//        } else {
+//            self.topRefresher.removeFromSuperview()
+//            self.bottomRefresher.removeFromSuperview()
+//        }
+    }
+    
     private func cell(for index: IndexPath) -> UICollectionViewCell {
         let data = self.data[index.item]
         var cell: UICollectionViewCell
@@ -292,7 +369,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     }
     
     private func endRefresh() {
-        self.refreshControl.endRefreshing()
+//        self.refreshControl.endRefreshing()
     }
     
     private func scrollDown() {
@@ -307,14 +384,23 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         }
     }
     
+    private func scrollUp() {
+
+        self.collectionView.setContentOffset(CGPoint(x: self.collectionView.contentOffset.x, y: 0), animated: true)
+        
+    }
+    
     private func updateScrollDownButton() {
         let currentOffset = self.collectionView.contentOffset.y + self.collectionView.frame.height
         let contentSize = self.collectionView.contentSize.height + self.collectionView.contentInset.bottom
         let delta = PostScrollDownButtonBottomMargin + PostScrollDownButtonSize.height
         if contentSize - currentOffset < delta {
             self.scrollDownButton.hiddenAction.on(.next(true))
+            self.scrollUpButton.hiddenAction.on(.next(true))
         } else {
             self.scrollDownButton.hiddenAction.on(.next(false))
+            self.scrollUpButton.hiddenAction.on(.next(false))
+
         }
     }
   
@@ -326,7 +412,15 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
 
 extension ThreadViewController: RefreshingViewController {
     var refresher: UIRefreshControl? {
-        return self.refreshControl
+        return nil
+    }
+    
+    
+    func stopAllRefreshers() {
+        
+        self.collectionView.footRefreshControl?.endRefreshing()
+        self.refreshControl.endRefreshing()
+        
     }
 }
 
@@ -409,3 +503,11 @@ extension ThreadViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//extension ThreadViewController: KRPullLoadViewDelegate {
+//    func pullLoadView(_ pullLoadView: KRPullLoadView, didChangeState state: KRPullLoaderState, viewType type: KRPullLoaderType) {
+//        switch state {
+//        case .loading(_): self.refresh()
+//        default: break
+//        }
+//    }
+//}

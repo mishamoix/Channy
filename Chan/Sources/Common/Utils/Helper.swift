@@ -20,6 +20,9 @@ class Helper {
     }
     
     static var rxBackgroundThread = ConcurrentDispatchQueueScheduler(qos: .background)
+    static var createRxBackgroundThread: ConcurrentDispatchQueueScheduler {
+        return ConcurrentDispatchQueueScheduler(qos: .background)
+    }
     static var rxMainThread = MainScheduler.instance
     
     static func performOnMainThread(_ block: @escaping () -> ()) {

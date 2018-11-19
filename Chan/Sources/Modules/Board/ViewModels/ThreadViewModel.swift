@@ -21,12 +21,15 @@ class ThreadViewModel {
     
     private let uid: String
     
+    let file: FileModel?
+    
     var displayText: String {
         return "[\(max(self.postsCount, 1))] " + (self.comment ?? "")
     }
     
     init(with model: ThreadModel) {
         self.uid = model.uid
+        self.file = model.posts.first?.files.first
         if let post = model.posts.first {
 //            self.title = post.subject
             self.comment = TextStripper.fullClean(text: post.comment)

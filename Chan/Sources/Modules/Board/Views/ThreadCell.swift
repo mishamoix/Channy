@@ -87,6 +87,7 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
         self.iconView.image = nil
         if let thumbnail = model.thumbnail {
             self.iconView.load(url: thumbnail)
+            self.iconView.censor(file: model.file)
 //            self.iconView.af_setImage(withURL: thumbnail)
         }
       

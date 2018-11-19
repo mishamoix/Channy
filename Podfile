@@ -30,6 +30,7 @@ target 'Chan' do
     pod 'OGVKit/WebM'
     pod 'MBProgressHUD'
     pod 'SwiftReorder', '~> 6.0'
+    pod 'KafkaRefresh'
 
 
     # Firebase

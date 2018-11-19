@@ -27,6 +27,7 @@ class FirebaseManager {
     private(set) var mainInfo: String? = nil
     private(set) var disableImages: Bool = false
     private(set) var needExcludeBoards: Bool = false
+    private(set) var censorEnabled: Bool = false
     private(set) var agreementUrl: URL? = nil
     
 
@@ -55,6 +56,9 @@ class FirebaseManager {
     
     
     private func parse(result: [String: Any]) {
+        
+        let version = "v0_4"
+        
         if let exclude = result["exclude_boards"] as? [String] {
             self.excludeBoards = exclude
         }
@@ -79,7 +83,7 @@ class FirebaseManager {
             self.disableImages = disableImages
         }
         
-        if let needExcludeBoards = result["need_exclude_boards_v0_3"] as? Bool {
+        if let needExcludeBoards = result["need_exclude_boards_\(version)"] as? Bool {
             self.needExcludeBoards = needExcludeBoards
         }
         
@@ -90,6 +94,10 @@ class FirebaseManager {
         
         if let agreement = result["agreement_url"] as? String, let url = URL(string: agreement) {
             self.agreementUrl = url
+        }
+        
+        if let censorEnabled = result["censor_enabled_\(version)"] as? Bool {
+            self.censorEnabled = censorEnabled
         }
     }
     

@@ -81,6 +81,10 @@ class ThreadService: BaseService, ThreadServiceProtocol {
             self.internalName = post.comment
         }
     }
+  
+    override func cancel() {
+        super.cancel()
+    }
     
     
 }

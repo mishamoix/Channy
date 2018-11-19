@@ -158,7 +158,10 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 
 
                 switch result.type {
-                case .all: strongSelf.postsManager?.resetFilters()
+                case .all:
+                    strongSelf.postsManager?.resetFilters()
+                    let files = models.flatMap { $0.files }
+                    CensorManager.censor(files: files)
                 case .replys(let parent): strongSelf.postsManager?.addFilter(by: parent.uid)
                 case .replyed(let model): strongSelf.postsManager?.onlyReplyed(uid: model.uid)
                 }

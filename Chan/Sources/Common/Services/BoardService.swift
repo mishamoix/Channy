@@ -178,6 +178,11 @@ class BoardService: BaseService, BoardServiceProtocol {
     }
     
     
+    override func cancel() {
+        super.cancel()
+        self.onLoading = false
+    }
+    
     
     
     

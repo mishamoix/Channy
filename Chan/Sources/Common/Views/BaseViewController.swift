@@ -9,10 +9,14 @@
 import UIKit
 
 protocol RefreshingViewController {
-  var refresher: UIRefreshControl? { get }
+    var refresher: UIRefreshControl? { get }
+
+    
+    func stopAllRefreshers()
 }
 
 open class BaseViewController: UIViewController {
+    
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +45,13 @@ open class BaseViewController: UIViewController {
 
     }
     
+//    var refresher: UIRefreshControl? {
+//        return nil
+//    }
+//
+//    func stopAllRefreshers() {
+//        
+//    }
     
     /*
      // MARK: - Navigation

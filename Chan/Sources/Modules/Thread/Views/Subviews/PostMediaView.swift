@@ -48,6 +48,8 @@ class PostMediaView: UIView {
             self.load(url: thumb)
         }
         
+        self.image.censor(file: file)
+        
     }
     
     private func load(url: URL) {

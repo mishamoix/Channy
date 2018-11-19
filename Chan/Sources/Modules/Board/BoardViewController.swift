@@ -228,6 +228,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
 }
 
 extension BoardViewController: RefreshingViewController {
+    func stopAllRefreshers() {}
+    
     var refresher: UIRefreshControl? {
         return self.refreshControl
     }

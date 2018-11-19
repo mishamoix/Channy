@@ -33,6 +33,10 @@ class Values {
         }
     }
     
+    var censorEnabled: Bool {
+        return FirebaseManager.shared.censorEnabled || self.safeMode
+    }
+    
     var privacyPolicy: Bool {
         get {
             return Defaults[.privacyPolicy]

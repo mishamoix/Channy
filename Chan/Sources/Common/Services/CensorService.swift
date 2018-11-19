@@ -34,5 +34,8 @@ class CensorService: BaseService {
                 }
                 return Observable<Bool?>.just(nil)
             })
+            .catchError({ error -> Observable<Bool?> in
+                return Observable<Bool?>.just(nil)
+            })
     }
 }

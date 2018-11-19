@@ -68,6 +68,9 @@ public extension Presentable {
               }
             }
             
+            (self as? RefreshingViewController)?.stopAllRefreshers()
+
+            
             if let vc = self as? ViewRefreshing {
                 vc.endRefresh()
             }

@@ -94,6 +94,7 @@
 		0A90E79F2152C97300B71EAA /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E79E2152C97300B71EAA /* TagViewModel.swift */; };
 		0A90E7A12152DB4700B71EAA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7A02152DB4700B71EAA /* Helper.swift */; };
 		0A90E7A52152DF9800B71EAA /* ThreadRepledService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7A42152DF9700B71EAA /* ThreadRepledService.swift */; };
+		0A9855F921A2CC9300A8C8AC /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A9855F821A2CC9300A8C8AC /* icon.png */; };
 		0AA1B6CD21542DC10063B5F7 /* PostMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1B6CC21542DC10063B5F7 /* PostMediaCell.swift */; };
 		0AACC185218A5A2A00B7BD19 /* OnboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC180218A5A2A00B7BD19 /* OnboardRouter.swift */; };
 		0AACC186218A5A2A00B7BD19 /* OnboardViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AACC181218A5A2A00B7BD19 /* OnboardViewController.storyboard */; };
@@ -237,6 +238,7 @@
 		0A90E79E2152C97300B71EAA /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
 		0A90E7A02152DB4700B71EAA /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		0A90E7A42152DF9700B71EAA /* ThreadRepledService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadRepledService.swift; sourceTree = "<group>"; };
+		0A9855F821A2CC9300A8C8AC /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		0AA1B6CC21542DC10063B5F7 /* PostMediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaCell.swift; sourceTree = "<group>"; };
 		0AACC180218A5A2A00B7BD19 /* OnboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardRouter.swift; sourceTree = "<group>"; };
 		0AACC181218A5A2A00B7BD19 /* OnboardViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnboardViewController.storyboard; sourceTree = "<group>"; };
@@ -718,6 +720,7 @@
 		0ACC297D2143F71400B4E53B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A9855F821A2CC9300A8C8AC /* icon.png */,
 				0A11320D215F94CA00BB3C79 /* GoogleService-Info.plist */,
 				0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */,
 				0ACC29582143EF1200B4E53B /* Assets.xcassets */,
@@ -910,6 +913,7 @@
 				0A2E0CA42145561E00CBD619 /* BoardsListCell.xib in Resources */,
 				0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */,
 				0A2E0CB12145589600CBD619 /* BoardsTableHeader.xib in Resources */,
+				0A9855F921A2CC9300A8C8AC /* icon.png in Resources */,
 				0A2E0CBD2145790300CBD619 /* BoardViewController.storyboard in Resources */,
 				0AACC186218A5A2A00B7BD19 /* OnboardViewController.storyboard in Resources */,
 				0A2E0C82214460FB00CBD619 /* Main.storyboard in Resources */,
@@ -966,6 +970,7 @@
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
+				"${BUILT_PRODUCTS_DIR}/KafkaRefresh/KafkaRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MagicalRecord/MagicalRecord.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
@@ -994,6 +999,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KafkaRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MagicalRecord.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",

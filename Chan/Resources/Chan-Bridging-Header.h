@@ -3,6 +3,3 @@
 //
 
 #import "TGReusableLabel.h"
-
-//#define MR_SHORTHAND 0
-//#import "CoreData+MagicalRecord.h"
