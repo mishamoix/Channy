@@ -1,5 +1,5 @@
-# Nach
-Nach, 2ch.hk browser, Двач 
+# Yablach
+Yablach, 2ch.hk browser, Двач 
 
 Клиент для Двача, большое спасибо https://github.com/8of/2ch-Browser-iOS
 
@@ -10,3 +10,5 @@ Nach, 2ch.hk browser, Двач
   - В консоли перейти в папку и выполнить pod install
   - Profit
 
+
+P.S. Скоро добавлю скрины, инфо о коде, архитектуре и т.п.
