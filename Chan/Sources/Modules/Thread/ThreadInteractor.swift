@@ -57,7 +57,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         super.init(presenter: presenter)
         presenter.listener = self
         
-        if let post = self.service.thread.currentPost {
+        if let post = self.service.thread.currentPost, self.moduleIsRoot {
             self.presenter.autosctollUid = post
         }
     }

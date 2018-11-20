@@ -121,4 +121,10 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     @objc public func copyLink() {
         self.action?.on(.next(.copyPostLink(cell: self)))
     }
+    
+    @objc public func screenshot() {
+        if let image = self.snapshot() {
+            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+        }
+    }
 }

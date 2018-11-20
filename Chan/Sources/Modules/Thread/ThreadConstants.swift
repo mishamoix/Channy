@@ -26,7 +26,7 @@ let PostCellRightMargin: CGFloat = PostCellLeftMargin
 let PostButtonRightMargin: CGFloat = DefaultMargin
 let PostButtonBottomMargin: CGFloat = DefaultMargin
 let PostButtonTopMargin: CGFloat = DefaultMargin
-let PostButtonSize: CGSize = CGSize(width: 28, height: 20)
+let PostButtonSize: CGSize = CGSize(width: 36, height: 28)
 
 let PostBottomHeight = PostButtonBottomMargin + PostButtonSize.height
 

@@ -15,7 +15,7 @@ import KafkaRefresh
 //import KRPullLoader
 
 
-let ThreadAvailableContextMenu = ["copyLink", "copyOrigianlText", "copyText"]
+let ThreadAvailableContextMenu = ["copyLink", "copyOrigianlText", "copyText", "screenshot"]
 
 
 private let PostCellIdentifier = "PostCell"
