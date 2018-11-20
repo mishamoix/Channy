@@ -117,4 +117,8 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     @objc public func copyOrigianlText() {
         self.action?.on(.next(.copyOriginalText(cell: self)))
     }
+    
+    @objc public func copyLink() {
+        self.action?.on(.next(.copyPostLink(cell: self)))
+    }
 }

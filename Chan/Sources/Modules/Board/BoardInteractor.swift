@@ -335,6 +335,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
             if let boardUid = model.board, let threadUid = model.thread {
                 let board = BoardModel(uid: boardUid)
                 let thread = ThreadModel(uid: threadUid, board: board)
+                thread.currentPost = model.post
                 self.router?.open(thread: thread)
             } else if let boardUid = model.board {
                 let board = BoardModel(uid: boardUid)

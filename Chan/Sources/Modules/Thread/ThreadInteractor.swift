@@ -19,11 +19,15 @@ protocol ThreadRouting: ViewableRouting {
 
 protocol ThreadPresentable: Presentable {
     var listener: ThreadPresentableListener? { get set }
+//    func needAutoscroll(to uid: String)
+    var autosctollUid: String? { get set }
+
 }
 
 protocol ThreadListener: class {
     func popToRoot()
     func open(board: BoardModel)
+
 }
 
 final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadInteractable, ThreadPresentableListener {
@@ -52,6 +56,10 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         
         super.init(presenter: presenter)
         presenter.listener = self
+        
+        if let post = self.service.thread.currentPost {
+            self.presenter.autosctollUid = post
+        }
     }
 
     override func didBecomeActive() {
@@ -117,6 +125,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .open(let media): self?.showMedia(with: media)
                 case .copyLinkOnThread: self?.copyLinkOnThread()
                 case .copyMedia(let media): self?.copyMedia(media: media)
+                case .copyLinkPost(let postUid): self?.copyLinkPost(uid: postUid)
                 }
             }).disposed(by: self.disposeBag)
     }
@@ -250,6 +259,18 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     private func copyMedia(media: FileModel) {
         let url = MakeFullPath(path: media.path)
         UIPasteboard.general.string = url
+    }
+    
+    private func copyLinkPost(uid: String) {
+        if let link = self.service.thread.buildLink {
+            
+            UIPasteboard.general.string = link + "#\(uid)"
+//            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: SmallDismissTime)
+            
+        } else {
+//            ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
+        }
+
     }
 
     

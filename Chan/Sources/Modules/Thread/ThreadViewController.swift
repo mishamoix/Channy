@@ -15,7 +15,7 @@ import KafkaRefresh
 //import KRPullLoader
 
 
-let ThreadAvailableContextMenu = ["copyOrigianlText", "copyText"]
+let ThreadAvailableContextMenu = ["copyLink", "copyOrigianlText", "copyText"]
 
 
 private let PostCellIdentifier = "PostCell"
@@ -42,6 +42,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private let scrollDownButton = ScrollDownButton()
     private let scrollUpButton = ScrollDownButton()
     
+    
 //    private let topRefresher = KRPullLoadView()
 //    private let bottomRefresher = KRPullLoadView()
 
@@ -50,6 +51,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
 
     // MARK: Data
     private var data: [PostViewModel] = []
+    var autosctollUid: String? = nil
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +92,11 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             }
         }
     }
+    
+    // MARK: ThreadPresentable
+//    func needAutoscroll(to uid: String) {
+//
+//    }
     
     //MARK: Private
     private func setup() {
@@ -142,16 +150,21 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .subscribe(onNext: { [weak self] posts in
                 guard let self = self else { return }
                 self.data = posts
-                let needScrollDown =  self.collectionView.footRefreshControl?.isAnimating ?? false
+//                let needScrollDown =  self.collectionView.footRefreshControl?.isAnimating ?? false
                 
                 self.collectionView.reloadData()
                 self.collectionView.performBatchUpdates({}, completion: nil)
-
-                if needScrollDown {
-                    self.scrollDown()
-                } else {
-                    self.updateScrollDownButton()
+                
+                if let autosctollUid = self.autosctollUid, let idx = posts.firstIndex(where: { $0.uid == autosctollUid }) {
+                    self.autosctollUid = nil
+                    self.collectionView.scrollToItem(at: IndexPath(item: idx, section: 0), at: .top, animated: true)
                 }
+
+//                if needScrollDown {
+//                    self.scrollDown()
+//                } else {
+                    self.updateScrollDownButton()
+//                }
             }).disposed(by: self.disposeBag)
         
         self.cellActions
@@ -202,6 +215,11 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 case .copyMediaLink(let cell, let idx):
                     if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item], post.media.count > idx {
                         self?.listener?.viewActions.on(.next(.copyMedia(media: post.media[idx])))
+                    }
+                    
+                case .copyPostLink(let cell):
+                    if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
+                        self?.listener?.viewActions.on(.next(.copyLinkPost(postUid: post.uid)))
                     }
                 }
                 

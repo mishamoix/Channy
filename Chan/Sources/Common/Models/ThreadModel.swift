@@ -13,6 +13,9 @@ class ThreadModel: BaseModel, Decodable {
     var uid = ""
     var filesCount = 0
     var postsCount = 0
+    
+    var currentPost: String? = nil
+    
     var posts: [PostModel] = []
     
     var board: BoardModel?

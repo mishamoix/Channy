@@ -32,14 +32,7 @@ class BaseNavigationController: DefaultNavigationController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         self.addPanGestureRecognizer()
-//        self.setupTheme()
-        // Do any additional setup after loading the view.
     }
-    
-//    deinit {
-//        self.themeManager.clean()
-//        self.printDeinit()
-//    }
     
     
       override open func didReceiveMemoryWarning() {

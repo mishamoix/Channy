@@ -71,7 +71,7 @@ class AppDependency: NSObject {
         let copyText = UIMenuItem(title: "Скопировать", action: Selector(("copyText")))
         let copyLink = UIMenuItem(title: "Скопировать ссылку", action: Selector(("copyLink")))
 
-        UIMenuController.shared.menuItems = [copyOrigianlText, copyText, copyLink]
+        UIMenuController.shared.menuItems = [copyLink, copyText, copyOrigianlText]
         UIMenuController.shared.update()
         UIMenuController.shared.setMenuVisible(true, animated: true)
 
