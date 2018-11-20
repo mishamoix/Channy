@@ -11,6 +11,7 @@ import RxSwift
 import UIKit
 import SwiftReorder
 import IGListKit
+import ReCaptcha
 
 
 let BoardsListCellIdentifier = "BoardsListCell"
@@ -35,6 +36,8 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     private weak var settingButton: UIButton?
     private weak var plusButton: UIButton?
     private weak var closeButton: UIButton?
+    
+    var re: ReCaptcha? = nil
   
   //MARK: Other
     private let disposeBag = DisposeBag()
@@ -78,6 +81,33 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.navigationItem.title = "Список досок"
         
         self.setupTheme()
+      
+      
+//        let recaptcha = try? ReCaptcha(apiKey: "6LdwXD4UAAAAAHxyTiwSMuge1-pf1ZiEL4qva_xu", baseURL: URL(string: "https://2ch.hk"))
+//        
+//        
+//        recaptcha?.configureWebView({ [weak self] webView in
+//            webView.frame = self?.view.bounds ?? CGRect.zero
+//        })
+//        
+//        self.re = recaptcha
+//        
+////        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+//        
+//        recaptcha?.validate(on: self.tableView, completion: { result in
+//            print(result)
+//            self.re?.reset()
+//        })
+        
+//            recaptcha?
+//                .rx
+//                .validate(on: self.tableView).asObservable().subscribe(onNext: { result in
+//                    print(result)
+//                }, onError: { error in
+//                    print(error)
+//                }).disposed(by: self.disposeBag)
+//        }
+        
     }
     
     private func setupRx() {

@@ -31,6 +31,7 @@ target 'Chan' do
     pod 'MBProgressHUD'
     pod 'SwiftReorder', '~> 6.0'
     pod 'KafkaRefresh'
+    pod 'ReCaptcha/RxSwift'
 
 
     # Firebase

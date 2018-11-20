@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import SloppySwiper
 
 class BaseNavigationController: DefaultNavigationController {
 
     public var interactivePopPanGestureRecognizer: UIPanGestureRecognizer?
-      
+    
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
     }
@@ -51,16 +52,17 @@ class BaseNavigationController: DefaultNavigationController {
     
         private func addPanGestureRecognizer() {
 //            if !self.disableSwipe {
-                if let interactivePopGestureRecognizer = self.interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "_targets") as? NSArray {
-                    let interactivePanTarget = (targets.firstObject as AnyObject).value(forKey: "target")
-
-                    let pan = UIPanGestureRecognizer(target: interactivePanTarget, action: NSSelectorFromString("handleNavigationTransition:"))
-                    self.view.addGestureRecognizer(pan)
-                    self.interactivePopPanGestureRecognizer = pan
-                    self.interactivePopGestureRecognizer?.isEnabled = false
-                    pan.delegate = self
-                    
-                }
+//                if let interactivePopGestureRecognizer = self.interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "_targets") as? NSArray {
+//                    let interactivePanTarget = (targets.firstObject as AnyObject).value(forKey: "target")
+//
+//                    let pan = UIPanGestureRecognizer(target: interactivePanTarget, action: NSSelectorFromString("handleNavigationTransition:"))
+//                    self.view.addGestureRecognizer(pan)
+//                    self.interactivePopPanGestureRecognizer = pan
+//                    self.interactivePopGestureRecognizer?.isEnabled = false
+////                    self.interactivePopGestureRecognizer?.delegate = nil
+//                    pan.delegate = self
+//                    
+//                }
 //            }
         }
     
@@ -73,6 +75,11 @@ class BaseNavigationController: DefaultNavigationController {
 
 
 extension BaseNavigationController: UIGestureRecognizerDelegate {
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
+    
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 //        return self.shouldRecognizeSimultaneously
 //    }

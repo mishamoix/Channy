@@ -11,6 +11,8 @@ import AlamofireImage
 import RxSwift
 
 class ChanImageView: UIImageView {
+  
+    @IBInspectable var needCensor: Bool = true
     
     private var originalImage: UIImage? = nil
     private(set) var disposeBag = DisposeBag()
@@ -29,7 +31,7 @@ class ChanImageView: UIImageView {
     override var image: UIImage? {
         set {
                 Helper.performOnMainThread {
-                    if Values.shared.censorEnabled && (self.isCensored ?? true) {
+                    if Values.shared.censorEnabled && (self.isCensored ?? true) && self.needCensor {
                         self.originalImage = newValue
                         super.image = newValue?.applyBlur(radius: 5)
                     } else {
@@ -74,11 +76,13 @@ class ChanImageView: UIImageView {
     }
     
     func censor(file: FileModel?) {
-        self.dispose()
-        if let file = file {
-            if Values.shared.censorEnabled {
-                let path = CensorManager.path(for: file)
-                self.censor(path: path)
+        if self.needCensor {
+            self.dispose()
+            if let file = file {
+                if Values.shared.censorEnabled {
+                    let path = CensorManager.path(for: file)
+                    self.censor(path: path)
+                }
             }
         }
     }

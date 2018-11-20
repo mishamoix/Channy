@@ -34,6 +34,9 @@
                                     <constraint firstAttribute="width" secondItem="8iK-pe-iiG" secondAttribute="height" multiplier="2:1" id="mFF-Bp-GZM"/>
                                     <constraint firstAttribute="width" constant="32" id="yEF-fJ-ULz"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="needCensor" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkB-dZ-uPY">
                                 <rect key="frame" x="24" y="39" width="316" height="0.5"/>
