@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import SloppySwiper
 
 class BaseNavigationController: DefaultNavigationController {
 
     public var interactivePopPanGestureRecognizer: UIPanGestureRecognizer?
+//    private var swiper: SloppySwiper?
     
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
@@ -44,6 +44,10 @@ class BaseNavigationController: DefaultNavigationController {
     
     
         private func addPanGestureRecognizer() {
+            
+//            self.swiper = SloppySwiper(navigationController: self)
+//            self.pa
+            
 //            if !self.disableSwipe {
 //                if let interactivePopGestureRecognizer = self.interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "_targets") as? NSArray {
 //                    let interactivePanTarget = (targets.firstObject as AnyObject).value(forKey: "target")

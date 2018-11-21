@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0D570B21A5800E00A8053D /* ChanAXPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0D570A21A5800E00A8053D /* ChanAXPhotosViewController.swift */; };
+		0A0D570D21A5822E00A8053D /* CameraPermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0D570C21A5822E00A8053D /* CameraPermissionManager.swift */; };
 		0A11320C215EC1AD00BB3C79 /* Presentable+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11320B215EC1AD00BB3C79 /* Presentable+Utils.swift */; };
 		0A11320E215F94CB00BB3C79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A11320D215F94CA00BB3C79 /* GoogleService-Info.plist */; };
 		0A113215215F96EA00BB3C79 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A113210215F96EA00BB3C79 /* SettingsRouter.swift */; };
@@ -147,6 +149,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A0D570A21A5800E00A8053D /* ChanAXPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanAXPhotosViewController.swift; sourceTree = "<group>"; };
+		0A0D570C21A5822E00A8053D /* CameraPermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionManager.swift; sourceTree = "<group>"; };
 		0A11320B215EC1AD00BB3C79 /* Presentable+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Presentable+Utils.swift"; sourceTree = "<group>"; };
 		0A11320D215F94CA00BB3C79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A113210215F96EA00BB3C79 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
@@ -445,6 +449,7 @@
 				0A90E785215194DF00B71EAA /* RegexChecker.swift */,
 				0A90E7A02152DB4700B71EAA /* Helper.swift */,
 				0A203F16219C9CEC00A51554 /* CensorManager.swift */,
+				0A0D570C21A5822E00A8053D /* CameraPermissionManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -537,6 +542,7 @@
 				0A856292216E518900D053F7 /* ThreadImageViewer.swift */,
 				0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */,
 				0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */,
+				0A0D570A21A5800E00A8053D /* ChanAXPhotosViewController.swift */,
 			);
 			path = Viewer;
 			sourceTree = "<group>";
@@ -983,7 +989,6 @@
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SloppySwiper/SloppySwiper.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftReorder/SwiftReorder.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
@@ -1014,7 +1019,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SloppySwiper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftReorder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
@@ -1047,6 +1051,7 @@
 				0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */,
 				0A2E0CA32145561E00CBD619 /* BoardsListCell.swift in Sources */,
 				0AACC191218A5A8800B7BD19 /* SwiftyOnboardOverlay.swift in Sources */,
+				0A0D570D21A5822E00A8053D /* CameraPermissionManager.swift in Sources */,
 				0A1132212160112400BB3C79 /* Values.swift in Sources */,
 				0A90E786215194E000B71EAA /* RegexChecker.swift in Sources */,
 				0A2E0CD32145A3FE00CBD619 /* ThreadCell.swift in Sources */,
@@ -1130,6 +1135,7 @@
 				0AF77B42217E4C85007D8C5B /* CoreDataBoard.swift in Sources */,
 				0AACC188218A5A2A00B7BD19 /* OnboardBuilder.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
+				0A0D570B21A5800E00A8053D /* ChanAXPhotosViewController.swift in Sources */,
 				0A113219215F96EA00BB3C79 /* SettingsInteractor.swift in Sources */,
 				0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */,
 				0AA1B6CD21542DC10063B5F7 /* PostMediaCell.swift in Sources */,

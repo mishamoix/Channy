@@ -23,6 +23,7 @@ enum ErrorButton: Equatable {
     case retry
     
     case input(result: String?)
+  case custom(title: String, style: UIAlertAction.Style)
     
     public static func == (lhs: ErrorButton, rhs: ErrorButton) -> Bool {
         return String(reflecting: lhs) == String(reflecting: rhs)
@@ -122,6 +123,12 @@ class ErrorDisplay: ErrorDisplayProtocol {
                 vc.addAction(UIAlertAction(title: "ОК", style: .default, handler: { _ in
                     self.actions.on(.next(.input(result: self.currentTextField?.text)))
                 }))
+              
+            case .custom(let title, let style):
+              vc.addAction(UIAlertAction(title: title, style: style, handler: { _ in
+                self.actions.on(.next(.custom(title: title, style: style)))
+              }))
+
 
             }
         }

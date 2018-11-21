@@ -108,7 +108,7 @@ class ThreadImageViewer: NSObject {
     private func setupBrowser() {
         let transitionInfo = AXTransitionInfo(interactiveDismissalEnabled: true, startingView: nil, endingView: nil)
 
-        self.browser = AXPhotosViewController(dataSource: self.dataSource, pagingConfig: nil, transitionInfo: transitionInfo, networkIntegration: ImageNetworkIntegration())
+        self.browser = ChanAXPhotosViewController(dataSource: self.dataSource, pagingConfig: nil, transitionInfo: transitionInfo, networkIntegration: ImageNetworkIntegration())
 //        self.browser = AXPhotosViewController(dataSource: self.dataSource, networkIntegration: ImageNetworkIntegration())
 //        self.browser?.transitionInfo = transitionInfo
 //        self.browser?.

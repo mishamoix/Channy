@@ -33,7 +33,6 @@ target 'Chan' do
     pod 'KafkaRefresh'
     pod 'ReCaptcha/RxSwift'
 
-
     # Firebase
     pod 'Firebase/Core'
     pod 'Firebase/Database'

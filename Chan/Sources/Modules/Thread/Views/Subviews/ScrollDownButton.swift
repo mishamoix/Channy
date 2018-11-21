@@ -37,6 +37,11 @@ class ScrollDownButton: UIButton {
     private func setup() {
         self.setImage(UIImage.downArraw, for: .normal)
         self.tintColor = .scrollDown
+      
+//        for constraint in self.constraints {
+//          self.removeConstraint(constraint)
+//        }
+      
         self.snp.makeConstraints { (make) in
             make.size.equalTo(PostScrollDownButtonSize)
         }

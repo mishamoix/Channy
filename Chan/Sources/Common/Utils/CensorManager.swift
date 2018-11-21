@@ -103,7 +103,11 @@ class CensorManager {
         } else {
             let publish = PublishSubject<Bool>()
             let newTask = CensorManagerTask(publish: publish, path: path)
+            
+            self.semaphoreRemoveQueue.wait()
             self.queue.append(newTask)
+            self.semaphoreRemoveQueue.signal()
+
             self.executeNextIfCan()
             return newTask
         }

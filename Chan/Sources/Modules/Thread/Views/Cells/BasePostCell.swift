@@ -124,7 +124,9 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     
     @objc public func screenshot() {
         if let image = self.snapshot() {
-            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+            CameraPermissionManager.request {
+                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+            }
         }
     }
 }
