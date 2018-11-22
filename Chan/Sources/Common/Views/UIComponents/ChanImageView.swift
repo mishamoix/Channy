@@ -33,7 +33,7 @@ class ChanImageView: UIImageView {
                 Helper.performOnMainThread {
                     if Values.shared.censorEnabled && (self.isCensored ?? true) && self.needCensor {
                         self.originalImage = newValue
-                        super.image = newValue?.applyBlur(radius: 5)
+                        super.image = newValue?.applyBlur(radius: 1)
                     } else {
                         super.image = newValue
                     }

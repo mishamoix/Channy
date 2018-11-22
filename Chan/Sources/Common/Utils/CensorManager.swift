@@ -10,7 +10,7 @@
 import UIKit
 import RxSwift
 
-private let MaxParallelExecuter = 4
+private let MaxParallelExecuter = 2
 
 class CensorManagerTask {
     let publish: PublishSubject<Bool>
