@@ -86,6 +86,15 @@
 		0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856292216E518900D053F7 /* ThreadImageViewer.swift */; };
 		0A8BFED9218F4451004AA360 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BFED8218F4451004AA360 /* Theme.swift */; };
 		0A8BFEDB218F45C9004AA360 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BFEDA218F45C9004AA360 /* ThemeManager.swift */; };
+		0A905F6E21A9B10000ADE51E /* WriteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A905F6921A9B10000ADE51E /* WriteRouter.swift */; };
+		0A905F6F21A9B10000ADE51E /* WriteViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A905F6A21A9B10000ADE51E /* WriteViewController.storyboard */; };
+		0A905F7021A9B10000ADE51E /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A905F6B21A9B10000ADE51E /* WriteViewController.swift */; };
+		0A905F7121A9B10000ADE51E /* WriteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A905F6C21A9B10000ADE51E /* WriteBuilder.swift */; };
+		0A905F7221A9B10000ADE51E /* WriteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A905F6D21A9B10000ADE51E /* WriteInteractor.swift */; };
+		0A905F7421A9C1E400ADE51E /* WriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A905F7321A9C1E400ADE51E /* WriteService.swift */; };
+		0A905F7621A9C29500ADE51E /* WriteTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A905F7521A9C29500ADE51E /* WriteTarget.swift */; };
+		0A905F7A21A9C5FF00ADE51E /* WriteConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A905F7921A9C5FF00ADE51E /* WriteConstants.swift */; };
+		0A905F7C21A9C8BF00ADE51E /* WriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A905F7B21A9C8BF00ADE51E /* WriteModel.swift */; };
 		0A90E7822151886900B71EAA /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7812151886900B71EAA /* PostManager.swift */; };
 		0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E78321518B2600B71EAA /* LinkParser.swift */; };
 		0A90E786215194E000B71EAA /* RegexChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E785215194DF00B71EAA /* RegexChecker.swift */; };
@@ -233,6 +242,15 @@
 		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
 		0A8BFED8218F4451004AA360 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0A8BFEDA218F45C9004AA360 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		0A905F6921A9B10000ADE51E /* WriteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRouter.swift; sourceTree = "<group>"; };
+		0A905F6A21A9B10000ADE51E /* WriteViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WriteViewController.storyboard; sourceTree = "<group>"; };
+		0A905F6B21A9B10000ADE51E /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
+		0A905F6C21A9B10000ADE51E /* WriteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteBuilder.swift; sourceTree = "<group>"; };
+		0A905F6D21A9B10000ADE51E /* WriteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteInteractor.swift; sourceTree = "<group>"; };
+		0A905F7321A9C1E400ADE51E /* WriteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteService.swift; sourceTree = "<group>"; };
+		0A905F7521A9C29500ADE51E /* WriteTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTarget.swift; sourceTree = "<group>"; };
+		0A905F7921A9C5FF00ADE51E /* WriteConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteConstants.swift; sourceTree = "<group>"; };
+		0A905F7B21A9C8BF00ADE51E /* WriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteModel.swift; sourceTree = "<group>"; };
 		0A90E7812151886900B71EAA /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 		0A90E78321518B2600B71EAA /* LinkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkParser.swift; sourceTree = "<group>"; };
 		0A90E785215194DF00B71EAA /* RegexChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexChecker.swift; sourceTree = "<group>"; };
@@ -362,6 +380,7 @@
 				0A2E0CDD2145B3F600CBD619 /* PostModel.swift */,
 				0A2E0CDF2145B48300CBD619 /* FileModel.swift */,
 				0A90E7872151988D00B71EAA /* ChanLinkModel.swift */,
+				0A905F7B21A9C8BF00ADE51E /* WriteModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -556,6 +575,19 @@
 			path = Theme;
 			sourceTree = "<group>";
 		};
+		0A905F6821A9B0EC00ADE51E /* Write */ = {
+			isa = PBXGroup;
+			children = (
+				0A905F6921A9B10000ADE51E /* WriteRouter.swift */,
+				0A905F6A21A9B10000ADE51E /* WriteViewController.storyboard */,
+				0A905F6B21A9B10000ADE51E /* WriteViewController.swift */,
+				0A905F6C21A9B10000ADE51E /* WriteBuilder.swift */,
+				0A905F6D21A9B10000ADE51E /* WriteInteractor.swift */,
+				0A905F7921A9C5FF00ADE51E /* WriteConstants.swift */,
+			);
+			path = Write;
+			sourceTree = "<group>";
+		};
 		0A90E78B2151A75700B71EAA /* Thread */ = {
 			isa = PBXGroup;
 			children = (
@@ -637,6 +669,7 @@
 		0ACC29642143F06500B4E53B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0A905F6821A9B0EC00ADE51E /* Write */,
 				0AACC175218A56D500B7BD19 /* Onboard */,
 				0A505D70216D05EF0076F383 /* WebAccept */,
 				0A11320F215F96D500BB3C79 /* Settings */,
@@ -692,6 +725,7 @@
 				0ACC29722143F3A400B4E53B /* BoardsListService.swift */,
 				0A2E0CC12145968000CBD619 /* BoardService.swift */,
 				0A203F14219C9CCA00A51554 /* CensorService.swift */,
+				0A905F7321A9C1E400ADE51E /* WriteService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -703,6 +737,7 @@
 				0A2E0CC32145969D00CBD619 /* BoardTarget.swift */,
 				0AFFFDB12149A95E0002E832 /* ThreadTarget.swift */,
 				0A203F18219C9E6700A51554 /* CensorTarget.swift */,
+				0A905F7521A9C29500ADE51E /* WriteTarget.swift */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -920,6 +955,7 @@
 				0ACC296D2143F22F00B4E53B /* BoardsListViewController.storyboard in Resources */,
 				0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */,
 				0A2E0CA42145561E00CBD619 /* BoardsListCell.xib in Resources */,
+				0A905F6F21A9B10000ADE51E /* WriteViewController.storyboard in Resources */,
 				0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */,
 				0A2E0CB12145589600CBD619 /* BoardsTableHeader.xib in Resources */,
 				0A9855F921A2CC9300A8C8AC /* icon.png in Resources */,
@@ -1059,6 +1095,7 @@
 				0A2E0C882145396400CBD619 /* BaseModel.swift in Sources */,
 				0A2E0CC721459F3300CBD619 /* BoardMainViewModel.swift in Sources */,
 				0A5D7D9E217D0835004429B0 /* Chan.xcdatamodeld in Sources */,
+				0A905F7221A9B10000ADE51E /* WriteInteractor.swift in Sources */,
 				0A2E0C8A2145397600CBD619 /* BoardModel.swift in Sources */,
 				0ACC29752143F3AE00B4E53B /* BaseService.swift in Sources */,
 				0A203F17219C9CEC00A51554 /* CensorManager.swift in Sources */,
@@ -1068,6 +1105,7 @@
 				0A2E0C8E21453BE100CBD619 /* BaseViewController.swift in Sources */,
 				0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */,
 				0AFFFDAF2149A1F50002E832 /* ThreadBuilder.swift in Sources */,
+				0A905F7621A9C29500ADE51E /* WriteTarget.swift in Sources */,
 				0A505D79216D060A0076F383 /* WebAcceptBuilder.swift in Sources */,
 				0A2E0CA72145564300CBD619 /* ChanLabel.swift in Sources */,
 				0A2E0CB321455A6A00CBD619 /* BoardsListConstants.swift in Sources */,
@@ -1083,8 +1121,10 @@
 				0A2E0C9521453CB600CBD619 /* ViewControllable+Utils.swift in Sources */,
 				0A203F19219C9E6700A51554 /* CensorTarget.swift in Sources */,
 				0ACC297B2143F4C100B4E53B /* Enviroment.swift in Sources */,
+				0A905F7C21A9C8BF00ADE51E /* WriteModel.swift in Sources */,
 				0ACC29732143F3A400B4E53B /* BoardsListService.swift in Sources */,
 				0A2E0CAD214557E900CBD619 /* BaseTableViewCell.swift in Sources */,
+				0A905F7021A9B10000ADE51E /* WriteViewController.swift in Sources */,
 				0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */,
 				0A2D0C6A21A4942800B38224 /* UIView+Utils.swift in Sources */,
 				0A2E0CCE2145A36300CBD619 /* TGReusableLabel.mm in Sources */,
@@ -1094,10 +1134,12 @@
 				0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */,
 				0A2E0CBC2145790300CBD619 /* BoardRouter.swift in Sources */,
 				0A2E0CDE2145B3F600CBD619 /* PostModel.swift in Sources */,
+				0A905F7121A9B10000ADE51E /* WriteBuilder.swift in Sources */,
 				0AFFFDB22149A95E0002E832 /* ThreadTarget.swift in Sources */,
 				0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */,
 				0A7349AA217A36E400244B59 /* PostMediaView.swift in Sources */,
 				0A2E0CD82145A44400CBD619 /* ThreadViewModel.swift in Sources */,
+				0A905F6E21A9B10000ADE51E /* WriteRouter.swift in Sources */,
 				0A90E79F2152C97300B71EAA /* TagViewModel.swift in Sources */,
 				0A11321E215F9E4C00BB3C79 /* FirebaseManager.swift in Sources */,
 				0ACC29882143F79900B4E53B /* RootViewController.swift in Sources */,
@@ -1111,8 +1153,10 @@
 				0ACC29702143F22F00B4E53B /* BoardsListInteractor.swift in Sources */,
 				0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */,
 				0A5B0EB9214EED8900AECE3C /* PostPreparation.swift in Sources */,
+				0A905F7421A9C1E400ADE51E /* WriteService.swift in Sources */,
 				0A2E0C9C2145464000CBD619 /* Error.swift in Sources */,
 				0AD5C2DA215AC89700F68AF4 /* ErrorManager.swift in Sources */,
+				0A905F7A21A9C5FF00ADE51E /* WriteConstants.swift in Sources */,
 				0A113217215F96EA00BB3C79 /* SettingsViewController.swift in Sources */,
 				0A90E7882151988D00B71EAA /* ChanLinkModel.swift in Sources */,
 				0ACC298D2143F7E100B4E53B /* BaseNavigationController.swift in Sources */,

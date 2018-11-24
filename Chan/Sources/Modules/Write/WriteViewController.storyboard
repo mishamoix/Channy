@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vKn-9P-Ny8">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Write View Controller-->
+        <scene sceneID="GzV-lN-fg7">
+            <objects>
+                <viewController storyboardIdentifier="WriteViewController" id="vKn-9P-Ny8" customClass="WriteViewController" customModule="Chan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BNZ-bO-rhc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M4D-wW-nJn">
+                                <rect key="frame" x="16" y="36" width="343" height="222.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Vc-Y8-ibr">
+                                <rect key="frame" x="282" y="268.5" width="77" height="30"/>
+                                <state key="normal" title="Отправить"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="M4D-wW-nJn" firstAttribute="top" secondItem="HgA-Aw-ocO" secondAttribute="top" constant="16" id="D7B-ip-wRO"/>
+                            <constraint firstItem="M4D-wW-nJn" firstAttribute="leading" secondItem="HgA-Aw-ocO" secondAttribute="leading" constant="16" id="FDd-dn-AWZ"/>
+                            <constraint firstItem="HgA-Aw-ocO" firstAttribute="trailing" secondItem="M4D-wW-nJn" secondAttribute="trailing" constant="16" id="Jtj-G0-HQg"/>
+                            <constraint firstItem="0Vc-Y8-ibr" firstAttribute="top" secondItem="M4D-wW-nJn" secondAttribute="bottom" constant="10" id="Yqj-cP-v1c"/>
+                            <constraint firstItem="0Vc-Y8-ibr" firstAttribute="trailing" secondItem="M4D-wW-nJn" secondAttribute="trailing" id="aYl-ed-pmO"/>
+                            <constraint firstItem="M4D-wW-nJn" firstAttribute="height" secondItem="BNZ-bO-rhc" secondAttribute="height" multiplier="1:3" id="ohr-g2-o06"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HgA-Aw-ocO"/>
+                    </view>
+                    <connections>
+                        <outlet property="sendButton" destination="0Vc-Y8-ibr" id="OdG-9c-ML0"/>
+                        <outlet property="textView" destination="M4D-wW-nJn" id="9Lo-9w-cTa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k0X-am-vwV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="244" y="204.64767616191907"/>
+        </scene>
+    </scenes>
+</document>

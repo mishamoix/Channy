@@ -12,7 +12,7 @@ protocol ThreadDependency: Dependency {
 //    var threadIsRoot: Bool { get }
 }
 
-final class ThreadComponent: Component<ThreadDependency>, ThreadDependency {
+final class ThreadComponent: Component<ThreadDependency>, ThreadDependency, WriteDependency {
 
 //    var threadIsRoot = false
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
@@ -42,8 +42,9 @@ final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
         interactor.listener = listener
         
         let thread = ThreadBuilder(dependency: component)
+        let write = WriteBuilder(dependency: component)
         
-        return ThreadRouter(interactor: interactor, viewController: viewController, threadBuilder: thread)
+        return ThreadRouter(interactor: interactor, viewController: viewController, threadBuilder: thread, writeBuilder: write)
     }
     
     func build(withListener listener: ThreadListener, replys: PostReplysViewModel) -> ThreadRouting {

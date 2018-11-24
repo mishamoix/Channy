@@ -27,7 +27,7 @@ class BaseService: BaseServiceProtocol {
         return helper.makeError()
     }
     
-    func fromJson(data: Data?) -> [String:Any]? {
+    func fromJson(data: Data?) -> [String: Any]? {
         if let data = data, let result = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String:Any] {
             return result
         }

@@ -9,7 +9,7 @@
 import RIBs
 
 
-protocol ThreadInteractable: Interactable, ThreadListener {
+protocol ThreadInteractable: Interactable, ThreadListener, WriteListener {
     var router: ThreadRouting? { get set }
     var listener: ThreadListener? { get set }
 }
@@ -21,8 +21,9 @@ protocol ThreadViewControllable: ViewControllable {
 final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControllable>, ThreadRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: ThreadInteractable, viewController: ThreadViewControllable, threadBuilder: ThreadBuildable) {
+    init(interactor: ThreadInteractable, viewController: ThreadViewControllable, threadBuilder: ThreadBuildable, writeBuilder: WriteBuildable? = nil) {
         self.threadBuilder = threadBuilder
+        self.writeBuilder = writeBuilder
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
@@ -62,9 +63,26 @@ final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControlla
 //        self.viewController.uiviewController.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func showWrite(model: ThreadModel) {
+        if let writeBuilder = self.writeBuilder {
+            self.tryDeattach(router: self.write) {
+                let write = writeBuilder.build(withListener: self.interactor, thread: model)
+                self.attachChild(write)
+                self.viewController.push(view: write.viewControllable)
+            }
+        }
+    }
+    
+    
+    
     // MARK: Private
     private let threadBuilder: ThreadBuildable
     private weak var thread: ViewableRouting?
+    
+    private let writeBuilder: WriteBuildable?
+    private weak var write: ViewableRouting?
+
+//    WriteBuilder
     
     
 }

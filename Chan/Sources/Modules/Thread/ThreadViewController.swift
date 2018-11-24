@@ -274,6 +274,10 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                         self?.listener?.viewActions.on(.next(.copyLinkOnThread))
                     }))
                     
+                    actionSheet.addAction(UIAlertAction(title: "Ответить в тред", style: .default, handler: { [weak self] _ in
+                        self?.listener?.viewActions.on(.next(.replyThread))
+                    }))
+                    
                     actionSheet.addAction(UIAlertAction(title: "Пожаловаться", style: .destructive, handler: { [weak self] _ in
                         self?.reportThread()
                     }))

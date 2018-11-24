@@ -53,6 +53,7 @@ enum PostAction {
 
     case open(media: FileModel)
     case copyLinkOnThread
+    case replyThread
 
 }
 

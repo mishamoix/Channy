@@ -15,6 +15,7 @@ protocol ThreadRouting: ViewableRouting {
     func popToCurrent()
     func showMediaViewer(_ vc: UIViewController)
     func closeThread()
+    func showWrite(model: ThreadModel)
 }
 
 protocol ThreadPresentable: Presentable {
@@ -126,11 +127,15 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .copyLinkOnThread: self?.copyLinkOnThread()
                 case .copyMedia(let media): self?.copyMedia(media: media)
                 case .copyLinkPost(let postUid): self?.copyLinkPost(uid: postUid)
+                case .replyThread:
+                    if let model = self?.service.thread {
+                        self?.router?.showWrite(model: model)
+                    }
                 }
             }).disposed(by: self.disposeBag)
     }
     
-    private func load() {
+    func load() {
         
         self.service
             .load()

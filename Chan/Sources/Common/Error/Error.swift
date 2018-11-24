@@ -24,6 +24,8 @@ enum ChanError: Error, Equatable {
     
     case noModel
     
+    case none
+    
     
     public static func == (lhs: ChanError, rhs: ChanError) -> Bool {
         return String(reflecting: lhs) == String(reflecting: rhs)
