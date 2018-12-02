@@ -65,14 +65,27 @@ final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControlla
     
     func showWrite(model: ThreadModel) {
         if let writeBuilder = self.writeBuilder {
-            self.tryDeattach(router: self.write) {
+//            self.tryDeattach(router: self.write) {
+            if let write = self.write {
+                self.viewController.push(view: write.viewControllable)
+
+            } else {
                 let write = writeBuilder.build(withListener: self.interactor, thread: model)
                 self.attachChild(write)
                 self.viewController.push(view: write.viewControllable)
+                self.write = write
             }
+//            }
         }
     }
     
+    func closeWrite() {
+        if let write = self.write {
+            write.viewControllable.pop()
+//            write.viewControllable.dismiss(animated: true)
+        }
+        self.tryDeattach(router: self.write) {}
+    }
     
     
     // MARK: Private

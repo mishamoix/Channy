@@ -48,6 +48,9 @@ class WriteService: BaseService, WriteServiceProtocol {
             .flatMap({ [weak self] response -> Observable<Bool> in
                 if let status = self?.fromJson(data: response.data)?["Status"] as? String, status.lowercased() == "ok" {
                     return Observable<Bool>.just(true)
+                } else if let reason = self?.fromJson(data: response.data)?["Reason"] as? String {
+                    let err = ChanError.error(title: "Ошибка постинга", description: reason)
+                    return Observable<Bool>.error(err)
                 }
 
                 return Observable<Bool>.just(false)

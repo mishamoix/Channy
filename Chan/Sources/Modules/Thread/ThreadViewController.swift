@@ -41,6 +41,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private let refreshControl = UIRefreshControl()
     private let scrollDownButton = ScrollDownButton()
     private let scrollUpButton = ScrollDownButton()
+    private var writeButton: UIBarButtonItem? = nil
     
     
 //    private let topRefresher = KRPullLoadView()
@@ -150,7 +151,6 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .subscribe(onNext: { [weak self] posts in
                 guard let self = self else { return }
                 self.data = posts
-//                let needScrollDown =  self.collectionView.footRefreshControl?.isAnimating ?? false
                 
                 self.collectionView.reloadData()
                 self.collectionView.performBatchUpdates({}, completion: nil)
@@ -160,11 +160,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                     self.collectionView.scrollToItem(at: IndexPath(item: idx, section: 0), at: .top, animated: true)
                 }
 
-//                if needScrollDown {
-//                    self.scrollDown()
-//                } else {
-                    self.updateScrollDownButton()
-//                }
+                self.updateScrollDownButton()
             }).disposed(by: self.disposeBag)
         
         self.cellActions
@@ -188,16 +184,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                         if FirebaseManager.shared.disableImages {
                             ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Медиа отключено по требованию Apple", styles: [.ok])
 //                        }
-//                        else if Values.shared.safeMode {
-//                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Включен безопасный режим", styles: [.ok])
                         } else {
-                          
-
-                            
-                          // TODO: переделать
                             self?.listener?.viewActions.on(.next(.open(media: media)))
-                            
-
                         }
                     }
                 }
@@ -249,7 +237,18 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 self?.scrollUp()
             })
             .disposed(by: self.disposeBag)
-
+        
+        if let listener = self.listener {
+            self.writeButton?
+                .rx
+                .tap
+                .asObservable()
+                .map({ _ -> PostAction in
+                    return .replyThread
+                })
+                .bind(to: listener.viewActions)
+                .disposed(by: self.disposeBag)
+        }
     }
     
     private func setupTheme() {
@@ -261,7 +260,6 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private func setupNavBar() {
         let rightNav = UIBarButtonItem(image: .more, style: .plain, target: nil, action: nil)
         self.themeManager.append(view: ThemeView(object: rightNav, type: .navBarButton, subtype: .none))
-        self.navigationItem.rightBarButtonItem = rightNav
         rightNav.rx
             .tap
             .asDriver()
@@ -274,9 +272,9 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                         self?.listener?.viewActions.on(.next(.copyLinkOnThread))
                     }))
                     
-                    actionSheet.addAction(UIAlertAction(title: "Ответить в тред", style: .default, handler: { [weak self] _ in
-                        self?.listener?.viewActions.on(.next(.replyThread))
-                    }))
+//                    actionSheet.addAction(UIAlertAction(title: "Ответить в тред", style: .default, handler: { [weak self] _ in
+//                        self?.listener?.viewActions.on(.next(.replyThread))
+//                    }))
                     
                     actionSheet.addAction(UIAlertAction(title: "Пожаловаться", style: .destructive, handler: { [weak self] _ in
                         self?.reportThread()
@@ -290,7 +288,18 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
                 
                 self?.present(actionSheet, animated: true)
-            }).disposed(by: self.disposeBag)
+            })
+            .disposed(by: self.disposeBag)
+        
+        if self.listener?.moduleIsRoot ?? false {
+            let writeButton = UIBarButtonItem(image: .write, landscapeImagePhone: nil, style: UIBarButtonItem.Style.done, target: nil, action: nil)
+            self.writeButton = writeButton
+            
+            self.navigationItem.rightBarButtonItems = [rightNav, writeButton]
+            
+        } else {
+            self.navigationItem.rightBarButtonItem = rightNav
+        }
     }
     
     private func setupCollectionView() {

@@ -17,10 +17,10 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
                 requestClosure: @escaping RequestClosure = ChanProvider.chanRequestMapping,
                 stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
                 callbackQueue: DispatchQueue? = nil,
-                manager: Manager = MoyaProvider<Target>.defaultAlamofireManager(),
+                manager: Manager = ChanProvider<Target>.chanAlamofireManager(),
                 plugins: [PluginType] = [],
                 trackInflights: Bool = false) {
-        let plugs = plugins //+ [NetworkLoggerPlugin(verbose: true)]
+        let plugs = plugins + [NetworkLoggerPlugin(verbose: false, cURL: true)]
         super.init(endpointClosure: endpointClosure, requestClosure: requestClosure, stubClosure: stubClosure, callbackQueue: callbackQueue, manager: manager, plugins: plugs, trackInflights: trackInflights)
 
     }
@@ -39,7 +39,14 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
         }
     }
 
-
+    public final class func chanAlamofireManager() -> Manager {
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = Manager.defaultHTTPHeaders
+        
+        let manager = Manager(configuration: configuration)
+        manager.startRequestsImmediately = false
+        return manager
+    }
 
     
 }

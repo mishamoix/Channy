@@ -16,6 +16,7 @@ protocol ThreadRouting: ViewableRouting {
     func showMediaViewer(_ vc: UIViewController)
     func closeThread()
     func showWrite(model: ThreadModel)
+    func closeWrite()
 }
 
 protocol ThreadPresentable: Presentable {
@@ -44,6 +45,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     private let disposeBag = DisposeBag()
     
     private var data: [PostModel] = []
+    private var viewModels: [PostViewModel] = []
     
     private var postsManager: PostManager? = nil
     internal let moduleIsRoot: Bool
@@ -88,6 +90,13 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         } else {
             self.listener?.popToRoot()
         }
+    }
+    
+    // MARK: WriteListener
+    func messageWrote() {
+        self.postsManager?.resetCache()
+        self.load()
+        self.router?.closeWrite()
     }
     
     // MARK:Private
@@ -244,6 +253,8 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         self.listener?.open(board: board)
 
     }
+    
+    
     
     private func reportThread() {
         FirebaseManager.shared.report(thread: self.service.thread)

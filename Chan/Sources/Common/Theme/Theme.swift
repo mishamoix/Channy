@@ -31,6 +31,7 @@ struct Theme {
     var link: UIColor
     var quote: UIColor
     var actionButtonBorder: UIColor
+    var keyboard: UIKeyboardAppearance
 
 }
 
@@ -50,7 +51,8 @@ extension Theme {
         icon: .iconLight,
         link: .main,
         quote: .unkfunc,
-        actionButtonBorder: .borderLight
+        actionButtonBorder: .borderLight,
+        keyboard: .light
     )
     
     static var dark = Theme(
@@ -67,8 +69,8 @@ extension Theme {
         icon: .iconDark,
         link: .main,
         quote: .unkfunc,
-        actionButtonBorder: .borderDarkBlue
-        
+        actionButtonBorder: .borderDarkBlue,
+        keyboard: .dark
     )
     
     static var darkBlue = Theme(
@@ -85,7 +87,8 @@ extension Theme {
         icon: .iconDarkBlue,
         link: .main,
         quote: .unkfunc,
-        actionButtonBorder: .borderDarkBlue
+        actionButtonBorder: .borderDarkBlue,
+        keyboard: .dark
     )
     
     static var macaba = Theme(
@@ -102,7 +105,8 @@ extension Theme {
         icon: .iconMacaba,
         link: .mainMacaba,
         quote: .unkfuncMacaba,
-        actionButtonBorder: .borderMacaba
+        actionButtonBorder: .borderMacaba,
+        keyboard: .light
     )
 
 }

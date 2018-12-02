@@ -21,7 +21,9 @@ public extension Presentable {
     func showCentralActivity() {
         Helper.performOnMainThread {
             if let view = (self as? UIViewController)?.view {
-                MBProgressHUD.showAdded(to: view, animated: true)
+                if MBProgressHUD.allHUDs(for: view).count == 0 {
+                    MBProgressHUD.showAdded(to: view, animated: true)
+                }
             }
             
         }

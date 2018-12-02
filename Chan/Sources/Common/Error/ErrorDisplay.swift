@@ -60,7 +60,12 @@ class ErrorDisplay: ErrorDisplayProtocol {
     func show(on vc: UIViewController?) {
         let error = ErrorHelper(error: self.error).makeError()
         
+        
+        
         if let err = error as? ChanError {
+            if err == .none {
+                return
+            }
             self.chanErrorDisplay(err, vc: vc)
         } else {
             let message = self.error.localizedDescription

@@ -43,7 +43,7 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
             make.bottom.equalToSuperview().offset(-DefaultMargin)
         }
         
-        self.canvas.setupLongGesture()
+//        self.canvas.setupLongGesture()
         
         let tapOnCell = UITapGestureRecognizer()
         self.canvas.addGestureRecognizer(tapOnCell)

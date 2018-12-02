@@ -17,10 +17,11 @@ protocol WritePresentable: Presentable {
     var listener: WritePresentableListener? { get set }
     
     func solveRecaptcha(with id: String) -> Observable<(String, String)>
+    var vc: UIViewController { get }
 }
 
 protocol WriteListener: class {
-    func load()
+    func messageWrote()
 }
 
 final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInteractable, WritePresentableListener {
@@ -57,30 +58,33 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
     // MARK: Private
     private func setupRx() {
         self.viewActions
-            .subscribe(onNext: { action in
+            .subscribe(onNext: { [weak self] action in
                 switch action {
                 case .send(let text):
                     if let txt = text, txt.count > 0 {
-                        self.send(text: txt)
+                        self?.send(text: txt)
                     }
                 }
-            }).disposed(by: self.disposeBag)
+            })
+            .disposed(by: self.disposeBag)
     }
     
     
     private func send(text: String) {
+        
+        self.presenter.showCentralActivity()
         
         self.service
             .loadInvisibleRecaptcha()
             .observeOn(Helper.rxMainThread)
             .flatMap { [weak self] recaptchaId -> Observable<WriteModel> in
                 guard let self = self else { return Observable<WriteModel>.error(ChanError.none) }
-                
+//                self.presenter.stopAnyLoaders()
                 return self.presenter
                     .solveRecaptcha(with: recaptchaId)
                     .asObservable().flatMap({ [weak self] (key, resultCaptcha) -> Observable<WriteModel> in
                         if let thread = self?.service.thread, let boardUid = thread.board?.uid {
-                            
+                            self?.presenter.showCentralActivity()
                             let writeModel = WriteModel(recaptchaId: key, text: text, recaptachToken: resultCaptcha, threadUid: thread.uid, boardUid: boardUid)
                             return Observable<WriteModel>.just(writeModel)
 
@@ -92,19 +96,25 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
             .observeOn(Helper.rxBackgroundThread)
             .flatMap { [weak self] model -> Observable<Bool> in
                 if let self = self {
+//                    return Observable<Bool>.just(true)
                     return self.service.send(model: model)
                 }
                 return Observable<Bool>.error(ChanError.none)
 
-            }.subscribe(onNext: { [weak self] success in
+            }
+            .observeOn(Helper.rxMainThread)
+            .subscribe(onNext: { [weak self] success in
+                self?.presenter.stopAnyLoaders()
+
                 if success {
-                    Helper.performOnMainThread {
-                        self?.listener?.load()
-                        self?.router?.close()
-                    }
+                    self?.listener?.messageWrote()
+                } else {
+                    let error = ChanError.error(title: "Ошибка", description: "Произошла неизвестная ошибка, попробуйте еще раз")
+                    ErrorDisplay(error: error).show(on: self?.presenter.vc)
                 }
-            }, onError: { error in
-                print(error)
+            }, onError: { [weak self] error in
+                self?.presenter.stopAnyLoaders()
+                ErrorDisplay(error: error).show(on: self?.presenter.vc)
             })
             .disposed(by: self.service.disposeBag)
     }

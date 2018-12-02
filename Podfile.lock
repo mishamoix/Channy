@@ -169,6 +169,7 @@ PODS:
   - SnapKit (4.0.1)
   - SwiftReorder (6.0.0)
   - SwiftyUserDefaults (4.0.0-alpha.1)
+  - "UITextView+Placeholder (1.2.1)"
 
 DEPENDENCIES:
   - Alamofire
@@ -192,6 +193,7 @@ DEPENDENCIES:
   - SnapKit
   - SwiftReorder (~> 6.0)
   - SwiftyUserDefaults (= 4.0.0-alpha.1)
+  - "UITextView+Placeholder"
 
 SPEC REPOS:
   https://github.com/brion/OGVKit-Specs.git:
@@ -231,6 +233,7 @@ SPEC REPOS:
     - SnapKit
     - SwiftReorder
     - SwiftyUserDefaults
+    - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
@@ -268,7 +271,8 @@ SPEC CHECKSUMS:
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftReorder: 0eefefe5e469c70a98d129e9aa2952862a2b34d2
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
+  "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: 05ebe192effff9033a6109b78e8fb0bef94d2734
+PODFILE CHECKSUM: 7e50ae4f3cf4c2913b0b977dac9e73814704ad73
 
 COCOAPODS: 1.5.3

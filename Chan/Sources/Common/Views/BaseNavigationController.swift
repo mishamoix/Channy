@@ -11,7 +11,7 @@ import UIKit
 class BaseNavigationController: DefaultNavigationController {
 
     public var interactivePopPanGestureRecognizer: UIPanGestureRecognizer?
-//    private var swiper: SloppySwiper?
+    public var disableSwipe = false
     
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
@@ -48,19 +48,19 @@ class BaseNavigationController: DefaultNavigationController {
 //            self.swiper = SloppySwiper(navigationController: self)
 //            self.pa
             
-//            if !self.disableSwipe {
-//                if let interactivePopGestureRecognizer = self.interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "_targets") as? NSArray {
-//                    let interactivePanTarget = (targets.firstObject as AnyObject).value(forKey: "target")
-//
-//                    let pan = UIPanGestureRecognizer(target: interactivePanTarget, action: NSSelectorFromString("handleNavigationTransition:"))
-//                    self.view.addGestureRecognizer(pan)
-//                    self.interactivePopPanGestureRecognizer = pan
-//                    self.interactivePopGestureRecognizer?.isEnabled = false
-////                    self.interactivePopGestureRecognizer?.delegate = nil
-//                    pan.delegate = self
-//                    
-//                }
-//            }
+            if !self.disableSwipe {
+                if let interactivePopGestureRecognizer = self.interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "_targets") as? NSArray {
+                    let interactivePanTarget = (targets.firstObject as AnyObject).value(forKey: "target")
+
+                    let pan = UIPanGestureRecognizer(target: interactivePanTarget, action: NSSelectorFromString("handleNavigationTransition:"))
+                    self.view.addGestureRecognizer(pan)
+                    self.interactivePopPanGestureRecognizer = pan
+                    self.interactivePopGestureRecognizer?.isEnabled = false
+//                    self.interactivePopGestureRecognizer?.delegate = nil
+                    pan.delegate = self
+                    
+                }
+            }
         }
     
 //      private func setupTheme() {

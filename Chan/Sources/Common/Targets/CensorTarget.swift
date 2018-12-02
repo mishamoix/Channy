@@ -10,6 +10,7 @@ import Foundation
 import Moya
 
 
+
 enum CensorTarget {
     case censor(path: String)
 }
@@ -28,7 +29,10 @@ extension CensorTarget: TargetType {
     public var task: Task {
         switch self {
         case .censor(let path):
-            return Task.requestJSONEncodable(["image": path])
+            //TODO: переделать
+            let cookies = self.find2chCookies()
+            let result: [String: Any] = ["cookies": cookies, "image": path]
+            return .requestParameters(parameters: result, encoding: JSONEncoding.default)
         }
     }
     
@@ -41,7 +45,20 @@ extension CensorTarget: TargetType {
     }
     
     public var headers: [String: String]? {
+//        return self.find2chCookies()
         return nil
+    }
+    
+    
+    private func find2chCookies() -> [String: String] {
+        
+        for cookie in HTTPCookieStorage.shared.cookies ?? [] {
+            if cookie.domain == "2ch.hk" && cookie.name == "usercode_auth" {
+                return [cookie.name: cookie.value]
+            }
+        }
+        
+        return [:]
     }
     
     

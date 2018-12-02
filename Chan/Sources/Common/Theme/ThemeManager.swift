@@ -91,6 +91,7 @@ class ThemeView {
             if let textView = self.view as? UITextView {
                 textView.backgroundColor = theme.background
                 textView.textColor = theme.mainText
+                textView.keyboardAppearance = theme.keyboard
             }
             break
         case .text:

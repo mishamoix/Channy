@@ -32,6 +32,7 @@ target 'Chan' do
     pod 'SwiftReorder', '~> 6.0'
     pod 'KafkaRefresh'
     pod 'ReCaptcha/RxSwift'
+    pod 'UITextView+Placeholder'
 
     # Firebase
     pod 'Firebase/Core'

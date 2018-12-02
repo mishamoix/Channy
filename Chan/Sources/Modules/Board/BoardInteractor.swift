@@ -44,6 +44,9 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     private var isLoading = false
     private var checkLinkPopupOpened = false
+    
+    
+    private var prevLinkFromBuffer: String? = nil
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
@@ -300,17 +303,24 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         print(self.checkLinkPopupOpened)
         if !self.isLoading && self.presenter.isVisible && !self.checkLinkPopupOpened {
             let link = UIPasteboard.general.string
-            if let model = self.canOpenChan(url: link) {
+            
+            if let model = self.canOpenChan(url: link), self.prevLinkFromBuffer != link {
                 if model.board != nil || (model.thread != nil && model.board != nil) {
                     
-                    if let board = model.board, let currentBoard = self.service.board, model.thread == nil, currentBoard.uid == board {
-                        return
+                    if let board = model.board, let currentBoard = self.service.board, model.thread == nil && currentBoard.uid == board {
+//                        if  {
+                            return
+//                        }
                     }
+//                    if let board = model.board, let currentBoard = self.service.board, model.thread == nil, currentBoard.uid == board {
+//                        return
+//                    }
                     
                     let error = ChanError.error(title: "Открытие по ссылке", description: "В буфере обмена мы обнаружили ссылку на Двач, перейти по ней?")
                     self.checkLinkPopupOpened = true
                     let display = ErrorDisplay(error: error, buttons: [.ok, .cancel])
                     display.show()
+                    self.prevLinkFromBuffer = link
                     display
                         .actions
                         .subscribe(onNext: { action in
