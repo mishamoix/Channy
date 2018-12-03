@@ -42,6 +42,7 @@ let PostScrollDownButtonBottomMargin = MediumMargin
 
 enum PostAction {
     case openReplys(postUid: String)
+    case reply(postUid: String)
     case openLink(postUid: String, url: URL)
     case refresh
     case popToRoot
@@ -59,6 +60,7 @@ enum PostAction {
 
 enum PostCellAction {
     case openReplys(cell: UICollectionViewCell)
+    case reply(cell: UICollectionViewCell)
     case tappedAtLink(url: URL, cell: UICollectionViewCell)
     case openMedia(idx: Int, cell: UICollectionViewCell, view: UIImageView)
     

@@ -13,8 +13,6 @@ class DefaultNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupTheme()
-
-        // Do any additional setup after loading the view.
     }
     
     override open var preferredStatusBarStyle: UIStatusBarStyle { return self.themeManager.statusBar }

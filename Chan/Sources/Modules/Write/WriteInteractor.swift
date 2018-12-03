@@ -18,6 +18,7 @@ protocol WritePresentable: Presentable {
     
     func solveRecaptcha(with id: String) -> Observable<(String, String)>
     var vc: UIViewController { get }
+    var images: [UIImage] { get }
 }
 
 protocol WriteListener: class {
@@ -85,7 +86,7 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
                     .asObservable().flatMap({ [weak self] (key, resultCaptcha) -> Observable<WriteModel> in
                         if let thread = self?.service.thread, let boardUid = thread.board?.uid {
                             self?.presenter.showCentralActivity()
-                            let writeModel = WriteModel(recaptchaId: key, text: text, recaptachToken: resultCaptcha, threadUid: thread.uid, boardUid: boardUid)
+                            let writeModel = WriteModel(recaptchaId: key, text: text, recaptachToken: resultCaptcha, threadUid: thread.uid, boardUid: boardUid, images: self?.presenter.images ?? [])
                             return Observable<WriteModel>.just(writeModel)
 
                         } else {

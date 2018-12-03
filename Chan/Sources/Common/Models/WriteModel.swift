@@ -14,4 +14,5 @@ struct WriteModel {
     let recaptachToken: String
     let threadUid: String
     let boardUid: String
+    let images: [UIImage]
 }

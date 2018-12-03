@@ -12,10 +12,10 @@ import RxSwift
 protocol ThreadRouting: ViewableRouting {
     func openThread(with post: PostReplysViewModel)
     func openNewThread(with thread: ThreadModel)
-    func popToCurrent()
+    func popToCurrent(animated: Bool)
     func showMediaViewer(_ vc: UIViewController)
     func closeThread()
-    func showWrite(model: ThreadModel)
+    func showWrite(model: ThreadModel, data: Observable<String>)
     func closeWrite()
 }
 
@@ -23,13 +23,14 @@ protocol ThreadPresentable: Presentable {
     var listener: ThreadPresentableListener? { get set }
 //    func needAutoscroll(to uid: String)
     var autosctollUid: String? { get set }
+    func scrollToLast()
 
 }
 
 protocol ThreadListener: class {
-    func popToRoot()
+    func popToRoot(animated: Bool)
     func open(board: BoardModel)
-
+    
 }
 
 final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadInteractable, ThreadPresentableListener {
@@ -41,14 +42,15 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     var service: ThreadServiceProtocol
     
-//    private let publish: PublishSubject<ThreadServiceProtocol.ResultType> = PublishSubject()
     private let disposeBag = DisposeBag()
     
     private var data: [PostModel] = []
-    private var viewModels: [PostViewModel] = []
+//    private var viewModels: [PostViewModel] = []
     
     private var postsManager: PostManager? = nil
     internal let moduleIsRoot: Bool
+    
+    private let replySubject = BehaviorSubject<String>(value: "")
     
     init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, cachedVM: [PostViewModel]? = nil) {
         self.service = service
@@ -84,19 +86,21 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     var viewActions: PublishSubject<PostAction> = PublishSubject()
     
     // MARK: ThreadListener
-    func popToRoot() {
+    func popToRoot(animated: Bool = true) {
         if self.moduleIsRoot {
-            self.router?.popToCurrent()
+            self.router?.popToCurrent(animated: animated)
         } else {
-            self.listener?.popToRoot()
+            self.listener?.popToRoot(animated: animated)
         }
     }
     
     // MARK: WriteListener
     func messageWrote() {
+        self.replySubject.on(.next(""))
         self.postsManager?.resetCache()
         self.load()
         self.router?.closeWrite()
+        self.presenter.scrollToLast()
     }
     
     // MARK:Private
@@ -120,6 +124,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                         self?.router?.openThread(with: replyModel)
                     }
                 }
+                case .reply(let postUid): self?.reply(postUid: postUid)
                 case .refresh: do {
                     if self?.moduleIsRoot ?? false {
                         self?.postsManager?.resetCache()
@@ -136,10 +141,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .copyLinkOnThread: self?.copyLinkOnThread()
                 case .copyMedia(let media): self?.copyMedia(media: media)
                 case .copyLinkPost(let postUid): self?.copyLinkPost(uid: postUid)
-                case .replyThread:
-                    if let model = self?.service.thread {
-                        self?.router?.showWrite(model: model)
-                    }
+                case .replyThread: self?.openWrite()
                 }
             }).disposed(by: self.disposeBag)
     }
@@ -251,10 +253,20 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     func open(board: BoardModel) {
         self.router?.closeThread()
         self.listener?.open(board: board)
+    }
+    
+    private func reply(postUid: String) {
+        self.popToRoot(animated: false)
+        self.openWrite()
+        
+        let replyText = ">>\(postUid)"
+        self.replySubject.on(.next(replyText))
 
     }
     
-    
+    private func openWrite() {
+        self.router?.showWrite(model: self.service.thread, data: self.replySubject.asObservable())
+    }
     
     private func reportThread() {
         FirebaseManager.shared.report(thread: self.service.thread)

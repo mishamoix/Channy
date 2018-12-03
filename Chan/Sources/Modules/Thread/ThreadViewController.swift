@@ -99,6 +99,11 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
 //
 //    }
     
+    func scrollToLast() {
+        self.collectionView.setContentOffset(CGPoint(x: 0, y: max(self.collectionView.contentSize.height - self.collectionView.frame.height, 0)), animated: true)
+    }
+    
+    
     //MARK: Private
     private func setup() {
         self.setupUI()
@@ -169,6 +174,12 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 case .openReplys(let cell): do {
                     if let idx = self?.collectionView.indexPath(for: cell), let post = self?.data[idx.item] {
                         self?.listener?.viewActions.on(.next(.openReplys(postUid: post.uid)))
+                    }
+                }
+                    
+                case .reply(let cell): do {
+                    if let idx = self?.collectionView.indexPath(for: cell), let post = self?.data[idx.item] {
+                        self?.listener?.viewActions.on(.next(.reply(postUid: post.uid)))
                     }
                 }
                     
@@ -293,6 +304,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         
         if self.listener?.moduleIsRoot ?? false {
             let writeButton = UIBarButtonItem(image: .write, landscapeImagePhone: nil, style: UIBarButtonItem.Style.done, target: nil, action: nil)
+            let inset: CGFloat = 6
+//            writeButton.imageInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
             self.writeButton = writeButton
             
             self.navigationItem.rightBarButtonItems = [rightNav, writeButton]

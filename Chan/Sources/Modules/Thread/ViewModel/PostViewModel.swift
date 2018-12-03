@@ -89,11 +89,11 @@ class PostViewModel {
             mediaSection = PostMediaTopMargin + mediaWidthHeight
         }
         
-        if !self.shoudHideReplyedButton {
+//        if !self.shoudHideReplyedButton {
             bottomSection += PostButtonTopMargin + PostBottomHeight
-        } else {
-            bottomSection = PostTextBottomMargin
-        }
+//        } else {
+//            bottomSection = PostTextBottomMargin
+//        }
 
         self.titleFrame = CGRect(x: PostTitleLeftMargin, y: PostTitleTopMargin, width: width - (PostTitleLeftMargin + PostTitleRightMargin), height: titleHeight)
         self.mediaFrame = CGRect(x: PostMediaMargin, y: headerSection + PostMediaTopMargin, width: mediaWidthHeight, height: mediaWidthHeight)

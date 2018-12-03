@@ -7,7 +7,7 @@
 //
 
 import RIBs
-
+import RxSwift
 
 protocol ThreadInteractable: Interactable, ThreadListener, WriteListener {
     var router: ThreadRouting? { get set }
@@ -47,8 +47,8 @@ final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControlla
         }
     }
     
-    func popToCurrent() {
-        self.viewControllable.pop(animated: true, view: self.viewControllable)
+    func popToCurrent(animated: Bool) {
+        self.viewControllable.pop(animated: animated, view: self.viewControllable)
     }
     
     func closeThread() {
@@ -63,14 +63,14 @@ final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControlla
 //        self.viewController.uiviewController.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func showWrite(model: ThreadModel) {
+    func showWrite(model: ThreadModel, data: Observable<String>) {
         if let writeBuilder = self.writeBuilder {
 //            self.tryDeattach(router: self.write) {
             if let write = self.write {
                 self.viewController.push(view: write.viewControllable)
 
             } else {
-                let write = writeBuilder.build(withListener: self.interactor, thread: model)
+                let write = writeBuilder.build(withListener: self.interactor, thread: model, data: data)
                 self.attachChild(write)
                 self.viewController.push(view: write.viewControllable)
                 self.write = write

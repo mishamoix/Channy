@@ -58,7 +58,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     }
     
     // MARK: BoardPresentable
-    
+
     //MARK: Private
     private func setup() {
         self.setupUI()

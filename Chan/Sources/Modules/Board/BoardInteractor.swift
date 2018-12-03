@@ -72,7 +72,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     var viewActions: PublishSubject<BoardAction> = PublishSubject()
 
     // MARK: ThreadListener
-    func popToRoot() {
+    func popToRoot(animated: Bool) {
         // pop to root thread
     }
     

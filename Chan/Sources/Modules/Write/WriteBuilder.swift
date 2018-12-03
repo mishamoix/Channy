@@ -7,6 +7,7 @@
 //
 
 import RIBs
+import RxSwift
 
 protocol WriteDependency: Dependency {
     // TODO: Declare the set of dependencies required by this RIB, but cannot be
@@ -21,7 +22,7 @@ final class WriteComponent: Component<WriteDependency> {
 // MARK: - Builder
 
 protocol WriteBuildable: Buildable {
-    func build(withListener listener: WriteListener, thread: ThreadModel) -> WriteRouting
+    func build(withListener listener: WriteListener, thread: ThreadModel, data: Observable<String>) -> WriteRouting
 }
 
 final class WriteBuilder: Builder<WriteDependency>, WriteBuildable {
@@ -30,9 +31,10 @@ final class WriteBuilder: Builder<WriteDependency>, WriteBuildable {
         super.init(dependency: dependency)
     }
 
-    func build(withListener listener: WriteListener, thread: ThreadModel) -> WriteRouting {
+    func build(withListener listener: WriteListener, thread: ThreadModel, data: Observable<String>) -> WriteRouting {
         let component = WriteComponent(dependency: dependency)
         let viewController = UIStoryboard(name: "WriteViewController", bundle: nil).instantiateViewController(withIdentifier: "WriteViewController") as! WriteViewController
+        viewController.data = data
         
         let service = WriteService(thread: thread)
         

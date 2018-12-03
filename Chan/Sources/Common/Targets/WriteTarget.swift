@@ -41,7 +41,7 @@ extension WriteTarget: TargetType {
 //            MultipartFormData(provider: MultipartFormData.FormDataProvider., name: <#T##String#>)
 //            Task.uploadCompositeMultipart([MultipartFormData], urlParameters: <#T##[String : Any]#>)
             
-            let result: [MultipartFormData] = [
+            var result: [MultipartFormData] = [
                 MultipartFormData(provider: .data(model.boardUid.data(using: .utf8)!), name: "board"),
                 MultipartFormData(provider: .data(model.threadUid.data(using: .utf8)!), name: "thread"),
                 MultipartFormData(provider: .data(model.text.data(using: .utf8)!), name: "comment"),
@@ -51,17 +51,18 @@ extension WriteTarget: TargetType {
                 MultipartFormData(provider: .data("post".data(using: .utf8)!), name: "task"),
             ]
             
-            return Task.uploadMultipart(result)
+            let imageBaseKey = "image"
+            let mimeType = "image/jpeg"
             
-//            return Task.requestParameters(parameters: [
-//                "board": model.boardUid,
-//                "thread": model.threadUid,
-//                "comment": model.text,
-//                "captcha_type": "invisible_recaptcha",
-//                "captcha-key": model.recaptchaId,
-//                "g-recaptcha-response": model.recaptachToken,
-//                "task": "post"
-//                ], encoding: URLEncoding.default)
+            for (idx, image) in model.images.enumerated() {
+                if let data = image.jpegData(compressionQuality: 1.0) {
+                    let key = "\(imageBaseKey)\(idx+1)"
+                    let filename = UUID().uuidString + ".jpeg"
+                    result.append(MultipartFormData(provider: .data(data), name: key, fileName: filename, mimeType: mimeType))
+                }
+            }
+            
+            return Task.uploadMultipart(result)
         }
         
     }

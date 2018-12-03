@@ -19,6 +19,7 @@ extension UIImage {
     static var home: UIImage { return UIImage(named: "home")!}
     static var dragReorder: UIImage { return UIImage(named: "dragReorder")!}
     static var write: UIImage { return UIImage(named: "write")!}
+    static var reply: UIImage { return UIImage(named: "reply")!}
 
 
 }

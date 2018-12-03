@@ -69,6 +69,7 @@
 		0A505D79216D060A0076F383 /* WebAcceptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D74216D060A0076F383 /* WebAcceptBuilder.swift */; };
 		0A505D7A216D060A0076F383 /* WebAcceptInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D75216D060A0076F383 /* WebAcceptInteractor.swift */; };
 		0A505D7C216D074B0076F383 /* WebAcceptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D7B216D074B0076F383 /* WebAcceptViewModel.swift */; };
+		0A51E40D21B5C69300BBF331 /* WriteImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A51E40C21B5C69200BBF331 /* WriteImagePicker.swift */; };
 		0A5B0EB12149B8E100AECE3C /* UIImage+AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */; };
 		0A5B0EB62149BAE600AECE3C /* LoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB52149BAE600AECE3C /* LoggerPlugin.swift */; };
 		0A5B0EB9214EED8900AECE3C /* PostPreparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B0EB8214EED8900AECE3C /* PostPreparation.swift */; };
@@ -224,6 +225,7 @@
 		0A505D74216D060A0076F383 /* WebAcceptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptBuilder.swift; sourceTree = "<group>"; };
 		0A505D75216D060A0076F383 /* WebAcceptInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptInteractor.swift; sourceTree = "<group>"; };
 		0A505D7B216D074B0076F383 /* WebAcceptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptViewModel.swift; sourceTree = "<group>"; };
+		0A51E40C21B5C69200BBF331 /* WriteImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteImagePicker.swift; sourceTree = "<group>"; };
 		0A5B0EB02149B8E100AECE3C /* UIImage+AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+AppImage.swift"; sourceTree = "<group>"; };
 		0A5B0EB52149BAE600AECE3C /* LoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPlugin.swift; sourceTree = "<group>"; };
 		0A5B0EB8214EED8900AECE3C /* PostPreparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPreparation.swift; sourceTree = "<group>"; };
@@ -509,6 +511,14 @@
 			path = WebAccept;
 			sourceTree = "<group>";
 		};
+		0A51E40B21B5C66900BBF331 /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				0A51E40C21B5C69200BBF331 /* WriteImagePicker.swift */,
+			);
+			path = ImagePicker;
+			sourceTree = "<group>";
+		};
 		0A5B0EB22149B94E00AECE3C /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +592,7 @@
 		0A905F6821A9B0EC00ADE51E /* Write */ = {
 			isa = PBXGroup;
 			children = (
+				0A51E40B21B5C66900BBF331 /* ImagePicker */,
 				0AB3C69321B462D300A58FDE /* Recaptcha */,
 				0A905F6921A9B10000ADE51E /* WriteRouter.swift */,
 				0A905F6A21A9B10000ADE51E /* WriteViewController.storyboard */,
@@ -1155,6 +1166,7 @@
 				0A905F7121A9B10000ADE51E /* WriteBuilder.swift in Sources */,
 				0AFFFDB22149A95E0002E832 /* ThreadTarget.swift in Sources */,
 				0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */,
+				0A51E40D21B5C69300BBF331 /* WriteImagePicker.swift in Sources */,
 				0A7349AA217A36E400244B59 /* PostMediaView.swift in Sources */,
 				0A2E0CD82145A44400CBD619 /* ThreadViewModel.swift in Sources */,
 				0A905F6E21A9B10000ADE51E /* WriteRouter.swift in Sources */,

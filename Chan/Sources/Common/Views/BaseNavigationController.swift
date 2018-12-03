@@ -44,10 +44,7 @@ class BaseNavigationController: DefaultNavigationController {
     
     
         private func addPanGestureRecognizer() {
-            
-//            self.swiper = SloppySwiper(navigationController: self)
-//            self.pa
-            
+
             if !self.disableSwipe {
                 if let interactivePopGestureRecognizer = self.interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "_targets") as? NSArray {
                     let interactivePanTarget = (targets.firstObject as AnyObject).value(forKey: "target")
@@ -62,12 +59,6 @@ class BaseNavigationController: DefaultNavigationController {
                 }
             }
         }
-    
-//      private func setupTheme() {
-//        self.themeManager.append(view: ThemeView(object: self.navigationBar, type: .navBar, subtype: .none))
-//        self.themeManager.append(view: ThemeView(object: self, type: .viewController, subtype: .none))
-//
-//      }
 }
 
 

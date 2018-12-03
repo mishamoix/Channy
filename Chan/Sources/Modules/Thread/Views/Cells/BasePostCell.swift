@@ -21,6 +21,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     
     private let titleLabel = TGReusableLabel()
     private let replyedButton = UIButton()
+    private let replyButton = UIButton()
     let disposeBag = DisposeBag()
     
     var canPerformAction: Bool = true
@@ -31,6 +32,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupUI()
+        self.setupRx()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,6 +67,31 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
             make.size.equalTo(PostButtonSize)
         }
         
+        self.contentView.addSubview(self.replyButton)
+        self.replyButton.layer.cornerRadius = DefaultCornerRadius
+        self.replyButton.layer.borderColor = ThemeManager.shared.theme.main.cgColor
+        self.replyButton.layer.borderWidth = 1
+        self.replyButton.setTitleColor(ThemeManager.shared.theme.main, for: .normal)
+        self.replyButton.titleLabel?.font = UIFont.postTitle
+//        self.replyButton.setBackgroundImage(.reply, for: .normal)
+        self.replyButton.setImage(.reply, for: .normal)
+        
+        let inset: CGFloat = 4
+        self.replyButton.imageEdgeInsets = UIEdgeInsets(top: inset, left: 2 * inset, bottom: inset, right: 2 * inset)
+        self.replyButton.tintColor = ThemeManager.shared.theme.main
+
+
+        self.replyButton.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(PostButtonRightMargin)
+            make.bottom.equalToSuperview().offset(-PostButtonBottomMargin)
+            make.size.equalTo(PostButtonSize)
+        }
+        
+        self.setupTheme()
+        
+    }
+    
+    private func setupRx() {
         self.replyedButton
             .rx
             .tap
@@ -75,8 +102,16 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
                 }
             }).disposed(by: self.disposeBag)
         
-        self.setupTheme()
-        
+        self.replyButton
+            .rx
+            .tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                if let strongSelf = self {
+                    self?.action?.on(.next(.reply(cell: strongSelf)))
+                }
+            }).disposed(by: self.disposeBag)
+
     }
     
     func update(with model: PostViewModel) {
