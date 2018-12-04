@@ -49,8 +49,14 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
                 }
 
                 if let error = response.error {
-                    self.delegate?.networkIntegration(self, loadDidFailWith: error, for: photo)
+                    if let image = ImageFixer.fix(image: response.data) {
+                        photo.image = image
+                        self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
+                    } else {
+                        self.delegate?.networkIntegration(self, loadDidFailWith: error, for: photo)
+                    }
                 } else if let data = response.data, let image = UIImage(data: data) {
+//                    let _ = ImageFixer.fix(image: data)
                     photo.image = image
                     self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
                 } else {
