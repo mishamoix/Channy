@@ -30,6 +30,7 @@ protocol ThreadPresentable: Presentable {
 protocol ThreadListener: class {
     func popToRoot(animated: Bool)
     func open(board: BoardModel)
+    func reply(postUid: String)
     
 }
 
@@ -255,12 +256,17 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         self.listener?.open(board: board)
     }
     
-    private func reply(postUid: String) {
-        self.popToRoot(animated: false)
-        self.openWrite()
-        
-        let replyText = ">>\(postUid)"
-        self.replySubject.on(.next(replyText))
+    func reply(postUid: String) {
+        if self.moduleIsRoot {
+            self.popToRoot(animated: true)
+            self.openWrite()
+            
+            let replyText = ">>\(postUid)"
+            self.replySubject.on(.next(replyText))
+
+        } else {
+            self.listener?.reply(postUid: postUid)
+        }
 
     }
     

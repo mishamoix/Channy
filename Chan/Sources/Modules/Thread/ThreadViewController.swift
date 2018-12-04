@@ -41,7 +41,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private let refreshControl = UIRefreshControl()
     private let scrollDownButton = ScrollDownButton()
     private let scrollUpButton = ScrollDownButton()
-    private var writeButton: UIBarButtonItem? = nil
+    private var writeButton: UIButton? = nil
     
     
 //    private let topRefresher = KRPullLoadView()
@@ -269,9 +269,14 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     }
     
     private func setupNavBar() {
-        let rightNav = UIBarButtonItem(image: .more, style: .plain, target: nil, action: nil)
+        let moreButton = UIButton()
+        moreButton.setImage(.more, for: .normal)
+        moreButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//        let rightNav = UIBarButtonItem(image: .more, style: .plain, target: nil, action: nil)
+        let rightNav = UIBarButtonItem(customView: moreButton)
+
         self.themeManager.append(view: ThemeView(object: rightNav, type: .navBarButton, subtype: .none))
-        rightNav.rx
+        moreButton.rx
             .tap
             .asDriver()
             .drive(onNext: { [weak self] in
@@ -282,11 +287,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                     actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на тред", style: .default, handler: { [weak self] _ in
                         self?.listener?.viewActions.on(.next(.copyLinkOnThread))
                     }))
-                    
-//                    actionSheet.addAction(UIAlertAction(title: "Ответить в тред", style: .default, handler: { [weak self] _ in
-//                        self?.listener?.viewActions.on(.next(.replyThread))
-//                    }))
-                    
+                                        
                     actionSheet.addAction(UIAlertAction(title: "Пожаловаться", style: .destructive, handler: { [weak self] _ in
                         self?.reportThread()
                     }))
@@ -303,12 +304,18 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .disposed(by: self.disposeBag)
         
         if self.listener?.moduleIsRoot ?? false {
-            let writeButton = UIBarButtonItem(image: .write, landscapeImagePhone: nil, style: UIBarButtonItem.Style.done, target: nil, action: nil)
-            let inset: CGFloat = 6
-//            writeButton.imageInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+            let inset: CGFloat = 4
+            let writeButton = UIButton()
+            writeButton.setImage(.write, for: .normal)
+            writeButton.imageEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+            writeButton.tintColor = self.themeManager.theme.main
+            writeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//            writeButton.semanticContentAttribute = .forceRightToLeft
+
+            let writeBarButton = UIBarButtonItem(customView: writeButton)
             self.writeButton = writeButton
-            
-            self.navigationItem.rightBarButtonItems = [rightNav, writeButton]
+
+            self.navigationItem.rightBarButtonItems = [rightNav, writeBarButton]
             
         } else {
             self.navigationItem.rightBarButtonItem = rightNav
