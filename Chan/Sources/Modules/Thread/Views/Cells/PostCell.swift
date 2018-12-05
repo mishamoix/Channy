@@ -58,7 +58,10 @@ class PostCell: BasePostCell {
         self.textLabel.frame = model.textFrame
         
         self.textLabel.setNeedsDisplay()
+        
     }
+    
+    
     
 
 

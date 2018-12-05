@@ -75,7 +75,8 @@ class AppDependency: NSObject {
         UIMenuController.shared.menuItems = [copyLink, copyText, copyOrigianlText, makeScreenshot]
         UIMenuController.shared.update()
         UIMenuController.shared.setMenuVisible(true, animated: true)
-
+        
+        UIApplication.shared.isIdleTimerDisabled = true
     }
 
     

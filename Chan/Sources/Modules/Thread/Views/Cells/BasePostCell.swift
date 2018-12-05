@@ -24,6 +24,8 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     private let replyButton = UIButton()
     let disposeBag = DisposeBag()
     
+    private var highlightDisposeBag = DisposeBag()
+    
     var canPerformAction: Bool = true
         
     weak var action: PublishSubject<PostCellAction>?
@@ -121,6 +123,9 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         
         self.replyedButton.isHidden = model.shoudHideReplyedButton
         self.replyedButton.setTitle(model.replyedButtonText, for: .normal)
+        
+        self.highlightIfNeeded(model: model)
+
     }
     
     func update(action: PublishSubject<PostCellAction>?) {
@@ -135,9 +140,6 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
 
     func setupTheme() {
         ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .border))
-//        ThemeManager.shared.append(view: ThemeView(view: self.contentView, type: .cell, subtype: .border))
-
-//        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -162,6 +164,64 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
             CameraPermissionManager.request {
                 UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             }
+        }
+    }
+    
+    
+    private func highlightIfNeeded(model: PostViewModel) {
+        self.layer.removeAllAnimations()
+        self.highlightDisposeBag = DisposeBag()
+        if model.needHighlight {
+            let scale: CGFloat = 1.05
+            model.needHighlight = false
+            
+            Observable<Void>.just(Void())
+                .flatMap { [weak self] _ -> Observable<Void> in
+                    return Observable<Void>
+                        .just(Void())
+                        .map({ [weak self] val -> Void in
+                            UIView.animate(withDuration: AnimationDuration, animations: {
+                                self?.backgroundColor = UIColor.gray
+                            })
+                            return val
+                        })
+                        .delay(AnimationDuration, scheduler: Helper.rxMainThread)
+                }
+                .delay(LongAnimationDuration, scheduler: Helper.rxMainThread)
+                .subscribe(onNext: {  [weak self] val in
+                    UIView.animate(withDuration: AnimationDuration, animations: {
+                        self?.backgroundColor = ThemeManager.shared.theme.cell
+                    })
+
+                }, onError: { err in
+                    
+                }, onCompleted: {
+                    
+                }, onDisposed: { [weak self] in
+                    self?.backgroundColor = ThemeManager.shared.theme.cell
+
+                })
+//                .subscribe(onNext: { [weak self] _ in
+//                    UIView.animate(withDuration: AnimationDuration, animations: {
+//                        self?.backgroundColor = ThemeManager.shared.theme.cell
+//                    }
+//                }, onError: { _ in
+//
+//                }, onCompleted: {
+//
+//                }, onDisposed: { [weak self] in
+//                    self?.backgroundColor = ThemeManager.shared.theme.cell
+//
+//                })
+                .disposed(by: self.highlightDisposeBag)
+            
+//            UIView.animate(withDuration: LongAnimationDuration, animations: {
+////                self.transform = CGAffineTransform(scaleX: scale, y: scale)
+//                self.backgroundColor = ThemeManager.shared.theme.cell.withAlphaComponent(0.2)
+//            }) { finished in
+////                self.transform = CGAffineTransform.identity
+//                self.backgroundColor = ThemeManager.shared.theme.cell
+//            }
         }
     }
 }

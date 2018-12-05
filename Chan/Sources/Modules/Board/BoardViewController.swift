@@ -249,6 +249,12 @@ extension BoardViewController: UITableViewDelegate {
             self.listener?.viewActions.on(.next(.loadNext))
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        self.listener?.viewActions.on(.next(.openThread(idx: indexPath.row)))
+    }
 
 }
 

@@ -16,8 +16,6 @@ class VideoPlayer: NSObject {
     init(with file: FileModel) {
         if let url = URL(string: MakeFullPath(path: file.path)) {
 
-
-
             let player = AVPlayerViewController()
             player.player = AVPlayer(url: url)
             player.player?.play()

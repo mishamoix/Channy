@@ -18,6 +18,8 @@ class PostViewModel {
     private let name: String
     private let number: Int
     
+    var needHighlight = false
+    
     private(set) var height: CGFloat = 0
     private(set) var titleFrame: CGRect = .zero
     private(set) var textFrame: CGRect = .zero

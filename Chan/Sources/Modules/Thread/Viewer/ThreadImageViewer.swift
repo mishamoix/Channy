@@ -43,25 +43,37 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
                     return
                 }
                 self.delegate?.networkIntegration?(self, didUpdateLoadingProgress: CGFloat(progress.fractionCompleted), for: photo)
-            }, progressQueue: DispatchQueue.main) { [weak self, photo] response in
-                guard let self = self else {
-                    return
-                }
-
-                if let error = response.error {
-                    if let image = ImageFixer.fix(image: response.data) {
+            }, progressQueue: DispatchQueue.main) { [weak self, weak photo] response in
+//                guard let self = self else {
+//                    return
+//                }
+                
+                                
+                if let image = ImageFixer.fixIfNeeded(image: response.data) {
+                    ImageNetworkIntegration.cache.add(image, for: request)
+                    
+                    if let photo = photo, let self = self {
                         photo.image = image
                         self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
-                    } else {
-                        self.delegate?.networkIntegration(self, loadDidFailWith: error, for: photo)
                     }
-                } else if let data = response.data, let image = UIImage(data: data) {
-//                    let _ = ImageFixer.fix(image: data)
-                    photo.image = image
-                    self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
-                } else {
-                    self.delegate?.networkIntegration(self, loadDidFailWith: ChanError.badRequest, for: photo)
+                } else if let self = self, let photo = photo {
+                    self.delegate?.networkIntegration(self, loadDidFailWith: response.error ?? ChanError.badRequest, for: photo)
                 }
+                
+//                if let error = response.error {
+//                    if let image = ImageFixer.fix(image: response.data) {
+//                        photo.image = image
+//                        self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
+//                    } else {
+//                        self.delegate?.networkIntegration(self, loadDidFailWith: error, for: photo)
+//                    }
+//                } else if let data = response.data, let image = UIImage(data: data) {
+////                    let _ = ImageFixer.fix(image: data)
+//                    photo.image = image
+//                    self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
+//                } else {
+//                    self.delegate?.networkIntegration(self, loadDidFailWith: ChanError.badRequest, for: photo)
+//                }
             }
 
         }

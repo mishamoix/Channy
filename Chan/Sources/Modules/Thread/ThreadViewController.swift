@@ -148,6 +148,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                         self?.refreshControl.removeFromSuperview()
                     }
                 }
+                
             }).disposed(by: self.disposeBag)
         
         self.listener?.dataSource
@@ -162,6 +163,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 
                 if let autosctollUid = self.autosctollUid, let idx = posts.firstIndex(where: { $0.uid == autosctollUid }) {
                     self.autosctollUid = nil
+                    self.data[idx].needHighlight = true
                     self.collectionView.scrollToItem(at: IndexPath(item: idx, section: 0), at: .top, animated: true)
                 }
 

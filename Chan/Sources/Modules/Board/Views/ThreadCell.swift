@@ -45,18 +45,18 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
         
 //        self.canvas.setupLongGesture()
         
-        let tapOnCell = UITapGestureRecognizer()
-        self.canvas.addGestureRecognizer(tapOnCell)
-        self.canvas.isUserInteractionEnabled = true
+//        let tapOnCell = UITapGestureRecognizer()
+//        self.canvas.addGestureRecognizer(tapOnCell)
+//        self.canvas.isUserInteractionEnabled = true
         
-        tapOnCell.rx.event
-            .asDriver()
-            .drive(onNext: { [weak self] gesture in
-                if let strongSelf = self {
-                    strongSelf.actions?.on(.next(.tapped(cell: strongSelf)))
-                }
-            }).disposed(by: self.disposeBag)
-        
+//        tapOnCell.rx.event
+//            .asDriver()
+//            .drive(onNext: { [weak self] gesture in
+//                if let strongSelf = self {
+//                    strongSelf.actions?.on(.next(.tapped(cell: strongSelf)))
+//                }
+//            }).disposed(by: self.disposeBag)
+//        
         self.canvas.backgroundColor = .snow
         
         self.setupTheme()
