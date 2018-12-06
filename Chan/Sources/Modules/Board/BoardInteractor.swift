@@ -146,8 +146,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
             .flatMap({ [weak self] result -> Observable<[ThreadViewModel]> in
                 self?.checkAgreement()
                 self?.updateHeader()
-                let threads = result.result.filter({ !FirebaseManager.shared.excludeThreads.contains($0.threadPath) })
-                let threadsVM = threads
+              // TODO: переделать
+                let threads = result.result
+                  .filter({ !FirebaseManager.shared.excludeThreads.contains($0.threadPath) })
+                var threadsVM = threads
                     .map({ ThreadViewModel(with: $0) })
                 
                 var allVM: [ThreadViewModel] = []
@@ -161,8 +163,12 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     allVM = threadsVM
                     self?.viewModels = threadsVM
                 default:
+                  
+                    let prevThreads = (self?.data ?? []).map({ $0.uid })
+                    
+                    threadsVM = threadsVM.filter({ !prevThreads.contains($0.uid) })
                     self?.viewModels += threadsVM
-                    self?.data += threads
+                    self?.data += threads.filter({ !prevThreads.contains($0.uid) })
                     allVM += threadsVM
                 }
                 self?.presenter.stopAnyLoaders()
@@ -269,6 +275,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         default: break
         }
         
+        self.load(reload: true)
     }
     
     

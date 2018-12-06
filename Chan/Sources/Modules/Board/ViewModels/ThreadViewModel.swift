@@ -19,7 +19,7 @@ class ThreadViewModel {
     private(set) var height: CGFloat = 0
     private var heightCalculated = false
     
-    private let uid: String
+    let uid: String
     
     let file: FileModel?
     
