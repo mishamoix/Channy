@@ -42,7 +42,7 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
     public final class func chanAlamofireManager() -> Manager {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = Manager.defaultHTTPHeaders
-        
+        configuration.timeoutIntervalForRequest = 60
         let manager = Manager(configuration: configuration)
         manager.startRequestsImmediately = false
         return manager

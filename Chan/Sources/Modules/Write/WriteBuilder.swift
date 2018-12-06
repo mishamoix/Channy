@@ -10,8 +10,7 @@ import RIBs
 import RxSwift
 
 protocol WriteDependency: Dependency {
-    // TODO: Declare the set of dependencies required by this RIB, but cannot be
-    // created by this RIB.
+  var writeModuleState: WriteModuleState { get }
 }
 
 final class WriteComponent: Component<WriteDependency> {
@@ -22,7 +21,7 @@ final class WriteComponent: Component<WriteDependency> {
 // MARK: - Builder
 
 protocol WriteBuildable: Buildable {
-    func build(withListener listener: WriteListener, thread: ThreadModel, data: Observable<String>) -> WriteRouting
+    func build(withListener listener: WriteListener, thread: ThreadModel, data: Observable<String>?) -> WriteRouting
 }
 
 final class WriteBuilder: Builder<WriteDependency>, WriteBuildable {
@@ -31,14 +30,14 @@ final class WriteBuilder: Builder<WriteDependency>, WriteBuildable {
         super.init(dependency: dependency)
     }
 
-    func build(withListener listener: WriteListener, thread: ThreadModel, data: Observable<String>) -> WriteRouting {
+    func build(withListener listener: WriteListener, thread: ThreadModel, data: Observable<String>?) -> WriteRouting {
         let component = WriteComponent(dependency: dependency)
         let viewController = UIStoryboard(name: "WriteViewController", bundle: nil).instantiateViewController(withIdentifier: "WriteViewController") as! WriteViewController
         viewController.data = data
         
         let service = WriteService(thread: thread)
         
-        let interactor = WriteInteractor(presenter: viewController, service: service)
+        let interactor = WriteInteractor(presenter: viewController, service: service, state: dependency.writeModuleState)
         interactor.listener = listener
         return WriteRouter(interactor: interactor, viewController: viewController)
     }

@@ -27,6 +27,7 @@ enum BoardAction {
     case copyLinkOnBoard
     case viewWillAppear
     case openByLink
+    case createNewThread
 }
 
 enum BoardCellAction {

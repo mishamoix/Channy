@@ -96,12 +96,17 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     // MARK: WriteListener
-    func messageWrote() {
+    func messageWrote(model: WriteResponseModel) {
+        switch model {
+        case .postCreated(let post):
+            self.presenter.autosctollUid = post
+        default: break
+            
+        }
         self.replySubject.on(.next(""))
         self.postsManager?.resetCache()
         self.load()
         self.router?.closeWrite()
-        self.presenter.scrollToLast()
     }
     
     // MARK:Private

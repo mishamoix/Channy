@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol BoardInteractable: Interactable, ThreadListener, BoardsListListener, WebAcceptListener {
+protocol BoardInteractable: Interactable, ThreadListener, BoardsListListener, WebAcceptListener, WriteListener {
     var router: BoardRouting? { get set }
     var listener: BoardListener? { get set }
 }
@@ -19,11 +19,12 @@ protocol BoardViewControllable: ViewControllable {
 
 final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable>, BoardRouting {
     // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: BoardInteractable, viewController: BoardViewControllable, thread: ThreadBuildable, boardList: BoardsListBuildable, agreement: WebAcceptBuildable) {
+    init(interactor: BoardInteractable, viewController: BoardViewControllable, thread: ThreadBuildable, boardList: BoardsListBuildable, agreement: WebAcceptBuildable, createThread: WriteBuildable) {
         
         self.threadBuildable = thread
         self.boardListBuildable = boardList
         self.agreementBuildable = agreement
+        self.createThreadBuildable = createThread
         
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
@@ -85,7 +86,28 @@ final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable
             self.agreement = nil
         }
     }
-    //
+
+    func openCreateThread(_ thread: ThreadModel) {
+        if let createThread = self.createThread {
+            self.viewController.push(view: createThread.viewControllable)
+        } else {
+            let createThread = createThreadBuildable.build(withListener: self.interactor, thread: thread, data: nil)
+            self.attachChild(createThread)
+            self.createThread = createThread
+            self.viewController.push(view: createThread.viewControllable)
+
+        }
+    }
+    
+    func closeCreateThread() {
+        
+        if let createThread = self.createThread {
+            createThread.viewControllable.pop()
+        }
+        
+        self.tryDeattach(router: self.createThread) {}
+    }
+
     
     // MARK: Private
     private let threadBuildable: ThreadBuildable
@@ -94,8 +116,12 @@ final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable
     private let boardListBuildable: BoardsListBuildable
     private weak var boardList: ViewableRouting?
     
-    
     private let agreementBuildable: WebAcceptBuildable
     private weak var agreement: ViewableRouting?
+    
+    private let createThreadBuildable: WriteBuildable
+    private weak var createThread: ViewableRouting?
+    
+
     
 }

@@ -43,10 +43,6 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private let scrollUpButton = ScrollDownButton()
     private var writeButton: UIButton? = nil
     
-    
-//    private let topRefresher = KRPullLoadView()
-//    private let bottomRefresher = KRPullLoadView()
-
     private var currentWidth: CGFloat = 0
     private var savedIndexForRotate: IndexPath? = nil
 
@@ -158,12 +154,18 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 guard let self = self else { return }
                 self.data = posts
                 
-                self.collectionView.reloadData()
-                self.collectionView.performBatchUpdates({}, completion: nil)
-                
+                var scrollIdx: Int? = nil
                 if let autosctollUid = self.autosctollUid, let idx = posts.firstIndex(where: { $0.uid == autosctollUid }) {
                     self.autosctollUid = nil
                     self.data[idx].needHighlight = true
+                    scrollIdx = idx
+                }
+
+                
+                self.collectionView.reloadData()
+                self.collectionView.performBatchUpdates({}, completion: nil)
+                
+                if let idx = scrollIdx {
                     self.collectionView.scrollToItem(at: IndexPath(item: idx, section: 0), at: .top, animated: true)
                 }
 
@@ -271,13 +273,13 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     }
     
     private func setupNavBar() {
-        let moreButton = UIButton()
-        moreButton.setImage(.more, for: .normal)
-        moreButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//        let moreButton = UIButton()
+//        moreButton.setImage(.more, for: .normal)
+//        moreButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
 //        let rightNav = UIBarButtonItem(image: .more, style: .plain, target: nil, action: nil)
-        let rightNav = UIBarButtonItem(customView: moreButton)
+        let moreButton = UIBarButtonItem(image: .more, landscapeImagePhone: .more, style: UIBarButtonItem.Style.done, target: nil, action: nil)
 
-        self.themeManager.append(view: ThemeView(object: rightNav, type: .navBarButton, subtype: .none))
+        self.themeManager.append(view: ThemeView(object: moreButton, type: .navBarButton, subtype: .none))
         moreButton.rx
             .tap
             .asDriver()
@@ -317,10 +319,10 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             let writeBarButton = UIBarButtonItem(customView: writeButton)
             self.writeButton = writeButton
 
-            self.navigationItem.rightBarButtonItems = [rightNav, writeBarButton]
+            self.navigationItem.rightBarButtonItems = [moreButton, writeBarButton]
             
         } else {
-            self.navigationItem.rightBarButtonItem = rightNav
+            self.navigationItem.rightBarButtonItem = moreButton
         }
     }
     

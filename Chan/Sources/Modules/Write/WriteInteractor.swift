@@ -22,13 +22,15 @@ protocol WritePresentable: Presentable {
 }
 
 protocol WriteListener: class {
-    func messageWrote()
+    func messageWrote(model: WriteResponseModel)
 }
 
 final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInteractable, WritePresentableListener {
 
     weak var router: WriteRouting?
     weak var listener: WriteListener?
+  
+    var moduleState: WriteModuleState
     
     var viewActions: PublishSubject<WriteViewActions> = PublishSubject()
     
@@ -36,10 +38,9 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
     private let disposeBag = DisposeBag()
 
 
-    // TODO: Add additional dependencies to constructor. Do not perform any logic
-    // in constructor.
-    init(presenter: WritePresentable, service: WriteServiceProtocol) {
+    init(presenter: WritePresentable, service: WriteServiceProtocol, state: WriteModuleState) {
         self.service = service
+        self.moduleState = state
         super.init(presenter: presenter)
         presenter.listener = self
         
@@ -86,7 +87,11 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
                     .asObservable().flatMap({ [weak self] (key, resultCaptcha) -> Observable<WriteModel> in
                         if let thread = self?.service.thread, let boardUid = thread.board?.uid {
                             self?.presenter.showCentralActivity()
-                            let writeModel = WriteModel(recaptchaId: key, text: text, recaptachToken: resultCaptcha, threadUid: thread.uid, boardUid: boardUid, images: self?.presenter.images ?? [])
+                            var treadUid = thread.uid
+                            if let state = self?.moduleState, state == .create {
+                                treadUid = "0"
+                            }
+                            let writeModel = WriteModel(recaptchaId: key, text: text, recaptachToken: resultCaptcha, threadUid: treadUid, boardUid: boardUid, images: self?.presenter.images ?? [])
                             return Observable<WriteModel>.just(writeModel)
 
                         } else {
@@ -95,24 +100,25 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
                     })
             }
             .observeOn(Helper.rxBackgroundThread)
-            .flatMap { [weak self] model -> Observable<Bool> in
+            .flatMap { [weak self] model -> Observable<WriteResponseModel> in
                 if let self = self {
 //                    return Observable<Bool>.just(true)
                     return self.service.send(model: model)
                 }
-                return Observable<Bool>.error(ChanError.none)
+                return Observable<WriteResponseModel>.error(ChanError.none)
 
             }
             .observeOn(Helper.rxMainThread)
-            .subscribe(onNext: { [weak self] success in
+            .subscribe(onNext: { [weak self] state in
                 self?.presenter.stopAnyLoaders()
+                self?.listener?.messageWrote(model: state)
 
-                if success {
-                    self?.listener?.messageWrote()
-                } else {
-                    let error = ChanError.error(title: "Ошибка", description: "Произошла неизвестная ошибка, попробуйте еще раз")
-                    ErrorDisplay(error: error).show(on: self?.presenter.vc)
-                }
+//                if success {
+//                    self?.listener?.messageWrote()
+//                } else {
+//                    let error = ChanError.error(title: "Ошибка", description: "Произошла неизвестная ошибка, попробуйте еще раз")
+//                    ErrorDisplay(error: error).show(on: self?.presenter.vc)
+//                }
             }, onError: { [weak self] error in
                 self?.presenter.stopAnyLoaders()
                 ErrorDisplay(error: error).show(on: self?.presenter.vc)

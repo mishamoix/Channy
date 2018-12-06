@@ -12,7 +12,7 @@ import RxSwift
 
 protocol WriteServiceProtocol: BaseServiceProtocol {
     func loadInvisibleRecaptcha() -> Observable<String>
-    func send(model: WriteModel) -> Observable<Bool>
+    func send(model: WriteModel) -> Observable<WriteResponseModel>
     var thread: ThreadModel { get }
 }
 
@@ -40,20 +40,33 @@ class WriteService: BaseService, WriteServiceProtocol {
             })
     }
     
-    func send(model: WriteModel) -> Observable<Bool> {
+    func send(model: WriteModel) -> Observable<WriteResponseModel> {
         return self.service
             .rx
             .request(.write(model: model))
             .asObservable()
-            .flatMap({ [weak self] response -> Observable<Bool> in
-                if let status = self?.fromJson(data: response.data)?["Status"] as? String, status.lowercased() == "ok" {
-                    return Observable<Bool>.just(true)
-                } else if let reason = self?.fromJson(data: response.data)?["Reason"] as? String {
-                    let err = ChanError.error(title: "Ошибка постинга", description: reason)
-                    return Observable<Bool>.error(err)
+            .flatMap({ [weak self] response -> Observable<WriteResponseModel> in
+                let data = self?.fromJson(data: response.data)
+                if let status = data?["Status"] as? String {
+                    if status.lowercased() == "ok" {
+                        var postUid: String? = nil
+                        if let post = data?["Num"] as? Int {
+                            postUid = String(post)
+                        }
+                        return Observable<WriteResponseModel>.just(.postCreated(postUid: postUid))
+                    } else if let redirectUid = data?["Target"] as? Int, status.lowercased() == "redirect" {
+                        return Observable<WriteResponseModel>.just(.threadCreated(threadUid: String(redirectUid)))
+                    }
                 }
+                
+                if let reason = data?["Reason"] as? String {
+                    let err = ChanError.error(title: "Ошибка постинга", description: reason)
+                    return Observable<WriteResponseModel>.error(err)
+                } else {
+                    let err = ChanError.error(title: "Ошибка постинга", description: "Неизвестная ошибка")
+                    return Observable<WriteResponseModel>.error(err)
 
-                return Observable<Bool>.just(false)
+                }
             })
     }
     

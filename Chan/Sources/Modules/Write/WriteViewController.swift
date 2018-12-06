@@ -15,6 +15,7 @@ import UITextView_Placeholder
 
 protocol WritePresentableListener: class {
     var viewActions: PublishSubject<WriteViewActions> { get }
+    var moduleState: WriteModuleState { get }
 }
 
 final class WriteViewController: BaseViewController, WritePresentable, WriteViewControllable {
@@ -137,6 +138,15 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
         self.sendButton = sendButton
         
         self.navigationItem.rightBarButtonItem = sendButton
+        
+        if let state = self.listener?.moduleState {
+            switch state {
+            case .create:
+                self.navigationItem.title = "Создание треда"
+            case .write:
+                self.navigationItem.title = "Ответить в тред"
+            }
+        }
         
     }
     
@@ -332,14 +342,10 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
             .disposed(by: self.disposeBag)
     }
     
-    
     private func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.textView, type: .input, subtype: .none))
         let _ = self.buttons.map({ $0.tintColor = self.themeManager.theme.main })
     }
-    
-
-    
     
     private func setup(view button: UIView) {
         button.layer.borderWidth = 1

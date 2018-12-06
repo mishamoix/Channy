@@ -8,7 +8,10 @@
 
 import Foundation
 
-
+enum WriteModuleState {
+  case write
+  case create
+}
 
 enum WriteViewActions {
     case send(text: String?)

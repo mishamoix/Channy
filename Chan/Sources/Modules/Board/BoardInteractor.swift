@@ -17,6 +17,9 @@ protocol BoardRouting: ViewableRouting {
     
     func openAgreement(model: WebAcceptViewModel)
     func closeAgreement()
+    
+    func openCreateThread(_ thread: ThreadModel)
+    func closeCreateThread()
 }
 
 protocol BoardPresentable: Presentable {
@@ -219,6 +222,9 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 }
                 case .viewWillAppear: self?.viewWillAppear()
                 case .openByLink: self?.openByLink()
+                case .createNewThread:
+                    let thread = ThreadModel(uid: "", board: self?.service.board)
+                    self?.router?.openCreateThread(thread)
                 }
             }).disposed(by: self.disposeBag)
         
@@ -238,6 +244,8 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         self.service.update(board: board)
         self.load(reload: true)
         self.presenter.showCentralActivity()
+        
+        self.router?.closeCreateThread()
     }
     
     func closeBoardsList() {
@@ -250,6 +258,19 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         self.router?.closeAgreement()
     }
     
+    // MARK: WriteListener
+    func messageWrote(model: WriteResponseModel) {
+        self.router?.closeCreateThread()
+
+        switch model {
+        case .threadCreated(let threadUid):
+            let thread = ThreadModel(uid: threadUid, board: self.service.board)
+            self.router?.open(thread: thread)
+        default: break
+        }
+        
+    }
+    
     
     // MARK: Private
     private func viewWillAppear() {
@@ -260,6 +281,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
 
         }
     }
+    
     private func initialLoad() {
         self.presenter.showCentralActivity()
         self.load(reload: true)
@@ -267,7 +289,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     private func updateHeader() {
         if let board = self.service.board {
-            self.mainViewModel.value = BoardMainViewModel(title: board.name.count == 0 ? board.uid : board.name)
+            self.mainViewModel.value = BoardMainViewModel(title: board.name.count == 0 ? "/\(board.uid)/" : "\(board.name) /\(board.uid)/" )
         }
     }
     

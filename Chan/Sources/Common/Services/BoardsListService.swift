@@ -54,6 +54,7 @@ class BoardsListService: BaseService, BoardsListServiceProtocol {
         var inserted = true
         if let findedIdx = prevBoards.firstIndex(where: { $0.uid == board.uid }) {
             inserted = false
+            board.name = board.name.count == 0 ? prevBoards[findedIdx].name : board.name
             prevBoards.remove(at: findedIdx)
             prevBoards.insert(board, at: findedIdx)
         } else {

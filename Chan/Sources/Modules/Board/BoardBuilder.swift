@@ -11,7 +11,8 @@ import RIBs
 protocol BoardDependency: Dependency {
 }
 
-final class BoardComponent: Component<BoardDependency>, ThreadDependency, BoardsListDependency, WebAcceptDependency {
+final class BoardComponent: Component<BoardDependency>, ThreadDependency, BoardsListDependency, WebAcceptDependency, WriteDependency {
+    var writeModuleState: WriteModuleState { return .create }
 
 }
 
@@ -38,8 +39,8 @@ final class BoardBuilder: Builder<BoardDependency>, BoardBuildable {
         let threadBuilder = ThreadBuilder(dependency: component)
         let boardListBuilder = BoardsListBuilder(dependency: component)
         let agreement = WebAcceptBuilder(dependency: component)
-
+        let createThread = WriteBuilder(dependency: component)
         
-        return BoardRouter(interactor: interactor, viewController: viewController, thread: threadBuilder, boardList: boardListBuilder, agreement: agreement)
+        return BoardRouter(interactor: interactor, viewController: viewController, thread: threadBuilder, boardList: boardListBuilder, agreement: agreement, createThread: createThread)
     }
 }

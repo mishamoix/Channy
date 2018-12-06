@@ -41,6 +41,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     weak var addBoardButton: UIBarButtonItem?
     weak var moreButton: UIBarButtonItem?
     weak var homeButton: UIButton?
+    weak var createNewThreadButton: UIButton?
     
     // MARK: Data
     private var data: [ThreadViewModel] = []
@@ -146,7 +147,9 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 
                 let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
                 
-                
+              
+              
+              
                 actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на доску", style: .default, handler: { [weak self] _ in
                     self?.listener?.viewActions.on(.next(.copyLinkOnBoard))
                 }))
@@ -159,9 +162,6 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
                 
                 self?.present(actionSheet, animated: true)
-
-                
-//                self?.listener?.viewActions.on(.next(.goToNewBoard))
             })
             .disposed(by: self.disposeBag)
         
@@ -171,6 +171,15 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             .asDriver()
             .drive(onNext: { [weak self] in
                 self?.listener?.viewActions.on(.next(.openHome))
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.createNewThreadButton?
+            .rx
+            .tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                self?.listener?.viewActions.on(.next(.createNewThread))
             })
             .disposed(by: self.disposeBag)
         
@@ -196,17 +205,23 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     }
     
     private func setupNavBar() {
-//        let addBoard = UIBarButtonItem(image: .plus, style: UIBarButtonItem.Style.done, target: nil, action: nil)
         let more = UIBarButtonItem(image: .more, style: UIBarButtonItem.Style.done, target: nil, action: nil)
         self.themeManager.append(view: ThemeView(object: more, type: ThemeViewType.navBarButton, subtype: .none))
-        
-//        self.homeButton = home
         self.moreButton = more
+      
+        let inset: CGFloat = 4
+        let writeButton = UIButton()
+        writeButton.setImage(.write, for: .normal)
+        writeButton.imageEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+        writeButton.tintColor = self.themeManager.theme.main
+        writeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        self.createNewThreadButton = writeButton
+        let writeBarButton = UIBarButtonItem(customView: writeButton)
         
         let homeCanvas = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         let homeButton = UIBarButtonItem(customView: homeCanvas)
         
-        self.navigationItem.setRightBarButtonItems([more], animated: false)
+        self.navigationItem.setRightBarButtonItems([more, writeBarButton], animated: false)
         self.navigationItem.setLeftBarButtonItems([homeButton], animated: false)
         
         let home = UIButton(frame: .zero)

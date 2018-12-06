@@ -13,6 +13,10 @@ protocol ThreadDependency: Dependency {
 }
 
 final class ThreadComponent: Component<ThreadDependency>, ThreadDependency, WriteDependency {
+    var writeModuleState: WriteModuleState {
+        return .write
+    }
+    
 
 //    var threadIsRoot = false
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
