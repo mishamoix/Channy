@@ -49,7 +49,8 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
 
     override func didBecomeActive() {
         super.didBecomeActive()
-        // TODO: Implement business logic here.
+      
+      StatisticManager.event(name: "open_write_modulw", values: ["state" : self.moduleState == .create ? "create new thread": "write on thread: \(self.service.thread.uid)"])
     }
 
     override func willResignActive() {

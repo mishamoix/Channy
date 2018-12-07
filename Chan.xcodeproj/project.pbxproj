@@ -83,6 +83,7 @@
 		0A65579B21B6C6D9003FA355 /* ImageFixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65579A21B6C6D9003FA355 /* ImageFixer.swift */; };
 		0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */; };
 		0A72E18721B95BEF00BD488E /* WriteResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72E18621B95BEF00BD488E /* WriteResponseModel.swift */; };
+		0A72E18E21BABEB500BD488E /* StatisticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72E18D21BABEB500BD488E /* StatisticManager.swift */; };
 		0A7349AA217A36E400244B59 /* PostMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7349A9217A36E400244B59 /* PostMediaView.swift */; };
 		0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */; };
 		0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */; };
@@ -240,6 +241,7 @@
 		0A65579A21B6C6D9003FA355 /* ImageFixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFixer.swift; sourceTree = "<group>"; };
 		0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.Key.swift; sourceTree = "<group>"; };
 		0A72E18621B95BEF00BD488E /* WriteResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteResponseModel.swift; sourceTree = "<group>"; };
+		0A72E18D21BABEB500BD488E /* StatisticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticManager.swift; sourceTree = "<group>"; };
 		0A7349A9217A36E400244B59 /* PostMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaView.swift; sourceTree = "<group>"; };
 		0A78C08D217BEA5D0050630D /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		0A78C08F217BEA710050630D /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
@@ -481,6 +483,7 @@
 				0A203F16219C9CEC00A51554 /* CensorManager.swift */,
 				0A0D570C21A5822E00A8053D /* CameraPermissionManager.swift */,
 				0A65579A21B6C6D9003FA355 /* ImageFixer.swift */,
+				0A72E18D21BABEB500BD488E /* StatisticManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1244,6 +1247,7 @@
 				0AFFFDAE2149A1F50002E832 /* ThreadViewController.swift in Sources */,
 				0A90E7822151886900B71EAA /* PostManager.swift in Sources */,
 				0ACC296E2143F22F00B4E53B /* BoardsListViewController.swift in Sources */,
+				0A72E18E21BABEB500BD488E /* StatisticManager.swift in Sources */,
 				0A2E0CBE2145790300CBD619 /* BoardViewController.swift in Sources */,
 				0A72E18721B95BEF00BD488E /* WriteResponseModel.swift in Sources */,
 				0A8BFEDB218F45C9004AA360 /* ThemeManager.swift in Sources */,

@@ -162,6 +162,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     self?.data = threads
                     allVM = threadsVM
                     self?.viewModels = threadsVM
+                  
+                    if let uid = self?.service.board?.uid {
+                      StatisticManager.event(name: "loaded_board", values: ["uid" : uid])
+                    }
                 default:
                   
                     let prevThreads = (self?.data ?? []).map({ $0.uid })

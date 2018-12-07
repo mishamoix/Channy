@@ -15,7 +15,7 @@ let LargeMargin: CGFloat = 24
 
 let DefaultCornerRadius: CGFloat = 8
 let AnimationDuration: TimeInterval = 0.25
-let LongAnimationDuration: TimeInterval = 1.25
+let LongAnimationDuration: TimeInterval = 0.75
 
 let RetryCount = 3
 

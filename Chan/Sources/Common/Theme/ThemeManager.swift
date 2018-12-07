@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 
 enum ThemeViewType {
@@ -183,10 +182,11 @@ class ThemeManager {
         if theme != self.savedThemeType {
             Values.shared.currentTheme = theme.rawValue
             self.themeChanged()
-            
-            Helper.performOnUtilityThread {
-                Analytics.logEvent("change_theme", parameters: ["type" : ThemeManager.shared.savedThemeType.rawValue])
-            }
+          
+          StatisticManager.event(name: "change_theme", values: ["type" : ThemeManager.shared.savedThemeType.rawValue])
+//            Helper.performOnUtilityThread {
+//                Analytics.logEvent("change_theme", parameters: ["type" : ThemeManager.shared.savedThemeType.rawValue])
+//            }
             
         }
     }
