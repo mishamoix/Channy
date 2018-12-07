@@ -21,27 +21,34 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="frz-w3-BAM">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8V3-XW-ToA">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kE1-lm-JAc">
                                 <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="o0F-qH-7o4">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="HgA-Aw-ocO" firstAttribute="trailing" secondItem="8V3-XW-ToA" secondAttribute="trailing" id="9A2-Vu-Lpj"/>
                             <constraint firstItem="frz-w3-BAM" firstAttribute="leading" secondItem="HgA-Aw-ocO" secondAttribute="leading" id="BES-Mx-WpG"/>
-                            <constraint firstItem="8V3-XW-ToA" firstAttribute="top" secondItem="HgA-Aw-ocO" secondAttribute="top" id="Eb3-2I-Sfx"/>
-                            <constraint firstItem="8V3-XW-ToA" firstAttribute="leading" secondItem="HgA-Aw-ocO" secondAttribute="leading" id="Fz3-Sx-CCt"/>
                             <constraint firstItem="HgA-Aw-ocO" firstAttribute="trailing" secondItem="frz-w3-BAM" secondAttribute="trailing" id="Gzt-9R-pJZ"/>
-                            <constraint firstAttribute="bottom" secondItem="8V3-XW-ToA" secondAttribute="bottom" id="Unj-JR-tJt"/>
                             <constraint firstAttribute="bottom" secondItem="frz-w3-BAM" secondAttribute="bottom" id="Vj1-hb-2M7"/>
+                            <constraint firstAttribute="bottom" secondItem="kE1-lm-JAc" secondAttribute="bottom" id="agX-Sj-5Jq"/>
+                            <constraint firstItem="kE1-lm-JAc" firstAttribute="top" secondItem="HgA-Aw-ocO" secondAttribute="top" id="dpP-MQ-nnC"/>
                             <constraint firstItem="frz-w3-BAM" firstAttribute="top" secondItem="BNZ-bO-rhc" secondAttribute="top" id="hSf-J4-L0C"/>
+                            <constraint firstItem="kE1-lm-JAc" firstAttribute="leading" secondItem="HgA-Aw-ocO" secondAttribute="leading" id="tk1-A2-N8i"/>
+                            <constraint firstItem="HgA-Aw-ocO" firstAttribute="trailing" secondItem="kE1-lm-JAc" secondAttribute="trailing" id="yiW-hp-O5N"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HgA-Aw-ocO"/>
                     </view>
                     <connections>
                         <outlet property="bgImage" destination="frz-w3-BAM" id="lAz-I7-Yth"/>
-                        <outlet property="tableView" destination="8V3-XW-ToA" id="58f-L9-Agx"/>
+                        <outlet property="collectionView" destination="kE1-lm-JAc" id="8RQ-q7-BB1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k0X-am-vwV" userLabel="First Responder" sceneMemberID="firstResponder"/>

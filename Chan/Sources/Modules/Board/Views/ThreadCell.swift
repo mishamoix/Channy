@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 
-class ThreadCell: BaseTableViewCell<ThreadViewModel> {
+class ThreadCell: UICollectionViewCell {
 
     @IBOutlet weak var canvas: ChanView!
     @IBOutlet weak var iconView: ChanImageView!
@@ -43,19 +43,19 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
             make.bottom.equalToSuperview().offset(-DefaultMargin)
         }
         
-//        self.canvas.setupLongGesture()
+        self.canvas.setupLongGesture()
         
-//        let tapOnCell = UITapGestureRecognizer()
-//        self.canvas.addGestureRecognizer(tapOnCell)
-//        self.canvas.isUserInteractionEnabled = true
+        let tapOnCell = UITapGestureRecognizer()
+        self.canvas.addGestureRecognizer(tapOnCell)
+        self.canvas.isUserInteractionEnabled = true
         
-//        tapOnCell.rx.event
-//            .asDriver()
-//            .drive(onNext: { [weak self] gesture in
-//                if let strongSelf = self {
-//                    strongSelf.actions?.on(.next(.tapped(cell: strongSelf)))
-//                }
-//            }).disposed(by: self.disposeBag)
+        tapOnCell.rx.event
+            .asDriver()
+            .drive(onNext: { [weak self] gesture in
+                if let strongSelf = self {
+                    strongSelf.actions?.on(.next(.tapped(cell: strongSelf)))
+                }
+            }).disposed(by: self.disposeBag)
 //        
         self.canvas.backgroundColor = .snow
         
@@ -63,17 +63,17 @@ class ThreadCell: BaseTableViewCell<ThreadViewModel> {
         
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.message.setNeedsDisplay()
     }
     
-    override func update(with model: ThreadViewModel) {
-        super.update(with: model)
+    func update(with model: ThreadViewModel) {
+//        super.update(with: model)
         
         self.message.text = model.displayText
         self.message.font = .text

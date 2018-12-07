@@ -31,7 +31,15 @@ extension UIFont {
     static var fontSize: CGFloat {
         let userFont =  UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.body)
         
-        return userFont.pointSize - 2
+        var size = userFont.pointSize
+        if IsIpad {
+//            size += 2
+        } else {
+            size -= 2
+        }
+
+        
+        return size
     }
     
     

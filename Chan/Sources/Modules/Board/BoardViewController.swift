@@ -34,7 +34,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     private var cellActions: PublishSubject<BoardCellAction> = PublishSubject()
     
     // MARK: UI
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     private let refreshControl = UIRefreshControl()
     @IBOutlet weak var bgImage: UIImageView!
     
@@ -58,6 +58,34 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         self.listener?.viewActions.on(.next(.viewWillAppear))
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let nc = self.navigationController as? BaseNavigationController {
+            nc.interactivePopPanGestureRecognizer?.isEnabled = false
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let nc = self.navigationController as? BaseNavigationController {
+            nc.interactivePopPanGestureRecognizer?.isEnabled = true
+        }
+        
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { context in
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }) { context in
+//            self.collectionView.layoutSubviews()
+        }
+    }
+    
+
+
+    
     // MARK: BoardPresentable
 
     //MARK: Private
@@ -67,7 +95,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     }
     
     private func setupUI() {
-        self.setupTableView()
+        self.setupCollectionView()
         self.setupNavBar()
         
         self.bgImage.alpha = 0.15
@@ -79,14 +107,16 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     }
     
     private func setupRx() {
-        self.listener?.mainViewModel
+        self.listener?
+            .mainViewModel
             .asObservable()
             .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] model in
                 self?.navigationItem.title = model.title
             }).disposed(by: self.disposeBag)
         
-        self.listener?.dataSource
+        self.listener?
+            .dataSource
             .asObservable()
             .debug()
             .observeOn(Helper.rxMainThread)
@@ -96,27 +126,32 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] result in                
                 
-                if let oldData = self?.data, let tableView = self?.tableView {
+                if let oldData = self?.data, let collectionView = self?.collectionView {
 //                    let diff = ListDiff(oldArray: oldData, newArray: result, option: .equality)
                     let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
                     self?.data = result
                     
-                    tableView.beginUpdates()
-//                    tableView.performBatchUpdates({
-                        tableView.deleteRows(at: diff.deletes, with: .fade)
-                        tableView.insertRows(at: diff.inserts, with: .fade)
-                        tableView.reloadRows(at: diff.updates, with: .fade)
+                    collectionView.performBatchUpdates({
+                        collectionView.deleteItems(at: diff.deletes)
+                        collectionView.insertItems(at: diff.inserts)
+                        collectionView.reloadItems(at: diff.updates)
                         for move in diff.moves {
-                            tableView.moveRow(at: move.from, to: move.to)
+                            collectionView.moveItem(at: move.from, to: move.to)
                         }
+
+                    }, completion: { finished in
+                        
+                    })
+//                    collectionView.beginUpdates()
+//                    tableView.performBatchUpdates({
 //                    }, completion: { finished in
 //
 //                    })
                     
-                    tableView.endUpdates()
+//                    tableView.endUpdates()
                 } else {
                     self?.data = result
-                    self?.tableView.reloadData()
+                    self?.collectionView.reloadData()
                 }
             }).disposed(by: self.disposeBag)
         
@@ -124,7 +159,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             .subscribe(onNext: { [weak self] action in
                 switch action {
                 case .tapped(let cell): do {
-                    if let idx = self?.tableView.indexPath(for: cell) {
+                    if let idx = self?.collectionView.indexPath(for: cell) {
                         self?.listener?.viewActions.on(.next(.openThread(idx: idx.row)))
                     }
                 }
@@ -147,9 +182,10 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 
                 let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
                 
-              
-              
-              
+                if IsIpad {
+                    actionSheet.popoverPresentationController?.barButtonItem = self?.moreButton
+                }
+                
                 actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на доску", style: .default, handler: { [weak self] _ in
                     self?.listener?.viewActions.on(.next(.copyLinkOnBoard))
                 }))
@@ -185,23 +221,23 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         
     }
     
-    private func setupTableView() {
-        self.tableView.register(UINib(nibName: ThreadCellIdentifier, bundle: nil), forCellReuseIdentifier: ThreadCellIdentifier)
+    private func setupCollectionView() {
+        self.collectionView.register(UINib(nibName: ThreadCellIdentifier, bundle: nil), forCellWithReuseIdentifier: ThreadCellIdentifier)
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
         
-        self.tableWidth = self.tableView.frame.width
+        self.tableWidth = self.collectionView.frame.width
         
         if #available(iOS 10.0, *) {
-            self.tableView.refreshControl = self.refreshControl
+            self.collectionView.refreshControl = self.refreshControl
         } else {
-            self.tableView.addSubview(self.refreshControl)
+            self.collectionView.addSubview(self.refreshControl)
         }
         
 //        self.tableView.backgroundColor = .snow
-        self.tableView.backgroundColor = .clear
-        self.tableView.contentInset = UIEdgeInsets(top: DefaultMargin, left: 0, bottom: DefaultMargin, right: 0)
+        self.collectionView.backgroundColor = .clear
+        self.collectionView.contentInset = UIEdgeInsets(top: DefaultMargin, left: 0, bottom: DefaultMargin, right: 0)
     }
     
     private func setupNavBar() {
@@ -237,7 +273,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     }
     
     private func setupTheme() {
-        self.themeManager.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
+        self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
     }
   
 }
@@ -250,43 +286,70 @@ extension BoardViewController: RefreshingViewController {
     }
 }
 
-extension BoardViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.data[indexPath.row].height
+extension BoardViewController: UICollectionViewDelegateFlowLayout {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.collectionView.frame.width, height: self.data[indexPath.row].height)
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.tableView(self.tableView, heightForRowAt:indexPath)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.collectionView.deselectItem(at: indexPath, animated: true)
+        self.listener?.viewActions.on(.next(.openThread(idx: indexPath.row)))
     }
     
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return self.data[indexPath.row].height
+//    }
+//
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return self.tableView(self.tableView, heightForRowAt:indexPath)
+//    }
+//
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if self.tableView.contentSize.height - (self.tableView.contentOffset.y + self.tableView.frame.height) < ThreadTableLoadNext {
+        if self.collectionView.contentSize.height - (self.collectionView.contentOffset.y + self.collectionView.frame.height) < ThreadTableLoadNext {
             self.listener?.viewActions.on(.next(.loadNext))
         }
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableView.deselectRow(at: indexPath, animated: true)
-        
-        self.listener?.viewActions.on(.next(.openThread(idx: indexPath.row)))
-    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        self.tableView.deselectRow(at: indexPath, animated: true)
+//
+//        self.listener?.viewActions.on(.next(.openThread(idx: indexPath.row)))
+//    }
 
 }
 
-extension BoardViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension BoardViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.data.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = self.data[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: ThreadCellIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreadCellIdentifier, for: indexPath)
         if let c = cell as? ThreadCell {
             c.update(with: data)
             c.actions = self.cellActions
         }
         return cell
+
     }
+//    collectionViewItemFor
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return self.data.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let data = self.data[indexPath.row]
+//        let cell = tableView.dequeueReusableCell(withIdentifier: ThreadCellIdentifier, for: indexPath)
+//        if let c = cell as? ThreadCell {
+//            c.update(with: data)
+//            c.actions = self.cellActions
+//        }
+//        return cell
+//    }
 }
 
 

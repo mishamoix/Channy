@@ -31,6 +31,6 @@ enum BoardAction {
 }
 
 enum BoardCellAction {
-    case tapped(cell: UITableViewCell)
+    case tapped(cell: UICollectionViewCell)
 }
 

@@ -72,7 +72,7 @@ class BoardService: BaseService, BoardServiceProtocol {
             self.reset()
         }
         
-        if (self.page < self.maxPage) && !self.onLoading {
+        if (self.page < self.maxPage) {
             self.onLoading = true
 
             var target: BoardTarget
@@ -82,7 +82,8 @@ class BoardService: BaseService, BoardServiceProtocol {
                 target = .page(board: uid, page: self.page)
             }
             
-            return self.provider.rx
+            return self.provider
+                .rx
                 .request(target)
                 .asObservable()
                 .retry(RetryCount)

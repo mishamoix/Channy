@@ -49,7 +49,27 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
             let boards = self.boardBuilder.build(withListener: self.interactor)
             self.boards = boards
             self.attachChild(boards)
-            self.viewControllable.setupRoot(view: boards.viewControllable, animated: false)
+            
+            if let nc = self.viewControllable.uiviewController as? UINavigationController {
+//                let nc = self.viewControllable.uiviewController.navigationController
+                let vc = UIViewController()
+//                vc.view.backgroundColor = .red
+                nc.setViewControllers([vc], animated: false)
+                vc.navigationController?.pushViewController(boards.viewControllable.uiviewController, animated: false)
+
+            }
+            
+            
+//            DispatchQueue
+//
+//            Helper.performOnMainThread {
+//                vc.navigationController?.pushViewController(boards.viewControllable.uiviewController, animated: false)
+//            }
+            
+            
+//            let nc = BaseNavigationController(rootViewController: boards.viewControllable.uiviewController)
+//            self.viewControllable.uiviewController.p.present(nc, animated: false, completion: nil)
+//            self.viewControllable.setupRoot(view: boards.viewControllable, animated: false)
         }
     }
 }

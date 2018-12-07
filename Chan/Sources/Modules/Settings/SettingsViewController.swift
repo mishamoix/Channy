@@ -139,7 +139,11 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                 guard let self = self else { return }
                 
                 let vc = UIAlertController(title: "Выберите тему", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-                
+                if IsIpad {
+                    vc.popoverPresentationController?.sourceView = self.changeThemeButton
+                    vc.popoverPresentationController?.sourceRect = CGRect(x: self.changeThemeButton.frame.midX, y: self.changeThemeButton.frame.midY, width: 1, height: 1)
+                }
+
                 let currentType = self.themeManager.savedThemeType
                 
                 if currentType != .light {

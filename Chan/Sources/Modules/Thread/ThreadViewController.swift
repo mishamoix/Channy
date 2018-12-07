@@ -42,6 +42,9 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private let scrollDownButton = ScrollDownButton()
     private let scrollUpButton = ScrollDownButton()
     private var writeButton: UIButton? = nil
+    private var moreButton: UIBarButtonItem? = nil
+
+//    moreButton
     
     private var currentWidth: CGFloat = 0
     private var savedIndexForRotate: IndexPath? = nil
@@ -264,34 +267,24 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 .bind(to: listener.viewActions)
                 .disposed(by: self.disposeBag)
         }
-    }
-    
-    private func setupTheme() {
         
-        self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
-        
-    }
-    
-    private func setupNavBar() {
-//        let moreButton = UIButton()
-//        moreButton.setImage(.more, for: .normal)
-//        moreButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-//        let rightNav = UIBarButtonItem(image: .more, style: .plain, target: nil, action: nil)
-        let moreButton = UIBarButtonItem(image: .more, landscapeImagePhone: .more, style: UIBarButtonItem.Style.done, target: nil, action: nil)
-
-        self.themeManager.append(view: ThemeView(object: moreButton, type: .navBarButton, subtype: .none))
-        moreButton.rx
+        self.moreButton?
+            .rx
             .tap
             .asDriver()
             .drive(onNext: { [weak self] in
                 let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-              
+                if IsIpad {
+                    actionSheet.popoverPresentationController?.barButtonItem = self?.moreButton
+                }
+
+                
                 if self?.listener?.moduleIsRoot ?? false {
                     
                     actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на тред", style: .default, handler: { [weak self] _ in
                         self?.listener?.viewActions.on(.next(.copyLinkOnThread))
                     }))
-                                        
+                    
                     actionSheet.addAction(UIAlertAction(title: "Пожаловаться", style: .destructive, handler: { [weak self] _ in
                         self?.reportThread()
                     }))
@@ -306,6 +299,20 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 self?.present(actionSheet, animated: true)
             })
             .disposed(by: self.disposeBag)
+
+    }
+    
+    private func setupTheme() {
+        
+        self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
+        
+    }
+    
+    private func setupNavBar() {
+        let moreButton = UIBarButtonItem(image: .more, landscapeImagePhone: .more, style: UIBarButtonItem.Style.done, target: nil, action: nil)
+        self.moreButton = moreButton
+
+        self.themeManager.append(view: ThemeView(object: moreButton, type: .navBarButton, subtype: .none))
         
         if self.listener?.moduleIsRoot ?? false {
             let inset: CGFloat = 4

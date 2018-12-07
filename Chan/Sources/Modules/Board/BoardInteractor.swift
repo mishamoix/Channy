@@ -85,6 +85,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     func load(reload: Bool = false) {
+        if self.isLoading && !reload { return }
         self.isLoading = true
         self.service
             .loadNext(realod: reload)?
@@ -111,12 +112,11 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                                         let board = BoardModel(uid: result)
                                         self?.service.update(board: board)
                                         self?.updateHeader()
-                                        
                                     }
                                 }
                                     default: break
                                 }
-                                self?.load()
+                                self?.load(reload: true)
                                 self?.presenter.showCentralActivity()
                                 return Observable<Void>.error(ChanError.noModel)
                             })
@@ -247,6 +247,8 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     // MARK: BoardsListListener
     func open(board: BoardModel) {
+        self.isLoading = false
+        self.service.cancel()
         self.service.update(board: board)
         self.load(reload: true)
         self.presenter.showCentralActivity()

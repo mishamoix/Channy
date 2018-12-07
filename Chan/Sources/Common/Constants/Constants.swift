@@ -19,6 +19,10 @@ let LongAnimationDuration: TimeInterval = 1.25
 
 let RetryCount = 3
 
+let IsIpad = {
+    return UIDevice.current.userInterfaceIdiom == .pad
+}()
+
 typealias Response<Type> = Observable<Type>
 
 
