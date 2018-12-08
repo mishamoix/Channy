@@ -27,8 +27,15 @@ typealias Response<Type> = Observable<Type>
 
 
 func MakeFullPath(path: String) -> String {
+    if path.hasPrefix("http") {
+        return path
+    }
     return Enviroment.default.basePath + path
 }
 
 let DefaultDismissTime: TimeInterval = 2.0
 let SmallDismissTime: TimeInterval = 1.0
+
+
+let BlurRadiusPreview: CGFloat = 3.0
+let BlurRadiusOriginal: CGFloat = 20.0

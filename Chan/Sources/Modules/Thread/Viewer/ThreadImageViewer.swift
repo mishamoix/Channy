@@ -32,51 +32,87 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
         if let url = photo.url {
             let request = URLRequest(url: url)
 
-            if let img = ImageNetworkIntegration.cache.image(for: request) {
-                photo.image = img
-                self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
-                return
-            }
-
-            ImageNetworkIntegration.imageDownloader.download([request], filter: nil, progress: { [weak self, photo] progress in
-                guard let self = self else {
-                    return
-                }
-                self.delegate?.networkIntegration?(self, didUpdateLoadingProgress: CGFloat(progress.fractionCompleted), for: photo)
-            }, progressQueue: DispatchQueue.main) { [weak self, weak photo] response in
-//                guard let self = self else {
-//                    return
-//                }
-                
-                                
-                if let image = ImageFixer.fixIfNeeded(image: response.data) {
-                    ImageNetworkIntegration.cache.add(image, for: request)
-                    
+            self.image(for: request) { [weak self, weak photo] image in
+                if let img = image {
                     if let photo = photo, let self = self {
-                        photo.image = image
+                        photo.image = img
                         self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
                     }
-                } else if let self = self, let photo = photo {
-                    self.delegate?.networkIntegration(self, loadDidFailWith: response.error ?? ChanError.badRequest, for: photo)
+                    
+                    return
+
                 }
                 
-//                if let error = response.error {
-//                    if let image = ImageFixer.fix(image: response.data) {
-//                        photo.image = image
-//                        self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
-//                    } else {
-//                        self.delegate?.networkIntegration(self, loadDidFailWith: error, for: photo)
-//                    }
-//                } else if let data = response.data, let image = UIImage(data: data) {
-////                    let _ = ImageFixer.fix(image: data)
-//                    photo.image = image
-//                    self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
-//                } else {
-//                    self.delegate?.networkIntegration(self, loadDidFailWith: ChanError.badRequest, for: photo)
-//                }
+                ImageNetworkIntegration.imageDownloader.download([request], filter: nil, progress: { [weak self, weak photo] progress in
+                    guard let self = self, let photo = photo else {
+                        return
+                    }
+                    
+                    
+                    self.delegate?.networkIntegration?(self, didUpdateLoadingProgress: CGFloat(progress.fractionCompleted), for: photo)
+                }, progressQueue: DispatchQueue.main) { [weak self, weak photo] response in
+                    
+                    if let image = ImageFixer.fixIfNeeded(image: response.data) {
+                        ImageNetworkIntegration.cache.add(image, for: request)
+                        
+                        
+                        self?.image(for: request, callBack: { [weak self, weak photo] image in
+                            if let photo = photo, let self = self {
+                                photo.image = image
+                                self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
+                            } else {
+                                print("not catched")
+                            }
+                        })
+                        
+                    } else if let self = self, let photo = photo {
+                        self.delegate?.networkIntegration(self, loadDidFailWith: response.error ?? ChanError.badRequest, for: photo)
+                    }
+                }
             }
+            
 
         }
+    }
+    
+    @objc func origianl(for photo: AXPhotoProtocol) -> UIImage? {
+        if let url = photo.url {
+            let request = URLRequest(url: url)
+            return ImageNetworkIntegration.cache.image(for: request)
+        }
+        
+        return nil
+    }
+    
+    func image(for request: URLRequest, callBack: @escaping (UIImage?) -> ()){
+        guard let image = ImageNetworkIntegration.cache.image(for: request) else {
+            return callBack(nil)
+        }
+        
+        var needBlur = false
+        if let path = request.url?.absoluteString {
+            let model = FileModel(path: path)
+            needBlur = CensorManager.isCensored(model: model)
+        }
+        
+        if needBlur {
+            Helper.performOnUtilityThread { [weak image] in
+                let blurred = image?.applyBlur(radius: BlurRadiusOriginal)
+                Helper.performOnMainThread {
+//                    if let blurred = blurred {
+//                        let img = blurred
+                        callBack(blurred)
+//                    } else {
+//                        callBack(nil)
+//                    }
+                }
+            }
+            
+            return
+        }
+        
+        callBack(image)
+        
     }
     
     func cancelLoad(for photo: AXPhotoProtocol) {

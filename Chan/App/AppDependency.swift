@@ -71,8 +71,10 @@ class AppDependency: NSObject {
         let copyText = UIMenuItem(title: "Скопировать", action: Selector(("copyText")))
         let copyLink = UIMenuItem(title: "Скопировать ссылку", action: Selector(("copyLink")))
         let makeScreenshot = UIMenuItem(title: "Скриншот", action: Selector(("screenshot")))
+        let openBrowser = UIMenuItem(title: "Открыть в браузере", action: Selector(("openBrowser")))
 
-        UIMenuController.shared.menuItems = [copyLink, copyText, copyOrigianlText, makeScreenshot]
+
+        UIMenuController.shared.menuItems = [openBrowser, copyLink, copyText, copyOrigianlText, makeScreenshot]
         UIMenuController.shared.update()
         UIMenuController.shared.setMenuVisible(true, animated: true)
         

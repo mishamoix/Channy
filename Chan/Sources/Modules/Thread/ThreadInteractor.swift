@@ -148,6 +148,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .copyMedia(let media): self?.copyMedia(media: media)
                 case .copyLinkPost(let postUid): self?.copyLinkPost(uid: postUid)
                 case .replyThread: self?.openWrite()
+                case .openMediaBrowser(let model): self?.openMediaInBrowser(model)
                 }
             }).disposed(by: self.disposeBag)
     }
@@ -315,20 +316,45 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     private func showMedia(with anchor: FileModel) {
         if anchor.type == .image {
-            let allFiles = self.data.flatMap { $0.files }.filter({ $0.type == .image })
+            let allFiles = self.data
+              .flatMap { $0.files }
+              .filter({ $0.type == .image })
+            
             let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
             if let vc = viewer.browser {
                 self.router?.showMediaViewer(vc)
             }
         } else {
-            print(anchor.path)
-            if anchor.path.hasSuffix(".webm") { //}|| anchor.path.hasSuffix(".ogg") {
-                let webm = WebmPlayerViewController(with: anchor)
-                self.router?.showMediaViewer(webm)
+            
+            if CensorManager.isCensored(model: anchor) {
+                let error = ChanError.error(title: "Ошибка доступа.", description: "Эта медиа содержит неприемлимый контент. Вы можете открыть в браузере.")
+                
+                let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть", style: UIAlertAction.Style.default)])
+                
+                display.show()
+                display
+                    .actions
+                    .subscribe(onNext: { [weak self, weak anchor] action in
+                        switch action {
+                        case .custom(_, _):
+                            if let model = anchor {
+                                self?.openMediaInBrowser(model)
+                            }
+                        default: break
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
             } else {
-                let player = VideoPlayer(with: anchor)
-                if let pl = player.videoPlayer {
-                    self.router?.showMediaViewer(pl)
+            
+                print(anchor.path)
+                if anchor.path.hasSuffix(".webm") { //}|| anchor.path.hasSuffix(".ogg") {
+                    let webm = WebmPlayerViewController(with: anchor)
+                    self.router?.showMediaViewer(webm)
+                } else {
+                    let player = VideoPlayer(with: anchor)
+                    if let pl = player.videoPlayer {
+                        self.router?.showMediaViewer(pl)
+                    }
                 }
             }
         }
@@ -344,6 +370,17 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         } else {
             ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
         }
+    }
+    
+    private func openMediaInBrowser(_ media: FileModel) {
+        if let url = URL(string: MakeFullPath(path: media.path)) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+
     }
 
 }

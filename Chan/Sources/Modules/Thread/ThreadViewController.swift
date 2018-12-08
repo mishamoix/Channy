@@ -227,6 +227,10 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                     if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
                         self?.listener?.viewActions.on(.next(.copyLinkPost(postUid: post.uid)))
                     }
+                case .openBrowserMediaLink(let cell, let idx):
+                    if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item], post.media.count > idx {
+                        self?.listener?.viewActions.on(.next(.openMediaBrowser(media: post.media[idx])))
+                    }
                 }
                 
             })
