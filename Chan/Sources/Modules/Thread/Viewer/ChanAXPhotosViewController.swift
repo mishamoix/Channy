@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import AXPhotoViewer
 
 
 class ChanAXPhotosViewController: AXPhotosViewController {

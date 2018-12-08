@@ -36,4 +36,15 @@ class Helper {
             block()
         }
     }
+    
+    static func openInBrowser(path: String?) {
+        if let path = path, let url = URL(string: path) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+
+        }
+    }
 }

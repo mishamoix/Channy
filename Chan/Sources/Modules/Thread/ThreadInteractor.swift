@@ -40,6 +40,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 
     weak var router: ThreadRouting?
     weak var listener: ThreadListener?
+    private var viewer: ThreadImageViewer? = nil
     
     var service: ThreadServiceProtocol
     
@@ -79,6 +80,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         self.service.cancel()
         self.postsManager?.cancel()
         self.postsManager = nil
+        self.viewer = nil
     }
     
     // MARK: ThreadPresentableListener
@@ -321,6 +323,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
               .filter({ $0.type == .image })
             
             let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
+            self.viewer = viewer
             if let vc = viewer.browser {
                 self.router?.showMediaViewer(vc)
             }
@@ -373,14 +376,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func openMediaInBrowser(_ media: FileModel) {
-        if let url = URL(string: MakeFullPath(path: media.path)) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
-        }
-
+        Helper.openInBrowser(path: media.path)
     }
 
 }

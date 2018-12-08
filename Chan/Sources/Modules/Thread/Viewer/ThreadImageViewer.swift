@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import AXPhotoViewer
 import AlamofireImage
+import RxSwift
+import RxCocoa
 
 
 class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
@@ -97,7 +98,7 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
         
         if needBlur {
             Helper.performOnUtilityThread { [weak image] in
-                let blurred = image?.applyBlur(radius: BlurRadiusOriginal)
+                let blurred = image?.applyBlur(percent: BlurRadiusOriginal)
                 Helper.performOnMainThread {
 //                    if let blurred = blurred {
 //                        let img = blurred
@@ -130,6 +131,9 @@ class ThreadImageViewer: NSObject {
 //    var media: [MWPhoto] = []
 //    var anchor: Int = 0
     
+    private var openInBrowserButton = UIButton()
+    private let disposeBag = DisposeBag()
+    
     private var dataSource: AXPhotosDataSource?
     private(set) lazy var browser: AXPhotosViewController? = nil
     private let anchor: FileModel
@@ -139,6 +143,7 @@ class ThreadImageViewer: NSObject {
         super.init()
         self.process(files: files)
         self.setupBrowser()
+        self.setupButton()
     }
     
     private func process(files: [FileModel]) {
@@ -159,20 +164,92 @@ class ThreadImageViewer: NSObject {
         
     }
     
+    private func setupButton() {
+        let mainColor = ThemeManager.shared.theme.main
+        self.openInBrowserButton.backgroundColor = .clear
+        self.openInBrowserButton.layer.cornerRadius = DefaultCornerRadius
+        self.openInBrowserButton.layer.borderWidth = 2.0
+        self.openInBrowserButton.layer.borderColor = mainColor.cgColor
+        self.openInBrowserButton.setTitleColor(mainColor, for: .normal)
+        self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
+        self.openInBrowserButton.titleLabel?.font = UIFont.textStrong
+        
+        if let overlay = self.browser?.overlayView {
+            overlay.addSubview(self.openInBrowserButton)
+            
+            self.openInBrowserButton.snp.makeConstraints { make in
+                make.left.equalToSuperview().offset(DefaultMargin)
+                make.right.equalToSuperview().offset(-DefaultMargin)
+                make.height.equalTo(44)
+                make.bottom.equalToSuperview().offset(-DefaultMargin)
+            }
+        }
+        
+        
+        self.openInBrowserButton
+            .rx
+            .tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx), let url = model.url {
+                    Helper.open(url: url)
+                }
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.openInBrowserButton.isUserInteractionEnabled = true
+        
+        
+    }
+    
     private func setupBrowser() {
         let transitionInfo = AXTransitionInfo(interactiveDismissalEnabled: true, startingView: nil, endingView: nil)
 
-        self.browser = ChanAXPhotosViewController(dataSource: self.dataSource, pagingConfig: nil, transitionInfo: transitionInfo, networkIntegration: ImageNetworkIntegration())
-//        self.browser = AXPhotosViewController(dataSource: self.dataSource, networkIntegration: ImageNetworkIntegration())
-//        self.browser?.transitionInfo = transitionInfo
-//        self.browser?.
+        let browser = ChanAXPhotosViewController(dataSource: self.dataSource, pagingConfig: nil, transitionInfo: transitionInfo, networkIntegration: ImageNetworkIntegration())
+        self.browser = browser
+        browser.delegate = self
+        self.openInBrowserButton.alpha = CensorManager.isCensored(model: self.anchor) ? 1 : 0
         
-//        self.browser.delegate = self
-//        self.browser = ChanPhotoBrowser(photos: self.media)
-//        self.browser?.enableGrid = true
-//        self.browser?.setCurrentPhotoIndex(UInt(self.anchor))
     }
     
+    
+}
+
+extension ThreadImageViewer: AXPhotosViewControllerDelegate {
+    func photosViewController(_ photosViewController: AXPhotosViewController, overlayView: AXOverlayView, visibilityWillChange visible: Bool) {
+    }
+    
+    func photosViewController(_ photosViewController: AXPhotosViewController, didNavigateTo photo: AXPhotoProtocol, at index: Int) {
+        if let url = photo.url {
+            let model = FileModel(path: url.absoluteString)
+            if CensorManager.isCensored(model: model) {
+                self.openInBrowserButton.alpha = 1
+//                self.openInBrowserButton.isEnabled = true
+                return
+            }
+        }
+        
+        self.openInBrowserButton.alpha = 0
+//        self.openInBrowserButton.isEnabled = false
+    }
+    
+    func photosViewController(_ photosViewController: AXPhotosViewController, willUpdate overlayView: AXOverlayView, for photo: AXPhotoProtocol, at index: Int, totalNumberOfPhotos: Int) {
+        
+        print(index)
+
+        
+//        if visible {
+//        if index % 2 == 0 {
+//            let view = UIView(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
+//            view.backgroundColor = .red
+//            overlayView.addSubview(view)
+//        } else {
+//            overlayView.subviews.map({ $0.removeFromSuperview() })
+//        }
+//        } else {
+//        }
+
+    }
 }
 
 //extension ThreadImageViewer: MWPhotoBrowserDelegate {
