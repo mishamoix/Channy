@@ -154,7 +154,6 @@
 		0A90E7A12152DB4700B71EAA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7A02152DB4700B71EAA /* Helper.swift */; };
 		0A90E7A52152DF9800B71EAA /* ThreadRepledService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90E7A42152DF9700B71EAA /* ThreadRepledService.swift */; };
 		0A9855F921A2CC9300A8C8AC /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A9855F821A2CC9300A8C8AC /* icon.png */; };
-		0AA0BBB521BEB971004C9A61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AA0BBB421BEB971004C9A61 /* GoogleService-Info.plist */; };
 		0AA1B6CD21542DC10063B5F7 /* PostMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1B6CC21542DC10063B5F7 /* PostMediaCell.swift */; };
 		0AACC185218A5A2A00B7BD19 /* OnboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC180218A5A2A00B7BD19 /* OnboardRouter.swift */; };
 		0AACC186218A5A2A00B7BD19 /* OnboardViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AACC181218A5A2A00B7BD19 /* OnboardViewController.storyboard */; };
@@ -361,7 +360,6 @@
 		0A90E7A02152DB4700B71EAA /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		0A90E7A42152DF9700B71EAA /* ThreadRepledService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadRepledService.swift; sourceTree = "<group>"; };
 		0A9855F821A2CC9300A8C8AC /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		0AA0BBB421BEB971004C9A61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0AA1B6CC21542DC10063B5F7 /* PostMediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaCell.swift; sourceTree = "<group>"; };
 		0AACC180218A5A2A00B7BD19 /* OnboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardRouter.swift; sourceTree = "<group>"; };
 		0AACC181218A5A2A00B7BD19 /* OnboardViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnboardViewController.storyboard; sourceTree = "<group>"; };
@@ -1046,7 +1044,6 @@
 				0A9855F821A2CC9300A8C8AC /* icon.png */,
 				0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */,
 				0ACC29582143EF1200B4E53B /* Assets.xcassets */,
-				0AA0BBB421BEB971004C9A61 /* GoogleService-Info.plist */,
 				0A37B01721BC378A009EC571 /* AXPhotoViewer.xcassets */,
 				0A2E0CCA2145A36200CBD619 /* Chan-Bridging-Header.h */,
 				0A2E0C81214460FB00CBD619 /* Main.storyboard */,
@@ -1247,7 +1244,6 @@
 				0AFFFDAD2149A1F40002E832 /* ThreadViewController.storyboard in Resources */,
 				0ACC296D2143F22F00B4E53B /* BoardsListViewController.storyboard in Resources */,
 				0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */,
-				0AA0BBB521BEB971004C9A61 /* GoogleService-Info.plist in Resources */,
 				0A2E0CA42145561E00CBD619 /* BoardsListCell.xib in Resources */,
 				0A905F6F21A9B10000ADE51E /* WriteViewController.storyboard in Resources */,
 				0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */,
