@@ -33,11 +33,12 @@ target 'Chan' do
     pod 'ReCaptcha/RxSwift'
     pod 'UITextView+Placeholder'
 
-    # Firebase
+    # Analyticts
     pod 'Firebase/Core'
     pod 'Firebase/Database'
     pod 'Fabric'
     pod 'Crashlytics'
+    pod 'AppCenter'
     
     #DB
     pod 'MagicalRecord'

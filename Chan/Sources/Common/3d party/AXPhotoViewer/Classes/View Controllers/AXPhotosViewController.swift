@@ -668,11 +668,11 @@ import MobileCoreServices
         let activityViewController = UIActivityViewController(activityItems: [uAnyRepresentation], applicationActivities: nil)
         activityViewController.completionWithItemsHandler = { [weak self] (activityType, completed, returnedItems, activityError) in
           
-          print("\n\n\nAAAAAAAAAA")
-          print(activityType)
-          print(completed)
-          print(returnedItems)
-          print(activityError)
+//          print("\n\n\nAAAAAAAAAA")
+//          print(activityType)
+//          print(completed)
+//          print(returnedItems)
+//          print(activityError)
           
             guard let `self` = self else {
                 return

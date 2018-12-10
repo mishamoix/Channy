@@ -16,6 +16,10 @@ import FirebaseDatabase
 import Fabric
 import Crashlytics
 import AVKit
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
+import AppCenter
 
 enum AppAction {
     case willActive
@@ -52,6 +56,11 @@ class AppDependency: NSObject {
         FirebaseManager.setup()
       
         Fabric.with([Crashlytics.self])
+        MSAppCenter.start("66600e45-de1a-45c9-a0f7-10210663c7ef", withServices:[
+            MSAnalytics.self,
+            MSCrashes.self
+        ])
+
         
         CoreDataStore.shared.setup()
         

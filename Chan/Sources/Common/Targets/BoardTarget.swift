@@ -44,8 +44,8 @@ extension BoardTarget: TargetType {
             fallthrough
         case .page:
             return .successCodes
-        default:
-            return .none
+//        default:
+//            return .none
         }
     }
     

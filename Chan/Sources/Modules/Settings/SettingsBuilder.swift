@@ -31,7 +31,7 @@ final class SettingsBuilder: Builder<SettingsDependency>, SettingsBuildable {
     }
 
     func build(withListener listener: SettingsListener) -> SettingsRouting {
-        let component = SettingsComponent(dependency: dependency)
+        let _ = SettingsComponent(dependency: dependency)
         let viewController = UIStoryboard(name: "SettingsViewController", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
         let interactor = SettingsInteractor(presenter: viewController)
         interactor.listener = listener

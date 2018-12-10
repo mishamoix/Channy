@@ -10,12 +10,14 @@ import UIKit
 import RxSwift
 
 class Helper {
-    class func open(url: URL) {
-//        UIApplication.shared.openURL(url)
-        if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.openURL(url)
+    class func open(url: URL?) {
+        if let url = url {
+    //        UIApplication.shared.openURL(url)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         }
     }
     

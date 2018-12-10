@@ -22,6 +22,10 @@ class CensorService: BaseService {
     
     func checkCensor(path: String) -> Observable<Bool?> {
         
+        #if DEBUG
+            return Observable<Bool?>.just(false)
+        #else
+        
         return self.service
             .rx
             .request(CensorTarget.censor(path: path))
@@ -37,5 +41,6 @@ class CensorService: BaseService {
             .catchError({ error -> Observable<Bool?> in
                 return Observable<Bool?>.just(nil)
             })
+        #endif
     }
 }

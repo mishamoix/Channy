@@ -2,6 +2,14 @@ PODS:
   - Alamofire (4.7.3)
   - AlamofireImage (3.4.1):
     - Alamofire (~> 4.7)
+  - AppCenter (1.10.0):
+    - AppCenter/Analytics (= 1.10.0)
+    - AppCenter/Crashes (= 1.10.0)
+  - AppCenter/Analytics (1.10.0):
+    - AppCenter/Core
+  - AppCenter/Core (1.10.0)
+  - AppCenter/Crashes (1.10.0):
+    - AppCenter/Core
   - Crashlytics (3.10.9):
     - Fabric (~> 1.7.13)
   - Fabric (1.7.13)
@@ -166,6 +174,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
+  - AppCenter
   - Crashlytics
   - Fabric
   - Firebase/Core
@@ -196,6 +205,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
+    - AppCenter
     - Crashlytics
     - Fabric
     - Firebase
@@ -226,6 +236,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
+  AppCenter: 2d196f6547d274ab86836f9082cfdbd3d397e7b6
   Crashlytics: 55e24fc23989680285a21cb1146578d9d18e432c
   Fabric: 25d0963b691fc97be566392243ff0ecef5a68338
   Firebase: 6691d47562a780c26281ce8464518faafc90c610
@@ -258,6 +269,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: 442ef03366a942992bd86804bc28eeb748f979a7
+PODFILE CHECKSUM: cf17b6ad5ae65f1d710af4ef1f57e51e4b463137
 
 COCOAPODS: 1.5.3

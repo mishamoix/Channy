@@ -36,8 +36,8 @@ extension BoardsListTarget: TargetType {
     switch self {
     case .list:
       return .successCodes
-    default:
-      return .none
+//    default:
+//      return .none
     }
   }
   

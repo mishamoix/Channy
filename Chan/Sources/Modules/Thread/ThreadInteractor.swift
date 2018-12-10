@@ -376,7 +376,8 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func openMediaInBrowser(_ media: FileModel) {
-        Helper.openInBrowser(path: media.path)
+        Helper.open(url: media.url)
+        
     }
 
 }
