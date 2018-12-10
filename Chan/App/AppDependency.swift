@@ -98,17 +98,11 @@ class AppDependency: NSObject {
     
     func setupFirebase() {
         FirebaseApp.configure()
-        
         Database.database().isPersistenceEnabled = true
     }
     
     func updateAction(app action: AppAction) {
         self._appAction.on(.next(action))
     }
-
-    
-
-
-    
   
 }
