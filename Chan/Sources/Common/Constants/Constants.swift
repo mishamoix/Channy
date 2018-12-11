@@ -37,5 +37,5 @@ let DefaultDismissTime: TimeInterval = 2.0
 let SmallDismissTime: TimeInterval = 1.0
 
 
-let BlurRadiusPreview: CGFloat = 0.05
-let BlurRadiusOriginal: CGFloat = 0.01
+let BlurRadiusPreview: CGFloat = 0.07
+let BlurRadiusOriginal: CGFloat = 0.02
