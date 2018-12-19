@@ -130,6 +130,8 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
         self.textView.placeholder = "Введите текст"
         self.textView.placeholderColor = self.themeManager.theme.secondText.withAlphaComponent(0.4)
         self.textView.keyboardDismissMode = .onDrag
+        self.textView.alwaysBounceVertical = true
+
         let _ = self.buttons.map({ self.setup(view: $0) })
         let _ = self.imageButtons.map({ self.setupImageButton($0) })
         let _ = self.imageViews.map({ self.setupImage($0) })
@@ -147,7 +149,8 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
                 self.navigationItem.title = "Ответить в тред"
             }
         }
-        
+      
+      
     }
     
     private func setupRx() {

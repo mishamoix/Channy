@@ -82,7 +82,8 @@ class CensorManager {
     }
     
     static func path(for file: FileModel) -> String {
-        return file.type == .video ? MakeFullPath(path: file.thumbnail) : MakeFullPath(path: file.path)
+        return MakeFullPath(path: file.path)
+//        return file.type == .video ? MakeFullPath(path: file.thumbnail) : MakeFullPath(path: file.path)
     }
   
     static func isCensored(model: FileModel) -> Bool {
@@ -153,13 +154,13 @@ class CensorManager {
                         }
                         
                         
-                        executer.publish.on(.next(censored ?? false))
+                        executer.publish.on(.next(censored ?? true))
 
                         self?.executeNextIfCan()
                         
                     }, onError: { [weak self] err in
                         self?.currentExecutersCount -= 1
-                        executer.publish.on(.next(false))
+                        executer.publish.on(.next(true))
                     })
                     .disposed(by: self.disposeBag)
 

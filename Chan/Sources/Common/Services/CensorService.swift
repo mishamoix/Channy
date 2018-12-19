@@ -13,7 +13,7 @@ import Moya
 
 class CensorService: BaseService {
     
-    private let service = ChanProvider<CensorTarget>()
+  private let service = ChanProvider<CensorTarget>(manager: ChanProvider<CensorTarget>.chanAlamofireManager())
     
     override init() {
         
@@ -21,11 +21,6 @@ class CensorService: BaseService {
     
     
     func checkCensor(path: String) -> Observable<Bool?> {
-        
-        #if DEBUG
-            return Observable<Bool?>.just(false)
-        #else
-        
         return self.service
             .rx
             .request(CensorTarget.censor(path: path))
@@ -41,6 +36,5 @@ class CensorService: BaseService {
             .catchError({ error -> Observable<Bool?> in
                 return Observable<Bool?>.just(nil)
             })
-        #endif
     }
 }

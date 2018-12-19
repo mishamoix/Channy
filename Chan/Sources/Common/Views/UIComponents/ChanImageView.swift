@@ -20,7 +20,7 @@ class ChanImageView: UIImageView {
     private(set) var cancellation = CancellationToken()
     var isCensored: Bool? = nil {
         didSet {
-            if let needCensor = self.isCensored {
+            if let needCensor = self.isCensored, !needCensor {
                 if !needCensor {
                     self.setOriginal()
                 }

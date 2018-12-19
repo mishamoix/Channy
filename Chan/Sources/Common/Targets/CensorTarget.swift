@@ -31,7 +31,7 @@ extension CensorTarget: TargetType {
         case .censor(let path):
             //TODO: переделать
             let cookies = self.find2chCookies()
-            let result: [String: Any] = ["cookies": cookies, "image": path]
+            let result: [String: Any] = ["cookies": cookies, "url": path]
             return .requestParameters(parameters: result, encoding: JSONEncoding.default)
         }
     }
