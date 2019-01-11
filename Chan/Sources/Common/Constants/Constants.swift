@@ -33,6 +33,8 @@ func MakeFullPath(path: String) -> String {
     return Enviroment.default.basePath + path
 }
 
+
+
 let DefaultDismissTime: TimeInterval = 2.0
 let SmallDismissTime: TimeInterval = 1.0
 

@@ -183,7 +183,8 @@ extension ChanImageView {
             .observeOn(Helper.createRxBackgroundThread)
             .subscribe(onNext: { [weak self] censored in
                 print("Result set \(censored)")
-                self?.isCensored = censored
+                self?.isCensored = true
+//                self?.isCensored = censored
             })
             .disposed(by: self.disposeBag)
     }
