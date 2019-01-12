@@ -319,7 +319,6 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     private func showMedia(with anchor: FileModel) {
       
-        let block = {
             if CensorManager.isCensored(model: anchor) {
                 let error = ChanError.error(title: "Внимание", description: "Медиа содержит неприемлимый контент. ")
                 //
@@ -343,19 +342,18 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 self.openMediaInBrowser(anchor)
             }
 
-        }
         
-        if !LinkOpener.shared.browserIsSelected {
-            LinkOpener
-                .shared
-                .selectDefaultBrowser()
-                .subscribe { _ in
-                    block()
-                }
-                .disposed(by: self.disposeBag)
-        } else {
-            block()
-        }
+//        if !LinkOpener.shared.browserIsSelected {
+//            LinkOpener
+//                .shared
+//                .selectDefaultBrowser()
+//                .subscribe { _ in
+//                    block()
+//                }
+//                .disposed(by: self.disposeBag)
+//        } else {
+//            block()
+//        }
         
     }
     
@@ -371,8 +369,8 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func openMediaInBrowser(_ media: FileModel) {
-        LinkOpener.shared.open(url: media.url)
-//        Helper.open(url: media.url)
+//        LinkOpener.shared.open(url: media.url)
+        Helper.open(url: media.url)
         
     }
 

@@ -54,6 +54,7 @@ class LinkOpener {
         Browser(schema: "firefox", type: .firefox)
 //        Browser(schema: "yandexbrowser", type: .yandexBrowser)
     ]
+    private let disposeBag = DisposeBag()
     
     private let defaultBrowser = Browser(schema: "", type: .safari)
 
@@ -109,42 +110,78 @@ class LinkOpener {
     }
     
     func open(url: URL?) {
-        let currentBrowser = self.currentBrowser
-        if let url = url {
-            if let resultUrl = currentBrowser.build(url: url), currentBrowser.type != .safari {
-                if UIApplication.shared.canOpenURL(resultUrl) {
-                    UIApplication.shared.openURL(resultUrl)
-                    return
+        
+        
+        let block = {
+            let currentBrowser = self.currentBrowser
+            if let url = url {
+                if let resultUrl = currentBrowser.build(url: url), currentBrowser.type != .safari {
+                    if UIApplication.shared.canOpenURL(resultUrl) {
+                        UIApplication.shared.openURL(resultUrl)
+                        return
+                    }
+                }
+                
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.openURL(url)
                 }
             }
-            
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.openURL(url)
-            }
         }
+        
+        if !self.browserIsSelected {
+            self.selectDefaultBrowser()
+                .subscribe { _ in
+                    block()
+                }
+                .disposed(by: self.disposeBag)
+        } else {
+            block()
+        }
+
+        
     }
     
     func selectDefaultBrowser() -> Observable<Void> {
         
         var buttons: [ErrorButton] = []
         var needExcluedSelected: Bool = true
-        let current = self.currentBrowser
+        let availableBr = self.availableBrowsers
+//        let current = self.currentBrowser
+        
         
         if !self.browserIsSelected {
             needExcluedSelected = false
         }
         
-        for br in self.availableBrowsers {
+        if availableBr.count == 1 {
+            let browser = availableBr.first!
+            self.save(browser: browser)
+            
+            if needExcluedSelected {
+                ErrorDisplay.presentAlert(with: "Выбор браузера", message: "У Вас нет сторонних браузеров", dismiss: SmallDismissTime)
+//                let err = ChanError.error(title: "Выберите браузер", description: "")
+//                let display = ErrorDisplay(error: err, buttons: [])
+//                display.show()
+            }
+            
+            return Observable<Void>.just(())
+        }
+
+        
+        for br in availableBr {
 //            if !needExcluedSelected || br.type != current.type {
                 buttons.append(ErrorButton.custom(title: br.type.rawValue, style: UIAlertAction.Style.default))
 //            }
         }
         
+    
+        
         if needExcluedSelected {
             buttons.append(.cancel)
         }
         
-        let err = ChanError.error(title: "Выберите браузер", description: "Выберите браузер в котором будут открываться медиа. Браузер можно сменить в настройках")
+        
+        let err = ChanError.error(title: "Выберите браузер", description: "Выберите браузер в котором будут открываться ссылки. Браузер можно сменить в настройках")
         let display = ErrorDisplay(error: err, buttons: buttons)
         
         display.show()
