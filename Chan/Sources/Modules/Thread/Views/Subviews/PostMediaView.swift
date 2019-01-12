@@ -115,7 +115,8 @@ class PostMediaView: UIView {
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return ["copyLink", "openBrowser"].contains(action.description)
+        return false
+//        return ["copyLink", "openBrowser"].contains(action.description)
     }
     
     @objc func copyLink() {
@@ -136,17 +137,26 @@ class PostMediaView: UIView {
     }
 
     
-    @objc func longGesture() {
+    @objc func longGesture(gesture: UILongPressGestureRecognizer) {
 //        if recognizer.state == UIGestureRecognizer.State.changed {
 //            if let self = self {
-                let menu = UIMenuController.shared
-                if !menu.isMenuVisible {
-                    self._actions.on(.next(.disableParentActions))
-                    self.becomeFirstResponder()
-                    menu.setTargetRect(self.bounds, in: self)
-                    menu.setMenuVisible(true, animated: true)
-                    self._actions.on(.next(.enableParentActions))
-                }
+        
+        if gesture.state == UIGestureRecognizer.State.began {
+        
+            self._actions.on(.next(.copy))
+            gesture.isEnabled = false
+            gesture.isEnabled = true
+        }
+//                let menu = UIMenuController.shared
+//                if !menu.isMenuVisible {
+//                    self._actions.on(.next(.copy))
+//                    self.becomeFirstResponder()
+//                    menu.setTargetRect(self.bounds, in: self)
+//                    menu.setMenuVisible(true, animated: true)
+//                    self._actions.on(.next(.enableParentActions))
+//
+//
+//                }
 //            }
 //        }
 

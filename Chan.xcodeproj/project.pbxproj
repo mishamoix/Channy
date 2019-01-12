@@ -157,6 +157,7 @@
 		0A9120B221E8EA1500A209FF /* launchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A9120B121E8EA1500A209FF /* launchIcon.png */; };
 		0AA07D2E21BEE63500072BF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AA07D2D21BEE63500072BF6 /* GoogleService-Info.plist */; };
 		0AA1B6CD21542DC10063B5F7 /* PostMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1B6CC21542DC10063B5F7 /* PostMediaCell.swift */; };
+		0AAA323F21EA055C00330CF5 /* LinkOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA323E21EA055C00330CF5 /* LinkOpener.swift */; };
 		0AACC185218A5A2A00B7BD19 /* OnboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC180218A5A2A00B7BD19 /* OnboardRouter.swift */; };
 		0AACC186218A5A2A00B7BD19 /* OnboardViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AACC181218A5A2A00B7BD19 /* OnboardViewController.storyboard */; };
 		0AACC187218A5A2A00B7BD19 /* OnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC182218A5A2A00B7BD19 /* OnboardViewController.swift */; };
@@ -365,6 +366,7 @@
 		0A9120B121E8EA1500A209FF /* launchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchIcon.png; sourceTree = "<group>"; };
 		0AA07D2D21BEE63500072BF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0AA1B6CC21542DC10063B5F7 /* PostMediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaCell.swift; sourceTree = "<group>"; };
+		0AAA323E21EA055C00330CF5 /* LinkOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOpener.swift; sourceTree = "<group>"; };
 		0AACC180218A5A2A00B7BD19 /* OnboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardRouter.swift; sourceTree = "<group>"; };
 		0AACC181218A5A2A00B7BD19 /* OnboardViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnboardViewController.storyboard; sourceTree = "<group>"; };
 		0AACC182218A5A2A00B7BD19 /* OnboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
@@ -575,6 +577,7 @@
 				0A0D570C21A5822E00A8053D /* CameraPermissionManager.swift */,
 				0A65579A21B6C6D9003FA355 /* ImageFixer.swift */,
 				0A72E18D21BABEB500BD488E /* StatisticManager.swift */,
+				0AAA323E21EA055C00330CF5 /* LinkOpener.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1409,6 +1412,7 @@
 				0A37B03A21BC3874009EC571 /* AXTransitionUtils.swift in Sources */,
 				0A37B03B21BC3874009EC571 /* AXDispatchUtils.swift in Sources */,
 				0A2E0C99214545E200CBD619 /* Constants.swift in Sources */,
+				0AAA323F21EA055C00330CF5 /* LinkOpener.swift in Sources */,
 				0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */,
 				0A113215215F96EA00BB3C79 /* SettingsRouter.swift in Sources */,
 				0AB3C69521B462F000A58FDE /* RecaptchaManager.swift in Sources */,

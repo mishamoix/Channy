@@ -301,6 +301,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     private func copyMedia(media: FileModel) {
         let url = MakeFullPath(path: media.path)
         UIPasteboard.general.string = url
+        ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: url, dismiss: SmallDismissTime)
     }
     
     private func copyLinkPost(uid: String) {
@@ -318,72 +319,43 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     private func showMedia(with anchor: FileModel) {
       
-      if CensorManager.isCensored(model: anchor) {
-        let error = ChanError.error(title: "Внимание", description: "Медиа содержит неприемлимый контент. ")
-        //
-          let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть", style: UIAlertAction.Style.default)])
+        let block = {
+            if CensorManager.isCensored(model: anchor) {
+                let error = ChanError.error(title: "Внимание", description: "Медиа содержит неприемлимый контент. ")
+                //
+                let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть", style: UIAlertAction.Style.default)])
+                
+                display.show()
+                display
+                    .actions
+                    .subscribe(onNext: { [weak self, weak anchor] action in
+                        switch action {
+                        case .custom(_, _):
+                            if let model = anchor {
+                                self?.openMediaInBrowser(model)
+                            }
+                        default: break
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
+            } else {
+                
+                self.openMediaInBrowser(anchor)
+            }
 
-          display.show()
-          display
-              .actions
-              .subscribe(onNext: { [weak self, weak anchor] action in
-                  switch action {
-                  case .custom(_, _):
-                      if let model = anchor {
-                          self?.openMediaInBrowser(model)
-                      }
-                  default: break
-                  }
-              })
-              .disposed(by: self.disposeBag)
-      } else {
-        self.openMediaInBrowser(anchor)
-      }
-      
-//        if anchor.type == .image {
-//            let allFiles = self.data
-//              .flatMap { $0.files }
-//              .filter({ $0.type == .image })
-//            
-//            let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
-//            self.viewer = viewer
-//            if let vc = viewer.browser {
-//                self.router?.showMediaViewer(vc)
-//            }
-//        } else {
-//            
-//            if CensorManager.isCensored(model: anchor) {
-//                let error = ChanError.error(title: "Ошибка доступа.", description: "Эта медиа содержит неприемлимый контент. Вы можете открыть в браузере.")
-//                
-//                let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть", style: UIAlertAction.Style.default)])
-//                
-//                display.show()
-//                display
-//                    .actions
-//                    .subscribe(onNext: { [weak self, weak anchor] action in
-//                        switch action {
-//                        case .custom(_, _):
-//                            if let model = anchor {
-//                                self?.openMediaInBrowser(model)
-//                            }
-//                        default: break
-//                        }
-//                    })
-//                    .disposed(by: self.disposeBag)
-//            } else {
-//            
-//                print(anchor.path)
-//                if anchor.path.hasSuffix(".webm") { //}|| anchor.path.hasSuffix(".ogg") {
-//                    let webm = WebmPlayerViewController(with: anchor)
-//                    self.router?.showMediaViewer(webm)
-//                } else {
-//                    let player = VideoPlayer(with: anchor)
-//                    if let pl = player.videoPlayer {
-//                        self.router?.showMediaViewer(pl)
-//                    }
-//                }
-//            }
-//        }
+        }
+        
+        if !LinkOpener.shared.browserIsSelected {
+            LinkOpener
+                .shared
+                .selectDefaultBrowser()
+                .subscribe { _ in
+                    block()
+                }
+                .disposed(by: self.disposeBag)
+        } else {
+            block()
+        }
         
     }
     
@@ -399,7 +371,8 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func openMediaInBrowser(_ media: FileModel) {
-        Helper.open(url: media.url)
+        LinkOpener.shared.open(url: media.url)
+//        Helper.open(url: media.url)
         
     }
 

@@ -24,6 +24,8 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     
     @IBOutlet weak var cellCanvasLimitor: UIView!
     @IBOutlet weak var cellCanvasNightMode: UIView!
+    @IBOutlet weak var cellCanvasNightMode2: UIView!
+
     @IBOutlet weak var cellCanvasVersion: UIView!
     
     @IBOutlet weak var titleLimitor: UILabel!
@@ -32,9 +34,10 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
 //    @IBOutlet weak var subtitleVersion: UILabel!
     
     @IBOutlet weak var changeThemeButton: UIButton!
+    @IBOutlet weak var changeDefaultBrowser: UIButton!
     
     private var canvas: [UIView] {
-        return [cellCanvasLimitor, cellCanvasNightMode, cellCanvasVersion]
+        return [cellCanvasLimitor, cellCanvasNightMode, cellCanvasVersion, cellCanvasNightMode2]
     }
     
     private var titles: [UILabel] {
@@ -75,6 +78,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         self.setupVersion()
         
         self.updateThemeText()
+        self.updateSelectedBrowser()
         self.setupTheme()
     }
     
@@ -192,6 +196,18 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
             })
             .disposed(by: self.disposeBag)
         
+        
+        self.changeDefaultBrowser
+            .rx
+            .tap
+            .asObservable()
+            .flatMap({ _ -> Observable<Void> in
+                return LinkOpener.shared.selectDefaultBrowser()
+            })
+            .subscribe(onNext: { [weak self] _ in
+                self?.updateSelectedBrowser()
+            }).disposed(by: self.disposeBag)
+        
 //        self.nightMode
 //            .rx
 //            .controlEvent(UIControl.Event.valueChanged)
@@ -251,6 +267,10 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         }
         self.changeThemeButton.setTitle("Выберите тему: сейчас \(text)", for: UIControl.State.normal)
 
+    }
+    
+    private func updateSelectedBrowser() {
+        self.changeDefaultBrowser.setTitle("Выберите бразузер: сейчас \(LinkOpener.shared.currentBrowser.type.rawValue)", for: UIControl.State.normal)
     }
 }
 
