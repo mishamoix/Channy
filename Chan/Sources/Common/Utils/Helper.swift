@@ -43,6 +43,13 @@ class Helper {
         }
     }
     
+    static func performOnBGThread(_ block: @escaping () -> ()) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
+            block()
+        }
+    }
+
+    
     static func openInBrowser(path: String?) {
         LinkOpener.shared.open(path: path)
 

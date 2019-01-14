@@ -40,10 +40,11 @@
 	</dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>youtube</string>
 		<string>tg</string>
-        <string>googlechrome</string>
-        <string>firefox</string>
-        <string>yandexbrowser</string>
+		<string>googlechrome</string>
+		<string>firefox</string>
+		<string>yandexbrowser</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
