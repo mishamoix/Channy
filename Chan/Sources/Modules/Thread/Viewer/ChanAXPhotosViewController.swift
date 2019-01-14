@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import AXPhotoViewer
 
 
 class ChanAXPhotosViewController: AXPhotosViewController {
-  override func shareAction(_ barButtonItem: UIBarButtonItem) {
-        guard let photo = self.dataSource.photo(at: self.currentPhotoIndex) else {
+    override func shareAction(_ barButtonItem: UIBarButtonItem) {
+       
+        guard  let photo = self.dataSource.photo(at: self.currentPhotoIndex), let image = self.networkIntegration.origianl(for: photo) else {
             return
         }
         
@@ -20,12 +20,12 @@ class ChanAXPhotosViewController: AXPhotosViewController {
             return
         }
         
-        var anyRepresentation: Any?
-        if let imageData = photo.imageData {
-            anyRepresentation = imageData
-        } else if let image = photo.image {
-            anyRepresentation = image
-        }
+        let anyRepresentation: Any? = image.jpegData(compressionQuality: 1.0)
+//        if let imageData = photo.imageData {
+//            anyRepresentation = imageData
+//        } else if let image = photo.image {
+//            anyRepresentation = image
+//        }
         
         guard let uAnyRepresentation = anyRepresentation else {
             return

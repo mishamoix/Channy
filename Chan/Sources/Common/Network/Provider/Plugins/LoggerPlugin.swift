@@ -49,7 +49,7 @@ class LoggerPlugin: PluginType {
             }
 
             res += "URL: \(response.request?.url?.absoluteString ?? "")\n"
-            if let json = try? JSONSerialization.jsonObject(with: response.data, options: [JSONSerialization.ReadingOptions.allowFragments]) {
+            if let _ = try? JSONSerialization.jsonObject(with: response.data, options: [JSONSerialization.ReadingOptions.allowFragments]) {
 //                res += "Data: \(json)"
             }
             }

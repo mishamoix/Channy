@@ -13,6 +13,7 @@ extension DefaultsKeys {
     static let safeMode = DefaultsKey<Bool>("safeMode")
     static let privacyPolicy = DefaultsKey<Bool>("privacyPolicy")
     static let currentTheme = DefaultsKey<String?>("currentTheme")
+    static let currentBrowser = DefaultsKey<String?>("selectedBrowser")
 }
 
 class Values {
@@ -58,6 +59,22 @@ class Values {
         
         set {
             Defaults[.currentTheme] = newValue
+        }
+    }
+    
+    var currentBrowser: String? {
+        get {
+            let value = Defaults[.currentBrowser]
+            if value?.count ?? 0 == 0 {
+                return nil
+            }
+            return value
+        }
+        
+        set {
+//            if (newValue != nil) {
+                Defaults[.currentBrowser] = newValue
+//            }
         }
     }
     

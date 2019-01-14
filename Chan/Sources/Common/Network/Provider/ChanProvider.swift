@@ -20,7 +20,7 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
                 manager: Manager = ChanProvider<Target>.chanAlamofireManager(),
                 plugins: [PluginType] = [],
                 trackInflights: Bool = false) {
-        let plugs = plugins + [NetworkLoggerPlugin(verbose: false, cURL: true)]
+        let plugs = plugins + [NetworkLoggerPlugin(verbose: true, cURL: false)]
         super.init(endpointClosure: endpointClosure, requestClosure: requestClosure, stubClosure: stubClosure, callbackQueue: callbackQueue, manager: manager, plugins: plugs, trackInflights: trackInflights)
 
     }
@@ -39,10 +39,10 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
         }
     }
 
-    public final class func chanAlamofireManager() -> Manager {
+    public final class func chanAlamofireManager(timeout: TimeInterval = 60) -> Manager {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = Manager.defaultHTTPHeaders
-        configuration.timeoutIntervalForRequest = 60
+        configuration.timeoutIntervalForRequest = timeout
         let manager = Manager(configuration: configuration)
         manager.startRequestsImmediately = false
         return manager

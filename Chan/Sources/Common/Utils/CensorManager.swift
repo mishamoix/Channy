@@ -39,7 +39,7 @@ class CensorManager {
     static let shared = CensorManager()
     
     private let service = CensorService()
-    private var cache: [String: Bool] = [:]
+    private(set) var cache: [String: Bool] = [:]
     private var queue: [CensorManagerTask] = []
     private let disposeBag = DisposeBag()
     private var currentExecutersCount: Int = 0
@@ -82,9 +82,20 @@ class CensorManager {
     }
     
     static func path(for file: FileModel) -> String {
-        return file.type == .video ? MakeFullPath(path: file.thumbnail) : MakeFullPath(path: file.path)
+        return MakeFullPath(path: file.path)
+//        return file.type == .video ? MakeFullPath(path: file.thumbnail) : MakeFullPath(path: file.path)
     }
-    
+  
+    static func isCensored(model: FileModel) -> Bool {
+        var needCensor = true
+        if let result = CensorManager.shared.cache[CensorManager.path(for: model)] {
+            needCensor = result
+        }
+        
+        
+        return needCensor
+    }
+  
     private func cachedResult(for path: String) -> Bool? {
         return self.cache[path]
     }
@@ -92,6 +103,8 @@ class CensorManager {
     private func findTask(by path: String) -> CensorManagerTask? {
         return self.queue.first(where: { $0.path == path })
     }
+  
+  
     
     private func createOrUpdateTask(by path: String) -> CensorManagerTask {
 //        let priority = self.queue.count
@@ -141,13 +154,13 @@ class CensorManager {
                         }
                         
                         
-                        executer.publish.on(.next(censored ?? false))
+                        executer.publish.on(.next(censored ?? true))
 
                         self?.executeNextIfCan()
                         
                     }, onError: { [weak self] err in
                         self?.currentExecutersCount -= 1
-                        executer.publish.on(.next(false))
+                        executer.publish.on(.next(true))
                     })
                     .disposed(by: self.disposeBag)
 
@@ -170,7 +183,8 @@ extension ChanImageView {
             .observeOn(Helper.createRxBackgroundThread)
             .subscribe(onNext: { [weak self] censored in
                 print("Result set \(censored)")
-                self?.isCensored = censored
+                self?.isCensored = true
+//                self?.isCensored = censored
             })
             .disposed(by: self.disposeBag)
     }

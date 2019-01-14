@@ -98,6 +98,11 @@ class PostManager {
         var replyedDict: [String:[String]] = [:]
         for post in postsVM {
             for reply in post.modifier.replyedPosts {
+                if self.cancellationToken.isCancelled {
+                    print("Cancelled mapping")
+                    return
+                }
+
                 if let replyedPostUID = reply.post {
                     if replyedDict[replyedPostUID] == nil {
                         replyedDict[replyedPostUID] = []

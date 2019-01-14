@@ -26,7 +26,6 @@ target 'Chan' do
     
     # UI
     pod 'SnapKit'
-    pod 'AXPhotoViewer'
     pod 'OGVKit/WebM'
     pod 'MBProgressHUD'
     pod 'SwiftReorder', '~> 6.0'
@@ -34,17 +33,22 @@ target 'Chan' do
     pod 'ReCaptcha/RxSwift'
     pod 'UITextView+Placeholder'
 
-    # Firebase
+    # Analyticts
     pod 'Firebase/Core'
     pod 'Firebase/Database'
     pod 'Fabric'
     pod 'Crashlytics'
+    pod 'AppCenter'
     
     #DB
     pod 'MagicalRecord'
     
     # Utils
     pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
+    
+    # Other
+#    pod 'FLAnimatedImage' # for AXPhotoViewer
+#    pod 'AXStateButton' # for AXPhotoViewer
 
     # Data
 #    pod 'SwiftSoup'

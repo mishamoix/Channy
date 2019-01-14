@@ -172,7 +172,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.layer.removeAllAnimations()
         self.highlightDisposeBag = DisposeBag()
         if model.needHighlight {
-            let scale: CGFloat = 1.05
+//            let scale: CGFloat = 1.05
             model.needHighlight = false
             
             Observable<Void>.just(Void())

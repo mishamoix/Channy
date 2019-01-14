@@ -21,6 +21,9 @@ class ImageFixer {
         }
         
         let bytesArray = [UInt8](data)
+        if bytesArray.count <= 20 {
+            return nil
+        }
         
         let headerLength = bytesArray[5] + (bytesArray[4] << 8)
               

@@ -16,6 +16,7 @@ enum PostMediaViewActions {
     case disableParentActions
     case enableParentActions
     case copy
+    case openBrowser
 }
 
 class PostMediaView: UIView {
@@ -24,10 +25,10 @@ class PostMediaView: UIView {
     private let playIcon = UIImageView()
     private let playCanvas = UIView()
     private let disposeBag = DisposeBag()
-    private let _shouldCopyLink: PublishSubject<PostMediaViewActions> = PublishSubject()
+    private let _actions: PublishSubject<PostMediaViewActions> = PublishSubject()
     
-    var shouldCopyLink: Observable<PostMediaViewActions> {
-        return self._shouldCopyLink.asObservable()
+    var actions: Observable<PostMediaViewActions> {
+        return self._actions.asObservable()
     }
 
     init() {
@@ -114,12 +115,20 @@ class PostMediaView: UIView {
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return action.description == "copyLink"
+        return false
+//        return ["copyLink", "openBrowser"].contains(action.description)
     }
     
     @objc func copyLink() {
-        self._shouldCopyLink.on(.next(.copy))
+        self._actions.on(.next(.copy))
+
     }
+    
+    @objc func openBrowser() {
+        self._actions.on(.next(.openBrowser))
+
+    }
+
     
     override public var canBecomeFirstResponder: Bool {
         get {
@@ -128,17 +137,26 @@ class PostMediaView: UIView {
     }
 
     
-    @objc func longGesture() {
+    @objc func longGesture(gesture: UILongPressGestureRecognizer) {
 //        if recognizer.state == UIGestureRecognizer.State.changed {
 //            if let self = self {
-                let menu = UIMenuController.shared
-                if !menu.isMenuVisible {
-                    self._shouldCopyLink.on(.next(.disableParentActions))
-                    self.becomeFirstResponder()
-                    menu.setTargetRect(self.bounds, in: self)
-                    menu.setMenuVisible(true, animated: true)
-                    self._shouldCopyLink.on(.next(.enableParentActions))
-                }
+        
+        if gesture.state == UIGestureRecognizer.State.began {
+        
+            self._actions.on(.next(.copy))
+            gesture.isEnabled = false
+            gesture.isEnabled = true
+        }
+//                let menu = UIMenuController.shared
+//                if !menu.isMenuVisible {
+//                    self._actions.on(.next(.copy))
+//                    self.becomeFirstResponder()
+//                    menu.setTargetRect(self.bounds, in: self)
+//                    menu.setMenuVisible(true, animated: true)
+//                    self._actions.on(.next(.enableParentActions))
+//
+//
+//                }
 //            }
 //        }
 

@@ -10,13 +10,19 @@ import UIKit
 import RxSwift
 
 class Helper {
-    class func open(url: URL) {
-//        UIApplication.shared.openURL(url)
-        if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.openURL(url)
-        }
+    class func open(url: URL?) {
+        LinkOpener.shared.open(url: url)
+//        if let url = url {
+//
+//
+//
+//    //        UIApplication.shared.openURL(url)
+//            if #available(iOS 10.0, *) {
+//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            } else {
+//                UIApplication.shared.openURL(url)
+//            }
+//        }
     }
     
     static var rxBackgroundThread = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -35,5 +41,25 @@ class Helper {
         DispatchQueue.global(qos: DispatchQoS.QoSClass.utility).async {
             block()
         }
+    }
+    
+    static func performOnBGThread(_ block: @escaping () -> ()) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
+            block()
+        }
+    }
+
+    
+    static func openInBrowser(path: String?) {
+        LinkOpener.shared.open(path: path)
+
+//        if let path = path, let url = URL(string: path) {
+//            if #available(iOS 10.0, *) {
+//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            } else {
+//                UIApplication.shared.openURL(url)
+//            }
+//
+//        }
     }
 }

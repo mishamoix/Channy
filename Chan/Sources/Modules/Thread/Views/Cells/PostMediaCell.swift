@@ -83,7 +83,7 @@ class PostMediaCell: PostCell {
     private func addCopyLinkMenuItems() {
         for media in self.images {
             media
-                .shouldCopyLink.subscribe(onNext: { [weak self, weak media] action in
+                .actions.subscribe(onNext: { [weak self, weak media] action in
                     
                     switch action {
                     case .disableParentActions: self?.canPerformAction = false
@@ -94,7 +94,15 @@ class PostMediaCell: PostCell {
                                 self.action?.on(.next(.copyMediaLink(cell: self, idx: idx)))
                             }
                         }
+                    case .openBrowser:
+                        if let media = media, let self = self {
+                            if let idx = self.images.firstIndex(of: media) {
+                                self.action?.on(.next(.openBrowserMediaLink(cell: self, idx: idx)))
+                            }
+                        }
+
                     }
+
                     
                 })
                 .disposed(by: self.disposeBag)

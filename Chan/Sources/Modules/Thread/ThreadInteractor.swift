@@ -40,6 +40,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 
     weak var router: ThreadRouting?
     weak var listener: ThreadListener?
+    private var viewer: ThreadImageViewer? = nil
     
     var service: ThreadServiceProtocol
     
@@ -79,6 +80,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         self.service.cancel()
         self.postsManager?.cancel()
         self.postsManager = nil
+        self.viewer = nil
     }
     
     // MARK: ThreadPresentableListener
@@ -148,6 +150,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .copyMedia(let media): self?.copyMedia(media: media)
                 case .copyLinkPost(let postUid): self?.copyLinkPost(uid: postUid)
                 case .replyThread: self?.openWrite()
+                case .openMediaBrowser(let model): self?.openMediaInBrowser(model)
                 }
             }).disposed(by: self.disposeBag)
     }
@@ -298,6 +301,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     private func copyMedia(media: FileModel) {
         let url = MakeFullPath(path: media.path)
         UIPasteboard.general.string = url
+        ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: url, dismiss: SmallDismissTime)
     }
     
     private func copyLinkPost(uid: String) {
@@ -314,24 +318,42 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 
     
     private func showMedia(with anchor: FileModel) {
-        if anchor.type == .image {
-            let allFiles = self.data.flatMap { $0.files }.filter({ $0.type == .image })
-            let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
-            if let vc = viewer.browser {
-                self.router?.showMediaViewer(vc)
-            }
-        } else {
-            print(anchor.path)
-            if anchor.path.hasSuffix(".webm") { //}|| anchor.path.hasSuffix(".ogg") {
-                let webm = WebmPlayerViewController(with: anchor)
-                self.router?.showMediaViewer(webm)
+      
+            if CensorManager.isCensored(model: anchor) {
+                let error = ChanError.error(title: "Внимание", description: "Медиа содержит неприемлимый контент. ")
+                //
+                let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть", style: UIAlertAction.Style.default)])
+                
+                display.show()
+                display
+                    .actions
+                    .subscribe(onNext: { [weak self, weak anchor] action in
+                        switch action {
+                        case .custom(_, _):
+                            if let model = anchor {
+                                self?.openMediaInBrowser(model)
+                            }
+                        default: break
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
             } else {
-                let player = VideoPlayer(with: anchor)
-                if let pl = player.videoPlayer {
-                    self.router?.showMediaViewer(pl)
-                }
+                
+                self.openMediaInBrowser(anchor)
             }
-        }
+
+        
+//        if !LinkOpener.shared.browserIsSelected {
+//            LinkOpener
+//                .shared
+//                .selectDefaultBrowser()
+//                .subscribe { _ in
+//                    block()
+//                }
+//                .disposed(by: self.disposeBag)
+//        } else {
+//            block()
+//        }
         
     }
     
@@ -344,6 +366,12 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         } else {
             ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
         }
+    }
+    
+    private func openMediaInBrowser(_ media: FileModel) {
+//        LinkOpener.shared.open(url: media.url)
+        Helper.open(url: media.url)
+        
     }
 
 }

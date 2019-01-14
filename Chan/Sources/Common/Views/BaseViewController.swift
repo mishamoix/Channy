@@ -37,7 +37,11 @@ open class BaseViewController: UIViewController {
     }
     
     override open var preferredStatusBarStyle: UIStatusBarStyle { return self.themeManager.statusBar }
-    
+  
+    override open var prefersStatusBarHidden: Bool {
+      return false
+    }
+
     
     private func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.view, type: .viewControllerBG, subtype: .none))

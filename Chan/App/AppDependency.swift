@@ -16,6 +16,10 @@ import FirebaseDatabase
 import Fabric
 import Crashlytics
 import AVKit
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
+import AppCenter
 
 enum AppAction {
     case willActive
@@ -52,6 +56,11 @@ class AppDependency: NSObject {
         FirebaseManager.setup()
       
         Fabric.with([Crashlytics.self])
+        MSAppCenter.start("66600e45-de1a-45c9-a0f7-10210663c7ef", withServices:[
+            MSAnalytics.self,
+            MSCrashes.self
+        ])
+
         
         CoreDataStore.shared.setup()
         
@@ -71,8 +80,10 @@ class AppDependency: NSObject {
         let copyText = UIMenuItem(title: "Скопировать", action: Selector(("copyText")))
         let copyLink = UIMenuItem(title: "Скопировать ссылку", action: Selector(("copyLink")))
         let makeScreenshot = UIMenuItem(title: "Скриншот", action: Selector(("screenshot")))
+        let openBrowser = UIMenuItem(title: "Открыть в браузере", action: Selector(("openBrowser")))
 
-        UIMenuController.shared.menuItems = [copyLink, copyText, copyOrigianlText, makeScreenshot]
+
+        UIMenuController.shared.menuItems = [openBrowser, copyLink, copyText, copyOrigianlText, makeScreenshot]
         UIMenuController.shared.update()
         UIMenuController.shared.setMenuVisible(true, animated: true)
         
@@ -87,17 +98,11 @@ class AppDependency: NSObject {
     
     func setupFirebase() {
         FirebaseApp.configure()
-        
         Database.database().isPersistenceEnabled = true
     }
     
     func updateAction(app action: AppAction) {
         self._appAction.on(.next(action))
     }
-
-    
-
-
-    
   
 }
