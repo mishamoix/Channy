@@ -1,3 +1,7 @@
+<a><img src="https://build.appcenter.ms/v0.1/apps/f34fd5f3-7d4d-48b7-9693-a2cbe6b9ce65/branches/auto-build/badge" alt="appcenter build"  width="80" height="15"/></a> 
+<a href="http://www.wtfpl.net/"><img src="http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-4.png" width="80" height="15" alt="WTFPL" /></a> 
+
+
 # Yablach
 Yablach, 2ch.hk browser, Двач 
 
