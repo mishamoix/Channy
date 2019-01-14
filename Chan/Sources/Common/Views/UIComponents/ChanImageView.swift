@@ -15,6 +15,7 @@ class ChanImageView: UIImageView {
     @IBInspectable var needCensor: Bool = true
     
     private var originalImage: UIImage? = nil
+//    private var blurredImage: UIImage? = nil
     private(set) var disposeBag = DisposeBag()
     
     private(set) var cancellation = CancellationToken()
@@ -33,12 +34,16 @@ class ChanImageView: UIImageView {
                 Helper.performOnMainThread {
                     if Values.shared.censorEnabled && (self.isCensored ?? true) && self.needCensor {
                         self.originalImage = newValue
+                        
                         Helper.performOnBGThread {
                             let newImage = newValue?.applyBlur(percent: BlurRadiusPreview)
+////                        self.blurredImage = newImage
                             Helper.performOnMainThread {
-                                super.image = newImage
+                                if !self.cancellation.isCancelled {
+                                    super.image = newImage
+                                }
                             }
-                            
+                    
                         }
                     } else {
                         super.image = newValue
@@ -96,6 +101,8 @@ class ChanImageView: UIImageView {
     func cancelLoad() {
         self.af_cancelImageRequest()
         self.dispose()
+        self.cancellation.isCancelled = true
+        self.cancellation = CancellationToken()
     }
     
     private func dispose() {
