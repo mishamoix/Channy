@@ -13,8 +13,12 @@ import RxSwift
 class FirebaseManager {
     
     static let shared = FirebaseManager()
-    let canLoadData: Variable<Bool> = Variable(false)
+    let canLoadData: Variable<Bool> = Variable(true)
+  
+    #if RELEASE
     private let db = FirebaseDB()
+    #endif
+  
     private let disposeBag = DisposeBag()
     
     
@@ -41,6 +45,8 @@ class FirebaseManager {
     }
     
     private func run() {
+      #if RELEASE
+
         self.db
             .snapshot
             .asObservable()
@@ -52,6 +58,7 @@ class FirebaseManager {
             })
             .bind(to: self.canLoadData)
             .disposed(by: self.disposeBag)
+      #endif
     }
     
     
@@ -108,7 +115,10 @@ class FirebaseManager {
         let key = formatter.string(from: Date()).replacingOccurrences(of: " ", with: "_")
         
         let value = thread.threadPath
-        
+      
+      #if RELEASE
+
         self.db.report(thread: value, key: key)
+      #endif
     }
 }
