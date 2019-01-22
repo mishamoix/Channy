@@ -97,8 +97,10 @@ class AppDependency: NSObject {
     }
     
     func setupFirebase() {
+      #if RELEASE
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
+      #endif
     }
     
     func updateAction(app action: AppAction) {
