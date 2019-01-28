@@ -167,6 +167,7 @@
 		0AACC192218A5A8800B7BD19 /* SwiftyOnboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC18F218A5A8800B7BD19 /* SwiftyOnboardPage.swift */; };
 		0AB3C69521B462F000A58FDE /* RecaptchaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3C69421B462F000A58FDE /* RecaptchaManager.swift */; };
 		0AB3C69721B4630800A58FDE /* RecaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3C69621B4630800A58FDE /* RecaptchaViewController.swift */; };
+		0AC5FAB521FF297F00113078 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AC5FAB421FF297F00113078 /* GoogleService-Info.plist */; };
 		0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29512143EF0B00B4E53B /* AppDelegate.swift */; };
 		0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC29582143EF1200B4E53B /* Assets.xcassets */; };
 		0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */; };
@@ -375,6 +376,7 @@
 		0AACC18F218A5A8800B7BD19 /* SwiftyOnboardPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyOnboardPage.swift; sourceTree = "<group>"; };
 		0AB3C69421B462F000A58FDE /* RecaptchaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaManager.swift; sourceTree = "<group>"; };
 		0AB3C69621B4630800A58FDE /* RecaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaViewController.swift; sourceTree = "<group>"; };
+		0AC5FAB421FF297F00113078 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0ACC294E2143EF0B00B4E53B /* Chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC29512143EF0B00B4E53B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ACC29582143EF1200B4E53B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1046,6 +1048,7 @@
 		0ACC297D2143F71400B4E53B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0AC5FAB421FF297F00113078 /* GoogleService-Info.plist */,
 				0A1A79B821C6D58D0020463F /* launchIconNY.png */,
 				0A9120B121E8EA1500A209FF /* launchIcon.png */,
 				0ACC295A2143EF1200B4E53B /* LaunchScreen.storyboard */,
@@ -1259,6 +1262,7 @@
 				0A2E0CBD2145790300CBD619 /* BoardViewController.storyboard in Resources */,
 				0AACC186218A5A2A00B7BD19 /* OnboardViewController.storyboard in Resources */,
 				0A2E0C82214460FB00CBD619 /* Main.storyboard in Resources */,
+				0AC5FAB521FF297F00113078 /* GoogleService-Info.plist in Resources */,
 				0A505D77216D060A0076F383 /* WebAcceptViewController.storyboard in Resources */,
 				0A2E0CD42145A3FE00CBD619 /* ThreadCell.xib in Resources */,
 			);
@@ -1738,6 +1742,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.flexyfal.nach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chan/Resources/Chan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
