@@ -319,6 +319,8 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     private func showMedia(with anchor: FileModel) {
       
+      #if RELEASE
+
             if CensorManager.isCensored(model: anchor) {
                 let error = ChanError.error(title: "Внимание", description: "Медиа содержит неприемлимый контент. ")
                 //
@@ -341,6 +343,27 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 
                 self.openMediaInBrowser(anchor)
             }
+      #else
+        if anchor.type == .image {
+            let allFiles = self.data.flatMap { $0.files }.filter({ $0.type == .image })
+            let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
+            if let vc = viewer.browser {
+                self.router?.showMediaViewer(vc)
+            }
+        } else {
+            print(anchor.path)
+            if anchor.path.hasSuffix(".webm") { //}|| anchor.path.hasSuffix(".ogg") {
+                let webm = WebmPlayerViewController(with: anchor)
+                self.router?.showMediaViewer(webm)
+            } else {
+                let player = VideoPlayer(with: anchor)
+                if let pl = player.videoPlayer {
+                    self.router?.showMediaViewer(pl)
+                }
+            }
+        }
+
+      #endif
 
         
 //        if !LinkOpener.shared.browserIsSelected {
