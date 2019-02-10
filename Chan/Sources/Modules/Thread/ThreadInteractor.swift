@@ -345,7 +345,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 .subscribe(onNext: { [weak self, weak anchor] action in
                     switch action {
                     case .custom(let title, _):
-                        if title.lowercased() == "appstore" {
+                        if title.lowercased() == "vlc в app store" {
                             if let url = URL(string: "itms-apps://itunes.apple.com/app/id650377962"), UIApplication.shared.canOpenURL(url) {
                                 UIApplication.shared.openURL(url)
                             }
