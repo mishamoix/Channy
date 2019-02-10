@@ -338,15 +338,21 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         } else {
             let error = ChanError.error(title: "Открытие видео", description: "Для просмотра видео рекомендуем установить VLC плеер.")
             
-            let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть в браузере", style: UIAlertAction.Style.default)])
+            let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть в браузере", style: UIAlertAction.Style.default), .custom(title: "VLC в App Store", style: UIAlertAction.Style.default)])
             
             display
                 .actions
                 .subscribe(onNext: { [weak self, weak anchor] action in
                     switch action {
-                    case .custom(_, _):
-                        if let model = anchor {
-                            self?.openMediaInBrowser(model)
+                    case .custom(let title, _):
+                        if title.lowercased() == "appstore" {
+                            if let url = URL(string: "itms-apps://itunes.apple.com/app/id650377962"), UIApplication.shared.canOpenURL(url) {
+                                UIApplication.shared.openURL(url)
+                            }
+                        } else {
+                            if let model = anchor {
+                                self?.openMediaInBrowser(model)
+                            }
                         }
                     default: break
                     }
