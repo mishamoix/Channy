@@ -408,6 +408,10 @@ import MobileCoreServices
             self.addChild(self.pageViewController)
             self.view.addSubview(self.pageViewController.view)
             self.pageViewController.didMove(toParent: self)
+            
+//            if let self = self {
+                self.delegate?.addGestures?(self)
+//            }
         }
         
         if self.overlayView.superview == nil {
@@ -1254,6 +1258,9 @@ fileprivate extension UIScrollView {
     optional func photosViewController(_ photosViewController: AXPhotosViewController,
                                        didNavigateTo photo: AXPhotoProtocol,
                                        at index: Int)
+    
+    @objc(addGestures:)
+    optional func addGestures(_ photosViewController: AXPhotosViewController)
     
     /// Called when the `AXPhotosViewController` is configuring its `OverlayView` for a new photo. This should be used to update the
     /// the overlay's title or any other overlay-specific properties.
