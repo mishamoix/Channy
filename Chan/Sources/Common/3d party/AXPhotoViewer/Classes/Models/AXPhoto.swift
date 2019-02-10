@@ -44,5 +44,7 @@
     
     /// The URL of the image. If present, this value will be passed to a `NetworkIntegration` to be downloaded.
     @objc public var url: URL?
+  
+    @objc public var needBlur: Bool = true
     
 }

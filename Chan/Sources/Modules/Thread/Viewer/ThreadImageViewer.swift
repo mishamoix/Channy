@@ -33,7 +33,7 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
         if let url = photo.url {
             let request = URLRequest(url: url)
 
-            self.image(for: request) { [weak self, weak photo] image in
+            self.image(for: request, needBlur: photo.needBlur) { [weak self, weak photo] image in
                 if let img = image {
                     if let photo = photo, let self = self {
                         photo.image = img
@@ -57,7 +57,7 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
                         ImageNetworkIntegration.cache.add(image, for: request)
                         
                         
-                        self?.image(for: request, callBack: { [weak self, weak photo] image in
+                        self?.image(for: request, needBlur: photo?.needBlur ?? true, callBack: { [weak self, weak photo] image in
                             if let photo = photo, let self = self {
                                 photo.image = image
                                 self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
@@ -85,16 +85,16 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
         return nil
     }
     
-    func image(for request: URLRequest, callBack: @escaping (UIImage?) -> ()){
+    func image(for request: URLRequest, needBlur: Bool, callBack: @escaping (UIImage?) -> ()){
         guard let image = ImageNetworkIntegration.cache.image(for: request) else {
             return callBack(nil)
         }
         
-        var needBlur = false
-        if let path = request.url?.absoluteString {
-            let model = FileModel(path: path)
-            needBlur = CensorManager.isCensored(model: model)
-        }
+//        var needBlur = false
+//        if let path = request.url?.absoluteString {
+//            let model = FileModel(path: path)
+//            needBlur = CensorManager.isCensored(model: model)
+//        }
         
         if needBlur {
             Helper.performOnUtilityThread { [weak image] in
@@ -132,6 +132,10 @@ class ThreadImageViewer: NSObject {
 //    var anchor: Int = 0
     
     private var openInBrowserButton = UIButton()
+    
+    private var textCanvas = UIView()
+    private var text = UILabel()
+    
     private let disposeBag = DisposeBag()
     
     private var dataSource: AXPhotosDataSource?
@@ -144,6 +148,7 @@ class ThreadImageViewer: NSObject {
         self.process(files: files)
         self.setupBrowser()
         self.setupButton()
+        self.setupText()
     }
     
     private func process(files: [FileModel]) {
@@ -171,7 +176,7 @@ class ThreadImageViewer: NSObject {
         self.openInBrowserButton.layer.borderWidth = 2.0
         self.openInBrowserButton.layer.borderColor = mainColor.cgColor
         self.openInBrowserButton.setTitleColor(mainColor, for: .normal)
-        self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
+//        self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
         self.openInBrowserButton.titleLabel?.font = UIFont.textStrong
         
         if let overlay = self.browser?.overlayView {
@@ -192,7 +197,18 @@ class ThreadImageViewer: NSObject {
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
                 if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx), let url = model.url {
-                    Helper.open(url: url)
+                    
+                    if CensorManager.isCensored(model: FileModel(path: url.absoluteString)) {
+                    
+                        Helper.open(url: url)
+                    } else {
+                        model.needBlur = false
+                        model.ax_loadingState = .notLoaded
+                        if let ds = self?.browser?.dataSource {
+                            ds.initialPhotoIndex = idx
+                            self?.browser?.dataSource = ds
+                        }
+                    }
                 }
             })
             .disposed(by: self.disposeBag)
@@ -206,10 +222,41 @@ class ThreadImageViewer: NSObject {
         let transitionInfo = AXTransitionInfo(interactiveDismissalEnabled: true, startingView: nil, endingView: nil)
 
         let browser = ChanAXPhotosViewController(dataSource: self.dataSource, pagingConfig: nil, transitionInfo: transitionInfo, networkIntegration: ImageNetworkIntegration())
+      
         self.browser = browser
         browser.delegate = self
-        self.openInBrowserButton.alpha = CensorManager.isCensored(model: self.anchor) ? 1 : 0
+        self.openInBrowserButton.setTitle(CensorManager.isCensored(model: self.anchor) ? "Открыть в браузере" : "Показать", for: .normal)
+        self.openInBrowserButton.alpha = 1 //CensorManager.isCensored(model: self.anchor) ? 1 : 0
         
+    }
+    
+    private func setupText() {
+        self.textCanvas.clipsToBounds = true
+        self.textCanvas.layer.cornerRadius = DefaultCornerRadius
+        self.textCanvas.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5996919014)
+        self.text.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8499944982)
+        self.text.textAlignment = .center
+        self.text.text = "Внимание! Картинка может содержать нежелательный контент, некоторые люди могут посчитать это оскорбительным"
+        self.text.numberOfLines = 0
+        
+        
+        self.textCanvas.addSubview(self.text)
+        if let overlay = self.browser?.overlayView {
+            overlay.addSubview(self.textCanvas)
+            
+            self.textCanvas.snp.makeConstraints { make in
+                make.centerX.centerY.equalToSuperview()
+                make.left.greaterThanOrEqualToSuperview().offset(36)
+                make.right.greaterThanOrEqualToSuperview().offset(36)
+            }
+            
+            self.text.snp.makeConstraints { make in
+                make.top.equalToSuperview().offset(8)
+                make.bottom.equalToSuperview().offset(-8)
+                make.left.equalToSuperview().offset(8)
+                make.right.equalToSuperview().offset(-8)
+            }
+        }
     }
     
     
@@ -223,17 +270,33 @@ extension ThreadImageViewer: AXPhotosViewControllerDelegate {
         if let url = photo.url {
             let model = FileModel(path: url.absoluteString)
             if CensorManager.isCensored(model: model) {
-                self.openInBrowserButton.alpha = 1
+              self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
+//                self.openInBrowserButton.alpha = 1
 //                self.openInBrowserButton.isEnabled = true
                 return
+            } else {
+              self.openInBrowserButton.setTitle("Показать", for: .normal)
             }
         }
         
-        self.openInBrowserButton.alpha = 0
+//        self.openInBrowserButton.alpha = 0
 //        self.openInBrowserButton.isEnabled = false
     }
     
     func photosViewController(_ photosViewController: AXPhotosViewController, willUpdate overlayView: AXOverlayView, for photo: AXPhotoProtocol, at index: Int, totalNumberOfPhotos: Int) {
+        
+        self.textCanvas.isHidden = !photo.needBlur
+        
+//        if let url = photo.url {
+//
+//
+//            let model = FileModel(path: url.absoluteString)
+////            if CensorManager.isCensored(model: model) {
+////                self.textCanvas.isHidden =
+////            } else {
+////
+////            }
+//        }
         
         print(index)
 

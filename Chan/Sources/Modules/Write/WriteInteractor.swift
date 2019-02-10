@@ -64,16 +64,23 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
             .subscribe(onNext: { [weak self] action in
                 switch action {
                 case .send(let text):
-                    if let txt = text, txt.count > 0 {
-                        self?.send(text: txt)
-                    }
+//                    if let txt = text, {
+                        self?.send(text: text)
+//                    }
                 }
             })
             .disposed(by: self.disposeBag)
     }
     
     
-    private func send(text: String) {
+    private func send(text txt: String? = nil) {
+        
+        let imgsCount = self.presenter.images.count
+        let text = txt ?? ""
+        
+        if text.count == 0 && imgsCount == 0 {
+            return
+        }
         
         self.presenter.showCentralActivity()
         

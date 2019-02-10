@@ -27,4 +27,5 @@
     /// The URL of the image.
     @objc var url: URL? { get }
     
+    @objc var needBlur: Bool { get set }
 }
