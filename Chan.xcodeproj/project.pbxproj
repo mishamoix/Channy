@@ -132,6 +132,7 @@
 		0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */; };
 		0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */; };
 		0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856292216E518900D053F7 /* ThreadImageViewer.swift */; };
+		0A86048622106817004C6B6C /* VLCOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86048522106817004C6B6C /* VLCOpener.swift */; };
 		0A8BFED9218F4451004AA360 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BFED8218F4451004AA360 /* Theme.swift */; };
 		0A8BFEDB218F45C9004AA360 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BFEDA218F45C9004AA360 /* ThemeManager.swift */; };
 		0A905F6E21A9B10000ADE51E /* WriteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A905F6921A9B10000ADE51E /* WriteRouter.swift */; };
@@ -341,6 +342,7 @@
 		0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebmPlayerViewController.swift; sourceTree = "<group>"; };
 		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
+		0A86048522106817004C6B6C /* VLCOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCOpener.swift; sourceTree = "<group>"; };
 		0A8BFED8218F4451004AA360 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0A8BFEDA218F45C9004AA360 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		0A905F6921A9B10000ADE51E /* WriteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRouter.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 				0A65579A21B6C6D9003FA355 /* ImageFixer.swift */,
 				0A72E18D21BABEB500BD488E /* StatisticManager.swift */,
 				0AAA323E21EA055C00330CF5 /* LinkOpener.swift */,
+				0A86048522106817004C6B6C /* VLCOpener.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1375,6 +1378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A86048622106817004C6B6C /* VLCOpener.swift in Sources */,
 				0A37B01821BC3873009EC571 /* AXPhotoViewController.swift in Sources */,
 				0A37B01921BC3873009EC571 /* AXPreviewingPhotosViewController.swift in Sources */,
 				0A37B01A21BC3873009EC571 /* AXPhotosViewController.swift in Sources */,
@@ -1711,6 +1715,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.flexyfal.nach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG RELEASE";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chan/Resources/Chan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;

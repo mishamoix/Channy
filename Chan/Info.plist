@@ -41,6 +41,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>youtube</string>
+		<string>vlc-x-callback</string>
 		<string>tg</string>
 		<string>googlechrome</string>
 		<string>firefox</string>

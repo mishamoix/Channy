@@ -24,7 +24,7 @@
     fileprivate var photos: [AXPhotoProtocol]
     
     // The initial photo index to display upon presentation.
-    @objc fileprivate(set) var initialPhotoIndex: Int = 0
+    @objc var initialPhotoIndex: Int = 0
     
     // MARK: - Initialization
     @objc public init(photos: [AXPhotoProtocol], initialPhotoIndex: Int, prefetchBehavior: AXPhotosPrefetchBehavior) {
