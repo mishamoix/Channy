@@ -31,6 +31,7 @@ class ChanImageView: UIImageView {
     
     override var image: UIImage? {
         set {
+          #if REALESE
                 Helper.performOnMainThread {
                     if Values.shared.censorEnabled && (self.isCensored ?? true) && self.needCensor {
                         self.originalImage = newValue
@@ -49,6 +50,9 @@ class ChanImageView: UIImageView {
                         super.image = newValue
                     }
                 }
+          #else
+            super.image = newValue
+          #endif
         }
         
         get {
