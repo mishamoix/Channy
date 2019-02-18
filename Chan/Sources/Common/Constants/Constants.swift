@@ -14,6 +14,8 @@ let MediumMargin: CGFloat = 16
 let LargeMargin: CGFloat = 24
 
 let DefaultCornerRadius: CGFloat = 8
+let FastAnimationDuration: TimeInterval = 0.15
+
 let AnimationDuration: TimeInterval = 0.25
 let LongAnimationDuration: TimeInterval = 0.75
 

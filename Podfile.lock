@@ -168,6 +168,7 @@ PODS:
   - RxSwift (4.3.1)
   - SnapKit (4.0.1)
   - SwiftReorder (6.0.0)
+  - SwiftTryCatch (0.0.1)
   - SwiftyUserDefaults (4.0.0-alpha.1)
   - "UITextView+Placeholder (1.2.1)"
 
@@ -192,6 +193,7 @@ DEPENDENCIES:
   - RxSwift
   - SnapKit
   - SwiftReorder (~> 6.0)
+  - SwiftTryCatch
   - SwiftyUserDefaults (= 4.0.0-alpha.1)
   - "UITextView+Placeholder"
 
@@ -230,6 +232,7 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - SwiftReorder
+    - SwiftTryCatch
     - SwiftyUserDefaults
     - "UITextView+Placeholder"
 
@@ -266,9 +269,10 @@ SPEC CHECKSUMS:
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftReorder: 0eefefe5e469c70a98d129e9aa2952862a2b34d2
+  SwiftTryCatch: fb6d2b34abe48efd69578dac919293a44f95b481
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: cf17b6ad5ae65f1d710af4ef1f57e51e4b463137
+PODFILE CHECKSUM: 4934fbeb0294d1fbaabf3844922c4d91ba39b056
 
 COCOAPODS: 1.5.3

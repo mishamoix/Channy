@@ -45,6 +45,7 @@ target 'Chan' do
     
     # Utils
     pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
+    pod 'SwiftTryCatch'
     
     # Other
 #    pod 'FLAnimatedImage' # for AXPhotoViewer

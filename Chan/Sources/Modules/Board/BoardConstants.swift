@@ -8,6 +8,13 @@
 
 import Foundation
 
+struct BoardConstants {
+    static let NavbarRightLabelRightMargin: CGFloat = 15
+    static let NavbarRightLabelBottomMargin: CGFloat = 8
+    static let NavbarRightLabelLeftMargin: CGFloat = 4
+    
+    static let NavbarLeftLabelLeftMargin: CGFloat = 12
+}
 
 let ThreadCellMinHeight: CGFloat = 110
 let ThreadCellMaxHeight: CGFloat = 400

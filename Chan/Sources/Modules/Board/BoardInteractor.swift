@@ -70,7 +70,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     // MARK: BoardPresentableListener
-    var mainViewModel: Variable<BoardMainViewModel> = Variable(BoardMainViewModel(title: ""))
+    var mainViewModel: Variable<BoardMainViewModel> = Variable(BoardMainViewModel(name: "", board: ""))
     var dataSource: Variable<[ThreadViewModel]> = Variable([])
     var viewActions: PublishSubject<BoardAction> = PublishSubject()
 
@@ -302,7 +302,8 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     private func updateHeader() {
         if let board = self.service.board {
-            self.mainViewModel.value = BoardMainViewModel(title: board.name.count == 0 ? "/\(board.uid)/" : "\(board.name) /\(board.uid)/" )
+            
+            self.mainViewModel.value = BoardMainViewModel(name: board.name, board: "/" + board.uid)
         }
     }
     
