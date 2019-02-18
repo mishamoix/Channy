@@ -10,6 +10,8 @@ import RIBs
 import RxSwift
 import UIKit
 import IGListKit
+import SnapKit
+import SwiftTryCatch
 
 let ThreadCellIdentifier = "ThreadCell"
 
@@ -36,16 +38,21 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     // MARK: UI
     @IBOutlet weak var collectionView: UICollectionView!
     private let refreshControl = UIRefreshControl()
-    @IBOutlet weak var bgImage: UIImageView!
     
     weak var addBoardButton: UIBarButtonItem?
     weak var moreButton: UIBarButtonItem?
     weak var homeButton: UIButton?
     weak var createNewThreadButton: UIButton?
     
+    private var rightNavbarLabel: UILabel? = nil
+    private var leftNavbarLabel: UILabel? = nil
+
+    
     // MARK: Data
     private var data: [ThreadViewModel] = []
     private var tableWidth: CGFloat = 0
+    
+    private var mainViewModel: BoardMainViewModel? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +63,9 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         super.viewWillAppear(animated)
         
         self.listener?.viewActions.on(.next(.viewWillAppear))
+//        self.updateLargeTitleSize()
+//        self.largeTitle?.alpha = 1
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,6 +74,11 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         if let nc = self.navigationController as? BaseNavigationController {
             nc.interactivePopPanGestureRecognizer?.isEnabled = false
         }
+        
+        self.updateRightLabel(hide: false)
+//        self.updateLargeTitleSize()
+
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -72,10 +87,15 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             nc.interactivePopPanGestureRecognizer?.isEnabled = true
         }
         
+        self.updateRightLabel(hide: true)
+        
+//        self.largeTitle?.alpha = 0
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        
+        
         coordinator.animate(alongsideTransition: { context in
             self.collectionView.collectionViewLayout.invalidateLayout()
         }) { context in
@@ -84,7 +104,27 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     }
     
 
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+//        self.updateLargeTitleSize()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        self.updateLargeTitleSize()
 
+    }
+    
+    
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//
+////        if self.skipKVOLargeTitleFrame {
+////            self.skipKVOLargeTitleFrame = false
+////            return
+////        }
+//        self.updateLargeTitleSize()
+//    }
     
     // MARK: BoardPresentable
 
@@ -97,13 +137,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     private func setupUI() {
         self.setupCollectionView()
         self.setupNavBar()
-        
-        self.bgImage.alpha = 0.15
-        self.bgImage.clipsToBounds = true
-        
         self.setupTheme()
-        
-//        self.refreshControl.beginRefreshing()
     }
     
     private func setupRx() {
@@ -112,7 +146,19 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             .asObservable()
             .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] model in
-                self?.navigationItem.title = model.title
+                guard let self = self else { return }
+                if let rightLabel = self.rightNavbarLabel {
+                    self.navigationItem.title = model.name
+                    rightLabel.text = model.board
+//                    self.rightNavbarLabel?.text = model.name
+                    self.leftNavbarLabel?.text = model.name
+                    self.mainViewModel = model
+//                    self.updateLargeTitleSize()
+
+                } else {
+                    self.navigationItem.title = "\(model.name) \(model.board)"
+
+                }
             }).disposed(by: self.disposeBag)
         
         self.listener?
@@ -222,6 +268,11 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     }
     
     private func setupCollectionView() {
+        
+        self.collectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         self.collectionView.register(UINib(nibName: ThreadCellIdentifier, bundle: nil), forCellWithReuseIdentifier: ThreadCellIdentifier)
         
         self.collectionView.delegate = self
@@ -229,11 +280,6 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         
         self.tableWidth = self.collectionView.frame.width
         
-        if #available(iOS 10.0, *) {
-            self.collectionView.refreshControl = self.refreshControl
-        } else {
-            self.collectionView.addSubview(self.refreshControl)
-        }
         
 //        self.tableView.backgroundColor = .snow
         self.collectionView.backgroundColor = .clear
@@ -241,40 +287,138 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     }
     
     private func setupNavBar() {
+      
+        if #available(iOS 11.0, *) {
+            let navbar = self.navigationController?.navigationBar
+            self.extendedLayoutIncludesOpaqueBars = true
+            if let navbar = navbar {
+                navbar.prefersLargeTitles = true
+                
+                self.navigationItem.largeTitleDisplayMode = .automatic
+                
+                let rightNavbarLabel = UILabel()
+                rightNavbarLabel.font = .largeSubtitle
+                
+                let leftNavbarLabel = UILabel()
+                leftNavbarLabel.font = .largeTitle
+                
+                if let largeTitleView = self.largeTitleView {
+                    largeTitleView.addSubview(rightNavbarLabel)
+                    largeTitleView.addSubview(leftNavbarLabel)
+                    
+                    self.leftNavbarLabel = leftNavbarLabel
+                    self.rightNavbarLabel = rightNavbarLabel
+
+                    rightNavbarLabel.snp.makeConstraints { make in
+                        make.right.equalToSuperview().offset(-BoardConstants.NavbarRightLabelRightMargin)
+                        make.bottom.equalToSuperview().offset(-BoardConstants.NavbarRightLabelBottomMargin)
+                        make.left.greaterThanOrEqualTo(leftNavbarLabel.snp.right).offset(BoardConstants.NavbarRightLabelLeftMargin)
+                    }
+                    
+                    leftNavbarLabel.snp.makeConstraints { make in
+//                        make.edges.equalToSuperview()
+                        make.bottom.equalToSuperview().offset(-BoardConstants.NavbarRightLabelBottomMargin)
+                        make.left.equalToSuperview().offset(BoardConstants.NavbarLeftLabelLeftMargin)
+                    }
+                    
+                    navbar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+                    
+                    leftNavbarLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 749), for: NSLayoutConstraint.Axis.horizontal)
+                }
+                
+                self.navigationItem.hidesBackButton = true
+//                self.n
+
+                let search = UISearchController(searchResultsController: nil)
+                self.navigationItem.searchController = search
+                
+                
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+
+        if #available(iOS 10.0, *) {
+            self.collectionView.refreshControl = self.refreshControl
+        } else {
+            self.collectionView.addSubview(self.refreshControl)
+        }
+
+      
+      
         let more = UIBarButtonItem(image: .more, style: UIBarButtonItem.Style.done, target: nil, action: nil)
         self.themeManager.append(view: ThemeView(object: more, type: ThemeViewType.navBarButton, subtype: .none))
         self.moreButton = more
-      
+
         let inset: CGFloat = 4
         let writeButton = UIButton()
-        writeButton.setImage(.write, for: .normal)
+        writeButton.setImage(.addThread, for: .normal)
         writeButton.imageEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
         writeButton.tintColor = self.themeManager.theme.main
         writeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         self.createNewThreadButton = writeButton
         let writeBarButton = UIBarButtonItem(customView: writeButton)
-        
+
         let homeCanvas = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         let homeButton = UIBarButtonItem(customView: homeCanvas)
-        
-        self.navigationItem.setRightBarButtonItems([more, writeBarButton], animated: false)
+
+        self.navigationItem.setRightBarButtonItems([writeBarButton], animated: false)
         self.navigationItem.setLeftBarButtonItems([homeButton], animated: false)
-        
+
         let home = UIButton(frame: .zero)
         home.setImage(.home, for: .normal)
         home.tintColor = .main
         homeCanvas.addSubview(home)
-        
+
         self.themeManager.append(view: ThemeView(object: home, type: .navBarButton, subtype: .none))
-        
+
         home.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-        
+
         self.homeButton = home
     }
     
     private func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
     }
+    
+    private func updateRightLabel(hide: Bool = false) {
+        return;
+        UIView.animate(withDuration: 0) {
+            self.rightNavbarLabel?.alpha = hide ? 0 : 1
+        }
+        
+    }
+    
+    private var largeTitleView: UIView? {
+        for subview in self.navigationController?.navigationBar.subviews ?? [] {
+            if NSStringFromClass(type(of: subview)) == "_UINavigationBarLargeTitleView" {
+                return subview
+            }
+        }
+        return nil
+    }
+    
+    private var largeTitleOriginal: UIView? {
+        for subview in self.largeTitleView?.subviews.filter({ $0.isKind(of: UILabel.self)}) ?? [] {
+            return subview
+        }
+        
+        return nil
+    }
+    
+//    private func updateLargeTitleSize() {
+//        if let largeTitle = self.largeTitle, let rightLabel = self.rightNavbarLabel {
+//
+//            largeTitle.snp.remakeConstraints { make in
+//            }
+//
+//            let rightLabelWidth = TextSize(text: rightLabel.text ?? "", maxWidth: CGFloat.infinity, font: rightLabel.font).calculate().width
+//            let width = TextSize(text: self.mainViewModel?.name ?? "", maxWidth: self.view.frame.width - largeTitle.frame.minX - BoardConstants.NavbarRightLabelRightMargin - BoardConstants.NavbarRightLabelLeftMargin - rightLabelWidth, font: .largeTitle).calculate().width
+//            largeTitle.frame = CGRect(x: largeTitle.frame.minX, y: largeTitle.frame.minY, width: width, height: largeTitle.frame.height)
+//        }
+//    }
+    
+    
   
 }
 

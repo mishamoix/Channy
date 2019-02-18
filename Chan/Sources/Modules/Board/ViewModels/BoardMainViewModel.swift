@@ -10,9 +10,11 @@
 import UIKit
 
 class BoardMainViewModel {
-    let title: String
+    let name: String
+    let board: String
     
-    init(title: String) {
-        self.title = title
+    init(name: String, board: String) {
+        self.name = name
+        self.board = board
     }
 }

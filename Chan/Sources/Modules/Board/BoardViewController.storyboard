@@ -18,11 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="frz-w3-BAM">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                            </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kE1-lm-JAc">
-                                <rect key="frame" x="0.0" y="44" width="375" height="768"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kE1-lm-JAc">
+                                <rect key="frame" x="59" y="95" width="238" height="683"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="o0F-qH-7o4">
                                     <size key="itemSize" width="50" height="50"/>
@@ -34,20 +32,9 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="frz-w3-BAM" firstAttribute="leading" secondItem="HgA-Aw-ocO" secondAttribute="leading" id="BES-Mx-WpG"/>
-                            <constraint firstItem="HgA-Aw-ocO" firstAttribute="trailing" secondItem="frz-w3-BAM" secondAttribute="trailing" id="Gzt-9R-pJZ"/>
-                            <constraint firstAttribute="bottom" secondItem="frz-w3-BAM" secondAttribute="bottom" id="Vj1-hb-2M7"/>
-                            <constraint firstAttribute="bottom" secondItem="kE1-lm-JAc" secondAttribute="bottom" id="agX-Sj-5Jq"/>
-                            <constraint firstItem="kE1-lm-JAc" firstAttribute="top" secondItem="HgA-Aw-ocO" secondAttribute="top" id="dpP-MQ-nnC"/>
-                            <constraint firstItem="frz-w3-BAM" firstAttribute="top" secondItem="BNZ-bO-rhc" secondAttribute="top" id="hSf-J4-L0C"/>
-                            <constraint firstItem="kE1-lm-JAc" firstAttribute="leading" secondItem="HgA-Aw-ocO" secondAttribute="leading" id="tk1-A2-N8i"/>
-                            <constraint firstItem="HgA-Aw-ocO" firstAttribute="trailing" secondItem="kE1-lm-JAc" secondAttribute="trailing" id="yiW-hp-O5N"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="HgA-Aw-ocO"/>
                     </view>
                     <connections>
-                        <outlet property="bgImage" destination="frz-w3-BAM" id="lAz-I7-Yth"/>
                         <outlet property="collectionView" destination="kE1-lm-JAc" id="8RQ-q7-BB1"/>
                     </connections>
                 </viewController>
@@ -56,7 +43,4 @@
             <point key="canvasLocation" x="244" y="204.67980295566502"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="bg" width="1000" height="1000"/>
-    </resources>
 </document>

@@ -91,7 +91,7 @@ open class TextSize {
   private static func prepareText(_ text: String) -> String {
     var result = text
     if (result.last == "\n") {
-      result += "0"
+      result += " "
     }
     return result
 

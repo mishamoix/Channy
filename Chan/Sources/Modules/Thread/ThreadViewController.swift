@@ -313,6 +313,14 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     }
     
     private func setupNavBar() {
+        
+        if #available(iOS 11.0, *) {
+            self.navigationItem.largeTitleDisplayMode = .never
+        } else {
+            // Fallback on earlier versions
+        }
+
+        
         let moreButton = UIBarButtonItem(image: .more, landscapeImagePhone: .more, style: UIBarButtonItem.Style.done, target: nil, action: nil)
         self.moreButton = moreButton
 
@@ -329,6 +337,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
 
             let writeBarButton = UIBarButtonItem(customView: writeButton)
             self.writeButton = writeButton
+            
+            
 
             self.navigationItem.rightBarButtonItems = [moreButton, writeBarButton]
             
