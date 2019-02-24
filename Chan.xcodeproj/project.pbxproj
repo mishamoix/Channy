@@ -89,10 +89,14 @@
 		0A37B02D21BC3874009EC571 /* FLAnimatedImageView+AXExtensions.h in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFE921BC376E009EC571 /* FLAnimatedImageView+AXExtensions.h */; };
 		0A37B02E21BC3874009EC571 /* AXPhotoProtocol+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFEA21BC376E009EC571 /* AXPhotoProtocol+Internal.swift */; };
 		0A37B02F21BC3874009EC571 /* UIImageView+AXExtensions.h in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFEB21BC376E009EC571 /* UIImageView+AXExtensions.h */; };
+		0A37B02F2222E40300FFACDF /* MainContainerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B02A2222E40300FFACDF /* MainContainerRouter.swift */; };
 		0A37B03021BC3874009EC571 /* Array+Sorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFEC21BC376E009EC571 /* Array+Sorted.swift */; };
 		0A37B03121BC3874009EC571 /* UIInterfaceOrientation+Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFED21BC376E009EC571 /* UIInterfaceOrientation+Transform.swift */; };
+		0A37B0312222E40300FFACDF /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B02C2222E40300FFACDF /* MainContainerViewController.swift */; };
 		0A37B03221BC3874009EC571 /* Data+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFEE21BC376E009EC571 /* Data+GIF.swift */; };
+		0A37B0322222E40300FFACDF /* MainContainerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B02D2222E40300FFACDF /* MainContainerBuilder.swift */; };
 		0A37B03321BC3874009EC571 /* SimpleNetworkIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFF821BC3771009EC571 /* SimpleNetworkIntegration.swift */; };
+		0A37B0332222E40300FFACDF /* MainContainerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B02E2222E40300FFACDF /* MainContainerInteractor.swift */; };
 		0A37B03421BC3874009EC571 /* AXPageableViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFF121BC3770009EC571 /* AXPageableViewControllerProtocol.swift */; };
 		0A37B03521BC3874009EC571 /* AXPhotoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFF221BC3770009EC571 /* AXPhotoProtocol.swift */; };
 		0A37B03621BC3874009EC571 /* AXCaptionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFF321BC3770009EC571 /* AXCaptionViewProtocol.swift */; };
@@ -100,6 +104,7 @@
 		0A37B03821BC3874009EC571 /* AXOverlayTitleViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFF521BC3770009EC571 /* AXOverlayTitleViewProtocol.swift */; };
 		0A37B03921BC3874009EC571 /* AXLoadingViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFF621BC3770009EC571 /* AXLoadingViewProtocol.swift */; };
 		0A37B03A21BC3874009EC571 /* AXTransitionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFFB21BC3772009EC571 /* AXTransitionUtils.swift */; };
+		0A37B03A2222E49A00FFACDF /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B0392222E49A00FFACDF /* BaseTabBarController.swift */; };
 		0A37B03B21BC3874009EC571 /* AXDispatchUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFFC21BC3772009EC571 /* AXDispatchUtils.swift */; };
 		0A37B04C21BC3A1C009EC571 /* AXStateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B04121BC3A1B009EC571 /* AXStateButton.m */; };
 		0A37B04F21BC3A1C009EC571 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B04621BC3A1B009EC571 /* FLAnimatedImage.m */; };
@@ -308,6 +313,11 @@
 		0A37B01321BC3774009EC571 /* AXPhotosTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXPhotosTransitionAnimator.swift; sourceTree = "<group>"; };
 		0A37B01421BC3774009EC571 /* AXPhotosDismissalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXPhotosDismissalAnimator.swift; sourceTree = "<group>"; };
 		0A37B01721BC378A009EC571 /* AXPhotoViewer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AXPhotoViewer.xcassets; sourceTree = "<group>"; };
+		0A37B02A2222E40300FFACDF /* MainContainerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerRouter.swift; sourceTree = "<group>"; };
+		0A37B02C2222E40300FFACDF /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
+		0A37B02D2222E40300FFACDF /* MainContainerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerBuilder.swift; sourceTree = "<group>"; };
+		0A37B02E2222E40300FFACDF /* MainContainerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerInteractor.swift; sourceTree = "<group>"; };
+		0A37B0392222E49A00FFACDF /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		0A37B04021BC3A1B009EC571 /* AXStateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXStateButton.h; sourceTree = "<group>"; };
 		0A37B04121BC3A1B009EC571 /* AXStateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXStateButton.m; sourceTree = "<group>"; };
 		0A37B04621BC3A1B009EC571 /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
@@ -730,6 +740,17 @@
 			path = "Transition Controller + Animators";
 			sourceTree = "<group>";
 		};
+		0A37B0342222E40900FFACDF /* MainContainer */ = {
+			isa = PBXGroup;
+			children = (
+				0A37B02A2222E40300FFACDF /* MainContainerRouter.swift */,
+				0A37B02C2222E40300FFACDF /* MainContainerViewController.swift */,
+				0A37B02D2222E40300FFACDF /* MainContainerBuilder.swift */,
+				0A37B02E2222E40300FFACDF /* MainContainerInteractor.swift */,
+			);
+			path = MainContainer;
+			sourceTree = "<group>";
+		};
 		0A37B03C21BC3A09009EC571 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
@@ -963,6 +984,7 @@
 				0AFFFDA62149A1E20002E832 /* Thread */,
 				0ACC29662143F21D00B4E53B /* BoardsList */,
 				0A2E0CB6214578F500CBD619 /* Board */,
+				0A37B0342222E40900FFACDF /* MainContainer */,
 				0ACC29822143F78F00B4E53B /* Root */,
 			);
 			path = Modules;
@@ -1082,6 +1104,7 @@
 				0ACC298C2143F7E100B4E53B /* BaseNavigationController.swift */,
 				0A2E0C8D21453BE100CBD619 /* BaseViewController.swift */,
 				0A2E0CAC214557E900CBD619 /* BaseTableViewCell.swift */,
+				0A37B0392222E49A00FFACDF /* BaseTabBarController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1326,6 +1349,7 @@
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftReorder/SwiftReorder.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftTryCatch/SwiftTryCatch.framework",
@@ -1355,6 +1379,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftReorder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftTryCatch.framework",
@@ -1456,11 +1481,13 @@
 				0A37B01621BC3774009EC571 /* AXConstants.swift in Sources */,
 				0AD5C2D8215AC7B900F68AF4 /* ErrorDisplay.swift in Sources */,
 				0AACC189218A5A2A00B7BD19 /* OnboardInteractor.swift in Sources */,
+				0A37B0322222E40300FFACDF /* MainContainerBuilder.swift in Sources */,
 				0A37B01521BC3774009EC571 /* AXBundle.swift in Sources */,
 				0A37B05021BC3A1C009EC571 /* FLAnimatedImageView.m in Sources */,
 				0A2E0C9321453C1000CBD619 /* UIViewController+Utils.swift in Sources */,
 				0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */,
 				0ACC29782143F44400B4E53B /* BoardsListTarget.swift in Sources */,
+				0A37B03A2222E49A00FFACDF /* BaseTabBarController.swift in Sources */,
 				0AD5C2D4215A7F2B00F68AF4 /* NetworkManager.swift in Sources */,
 				0AFFFDB92149AC640002E832 /* PostViewModel.swift in Sources */,
 				0A2E0C9521453CB600CBD619 /* ViewControllable+Utils.swift in Sources */,
@@ -1491,6 +1518,7 @@
 				0A11321E215F9E4C00BB3C79 /* FirebaseManager.swift in Sources */,
 				0ACC29882143F79900B4E53B /* RootViewController.swift in Sources */,
 				0A2E0CAF2145588A00CBD619 /* BoardsTableHeader.swift in Sources */,
+				0A37B0312222E40300FFACDF /* MainContainerViewController.swift in Sources */,
 				0ACC29872143F79900B4E53B /* RootRouter.swift in Sources */,
 				0A90E78D2151A76B00B71EAA /* ThreadReplyService.swift in Sources */,
 				0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */,
@@ -1528,6 +1556,7 @@
 				0AF77B42217E4C85007D8C5B /* CoreDataBoard.swift in Sources */,
 				0AACC188218A5A2A00B7BD19 /* OnboardBuilder.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
+				0A37B02F2222E40300FFACDF /* MainContainerRouter.swift in Sources */,
 				0A0D570B21A5800E00A8053D /* ChanAXPhotosViewController.swift in Sources */,
 				0A113219215F96EA00BB3C79 /* SettingsInteractor.swift in Sources */,
 				0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */,
@@ -1548,6 +1577,7 @@
 				0A2E0CC22145968000CBD619 /* BoardService.swift in Sources */,
 				0A90E78A2151A58700B71EAA /* PostReplysViewModel.swift in Sources */,
 				0A2E0CDC2145B08300CBD619 /* UIFont+AppFonts.swift in Sources */,
+				0A37B0332222E40300FFACDF /* MainContainerInteractor.swift in Sources */,
 				0AFFFDB72149AC3D0002E832 /* ThreadConstants.swift in Sources */,
 				0A2E0CAB2145566700CBD619 /* ChanImageView.swift in Sources */,
 				0AFFFDAC2149A1F40002E832 /* ThreadRouter.swift in Sources */,

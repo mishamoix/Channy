@@ -27,6 +27,7 @@ protocol BoardsListListener: class {
 }
 
 final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, BoardsListInteractable, BoardsListPresentableListener {
+    
 
     
 

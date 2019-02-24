@@ -10,8 +10,9 @@ import RIBs
 import RxSwift
 
 protocol RootRouting: ViewableRouting {
-    func setupBoards()
+    func setupMainViews()
     func setupOnboard()
+    func openMenu()
 }
 
 protocol RootPresentable: Presentable {
@@ -38,12 +39,25 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
     override func didBecomeActive() {
         super.didBecomeActive()
 
-        self.router?.setupBoards()
+        self.router?.setupMainViews()
 //        self.router?.setupOnboard()
     }
 
     override func willResignActive() {
         super.willResignActive()
-        // TODO: Pause any business logic.
+    }
+    
+    
+    // MARK: BoardsListListener
+    func open(board: BoardModel) {
+        
+    }
+    func closeBoardsList() {
+        
+    }
+    
+    // MARK: MainContainerListner
+    func openMenu() {
+        self.router?.openMenu()
     }
 }

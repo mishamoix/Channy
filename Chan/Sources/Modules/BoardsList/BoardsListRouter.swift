@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol BoardsListInteractable: Interactable, BoardListener, SettingsListener, WebAcceptListener {
+protocol BoardsListInteractable: Interactable, SettingsListener, WebAcceptListener {
     var router: BoardsListRouting? { get set }
     var listener: BoardsListListener? { get set }
 }

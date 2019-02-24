@@ -24,6 +24,20 @@ let ThreadCellSideMargin: CGFloat = 16
 let ThreadCellCornerRadius: CGFloat = 8
 let ThreadTableLoadNext: CGFloat = 300
 
+let ThreadImageLeftMargin: CGFloat = 17.0
+let ThreadImageSize: CGFloat = 62.0
+let ThreadImageTextMargin: CGFloat = 14
+let ThreadTextLeftMargin: CGFloat = 16
+
+let ThreadTopMargin: CGFloat = 18
+let ThreadTextBottomMargin: CGFloat = 45
+
+let ThreadTitleMaxHeight: CGFloat = 44
+let ThreadMessageMaxHeight: CGFloat = 58
+let ThreadTitleMessageMargin: CGFloat = 4
+
+let ImageCornerRadius: CGFloat = 14
+
 
 enum BoardAction {
     case loadNext

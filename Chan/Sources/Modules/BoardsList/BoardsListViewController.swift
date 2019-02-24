@@ -59,6 +59,8 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         return (self.seacrhBar.text?.count ?? 0) == 0 ? true : false
     }
     
+
+    
     // MARK: BoardsListPresentable
     
     // MARK: ViewRefreshing
