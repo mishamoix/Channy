@@ -13,7 +13,7 @@ protocol RootDependency: Dependency {
     // created by this RIB.
 }
 
-final class RootComponent: Component<RootDependency>, MainContainerDependency, OnboardDependency, BoardsListDependency {
+final class RootComponent: Component<RootDependency>, MainContainerDependency, OnboardDependency, MenuDependency {
     var threadIsRoot: Bool {
         return true
     }
@@ -44,8 +44,8 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
     let mainContainer = MainContainerBuilder(dependency: component)
     let onboard = OnboardBuilder(dependency: component)
     
-    let boardList = BoardsListBuilder(dependency: component)
+    let menu = MenuBuilder(dependency: component)
     
-    return RootRouter(interactor: interactor, viewController: viewController, mainContainer: mainContainer, onboard: onboard, boardList: boardList)
+    return RootRouter(interactor: interactor, viewController: viewController, mainContainer: mainContainer, onboard: onboard, menu: menu)
   }
 }

@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol RootInteractable: Interactable, OnboardListener, BoardsListListener, MainContainerListener {
+protocol RootInteractable: Interactable, OnboardListener, MenuListener, MainContainerListener {
     var router: RootRouting? { get set }
     var listener: RootListener? { get set }
 }
@@ -24,10 +24,11 @@ protocol RootViewControllable: ViewControllable {
 final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, RootRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: RootInteractable, viewController: RootViewControllable, mainContainer: MainContainerBuildable, onboard: OnboardBuildable, boardList: BoardsListBuildable) {
+    init(interactor: RootInteractable, viewController: RootViewControllable, mainContainer: MainContainerBuildable, onboard: OnboardBuildable, menu: MenuBuildable) {
         self.mainContainerBuilder = mainContainer
         self.onboardBuilder = onboard
-        self.boardListBuilder = boardList
+        self.menuBuilder = menu
+        
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
@@ -39,8 +40,8 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     private let onboardBuilder: OnboardBuildable
     private weak var onboard: ViewableRouting?
     
-    private let boardListBuilder: BoardsListBuildable
-    private weak var boardList: ViewableRouting?
+    private let menuBuilder: MenuBuildable
+    private weak var menu: ViewableRouting?
 
     internal func setupOnboard() {
 //        if self.canDeattach(router: self.onboard) {
@@ -65,22 +66,14 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
             self.attachChild(mainContainer)
             
             mainView = mainContainer.viewControllable.uiviewController
-//
-//            if let nc = self.viewControllable.uiviewController as? UINavigationController {
-////                let nc = self.viewControllable.uiviewController.navigationController
-//                let vc = UIViewController()
-////                vc.view.backgroundColor = .red
-//                nc.setViewControllers([vc], animated: false)
-//                vc.navigationController?.pushViewController(boards.viewControllable.uiviewController, animated: false)
-//
-            }
+        }
         
-        if self.canDeattach(router: self.boardList) {
-            let boardList = self.boardListBuilder.build(withListener: self.interactor)
-            self.boardList = boardList
-            self.attachChild(boardList)
+        if self.canDeattach(router: self.menu) {
+            let menuModule = self.menuBuilder.build(withListener: self.interactor)
+            self.menu = menuModule
+            self.attachChild(menuModule)
             
-            menu = boardList.viewControllable.uiviewController
+            menu = menuModule.viewControllable.uiviewController
         }
         
         if let menu = menu, let mainView = mainView {
