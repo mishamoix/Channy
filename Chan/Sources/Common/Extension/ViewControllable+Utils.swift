@@ -14,7 +14,13 @@ import RIBs
 public extension ViewControllable {
 
     func push(view controllable: ViewControllable, animated: Bool = true) {
-        self.uiviewController.navigationController?.pushViewController(controllable.uiviewController, animated: animated)
+        
+        let vc = controllable.uiviewController
+        if let vc = vc as? BaseViewController {
+            vc.beforePush()
+        }
+        
+        self.uiviewController.navigationController?.pushViewController(vc, animated: animated)
     }
 
     func present(view controllable: ViewControllable, animated: Bool = true) {

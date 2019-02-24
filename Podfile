@@ -32,6 +32,7 @@ target 'Chan' do
     pod 'KafkaRefresh'
     pod 'ReCaptcha/RxSwift'
     pod 'UITextView+Placeholder'
+    pod 'SideMenu'
 
     # Analyticts
     pod 'Firebase/Core'

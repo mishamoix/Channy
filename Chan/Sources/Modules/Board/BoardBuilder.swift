@@ -37,10 +37,9 @@ final class BoardBuilder: Builder<BoardDependency>, BoardBuildable {
         interactor.listener = listener
         
         let threadBuilder = ThreadBuilder(dependency: component)
-        let boardListBuilder = BoardsListBuilder(dependency: component)
         let agreement = WebAcceptBuilder(dependency: component)
         let createThread = WriteBuilder(dependency: component)
         
-        return BoardRouter(interactor: interactor, viewController: viewController, thread: threadBuilder, boardList: boardListBuilder, agreement: agreement, createThread: createThread)
+        return BoardRouter(interactor: interactor, viewController: viewController, thread: threadBuilder, agreement: agreement, createThread: createThread)
     }
 }

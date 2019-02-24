@@ -61,16 +61,15 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.listener?.viewActions.on(.next(.viewWillAppear))
-//        self.updateLargeTitleSize()
-//        self.largeTitle?.alpha = 1
+        
+        self.tabBarController?.tabBar.isHidden = false
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        self.tableWidth = self.collectionView.frame.width
         if let nc = self.navigationController as? BaseNavigationController {
             nc.interactivePopPanGestureRecognizer?.isEnabled = false
         }
@@ -165,7 +164,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             .dataSource
             .asObservable()
             .debug()
-            .observeOn(Helper.rxMainThread)
+            .observeOn(Helper.rxBackgroundThread)
             .map({ [weak self] models -> [ThreadViewModel] in
                 return models.map { $0.calculateSize(max: self?.tableWidth ?? 0) }
             })

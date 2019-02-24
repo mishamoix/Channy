@@ -64,7 +64,11 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         self.updateScrollDownButton()
     }
     
-    
+    override func beforePush() {
+        super.beforePush()
+        
+        self.hidesBottomBarWhenPushed = true
+    }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -120,6 +124,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         }
         
         self.setupTheme()
+        
     }
     
     

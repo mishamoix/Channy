@@ -19,10 +19,9 @@ protocol BoardViewControllable: ViewControllable {
 
 final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable>, BoardRouting {
     // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: BoardInteractable, viewController: BoardViewControllable, thread: ThreadBuildable, boardList: BoardsListBuildable, agreement: WebAcceptBuildable, createThread: WriteBuildable) {
+    init(interactor: BoardInteractable, viewController: BoardViewControllable, thread: ThreadBuildable,  agreement: WebAcceptBuildable, createThread: WriteBuildable) {
         
         self.threadBuildable = thread
-        self.boardListBuildable = boardList
         self.agreementBuildable = agreement
         self.createThreadBuildable = createThread
         
@@ -43,28 +42,6 @@ final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable
 
             
             self.viewControllable.push(view: threadModule.viewControllable)
-        }
-    }
-    
-    func openBoardList() {
-        if self.canDeattach(router: self.boardList) {
-            
-            self.boardList = nil
-            
-            let boardList = self.boardListBuildable.build(withListener: self.interactor)
-            self.attachChild(boardList)
-            self.boardList = boardList
-            
-            let nav = DefaultNavigationController(rootViewController: boardList.viewControllable.uiviewController)
-//            nav.disableSwipe = true
-            self.viewController.present(vc: nav)
-        }
-    }
-    
-    func closeBoardsList() {
-        self.boardList?.viewControllable.uiviewController.navigationController?.dismiss(animated: true, completion: nil)
-        self.tryDeattach(router: self.boardList) {
-            self.boardList = nil
         }
     }
     
@@ -113,8 +90,8 @@ final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable
     private let threadBuildable: ThreadBuildable
     private weak var thread: ViewableRouting?
     
-    private let boardListBuildable: BoardsListBuildable
-    private weak var boardList: ViewableRouting?
+//    private let boardListBuildable: BoardsListBuildable
+//    private weak var boardList: ViewableRouting?
     
     private let agreementBuildable: WebAcceptBuildable
     private weak var agreement: ViewableRouting?

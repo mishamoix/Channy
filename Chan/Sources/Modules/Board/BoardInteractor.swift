@@ -12,9 +12,6 @@ import RxSwift
 protocol BoardRouting: ViewableRouting {
     func open(thread: ThreadModel)
     
-    func openBoardList()
-    func closeBoardsList()
-    
     func openAgreement(model: WebAcceptViewModel)
     func closeAgreement()
     
@@ -29,6 +26,9 @@ protocol BoardPresentable: Presentable {
 }
 
 protocol BoardListener: class {
+    
+    func openMenu()
+    
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
@@ -217,7 +217,8 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 case .openHome: do {
                     self?.presenter.stopAnyLoaders()
                     self?.service.cancel()
-                    self?.router?.openBoardList()
+                    
+                    self?.listener?.openMenu()
                 }
                     
                 case .copyLinkOnBoard: do {
@@ -261,7 +262,6 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     func closeBoardsList() {
-        self.router?.closeBoardsList()
     }
     
     // MARK: WebAcceptListener

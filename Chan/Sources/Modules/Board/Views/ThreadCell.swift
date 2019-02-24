@@ -16,7 +16,9 @@ class ThreadCell: UICollectionViewCell {
 
     @IBOutlet weak var canvas: ChanView!
     @IBOutlet weak var iconView: ChanImageView!
-    private var message: TGReusableLabel = TGReusableLabel(frame: .zero)
+    private var title: UILabel = UILabel()
+    private var message: UILabel = UILabel()
+    
     private let disposeBag = DisposeBag()
     
     weak var actions: PublishSubject<BoardCellAction>? = nil
@@ -25,25 +27,33 @@ class ThreadCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.canvas.layer.cornerRadius = ThreadCellCornerRadius
-        self.canvas.clipsToBounds = true
-        
-        self.canvas.layer.borderColor = UIColor.groupTableViewBackground.cgColor
-        self.canvas.layer.borderWidth = 1
+//        self.canvas.layer.cornerRadius = ThreadCellCornerRadius
+//        self.canvas.clipsToBounds = true
+//
+//        self.canvas.layer.borderColor = UIColor.groupTableViewBackground.cgColor
+//        self.canvas.layer.borderWidth = 1
         
         self.iconView.clipsToBounds = true
+        self.iconView.layer.cornerRadius = ImageCornerRadius
         
         self.canvas.addSubview(self.message)
+        self.message.numberOfLines = 0
+        self.message.font = .text
+
         
-        self.message.snp.makeConstraints { make in
-            make.left.equalTo(self.iconView.snp.right).offset(MediumMargin)
-            make.right.equalToSuperview().offset(-MediumMargin)
-            
-            make.top.equalToSuperview().offset(DefaultMargin)
-            make.bottom.equalToSuperview().offset(-DefaultMargin)
-        }
+        self.canvas.addSubview(self.title)
+        self.title.numberOfLines = 0
+        self.title.font = .postTitle
         
-        self.canvas.setupLongGesture()
+//        self.message.snp.makeConstraints { make in
+//            make.left.equalTo(self.iconView.snp.right).offset(MediumMargin)
+//            make.right.equalToSuperview().offset(-MediumMargin)
+//
+//            make.top.equalToSuperview().offset(DefaultMargin)
+//            make.bottom.equalToSuperview().offset(-DefaultMargin)
+//        }
+        
+//        self.canvas.setupLongGesture()
         
         let tapOnCell = UITapGestureRecognizer()
         self.canvas.addGestureRecognizer(tapOnCell)
@@ -57,9 +67,9 @@ class ThreadCell: UICollectionViewCell {
                 }
             }).disposed(by: self.disposeBag)
 //        
-        self.canvas.backgroundColor = .snow
+//        self.canvas.backgroundColor = .snow
         
-        self.setupTheme()
+//        self.setupTheme()
         
     }
 
@@ -76,11 +86,11 @@ class ThreadCell: UICollectionViewCell {
 //        super.update(with: model)
         
         self.message.text = model.displayText
-        self.message.font = .text
+        self.title.text = model.title
 //        self.message.textColor = .black
-        self.message.backgroundColor = .clear
+//        self.message.backgroundColor = .clear
         
-        self.message.setNeedsDisplay()
+//        self.message.setNeedsDisplay()
         
 
         self.iconView.cancelLoad()
@@ -90,6 +100,11 @@ class ThreadCell: UICollectionViewCell {
             self.iconView.censor(file: model.file)
 //            self.iconView.af_setImage(withURL: thumbnail)
         }
+        
+        let textRightOffset = ThreadImageLeftMargin + ThreadImageSize + ThreadImageTextMargin
+        
+        self.title.frame = CGRect(x: textRightOffset, y: ThreadTopMargin, width: model.titleSize.width, height: model.titleSize.height)
+        self.message.frame = CGRect(x: textRightOffset, y: ThreadTopMargin + model.titleSize.height + ThreadTitleMessageMargin, width: model.messageSize.width, height: model.messageSize.height)
       
     }
     

@@ -30,6 +30,9 @@ open class BaseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    open func beforePush() {
+        
+    }
 
     deinit {
         self.themeManager.clean()

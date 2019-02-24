@@ -166,6 +166,7 @@ PODS:
   - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
   - RxSwift (4.3.1)
+  - SideMenu (5.0.1)
   - SnapKit (4.0.1)
   - SwiftReorder (6.0.0)
   - SwiftTryCatch (0.0.1)
@@ -191,6 +192,7 @@ DEPENDENCIES:
   - RIBs
   - RxCocoa
   - RxSwift
+  - SideMenu
   - SnapKit
   - SwiftReorder (~> 6.0)
   - SwiftTryCatch
@@ -230,6 +232,7 @@ SPEC REPOS:
     - RIBs
     - RxCocoa
     - RxSwift
+    - SideMenu
     - SnapKit
     - SwiftReorder
     - SwiftTryCatch
@@ -267,12 +270,13 @@ SPEC CHECKSUMS:
   RIBs: 879184fbca567425c488d6b3d14a9c5abfbf9d47
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
+  SideMenu: 87efd943737bb83aedf0358884d09fcf5576636d
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftReorder: 0eefefe5e469c70a98d129e9aa2952862a2b34d2
   SwiftTryCatch: fb6d2b34abe48efd69578dac919293a44f95b481
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: 4934fbeb0294d1fbaabf3844922c4d91ba39b056
+PODFILE CHECKSUM: 0b4462a9f2f1be6dc30a9f7a8cbbc70725b0f78c
 
 COCOAPODS: 1.5.3

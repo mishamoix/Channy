@@ -19,6 +19,9 @@ class ThreadViewModel {
     private(set) var height: CGFloat = 0
     private var heightCalculated = false
     
+    private(set) var messageSize: CGSize = .zero
+    private(set) var titleSize: CGSize = .zero
+    
     let uid: String
     
     let file: FileModel?
@@ -30,6 +33,7 @@ class ThreadViewModel {
     init(with model: ThreadModel) {
         self.uid = model.uid
         self.file = model.posts.first?.files.first
+        self.title = "The Request Thread Is Back /request/ The Request Thread Is Back /request/"
         if let post = model.posts.first {
 //            self.title = post.subject
             self.comment = TextStripper.fullClean(text: post.comment)
@@ -41,7 +45,22 @@ class ThreadViewModel {
     }
     
     func calculateSize(max width: CGFloat) -> ThreadViewModel {
-        self.height = ThreadCellMinHeight
+//        self.height = ThreadCellMinHeight
+
+        
+        let textMaxWidth = width - (ThreadImageLeftMargin + ThreadImageSize + ThreadImageTextMargin + ThreadTextLeftMargin)
+        
+        var titleSize = TextSize(text: self.title, maxWidth: textMaxWidth, font: UIFont.postTitle).calculate()
+        titleSize = CGSize(width: titleSize.width, height: min(titleSize.height, ThreadTitleMaxHeight))
+        self.titleSize = titleSize
+        
+        var messageSize = TextSize(text: self.comment, maxWidth: textMaxWidth, font: UIFont.text).calculate()
+        messageSize = CGSize(width: messageSize.width, height: min(messageSize.height, ThreadMessageMaxHeight))
+        self.messageSize = messageSize
+        
+        self.height = ThreadTopMargin + titleSize.height + ThreadTitleMessageMargin + messageSize.height + ThreadTextBottomMargin
+        
+        
         return self
     }
 }
