@@ -106,6 +106,10 @@
 		0A37B03A21BC3874009EC571 /* AXTransitionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFFB21BC3772009EC571 /* AXTransitionUtils.swift */; };
 		0A37B03A2222E49A00FFACDF /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B0392222E49A00FFACDF /* BaseTabBarController.swift */; };
 		0A37B03B21BC3874009EC571 /* AXDispatchUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFFC21BC3772009EC571 /* AXDispatchUtils.swift */; };
+		0A37B0402222F15000FFACDF /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B03C2222F15000FFACDF /* MenuRouter.swift */; };
+		0A37B0412222F15000FFACDF /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B03D2222F15000FFACDF /* MenuViewController.swift */; };
+		0A37B0422222F15000FFACDF /* MenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B03E2222F15000FFACDF /* MenuBuilder.swift */; };
+		0A37B0432222F15000FFACDF /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B03F2222F15000FFACDF /* MenuInteractor.swift */; };
 		0A37B04C21BC3A1C009EC571 /* AXStateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B04121BC3A1B009EC571 /* AXStateButton.m */; };
 		0A37B04F21BC3A1C009EC571 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B04621BC3A1B009EC571 /* FLAnimatedImage.m */; };
 		0A37B05021BC3A1C009EC571 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A37B04721BC3A1B009EC571 /* FLAnimatedImageView.m */; };
@@ -318,6 +322,10 @@
 		0A37B02D2222E40300FFACDF /* MainContainerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerBuilder.swift; sourceTree = "<group>"; };
 		0A37B02E2222E40300FFACDF /* MainContainerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerInteractor.swift; sourceTree = "<group>"; };
 		0A37B0392222E49A00FFACDF /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		0A37B03C2222F15000FFACDF /* MenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRouter.swift; sourceTree = "<group>"; };
+		0A37B03D2222F15000FFACDF /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		0A37B03E2222F15000FFACDF /* MenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBuilder.swift; sourceTree = "<group>"; };
+		0A37B03F2222F15000FFACDF /* MenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
 		0A37B04021BC3A1B009EC571 /* AXStateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXStateButton.h; sourceTree = "<group>"; };
 		0A37B04121BC3A1B009EC571 /* AXStateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXStateButton.m; sourceTree = "<group>"; };
 		0A37B04621BC3A1B009EC571 /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
@@ -751,6 +759,18 @@
 			path = MainContainer;
 			sourceTree = "<group>";
 		};
+		0A37B03B2222F13000FFACDF /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				0A37B0442222F16900FFACDF /* Submodules */,
+				0A37B03C2222F15000FFACDF /* MenuRouter.swift */,
+				0A37B03D2222F15000FFACDF /* MenuViewController.swift */,
+				0A37B03E2222F15000FFACDF /* MenuBuilder.swift */,
+				0A37B03F2222F15000FFACDF /* MenuInteractor.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 		0A37B03C21BC3A09009EC571 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
@@ -778,6 +798,14 @@
 				0A37B04921BC3A1B009EC571 /* FLAnimatedImageView.h */,
 			);
 			path = FLAnimatedImage;
+			sourceTree = "<group>";
+		};
+		0A37B0442222F16900FFACDF /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+				0ACC29662143F21D00B4E53B /* BoardsList */,
+			);
+			path = Submodules;
 			sourceTree = "<group>";
 		};
 		0A505D70216D05EF0076F383 /* WebAccept */ = {
@@ -977,12 +1005,12 @@
 		0ACC29642143F06500B4E53B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0A37B03B2222F13000FFACDF /* Menu */,
 				0A905F6821A9B0EC00ADE51E /* Write */,
 				0AACC175218A56D500B7BD19 /* Onboard */,
 				0A505D70216D05EF0076F383 /* WebAccept */,
 				0A11320F215F96D500BB3C79 /* Settings */,
 				0AFFFDA62149A1E20002E832 /* Thread */,
-				0ACC29662143F21D00B4E53B /* BoardsList */,
 				0A2E0CB6214578F500CBD619 /* Board */,
 				0A37B0342222E40900FFACDF /* MainContainer */,
 				0ACC29822143F78F00B4E53B /* Root */,
@@ -1409,6 +1437,7 @@
 				0A37B01821BC3873009EC571 /* AXPhotoViewController.swift in Sources */,
 				0A37B01921BC3873009EC571 /* AXPreviewingPhotosViewController.swift in Sources */,
 				0A37B01A21BC3873009EC571 /* AXPhotosViewController.swift in Sources */,
+				0A37B0422222F15000FFACDF /* MenuBuilder.swift in Sources */,
 				0A37B01B21BC3873009EC571 /* AXTransitionInfo.swift in Sources */,
 				0A37B01C21BC3873009EC571 /* AXPhoto.swift in Sources */,
 				0A37B01D21BC3873009EC571 /* AXPagingConfig.swift in Sources */,
@@ -1416,6 +1445,7 @@
 				0A37B01F21BC3873009EC571 /* AXButton.swift in Sources */,
 				0A37B02021BC3873009EC571 /* AXZoomingImageView.swift in Sources */,
 				0A37B02121BC3873009EC571 /* AXLoadingView.swift in Sources */,
+				0A37B0402222F15000FFACDF /* MenuRouter.swift in Sources */,
 				0A37B02221BC3873009EC571 /* AXCaptionView.swift in Sources */,
 				0A37B02321BC3873009EC571 /* AXImageViewTransitionContainer.swift in Sources */,
 				0A37B02421BC3873009EC571 /* AXOverlayView.swift in Sources */,
@@ -1466,6 +1496,7 @@
 				0A2E0C8A2145397600CBD619 /* BoardModel.swift in Sources */,
 				0ACC29752143F3AE00B4E53B /* BaseService.swift in Sources */,
 				0A203F17219C9CEC00A51554 /* CensorManager.swift in Sources */,
+				0A37B0432222F15000FFACDF /* MenuInteractor.swift in Sources */,
 				0A2E0C9F2145467F00CBD619 /* ResultModel.swift in Sources */,
 				0AD5C2DC215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift in Sources */,
 				0ACC29892143F79900B4E53B /* RootBuilder.swift in Sources */,
@@ -1551,6 +1582,7 @@
 				0A5B0EC5214F995400AECE3C /* String+Utils.swift in Sources */,
 				0A2E0C9721453E4B00CBD619 /* Router+Utils.swift in Sources */,
 				0A2E0CBF2145790300CBD619 /* BoardBuilder.swift in Sources */,
+				0A37B0412222F15000FFACDF /* MenuViewController.swift in Sources */,
 				0A90E78F2151A9A100B71EAA /* ResultThreadModel.swift in Sources */,
 				0A90E7A52152DF9800B71EAA /* ThreadRepledService.swift in Sources */,
 				0AF77B42217E4C85007D8C5B /* CoreDataBoard.swift in Sources */,
