@@ -19,7 +19,7 @@ enum BoardTarget {
 extension BoardTarget: TargetType {
     
     
-    public var baseURL: URL { return Enviroment.default.baseUrl }
+    public var baseURL: URL { return Enviroment.default.oldBaseUrl }
     public var path: String {
         switch self {
         case .mainPage(let board):

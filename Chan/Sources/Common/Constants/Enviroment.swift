@@ -12,15 +12,19 @@ class Enviroment {
   
     static var `default` = Enviroment()
 
+    var oldBaseUrl: URL {
+        return URL(string: self.oldBasePath)!
+    }
+    
     var baseUrl: URL {
-        return URL(string: self.basePath)!
+        return URL(string: "https://one.yablach.co/")!
     }
     
     var baseUrlCensor: URL {
         return URL(string: "https://censor.yablach.co")!
     }
     
-    var basePath: String {
+    var oldBasePath: String {
         return "https://2ch.hk"
     }
     

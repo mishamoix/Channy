@@ -10,6 +10,7 @@ import RIBs
 import RxSwift
 
 protocol MenuRouting: ViewableRouting {
+    func setupViews()
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
 }
 
@@ -24,8 +25,12 @@ protocol MenuListener: class {
 
 final class MenuInteractor: PresentableInteractor<MenuPresentable>, MenuInteractable, MenuPresentableListener {
 
+    
+
     weak var router: MenuRouting?
     weak var listener: MenuListener?
+    
+    
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
@@ -36,11 +41,22 @@ final class MenuInteractor: PresentableInteractor<MenuPresentable>, MenuInteract
 
     override func didBecomeActive() {
         super.didBecomeActive()
+        
+        self.router?.setupViews()
         // TODO: Implement business logic here.
     }
 
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
+    }
+    
+    // BoardListListener
+    func open(board: BoardModel) {
+        
+    }
+    
+    func closeBoardsList() {
+        
     }
 }

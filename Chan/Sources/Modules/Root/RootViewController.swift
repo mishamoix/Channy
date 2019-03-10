@@ -10,6 +10,10 @@ import RIBs
 import RxSwift
 import UIKit
 import SideMenu
+import SnapKit
+
+let DarkViewMaxAlpha: Float = 0.4
+
 
 protocol RootPresentableListener: class {
     // TODO: Declare properties and methods that the view controller can invoke to perform
@@ -21,17 +25,29 @@ final class RootViewController: BaseViewController, RootPresentable, RootViewCon
 
     weak var listener: RootPresentableListener?
     
+    private var menu: UISideMenuNavigationController? = nil
+    private let darkView = UIView()
+    private var darkViewHidden = true
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
     }
     
-    func setupViews(main view: UIViewController, side menu: UIViewController) {
-        self.view.backgroundColor = .red
-        let menuLeftViewController = UISideMenuNavigationController(rootViewController: menu)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        menuLeftViewController.menuWidth = self.view.frame.width * 0.85
+
+    }
+    
+    func setupViews(main view: UIViewController, side menu: UIViewController) {
+//        self.view.backgroundColor = .red
+        let menuLeftViewController = UISideMenuNavigationController(rootViewController: menu)
+        self.menu = menuLeftViewController
+        self.menu?.menuWidth = min(self.view.frame.width, self.view.frame.height) * 0.85
+        self.menu?.sideMenuDelegate = self
+
+//        menuLeftViewController.menuWidth = self.view.frame.width * 0.85
         
         view.willMove(toParent: self)
         self.addChild(view)
@@ -49,6 +65,23 @@ final class RootViewController: BaseViewController, RootPresentable, RootViewCon
         self.view.isUserInteractionEnabled = true
         SideMenuManager.default.menuFadeStatusBar = false
         SideMenuManager.default.menuShadowOpacity = 0
+        
+        
+        self.darkView.isHidden = true
+        self.darkView.backgroundColor = .darkView
+        view.view.addSubview(self.darkView)
+        
+        self.darkView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        
+        let layer = view.view.layer
+        view.view.clipsToBounds = false
+        layer.shadowColor = UIColor.shadow.cgColor
+        layer.shadowRadius = 5
+        layer.shadowOpacity = 1
+        
 
 //SideMenuManager.default.s
 //        SideMenuManager.default.menuRightNavigationController = mainViewController
@@ -62,4 +95,49 @@ final class RootViewController: BaseViewController, RootPresentable, RootViewCon
     }
     
     
+}
+
+
+extension RootViewController: UISideMenuNavigationControllerDelegate {
+    func sideMenuWillAppear(menu: UISideMenuNavigationController, animated: Bool) {
+        self.menu(opened: true)
+    }
+    
+    func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool) {
+        self.menu(opened: true)
+    }
+    
+    func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool) {
+        self.menu(opened: false)
+    }
+    
+    func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool) {
+        self.menu(opened: false)
+    }
+    
+    
+    func menu(opened: Bool) {
+        if opened && self.darkViewHidden {
+            self.darkView.layer.removeAllAnimations()
+            
+            self.darkView.layer.opacity = 0
+            self.darkView.isHidden = false
+            self.darkViewHidden = false
+            UIView.animate(withDuration: AnimationDuration) {
+                self.darkView.layer.opacity = DarkViewMaxAlpha
+            }
+            
+        } else if !opened && !self.darkViewHidden {
+            self.darkView.layer.removeAllAnimations()
+            self.darkView.layer.opacity = DarkViewMaxAlpha
+            self.darkViewHidden = true
+            UIView.animate(withDuration: AnimationDuration, animations: {
+                self.darkView.layer.opacity = 0
+            }) { finished in
+                if finished {
+                    self.darkView.isHidden = true
+                }
+            }
+        }
+    }
 }

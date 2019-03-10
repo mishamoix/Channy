@@ -31,7 +31,7 @@ class WriteService: BaseService, WriteServiceProtocol {
             .rx
             .request(.invisibleRecaptcha)
             .asObservable()
-            .flatMap({ [weak self] response -> Observable<String>in
+            .flatMap({ [weak self] response -> Observable<String> in
                 if let id = self?.fromJson(data: response.data)?["id"] as? String {
                     return Observable<String>.just(id)
                 } else {
