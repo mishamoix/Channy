@@ -43,5 +43,7 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
             let nc = BaseNavigationController(rootViewController: board.viewControllable.uiviewController)
             self.viewController.addTab(view: nc)
         }
+        
+        
     }
 }

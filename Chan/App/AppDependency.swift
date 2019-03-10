@@ -56,13 +56,14 @@ class AppDependency: NSObject {
         FirebaseManager.setup()
       
         Fabric.with([Crashlytics.self])
-        MSAppCenter.start("66600e45-de1a-45c9-a0f7-10210663c7ef", withServices:[
+        MSAppCenter.start("66600e45-de1a-45c9-a0f7-10210663c7ef", withServices: [
             MSAnalytics.self,
             MSCrashes.self
         ])
 
         
         CoreDataStore.shared.setup()
+        self.initializeData()
         
         do {
             if #available(iOS 10.0, *) {
@@ -105,6 +106,10 @@ class AppDependency: NSObject {
     
     func updateAction(app action: AppAction) {
         self._appAction.on(.next(action))
+    }
+    
+    func initializeData() {
+        ImageboardService.instance().reload()
     }
   
 }

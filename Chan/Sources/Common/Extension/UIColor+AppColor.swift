@@ -69,6 +69,7 @@ extension UIColor {
     static var cellSelectedMacaba: UIColor { return #colorLiteral(red: 0.8056949344, green: 0.8056949344, blue: 0.8056949344, alpha: 1) }
 
 
-    
+    static var darkView: UIColor { return .black }
+    static var shadow: UIColor { return #colorLiteral(red: 0.07190619324, green: 0.07190619324, blue: 0.07190619324, alpha: 0.25) }
     
 }

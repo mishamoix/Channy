@@ -57,7 +57,7 @@ final class MainContainerViewController: BaseTabBarController, MainContainerPres
     
     private func setupUI() {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        view.backgroundColor = .red
+//        view.backgroundColor = .red
         self.tabBar.addSubview(view)
         
         view.snp.makeConstraints { make in

@@ -17,7 +17,7 @@ enum WriteTarget {
 
 
 extension WriteTarget: TargetType {
-    public var baseURL: URL { return Enviroment.default.baseUrl }
+    public var baseURL: URL { return Enviroment.default.oldBaseUrl }
     public var path: String {
         switch self {
         case .invisibleRecaptcha: return "/api/captcha/invisible_recaptcha/id"

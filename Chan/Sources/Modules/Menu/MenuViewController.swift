@@ -9,6 +9,7 @@
 import RIBs
 import RxSwift
 import UIKit
+import SnapKit
 
 protocol MenuPresentableListener: class {
     // TODO: Declare properties and methods that the view controller can invoke to perform
@@ -16,71 +17,123 @@ protocol MenuPresentableListener: class {
     // interactor class.
 }
 
-final class MenuViewController: UIPageViewController, MenuPresentable, MenuViewControllable {
+final class MenuViewController: BaseViewController, MenuPresentable, MenuViewControllable {
 
     weak var listener: MenuPresentableListener?
+    private let scrollView = UIScrollView()
+    private let pageIndicator = UIPageControl(frame: .zero)
     
-    var views: [UIViewController] = []
-    
-    init() {
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
+    var views: [UIViewController] = [] {
+        didSet {
+            self.pageIndicator.numberOfPages = self.views.count
+        }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.setup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+
+    }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        var offset: CGFloat = 0
+        for vc in views {
+            
+            vc.view.snp.remakeConstraints { make in
+                make.left.equalToSuperview().offset(offset)
+                make.size.equalToSuperview()
+                make.centerY.equalToSuperview()
+            }
+            
+//            vc.view.frame = CGRect(x: offset, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+            offset += self.view.frame.width
+        }
+        
+        self.scrollView.contentSize = CGSize(width: offset, height: self.view.frame.height)
+    }
+
+    
+    func setup(views: [UIViewController]) {
+        self.loadViewIfNeeded()
+        self.views = views
+        
+        for vc in views {
+            vc.willMove(toParent: self)
+            self.addChild(vc)
+            self.scrollView.addSubview(vc.view)
+            vc.didMove(toParent: self)
+        }
+        
+        
+
+    }
+    
+    func select(page idx: Int) {
+//        self.pageIndicator
+    }
     
     // MARK: Private
     private func setup() {
-        
-        self.dataSource = self
-        
         self.setupUI()
         
     }
     
     
     private func setupUI() {
+        self.automaticallyAdjustsScrollViewInsets = false
         
-        let first = UIViewController()
-        first.view.backgroundColor = .green
+        self.view.addSubview(self.scrollView)
+        self.scrollView.isPagingEnabled = true
+        self.scrollView.delegate = self
+        self.scrollView.bounces = false
+        self.scrollView.frame = self.view.bounds
+        self.scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        self.scrollView.showsHorizontalScrollIndicator = false
         
-        let second = UIViewController()
-        second.view.backgroundColor = .blue
+        
+        self.view.addSubview(self.pageIndicator)
         
         
-        self.views = [first, second]
-    
-        self.setViewControllers([second], direction: UIPageViewController.NavigationDirection.forward, animated: false, completion: nil)
+        var bottomOffset = MenuIndicatorBottomOffset
         
-
+        if #available(iOS 11.0, *) {
+            bottomOffset += self.view.safeAreaInsets.bottom
+        }
+        
+        self.pageIndicator.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-bottomOffset)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(MenuIndicatorHeight)
+            make.width.equalTo(MenuIndicatorWidth)
+        }
+        self.pageIndicator.layer.cornerRadius = MenuIndicatorCornerRadius
+        self.pageIndicator.backgroundColor = UIColor.gray
     }
 }
 
 
-extension MenuViewController: UIPageViewControllerDataSource {
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        if (viewController == self.views.last!) {
-            return self.views.first!
+extension MenuViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (scrollView.contentOffset.x == 0) {
+            self.pageIndicator.currentPage = 0
+        } else {
+            let idx = Int(round(scrollView.contentOffset.x / scrollView.frame.width))
+            self.pageIndicator.currentPage = idx
         }
-        
-        return nil
-    }
-    
-    @available(iOS 5.0, *)
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if (viewController == self.views.first!) {
-            return self.views.last!
-        }
-        
-        return nil
     }
 }
