@@ -234,10 +234,10 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 if let openThread = boardLink.thread, let boardUid = boardLink.board {
                     
                     if thread.uid != openThread {
-                        let board = BoardModel(uid: boardUid)
-                        let threadToOpen = ThreadModel(uid: openThread, board: board)
-                        
-                        self.router?.openNewThread(with: threadToOpen)
+//                        let board = BoardModel(uid: boardUid)
+//                        let threadToOpen = ThreadModel(uid: openThread, board: board)
+//
+//                        self.router?.openNewThread(with: threadToOpen)
                     } else {
                         if let replyedPost = posts.filter({ $0.uid == boardLink.post}).first {
                             let replyes = PostReplysViewModel(parent: post, posts: posts, thread: thread, replyed: replyedPost, cachedVM: self.postsManager?.internalPostVM)
@@ -248,8 +248,8 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                         }
                     }
                 } else if let boardUid = boardLink.board {
-                    let board = BoardModel(uid: boardUid)
-                    self.open(board: board)
+//                    let board = BoardModel(uid: boardUid)
+//                    self.open(board: board)
                     // TODO: Если ссылка вида /hw/catalog.html, '/web/'
                 }
             }

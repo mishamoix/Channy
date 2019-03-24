@@ -16,7 +16,7 @@ protocol BaseServiceProtocol {
 
 class BaseService: BaseServiceProtocol {
     var disposeBag = DisposeBag()
-    
+    let coreData = CoreDataStore.shared
     
     func cancel() {
         self.disposeBag = DisposeBag()

@@ -12,23 +12,34 @@ import IGListKit
 
 class BoardModel: BaseModel, Decodable {
 
-    var uid = ""
+    // remove after all refactor
+    var uid: String = ""
+    init(uid: String) {
+        self.id = uid
+    }
+
+    
+    
+    var id = ""
     var name = ""
-    var isHome = false
+    
     var sort = 0
+    var imageboard: ImageboardModel? = nil
 
     enum CodingKeys : String, CodingKey {
         case name
-        case uid = "id"
+        case id
     }
     
-    init(uid: String) {
-        self.uid = uid
+    init(id: String) {
+        self.id = id
     }
+    
+
     
     func has(substring: String) -> Bool {
         let sub = substring.lowercased()
-        if self.uid.lowercased().range(of: sub) != nil || self.name.lowercased().range(of: sub) != nil {
+        if self.id.lowercased().range(of: sub) != nil || self.name.lowercased().range(of: sub) != nil {
             return true
         }
         
@@ -36,25 +47,25 @@ class BoardModel: BaseModel, Decodable {
     }
     
     var buildLink: String? {
-        let result = "\(Enviroment.default.oldBasePath)/\(self.uid)/"
+        let result = "\(Enviroment.default.oldBasePath)/\(self.id)/"
         return result
     }
 
     
     override var debugDescription: String {
-        return "uid - \(self.uid), name - \(self.name), sort: \(self.sort)"
+        return "uid - \(self.id), name - \(self.name)"
     }
 }
 
 
 extension BoardModel: ListDiffable {
     func diffIdentifier() -> NSObjectProtocol {
-        return self.uid as NSObjectProtocol
+        return self.id as NSObjectProtocol
     }
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if let obj = object as? BoardModel {
-            return obj.uid == self.uid && obj.isHome == self.isHome
+            return obj.id == self.id
         }
         
         return false

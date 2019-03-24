@@ -57,6 +57,23 @@ class CoreDataStore {
         return toReturn
     }
     
+    func findModel<T: NSManagedObject>(with modelClass: T.Type, predicate: NSPredicate? = nil) -> AnyObject? {
+        let localContext = self.localContext
+        var toReturn: AnyObject?
+        let request = self.buildRequest(with: modelClass, predicate: predicate)
+        request.fetchLimit = 1
+        let results = modelClass.mr_executeFetchRequest(request, in: localContext)
+        
+        for result in results ?? [] {
+            if let res = result as? CacheTrackerEntity {
+                toReturn = res.model
+            }
+        }
+        
+        return toReturn
+    }
+
+    
     
     func saveModel<T: NSManagedObject>(with model: CoreDataCachedModel, with modelClass: T.Type) {
         self.saveModels(with: [model], with: modelClass)
