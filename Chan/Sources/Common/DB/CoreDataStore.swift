@@ -31,10 +31,21 @@ class CoreDataStore {
     }
     
     func setup() {
+//        MagicalRecord.setDefaultModelNamed("CoreDataModel.momd")
         MagicalRecord.setupCoreDataStack(withStoreNamed: "Chan")
-        MagicalRecord.setLoggingLevel(.debug)
+//        MagicalRecord.setu()
+        MagicalRecord.setLoggingLevel(.verbose)
         
-//        test()
+//        if let model = NSManagedObjectModel.mr_default() {
+//            let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+////            let sqlitePath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "default")!.path + "/" + DBName
+////            try! coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: URL(fileURLWithPath: sqlitePath), options: [
+////                    NSMigratePersistentStoresAutomaticallyOption : true,
+////                    NSInferMappingModelAutomaticallyOption: true
+////                ])
+//            NSPersistentStoreCoordinator.mr_setDefaultStoreCoordinator(coordinator)
+//            NSManagedObjectContext.mr_initializeDefaultContext(with: coordinator)
+//        }
     }
   
     
@@ -46,13 +57,16 @@ class CoreDataStore {
         let localContext = self.localContext
         var toReturn: [AnyObject] = []
         let request = self.buildRequest(with: modelClass, predicate: predicate)
-        let results = modelClass.mr_executeFetchRequest(request, in: localContext)
-
-        for result in results ?? [] {
-            if let res = result as? CacheTrackerEntity {
-                toReturn.append(res.model)
+        
+        localContext.performAndWait {
+            let results = modelClass.mr_executeFetchRequest(request, in: localContext)
+            for result in results ?? [] {
+                if let res = result as? CacheTrackerEntity {
+                    toReturn.append(res.model)
+                }
             }
         }
+
         
         return toReturn
     }
@@ -62,11 +76,12 @@ class CoreDataStore {
         var toReturn: AnyObject?
         let request = self.buildRequest(with: modelClass, predicate: predicate)
         request.fetchLimit = 1
-        let results = modelClass.mr_executeFetchRequest(request, in: localContext)
-        
-        for result in results ?? [] {
-            if let res = result as? CacheTrackerEntity {
-                toReturn = res.model
+        localContext.performAndWait {
+            let results = modelClass.mr_executeFetchRequest(request, in: localContext)
+            for result in results ?? [] {
+                if let res = result as? CacheTrackerEntity {
+                    toReturn = res.model
+                }
             }
         }
         
@@ -75,28 +90,25 @@ class CoreDataStore {
 
     
     
-    func saveModel<T: NSManagedObject>(with model: CoreDataCachedModel, with modelClass: T.Type) {
-        self.saveModels(with: [model], with: modelClass)
+    func saveModel<T: NSManagedObject>(with model: CoreDataCachedModel, with modelClass: T.Type, completion: (() -> ())? = nil) {
+        self.saveModels(with: [model], with: modelClass, completion: completion)
     }
 
     
-    func saveModels<T: NSManagedObject>(with models: [CoreDataCachedModel], with modelClass: T.Type) {
+    func saveModels<T: NSManagedObject>(with models: [CoreDataCachedModel], with modelClass: T.Type, completion: (() -> ())? = nil) {
         let localContext = self.localContext
         
-        for model in models {
-            let _ = model.save(in: localContext)
+        localContext.performAndWait {
+            for model in models {
+                let _ = model.save(in: localContext)
+            }
+            
+            localContext.mr_save(options: [MRSaveOptions.synchronously, MRSaveOptions.parentContexts], completion: { (success, error) in
+                completion?()
+            })
         }
-        
-        
-        localContext.mr_saveToPersistentStoreAndWait()
-        
-//        localContext.mr_save(options: MRSaveOptions.synchronously) { (success, error) in
-//            print(success)
-//            print(error)
-//        }
     }
-    
-    
+        
     func delete<T: NSManagedObject>(with modelClass: T.Type, predicate: NSPredicate? = nil) {
         let localContext = self.localContext
         localContext.performAndWait {
@@ -114,75 +126,11 @@ class CoreDataStore {
 //            })
         }
     }
-    
-    func test() {
-//        let board1 = BoardModel(uid: "b")
-//        board1.name = "Бред - 4"
-//        board1.isHome = true
-//        
-//        let board2 = BoardModel(uid: "pr")
-//        board2.name = "Программач"
-//        board2.isHome = false
-//        
-//        let board3 = BoardModel(uid: "sex")
-//        board3.name = "SEEEEx"
-//        board3.isHome = false
-//
-//        
-//        self.saveModels(with: [board1, board2, board3], with: CoreDataBoard.self)
-//        
-//        let mmm = self.findModels(with: CoreDataBoard.self)
-//        let models = mmm as? [BoardModel]
-//        print(models)
-////
-////        
-//        self.delete(with: CoreDataBoard.self)
-////
-//        let mmm1 = self.findModels(with: CoreDataBoard.self)
-//        let models1 = mmm1 as? [BoardModel]
-//        print(models1)
 
-        
-        
-//        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        print(urls[urls.count-1] as URL)
-//
-//
-//        let mainContext = NSManagedObjectContext.mr_default()
-//        let defaultContext = NSManagedObjectContext.mr_context(withParent: mainContext)
-//
-//        var boards = CoreDataBoard.mr_findAll()
-//        let a = 1
-//
-//
-//        var res: CoreDataBoard?
-//        for board in boards ?? [] {
-//            if let b = board as? CoreDataBoard {
-//                print(b)
-////                res = b
-//            }
-//        }
-//
-//        MagicalRecord.save({ context in
-//            var data = res?.mr_(in: context)
-//            data?.name = "Пека"
-//        }) { (success, err) in
-//            print(err)
-//        }
-
-//        var board = CoreDataBoard.mr_createEntity(in: defaultContext)
-//        board?.uid = "34"
-//        board?.name = "fweirofmwerfwfr"
-//        board?.isHome = false
-//
-//        defaultContext.mr_saveToPersistentStoreAndWait()
-        
-//
-//        //        board.mr_s
-    }
     
+    private static var sharedContext = NSManagedObjectContext.mr_context(withParent: NSManagedObjectContext.mr_rootSaving())
     private var localContext: NSManagedObjectContext {
-        return NSManagedObjectContext.mr_context(withParent: NSManagedObjectContext.mr_rootSaving())
+        return CoreDataStore.sharedContext
     }
     
     private func buildRequest<T: NSManagedObject>(with modelClass: T.Type, predicate: NSPredicate? = nil) -> NSFetchRequest<NSFetchRequestResult> {

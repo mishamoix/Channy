@@ -19,6 +19,7 @@ protocol ImageboardServiceProtocol: BaseServiceProtocol {
 
     func reload()
     func load() -> Observable<ResultType>
+    func selectImageboard(model: ImageboardModel)
     
     func currentImageboard() -> DataType?
 }
@@ -29,6 +30,7 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
     private static let shared = ImageboardService()
     
     private var currentCachedImageboard: DataType? = nil
+    private var cachedModels: ResultType = []
     
     static func instance() -> ImageboardServiceProtocol {
         return ImageboardService.shared
@@ -36,8 +38,7 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
     
     func reload() {
         
-        let models = self.coreData.findModels(with: CoreDataImageboard.self) as? [ImageboardModel] ?? []
-        self.replaySubject.on(.next(models))
+        self.loadFromCache()
         
         self.provider
             .rx
@@ -45,29 +46,39 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
             .observeOn(Helper.rxBackgroundThread)
             .retry(RetryCount)
             .asObservable()
-            .flatMap({ [weak self] response -> Observable<ResultType> in
+            .subscribe(onNext: { [weak self] response in
                 let data = self?.makeModel(data: response.data) ?? []
-                
+
                 for (idx, obj) in data.enumerated() {
                     obj.sort = idx
-                    obj.current = true
                 }
-                
-                self?.coreData.saveModels(with: data, with: CoreDataImageboard.self)
-//                for imageboard in data {
-//                    self?.coreData.saveModels(with: imageboard.boards, with: CoreDataBoard.self)
-//                }
-                
-                return Observable<ResultType>.just(data)
+
+                self?.coreData.saveModels(with: data, with: CoreDataImageboard.self) {
+                    self?.loadFromCache()
+                }
+                                
+            }, onError: { error in
+//                self?.replaySubject.on(.error(error))
             })
-            .bind(to: self.replaySubject)
             .disposed(by: self.disposeBag)
+
         
-            
     }
     
     func load() -> Observable<ResultType> {
         return self.replaySubject.asObservable()
+    }
+    
+    func selectImageboard(model new: ImageboardModel) {
+        let models = self.coreData.findModels(with: CoreDataImageboard.self) as? [ImageboardModel] ?? []
+        for model in models {
+            model.current = new.id == model.id
+        }
+        
+        self.coreData.saveModels(with: models, with: CoreDataImageboard.self) { [weak self] in
+            self?.loadFromCache()
+        }
+        
     }
     
     func currentImageboard() -> DataType? {
@@ -82,7 +93,17 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
         return result
     }
     
+    
     // MARK: Private
+    
+    private func loadFromCache() {
+        let models = self.coreData.findModels(with: CoreDataImageboard.self) as? [ImageboardModel] ?? []
+        self.cachedModels = models
+        self.currentCachedImageboard = nil
+        self.replaySubject.on(.next(models))
+
+    }
+    
     private func makeModel(data: Data) -> ResultType {
         var result: [ImageboardModel] = []
         let json = JSON(data)

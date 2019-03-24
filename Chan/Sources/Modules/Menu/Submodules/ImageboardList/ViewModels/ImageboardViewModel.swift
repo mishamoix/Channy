@@ -17,7 +17,7 @@ class ImageboardViewModel {
     init(with model: ImageboardModel) {
         self.name = model.name
         self.logo = model.logo
-        self.current = model.current
+        self.current = model.current ?? false
         self.backgroundColor = model.highlight ?? .main
     }
 }

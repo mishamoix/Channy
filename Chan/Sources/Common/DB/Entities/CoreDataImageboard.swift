@@ -29,8 +29,6 @@ class CoreDataImageboard: NSManagedObject {
     // boards
     @NSManaged var boards: NSOrderedSet
     
-    
-
 
 }
 
@@ -79,19 +77,24 @@ extension CoreDataImageboard: CacheTrackerEntity {
             self.captchaType = obj.captcha?.type.value
             
             self.sort = NSNumber(value: obj.sort)
-            self.current = NSNumber(value: obj.current)
+            if let current = obj.current {
+                if (self.current.boolValue != current) {
+                    self.current = NSNumber(value: current)
+                }
+            }
             
-            var coreDataBoards = Set<CoreDataBoard>()
+            var coreDataBoards = self.mutableOrderedSetValue(forKey: "boards")
             for board in obj.boards {
                 // TODO: refactor
                 
                 if let coreDataBoard = board.entity(in: self.managedObjectContext!) as? CoreDataBoard {
-                    coreDataBoards.update(with: coreDataBoard)
+//                    coreDataBoards.update(with: coreDataBoard)
+                    coreDataBoards.add(coreDataBoard)
                 }
                 
             }
             
-            self.boards = NSOrderedSet(set: coreDataBoards)
+            self.boards =  coreDataBoards
         }
     }
     
