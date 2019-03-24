@@ -17,6 +17,7 @@ protocol ImageboardListPresentable: Presentable {
     var listener: ImageboardListPresentableListener? { get set }
     var didLoadSignalObservable: Observable<Bool> { get }
     
+//    var newDataSubject: PublishSubject<[ImageboardViewModel]> { get }
     func update(data: [ImageboardViewModel])
     
 }
@@ -32,6 +33,8 @@ final class ImageboardListInteractor: PresentableInteractor<ImageboardListPresen
     
     private var service: ImageboardServiceProtocol
     private let disposeBag = DisposeBag()
+    
+    private var data: [ImageboardModel] = []
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
@@ -53,6 +56,13 @@ final class ImageboardListInteractor: PresentableInteractor<ImageboardListPresen
         
     }
     
+    // MARK: ImageboardListPresentableListener
+    func select(idx: Int) {
+        let model = self.data[idx]
+        
+        self.service.selectImageboard(model: model)
+    }
+    
     // MARK: Private
     func loadData(reload: Bool = false) {
         if (reload) {
@@ -72,10 +82,14 @@ final class ImageboardListInteractor: PresentableInteractor<ImageboardListPresen
                         return Observable<[ImageboardModel]>.just(models)
                     })
             })
-            .map({ models -> [ImageboardViewModel] in
-                let result = models
+            .map({ [weak self] models -> [ImageboardViewModel] in
+                let resultModels = models
                     .sorted(by: { $0.sort < $1.sort })
+                self?.data = resultModels
+                
+                let result = resultModels
                     .map({ ImageboardViewModel(with: $0) })
+                
                 return result
             })
             .observeOn(Helper.rxMainThread)

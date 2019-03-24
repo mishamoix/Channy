@@ -18,6 +18,7 @@ protocol RefreshingViewController {
 
 open class BaseViewController: UIViewController {
     
+    
     let didLoadSignal = Variable<Bool>(false)
     var didLoadSignalObservable: Observable<Bool> {
         return self.didLoadSignal.asObservable()

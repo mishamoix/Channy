@@ -73,7 +73,7 @@ class ImageboardModel: BaseModel, Decodable {
     }
     
     var sort: Int = 0
-    var current: Bool = false
+    var current: Bool? = nil
     
     var captcha: ImageboardModel.Captcha?
     

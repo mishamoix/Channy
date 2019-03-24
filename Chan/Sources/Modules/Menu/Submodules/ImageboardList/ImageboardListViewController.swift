@@ -13,16 +13,22 @@ import UIKit
 let ImageboardCellIdentifier = "ImageboardCell"
 
 protocol ImageboardListPresentableListener: class {
-    // TODO: Declare properties and methods that the view controller can invoke to perform
-    // business logic, such as signIn(). This protocol is implemented by the corresponding
-    // interactor class.
+
+    func select(idx: Int)
 }
 
 final class ImageboardListViewController: BaseViewController, ImageboardListPresentable, ImageboardListViewControllable {
 
     weak var listener: ImageboardListPresentableListener?
+    private let disposeBag = DisposeBag()
+    
+//    var _newDataSubject: PublishSubject<[ImageboardViewModel]> = PublishSubject()
+//    var newDataSubject: PublishSubject<[ImageboardViewModel]> { return self._newDataSubject }
+
     
     private var data: [ImageboardViewModel] = []
+    
+
     
     // UI
     @IBOutlet weak var tableView: UITableView!
@@ -42,6 +48,7 @@ final class ImageboardListViewController: BaseViewController, ImageboardListPres
     // MARK: Private
     private func setup() {
         self.setupUI()
+        self.setupRx()
     }
     
     private func setupUI() {
@@ -64,10 +71,15 @@ final class ImageboardListViewController: BaseViewController, ImageboardListPres
         
     }
     
+    private func setupRx() {
+    }
+    
 }
 
 extension ImageboardListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.listener?.select(idx: indexPath.row)
+    }
 }
 
 extension ImageboardListViewController: UITableViewDataSource {
