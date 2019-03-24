@@ -18,7 +18,7 @@ protocol ImageboardListPresentableListener: class {
     // interactor class.
 }
 
-final class ImageboardListViewController: UIViewController, ImageboardListPresentable, ImageboardListViewControllable {
+final class ImageboardListViewController: BaseViewController, ImageboardListPresentable, ImageboardListViewControllable {
 
     weak var listener: ImageboardListPresentableListener?
     
@@ -30,7 +30,6 @@ final class ImageboardListViewController: UIViewController, ImageboardListPresen
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.setup()
     }
     

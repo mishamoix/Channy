@@ -15,8 +15,10 @@ protocol ImageboardListRouting: ViewableRouting {
 
 protocol ImageboardListPresentable: Presentable {
     var listener: ImageboardListPresentableListener? { get set }
+    var didLoadSignalObservable: Observable<Bool> { get }
     
     func update(data: [ImageboardViewModel])
+    
 }
 
 protocol ImageboardListListener: class {
@@ -59,10 +61,24 @@ final class ImageboardListInteractor: PresentableInteractor<ImageboardListPresen
         
         self.service
             .load()
+            .flatMap({ [weak self] models -> Observable<[ImageboardModel]> in
+                guard let self = self else {
+                    return Observable<[ImageboardModel]>.just(models)
+                }
+                
+                return self.presenter.didLoadSignalObservable
+                    .filter({ $0 })
+                    .flatMap({ _ -> Observable<[ImageboardModel]> in
+                        return Observable<[ImageboardModel]>.just(models)
+                    })
+            })
             .map({ models -> [ImageboardViewModel] in
-                let result = models.map({ ImageboardViewModel(with: $0) })
+                let result = models
+                    .sorted(by: { $0.sort < $1.sort })
+                    .map({ ImageboardViewModel(with: $0) })
                 return result
             })
+            .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] data in
                 self?.presenter.update(data: data)
             })

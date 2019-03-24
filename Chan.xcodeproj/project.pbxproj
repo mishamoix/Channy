@@ -201,6 +201,8 @@
 		0AD5C2D8215AC7B900F68AF4 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2D7215AC7B900F68AF4 /* ErrorDisplay.swift */; };
 		0AD5C2DA215AC89700F68AF4 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2D9215AC89700F68AF4 /* ErrorManager.swift */; };
 		0AD5C2DC215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2DB215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift */; };
+		0AE2867222479B2300513D70 /* CoreDataImageboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE2867122479B2300513D70 /* CoreDataImageboard.swift */; };
+		0AE286742247A0B600513D70 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE286732247A0B600513D70 /* UIColor+Utils.swift */; };
 		0AF77B37217E40D1007D8C5B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF77B36217E40D1007D8C5B /* CoreData.framework */; };
 		0AF77B42217E4C85007D8C5B /* CoreDataBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF77B41217E4C85007D8C5B /* CoreDataBoard.swift */; };
 		0AF77B44217E4F19007D8C5B /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF77B43217E4F19007D8C5B /* CoreDataStore.swift */; };
@@ -437,6 +439,8 @@
 		0AD5C2D7215AC7B900F68AF4 /* ErrorDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
 		0AD5C2D9215AC89700F68AF4 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
 		0AD5C2DB215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBoardsListDisplay.swift; sourceTree = "<group>"; };
+		0AE2867122479B2300513D70 /* CoreDataImageboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataImageboard.swift; sourceTree = "<group>"; };
+		0AE286732247A0B600513D70 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		0AF77B36217E40D1007D8C5B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0AF77B41217E4C85007D8C5B /* CoreDataBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBoard.swift; sourceTree = "<group>"; };
 		0AF77B43217E4F19007D8C5B /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
@@ -556,6 +560,7 @@
 				0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */,
 				0A11320B215EC1AD00BB3C79 /* Presentable+Utils.swift */,
 				0A2D0C6921A4942800B38224 /* UIView+Utils.swift */,
+				0AE286732247A0B600513D70 /* UIColor+Utils.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -908,6 +913,7 @@
 			isa = PBXGroup;
 			children = (
 				0AF77B41217E4C85007D8C5B /* CoreDataBoard.swift */,
+				0AE2867122479B2300513D70 /* CoreDataImageboard.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1453,6 +1459,7 @@
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftReorder/SwiftReorder.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftTryCatch/SwiftTryCatch.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -1483,6 +1490,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftReorder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftTryCatch.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -1536,6 +1544,7 @@
 				0A37B03021BC3874009EC571 /* Array+Sorted.swift in Sources */,
 				0A37B03121BC3874009EC571 /* UIInterfaceOrientation+Transform.swift in Sources */,
 				0A37B03221BC3874009EC571 /* Data+GIF.swift in Sources */,
+				0AE2867222479B2300513D70 /* CoreDataImageboard.swift in Sources */,
 				0A37B03321BC3874009EC571 /* SimpleNetworkIntegration.swift in Sources */,
 				0A37B03421BC3874009EC571 /* AXPageableViewControllerProtocol.swift in Sources */,
 				0A37B03521BC3874009EC571 /* AXPhotoProtocol.swift in Sources */,
@@ -1706,6 +1715,7 @@
 				0A2E0CBE2145790300CBD619 /* BoardViewController.swift in Sources */,
 				0A72E18721B95BEF00BD488E /* WriteResponseModel.swift in Sources */,
 				0A8BFEDB218F45C9004AA360 /* ThemeManager.swift in Sources */,
+				0AE286742247A0B600513D70 /* UIColor+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

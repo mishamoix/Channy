@@ -12,6 +12,7 @@ target 'Chan' do
     # Strucutre
     pod 'RIBs'
     pod 'IGListKit', '~> 3.0'
+    pod 'SwiftyJSON'
 
     # RX
     pod 'RxSwift'

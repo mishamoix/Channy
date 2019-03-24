@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 protocol RefreshingViewController {
     var refresher: UIRefreshControl? { get }
@@ -17,11 +18,15 @@ protocol RefreshingViewController {
 
 open class BaseViewController: UIViewController {
     
-    
+    let didLoadSignal = Variable<Bool>(false)
+    var didLoadSignalObservable: Observable<Bool> {
+        return self.didLoadSignal.asObservable()
+    }
     override open func viewDidLoad() {
         super.viewDidLoad()
         self.setupTheme()
         
+        self.didLoadSignal.value = true
         // Do any additional setup after loading the view.
     }
     

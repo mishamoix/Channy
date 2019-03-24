@@ -38,13 +38,12 @@ class BoardsListService: BaseService, BoardsListServiceProtocol {
     }
     
     var home: BoardModel? {
-        return self.loadCachedBoards().first(where: { $0.isHome })
+        return self.loadCachedBoards().first
     }
     
     func save(boards: [BoardModel]) {
         for (idx, board) in boards.enumerated() {
             board.sort = idx
-            board.isHome = idx == 0
         }
         CoreDataStore.shared.saveModels(with: boards, with: CoreDataBoard.self)
     }

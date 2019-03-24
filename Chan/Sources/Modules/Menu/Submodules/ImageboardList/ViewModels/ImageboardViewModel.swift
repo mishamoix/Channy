@@ -10,10 +10,14 @@ import UIKit
 
 class ImageboardViewModel {
     var name: String
-    var logo: String
+    var logo: URL?
+    var current: Bool
+    var backgroundColor: UIColor
     
     init(with model: ImageboardModel) {
         self.name = model.name
         self.logo = model.logo
+        self.current = model.current
+        self.backgroundColor = model.highlight ?? .main
     }
 }
