@@ -12,7 +12,7 @@ import CoreData
 
 @objc(CoreDataImageboard)
 class CoreDataImageboard: NSManagedObject {
-    @NSManaged var id: NSNumber
+    @NSManaged var id: String
     @NSManaged var name: String
 
     @NSManaged var baseURL: String?
@@ -35,7 +35,7 @@ class CoreDataImageboard: NSManagedObject {
 
 extension ImageboardModel: CoreDataCachedModel {
     func entity(in context: NSManagedObjectContext) -> NSManagedObject? {
-        let entity: CoreDataImageboard? = CoreDataImageboard.mr_findFirst(with: self.fetching, in: context) ?? CoreDataImageboard.mr_createEntity(in: context)
+        let entity: CoreDataImageboard? = CoreDataImageboard.mr_findFirst(with: self.fetching, in: context) ?? CoreDataImageboard.mr_findFirst(with: self.fetching) ?? CoreDataImageboard.mr_createEntity(in: context)
         
         if entity?.isInserted ?? false {
             entity?.update(with: self as AnyObject)
@@ -64,7 +64,7 @@ extension ImageboardModel: CoreDataCachedModel {
 extension CoreDataImageboard: CacheTrackerEntity {
     func update(with model: AnyObject) {
         if let obj = model as? ImageboardModel {
-            self.id = NSNumber(value: obj.id)
+            self.id = obj.id
             self.name = obj.name
             
             self.baseURL = obj.baseURL?.absoluteString
@@ -83,7 +83,7 @@ extension CoreDataImageboard: CacheTrackerEntity {
                 }
             }
             
-            var coreDataBoards = self.mutableOrderedSetValue(forKey: "boards")
+            let coreDataBoards = self.mutableOrderedSetValue(forKey: "boards")
             for board in obj.boards {
                 // TODO: refactor
                 
@@ -101,7 +101,7 @@ extension CoreDataImageboard: CacheTrackerEntity {
     var model: AnyObject {
         let result = ImageboardModel()
         
-        result.id = self.id.intValue
+        result.id = self.id
         result.name = self.name
         
         result.baseURL = URL(string: self.baseURL ?? "")
