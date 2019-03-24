@@ -57,7 +57,7 @@ class ImageboardModel: BaseModel, Decodable {
         }
     }
     
-    var id: Int = 0
+    var id: String = ""
     var name: String = ""
     
     var baseURL: URL? = nil
@@ -96,7 +96,7 @@ class ImageboardModel: BaseModel, Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         if let id = try? values.decode(Int.self, forKey: .id) {
-            self.id = id
+            self.id = String(id)
         }
         
         if let name = try? values.decode(String.self, forKey: .name) {
