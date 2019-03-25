@@ -31,9 +31,12 @@ class CoreDataStore {
     }
     
     func setup() {
+        let path = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.allDomainsMask).last!
+      print(path)
+      
+//        let docPath = path.appendingPathComponent("chan.sqlite")
 //        MagicalRecord.setDefaultModelNamed("CoreDataModel.momd")
-        MagicalRecord.setupCoreDataStack(withStoreNamed: "Chan")
-//        MagicalRecord.setu()
+        MagicalRecord.setupCoreDataStack(withStoreNamed: "chan.sqlite")
         MagicalRecord.setLoggingLevel(.verbose)
         
 //        if let model = NSManagedObjectModel.mr_default() {

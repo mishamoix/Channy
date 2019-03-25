@@ -12,15 +12,15 @@ import CoreData
 
 @objc(CoreDataImageboard)
 class CoreDataImageboard: NSManagedObject {
-    @NSManaged var id: String
+    @NSManaged var id: Int64
     @NSManaged var name: String
 
     @NSManaged var baseURL: String?
     @NSManaged var logo: String?
-    @NSManaged var maxImages: NSNumber
+    @NSManaged var maxImages: Int64
     @NSManaged var highlight: String?
-    @NSManaged var sort: NSNumber
-    @NSManaged var current: NSNumber
+    @NSManaged var sort: Int64
+    @NSManaged var current: Bool
 
     // captcha
     @NSManaged var captchaKey: String?
@@ -35,7 +35,7 @@ class CoreDataImageboard: NSManagedObject {
 
 extension ImageboardModel: CoreDataCachedModel {
     func entity(in context: NSManagedObjectContext) -> NSManagedObject? {
-        let entity: CoreDataImageboard? = CoreDataImageboard.mr_findFirst(with: self.fetching, in: context) ?? CoreDataImageboard.mr_findFirst(with: self.fetching) ?? CoreDataImageboard.mr_createEntity(in: context)
+        let entity: CoreDataImageboard? = CoreDataImageboard.mr_findFirst(with: self.fetching, in: context) ?? CoreDataImageboard.mr_createEntity(in: context)
         
         if entity?.isInserted ?? false {
             entity?.update(with: self as AnyObject)
@@ -55,7 +55,7 @@ extension ImageboardModel: CoreDataCachedModel {
     }
     
     var fetching: NSPredicate {
-        return NSPredicate(format: "id = \"\(self.id)\"")
+        return NSPredicate(format: "id = \(Int64(self.id))")
     }
     
     
@@ -64,23 +64,21 @@ extension ImageboardModel: CoreDataCachedModel {
 extension CoreDataImageboard: CacheTrackerEntity {
     func update(with model: AnyObject) {
         if let obj = model as? ImageboardModel {
-            self.id = obj.id
+            self.id = Int64(obj.id)
             self.name = obj.name
             
             self.baseURL = obj.baseURL?.absoluteString
             self.logo = obj.logo?.absoluteString
-            self.maxImages = NSNumber(value: obj.maxImages)
+            self.maxImages = Int64(obj.maxImages)
 
             self.highlight = obj.highlight?.hex
             
             self.captchaKey = obj.captcha?.key
             self.captchaType = obj.captcha?.type.value
             
-            self.sort = NSNumber(value: obj.sort)
+            self.sort = Int64(obj.sort)
             if let current = obj.current {
-                if (self.current.boolValue != current) {
-                    self.current = NSNumber(value: current)
-                }
+                    self.current = current
             }
             
             let coreDataBoards = self.mutableOrderedSetValue(forKey: "boards")
@@ -101,16 +99,16 @@ extension CoreDataImageboard: CacheTrackerEntity {
     var model: AnyObject {
         let result = ImageboardModel()
         
-        result.id = self.id
+        result.id = Int(self.id)
         result.name = self.name
         
         result.baseURL = URL(string: self.baseURL ?? "")
         result.logo = URL(string: self.logo ?? "")
-        result.maxImages = self.maxImages.intValue
+        result.maxImages = Int(self.maxImages)
         result.highlight = UIColor(hex: self.highlight)
-        result.sort = self.sort.intValue
-        result.current = self.current.boolValue
-        
+        result.sort = Int(self.sort)
+        result.current = self.current
+      
         result.captcha = ImageboardModel.Captcha(type: self.captchaType, key: self.captchaKey)
         
         var boards: [BoardModel] = []
