@@ -18,7 +18,7 @@ let BoardsListCellIdentifier = "BoardsListCell"
 let BoardsTableHeaderIdentifier = "BoardsTableHeader"
 
 protocol BoardsListPresentableListener: class {
-    var dataSource: Variable<[BoardModel]> { get }
+    var dataSource: Variable<ImageboardModel?> { get }
     var viewActions: PublishSubject<BoardsListAction> { get }
 
 }
@@ -27,7 +27,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     weak var listener: BoardsListPresentableListener?
     
     // MARK: Data
-    private var boards: [BoardModel] = []
+    private var imageboard: ImageboardModel? = nil
     
     //MARK: UI
     @IBOutlet weak var tableView: UITableView!
@@ -36,6 +36,8 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     private weak var settingButton: UIButton?
     private weak var plusButton: UIButton?
     private weak var closeButton: UIButton?
+    
+    private let header = BoardsTableHeader.instance
     
     var re: ReCaptcha? = nil
   
@@ -83,6 +85,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.navigationItem.title = "Список досок"
         
         self.setupTheme()
+        
       
       
 //        let recaptcha = try? ReCaptcha(apiKey: "6LdwXD4UAAAAAHxyTiwSMuge1-pf1ZiEL4qva_xu", baseURL: URL(string: "https://2ch.hk"))
@@ -113,64 +116,54 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     }
     
     private func setupRx() {
-        self.listener?.dataSource
+        self.listener?
+            .dataSource
             .asObservable()
             .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] result in
-//                self?.boards = result
-                
-                
-                if let oldData = self?.boards, let tableView = self?.tableView {
-                    let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
-                    self?.boards = result
-                    
-                    if diff.moves.count == 0 {
-                        tableView.beginUpdates()
-                        tableView.deleteRows(at: diff.deletes, with: .automatic)
-                        tableView.insertRows(at: diff.inserts, with: .right)
-                        tableView.reloadRows(at: diff.updates, with: .fade)
-//                            for move in diff.moves {
-//                                tableView.moveRow(at: move.from, to: move.to)
-//                            }
-                        tableView.endUpdates()
-                        
-                        return
-
-                    }
-
-                }
-            
-                self?.boards = result
-                self?.tableView.reloadData()
-            }).disposed(by: self.disposeBag)
-        
-        self.settingButton?
-            .rx
-            .tap
-            .asObservable()
-            .subscribe(onNext: { [weak self] in
-                self?.listener?.viewActions.on(.next(.openSettings))
+                self?.imageboard = result
+                self?.updateViews()
             })
             .disposed(by: self.disposeBag)
         
-        self.plusButton?
-            .rx
-            .tap
-            .asObservable()
-            .subscribe(onNext: { [weak self] in
-                self?.listener?.viewActions.on(.next(.addNewBoard))
-            })
-            .disposed(by: self.disposeBag)
+        if let listener = self.listener {
+            self.header
+                .addBoards
+                .rx
+                .tap
+                .asObservable()
+                .map { return BoardsListAction.openBoardsSelection }
+                .bind(to: listener.viewActions)
+                .disposed(by: self.disposeBag)
+        }
         
-        self.closeButton?
-            .rx
-            .tap
-            .asObservable()
-            .subscribe(onNext: { [weak self] in
-//                self?.navigationController?.dismiss(animated: true, completion: nil)
-                self?.listener?.viewActions.on(.next(.close))
-            })
-            .disposed(by: self.disposeBag)
+//        self.settingButton?
+//            .rx
+//            .tap
+//            .asObservable()
+//            .subscribe(onNext: { [weak self] in
+//                self?.listener?.viewActions.on(.next(.openSettings))
+//            })
+//            .disposed(by: self.disposeBag)
+//
+//        self.plusButton?
+//            .rx
+//            .tap
+//            .asObservable()
+//            .subscribe(onNext: { [weak self] in
+//                self?.listener?.viewActions.on(.next(.addNewBoard))
+//            })
+//            .disposed(by: self.disposeBag)
+//
+//        self.closeButton?
+//            .rx
+//            .tap
+//            .asObservable()
+//            .subscribe(onNext: { [weak self] in
+////                self?.navigationController?.dismiss(animated: true, completion: nil)
+//                self?.listener?.viewActions.on(.next(.close))
+//            })
+//            .disposed(by: self.disposeBag)
         
         
     }
@@ -184,10 +177,21 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         
         self.tableView.keyboardDismissMode = .interactive
         self.tableView.reorder.delegate = self
+        self.tableView.reorder.isEnabled = false
+        
+        self.header.translatesAutoresizingMaskIntoConstraints = false
+        self.tableView.tableHeaderView = self.header
+        
+        self.header.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+        }
+
         
         if #available(iOS 11.0, *) {} else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
+        
+        
     }
     
     private func setupSearchBar() {
@@ -239,12 +243,19 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.themeManager.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
 //        ThemeManager.shared.append(view: ThemeView(object: self.navigationController?.navigationBar, type: .navBar, subtype: .none))
     }
+    
+    private func updateViews() {
+        if let data = self.imageboard {
+            self.header.update(with: data)
+            self.tableView.reloadData()
+        }
+    }
 }
 
 extension BoardsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.listener?.viewActions.on(.next(.openBoard(index: indexPath)))
+//        self.listener?.viewActions.on(.next(.openBoard(index: indexPath)))
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -262,8 +273,8 @@ extension BoardsListViewController: UITableViewDelegate {
         if self.canAction {
             return [UITableViewRowAction(style: .destructive, title: "Удалить", handler: { [weak self] (action, idexPath) in
                 
-                if let board = self?.boards[indexPath.row] {
-                    self?.listener?.viewActions.on(.next(.delete(uid: board.uid)))
+                if let board = self?.imageboard?.boards[indexPath.row] {
+//                    self?.listener?.viewActions.on(.next(.delete(uid: board.uid)))
                 }
 
                 
@@ -288,8 +299,11 @@ extension BoardsListViewController: UITableViewDataSource {
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: BoardsListCellIdentifier, for: indexPath) as! BoardsListCell
-        let data = self.boards[indexPath.row]
-        cell.update(with: data)
+        if let data = self.imageboard?.boards[indexPath.row] {
+            let data = data
+            cell.update(with: data)
+        }
+        
         return cell
     }
     
@@ -298,7 +312,7 @@ extension BoardsListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.boards.count
+        return self.imageboard?.boards.count ?? 0
     }
 
 }
@@ -306,7 +320,7 @@ extension BoardsListViewController: UITableViewDataSource {
 extension BoardsListViewController: UISearchBarDelegate {
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.tableView.reorder.isEnabled = self.canAction
-        self.listener?.viewActions.on(.next(.seacrh(text: searchText)))
+//        self.listener?.viewActions.on(.next(.seacrh(text: searchText)))
     }
 }
 
@@ -317,7 +331,7 @@ extension BoardsListViewController: TableViewReorderDelegate {
     
     func tableViewDidFinishReordering(_ tableView: UITableView, from initialSourceIndexPath: IndexPath, to finalDestinationIndexPath: IndexPath) {
 //        print("From \(sourceIndexPath), to: \(destinationIndexPath)")
-        self.listener?.viewActions.on(.next(.move(from: initialSourceIndexPath, to: finalDestinationIndexPath)))
+//        self.listener?.viewActions.on(.next(.move(from: initialSourceIndexPath, to: finalDestinationIndexPath)))
 
     }
 

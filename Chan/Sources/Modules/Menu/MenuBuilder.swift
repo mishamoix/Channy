@@ -13,7 +13,7 @@ protocol MenuDependency: Dependency {
     // created by this RIB.
 }
 
-final class MenuComponent: Component<MenuDependency>, ImageboardListDependency, BoardsListDependency {
+final class MenuComponent: Component<MenuDependency>, ImageboardListDependency, BoardsListDependency, BoardSelectionDependency {
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
@@ -38,7 +38,8 @@ final class MenuBuilder: Builder<MenuDependency>, MenuBuildable {
         
         let imageboardList = ImageboardListBuilder(dependency: component)
         let boardList = BoardsListBuilder(dependency: component)
+        let boardSelection = BoardSelectionBuilder(dependency: component)
         
-        return MenuRouter(interactor: interactor, viewController: viewController, imageboardList: imageboardList, boardList: boardList)
+        return MenuRouter(interactor: interactor, viewController: viewController, imageboardList: imageboardList, boardList: boardList, boardsSelection: boardSelection)
     }
 }

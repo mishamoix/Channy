@@ -19,6 +19,9 @@ class CoreDataBoard: NSManagedObject {
     @NSManaged var name: String
     @NSManaged var sort: UInt64
     @NSManaged var imageboard: CoreDataImageboard
+    @NSManaged var selected: Bool
+    @NSManaged var current: Bool
+
 }
 
 extension BoardModel: CoreDataCachedModel {
@@ -64,7 +67,8 @@ extension CoreDataBoard: CacheTrackerEntity {
             self.id = model.id
             self.name = model.name
             self.sort = UInt64(model.sort)
-            
+            self.selected = model.selected
+            self.current = model.current
             // TODO: refactor
 //            self.imageboard = model.imageboard!.entity(in: self.managedObjectContext!) as! CoreDataImageboard
         }
@@ -73,7 +77,9 @@ extension CoreDataBoard: CacheTrackerEntity {
         let model = BoardModel(id: self.id)
         model.name = self.name
         model.sort = Int(self.sort)
-        
+        model.selected = self.selected
+        model.current = self.current
+//        model.imageboard = self.imageboard.model as? ImageboardModel
         return model as AnyObject
     }
 

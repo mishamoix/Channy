@@ -7,14 +7,31 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class BoardsTableHeader: UITableViewHeaderFooterView {
     
     @IBOutlet weak var canvasView: UIView!
-    @IBOutlet weak var title: UILabel!
-    func update(with model: BoardCategoryModel) {
-        self.title.text = model.name
-        self.canvasView.backgroundColor = UIColor.groupTableViewBackground
+    @IBOutlet weak var boardImage: UIImageView!
+    @IBOutlet weak var boardTitle: UILabel!
+    @IBOutlet weak var addBoards: UIButton!
+    
+    static var instance: BoardsTableHeader {
+        return Bundle.main.loadNibNamed(String(describing: self), owner: self, options: nil)?.first as! BoardsTableHeader
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.boardImage.layer.cornerRadius = DefaultCornerRadius
+    }
+
+    func update(with model: ImageboardModel) {
+        
+        self.boardTitle.text = model.name
+        if let logo = model.logo {
+            self.boardImage.af_setImage(withURL: logo)
+        }
     }
     
 }

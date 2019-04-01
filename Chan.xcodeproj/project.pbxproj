@@ -142,6 +142,14 @@
 		0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */; };
 		0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856292216E518900D053F7 /* ThreadImageViewer.swift */; };
 		0A86048622106817004C6B6C /* VLCOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86048522106817004C6B6C /* VLCOpener.swift */; };
+		0A86411C2250E1B9000BBE07 /* BoardSelectionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8641172250E1B9000BBE07 /* BoardSelectionRouter.swift */; };
+		0A86411D2250E1B9000BBE07 /* BoardSelectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A8641182250E1B9000BBE07 /* BoardSelectionViewController.storyboard */; };
+		0A86411E2250E1B9000BBE07 /* BoardSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8641192250E1B9000BBE07 /* BoardSelectionViewController.swift */; };
+		0A86411F2250E1B9000BBE07 /* BoardSelectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86411A2250E1B9000BBE07 /* BoardSelectionBuilder.swift */; };
+		0A8641202250E1B9000BBE07 /* BoardSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86411B2250E1B9000BBE07 /* BoardSelectionInteractor.swift */; };
+		0A8641222250EBA5000BBE07 /* BoardSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8641212250EBA5000BBE07 /* BoardSelectionCell.swift */; };
+		0A8641262250EF1E000BBE07 /* BoardSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8641252250EF1E000BBE07 /* BoardSelectionViewModel.swift */; };
+		0A8641282250F3A6000BBE07 /* UCCTransliteration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8641272250F3A6000BBE07 /* UCCTransliteration.swift */; };
 		0A8BFED9218F4451004AA360 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BFED8218F4451004AA360 /* Theme.swift */; };
 		0A8BFEDB218F45C9004AA360 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BFEDA218F45C9004AA360 /* ThemeManager.swift */; };
 		0A905F6E21A9B10000ADE51E /* WriteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A905F6921A9B10000ADE51E /* WriteRouter.swift */; };
@@ -378,6 +386,14 @@
 		0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebmPlayerViewController.swift; sourceTree = "<group>"; };
 		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
 		0A86048522106817004C6B6C /* VLCOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCOpener.swift; sourceTree = "<group>"; };
+		0A8641172250E1B9000BBE07 /* BoardSelectionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSelectionRouter.swift; sourceTree = "<group>"; };
+		0A8641182250E1B9000BBE07 /* BoardSelectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BoardSelectionViewController.storyboard; sourceTree = "<group>"; };
+		0A8641192250E1B9000BBE07 /* BoardSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSelectionViewController.swift; sourceTree = "<group>"; };
+		0A86411A2250E1B9000BBE07 /* BoardSelectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSelectionBuilder.swift; sourceTree = "<group>"; };
+		0A86411B2250E1B9000BBE07 /* BoardSelectionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSelectionInteractor.swift; sourceTree = "<group>"; };
+		0A8641212250EBA5000BBE07 /* BoardSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSelectionCell.swift; sourceTree = "<group>"; };
+		0A8641252250EF1E000BBE07 /* BoardSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSelectionViewModel.swift; sourceTree = "<group>"; };
+		0A8641272250F3A6000BBE07 /* UCCTransliteration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCCTransliteration.swift; sourceTree = "<group>"; };
 		0A8BFED8218F4451004AA360 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0A8BFEDA218F45C9004AA360 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		0A905F6921A9B10000ADE51E /* WriteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRouter.swift; sourceTree = "<group>"; };
@@ -635,6 +651,7 @@
 				0A72E18D21BABEB500BD488E /* StatisticManager.swift */,
 				0AAA323E21EA055C00330CF5 /* LinkOpener.swift */,
 				0A86048522106817004C6B6C /* VLCOpener.swift */,
+				0A8641272250F3A6000BBE07 /* UCCTransliteration.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -840,6 +857,7 @@
 		0A37B0442222F16900FFACDF /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				0A8641162250E1A5000BBE07 /* BoardSelection */,
 				0AFD1864223510F700F844BE /* ImageboardList */,
 				0ACC29662143F21D00B4E53B /* BoardsList */,
 			);
@@ -927,6 +945,36 @@
 				0A0D570A21A5800E00A8053D /* ChanAXPhotosViewController.swift */,
 			);
 			path = Viewer;
+			sourceTree = "<group>";
+		};
+		0A8641162250E1A5000BBE07 /* BoardSelection */ = {
+			isa = PBXGroup;
+			children = (
+				0A8641242250EF0C000BBE07 /* ViewModels */,
+				0A8641232250EBA8000BBE07 /* Views */,
+				0A8641172250E1B9000BBE07 /* BoardSelectionRouter.swift */,
+				0A8641182250E1B9000BBE07 /* BoardSelectionViewController.storyboard */,
+				0A8641192250E1B9000BBE07 /* BoardSelectionViewController.swift */,
+				0A86411A2250E1B9000BBE07 /* BoardSelectionBuilder.swift */,
+				0A86411B2250E1B9000BBE07 /* BoardSelectionInteractor.swift */,
+			);
+			path = BoardSelection;
+			sourceTree = "<group>";
+		};
+		0A8641232250EBA8000BBE07 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A8641212250EBA5000BBE07 /* BoardSelectionCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0A8641242250EF0C000BBE07 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0A8641252250EF1E000BBE07 /* BoardSelectionViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		0A8BFED7218F4440004AA360 /* Theme */ = {
@@ -1389,6 +1437,7 @@
 				0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */,
 				0A2E0CA42145561E00CBD619 /* BoardsListCell.xib in Resources */,
 				0A905F6F21A9B10000ADE51E /* WriteViewController.storyboard in Resources */,
+				0A86411D2250E1B9000BBE07 /* BoardSelectionViewController.storyboard in Resources */,
 				0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */,
 				0A2E0CB12145589600CBD619 /* BoardsTableHeader.xib in Resources */,
 				0A2E0CBD2145790300CBD619 /* BoardViewController.storyboard in Resources */,
@@ -1526,6 +1575,8 @@
 				0A37B02021BC3873009EC571 /* AXZoomingImageView.swift in Sources */,
 				0A37B02121BC3873009EC571 /* AXLoadingView.swift in Sources */,
 				0A37B0402222F15000FFACDF /* MenuRouter.swift in Sources */,
+				0A86411E2250E1B9000BBE07 /* BoardSelectionViewController.swift in Sources */,
+				0A8641262250EF1E000BBE07 /* BoardSelectionViewModel.swift in Sources */,
 				0A37B02221BC3873009EC571 /* AXCaptionView.swift in Sources */,
 				0A37B02321BC3873009EC571 /* AXImageViewTransitionContainer.swift in Sources */,
 				0A37B02421BC3873009EC571 /* AXOverlayView.swift in Sources */,
@@ -1609,6 +1660,7 @@
 				0AFFFDB92149AC640002E832 /* PostViewModel.swift in Sources */,
 				0AFD187D22351AAD00F844BE /* ImageboardModel.swift in Sources */,
 				0A2E0C9521453CB600CBD619 /* ViewControllable+Utils.swift in Sources */,
+				0A86411F2250E1B9000BBE07 /* BoardSelectionBuilder.swift in Sources */,
 				0A203F19219C9E6700A51554 /* CensorTarget.swift in Sources */,
 				0ACC297B2143F4C100B4E53B /* Enviroment.swift in Sources */,
 				0A905F7C21A9C8BF00ADE51E /* WriteModel.swift in Sources */,
@@ -1619,6 +1671,7 @@
 				0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */,
 				0A2D0C6A21A4942800B38224 /* UIView+Utils.swift in Sources */,
 				0AFD187B2235195200F844BE /* ImageboardTarget.swift in Sources */,
+				0A8641202250E1B9000BBE07 /* BoardSelectionInteractor.swift in Sources */,
 				0A2E0CCE2145A36300CBD619 /* TGReusableLabel.mm in Sources */,
 				0AACC187218A5A2A00B7BD19 /* OnboardViewController.swift in Sources */,
 				0AACC190218A5A8800B7BD19 /* SwiftyOnboard.swift in Sources */,
@@ -1678,6 +1731,7 @@
 				0A90E7A52152DF9800B71EAA /* ThreadRepledService.swift in Sources */,
 				0AF77B42217E4C85007D8C5B /* CoreDataBoard.swift in Sources */,
 				0AACC188218A5A2A00B7BD19 /* OnboardBuilder.swift in Sources */,
+				0A8641282250F3A6000BBE07 /* UCCTransliteration.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
 				0A37B02F2222E40300FFACDF /* MainContainerRouter.swift in Sources */,
 				0A0D570B21A5800E00A8053D /* ChanAXPhotosViewController.swift in Sources */,
@@ -1687,6 +1741,7 @@
 				0AFD186E2235111900F844BE /* ImageboardListInteractor.swift in Sources */,
 				0A11320C215EC1AD00BB3C79 /* Presentable+Utils.swift in Sources */,
 				0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */,
+				0A8641222250EBA5000BBE07 /* BoardSelectionCell.swift in Sources */,
 				0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */,
 				0A113218215F96EA00BB3C79 /* SettingsBuilder.swift in Sources */,
 				0AACC185218A5A2A00B7BD19 /* OnboardRouter.swift in Sources */,
@@ -1709,6 +1764,7 @@
 				0A2E0CDA2145A61000CBD619 /* BoardConstants.swift in Sources */,
 				0A5B0EB62149BAE600AECE3C /* LoggerPlugin.swift in Sources */,
 				0AFFFDAE2149A1F50002E832 /* ThreadViewController.swift in Sources */,
+				0A86411C2250E1B9000BBE07 /* BoardSelectionRouter.swift in Sources */,
 				0A90E7822151886900B71EAA /* PostManager.swift in Sources */,
 				0ACC296E2143F22F00B4E53B /* BoardsListViewController.swift in Sources */,
 				0A72E18E21BABEB500BD488E /* StatisticManager.swift in Sources */,

@@ -10,7 +10,15 @@ import UIKit
 import RxSwift
 import SwiftyJSON
 
-protocol ImageboardServiceProtocol: BaseServiceProtocol {
+protocol BoardlistProtocol {
+    func currentImageboard() -> Observable<ImageboardModel?>
+}
+
+protocol BoardlistSelectionProtocol: BoardlistProtocol {
+    
+}
+
+protocol ImageboardServiceProtocol: BaseServiceProtocol, BoardlistSelectionProtocol {
     
     typealias DataType = ImageboardModel
     typealias ResultType = [ImageboardServiceProtocol.DataType]
@@ -21,15 +29,17 @@ protocol ImageboardServiceProtocol: BaseServiceProtocol {
     func load() -> Observable<ResultType>
     func selectImageboard(model: ImageboardModel)
     
-    func currentImageboard() -> DataType?
 }
+
+
 
 class ImageboardService: BaseService, ImageboardServiceProtocol {
     private let provider = ChanProvider<ImageboardTarget>()
     private let replaySubject = ReplaySubject<ResultType>.create(bufferSize: 1) // only last value
+    private let currentCachedImageboard = Variable<DataType?>(nil)
     private static let shared = ImageboardService()
     
-    private var currentCachedImageboard: DataType? = nil
+//    private var currentCachedImageboard: DataType? = nil
     private var cachedModels: ResultType = []
     
     static func instance() -> ImageboardServiceProtocol {
@@ -77,20 +87,14 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
         
         self.coreData.saveModels(with: models, with: CoreDataImageboard.self) { [weak self] in
             self?.loadFromCache()
+            self?.updateCurrentCachedImageboard(force: true)
         }
         
     }
     
-    func currentImageboard() -> DataType? {
-        var result: DataType?
-        if let cached = self.currentCachedImageboard {
-            result = cached
-        } else {
-            result = self.coreData.findModel(with: CoreDataImageboard.self, predicate: NSPredicate(format: "current = YES")) as? ImageboardModel
-            self.currentCachedImageboard = result
-        }
-        
-        return result
+    func currentImageboard() -> Observable<DataType?> {
+        self.updateCurrentCachedImageboard()
+        return self.currentCachedImageboard.asObservable()
     }
     
     
@@ -99,7 +103,6 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
     private func loadFromCache() {
         let models = self.coreData.findModels(with: CoreDataImageboard.self) as? [ImageboardModel] ?? []
         self.cachedModels = models
-        self.currentCachedImageboard = nil
         self.replaySubject.on(.next(models))
 
     }
@@ -119,5 +122,14 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
         }
         
         return result
+    }
+    
+    private func updateCurrentCachedImageboard(force: Bool = false) {
+        if self.currentCachedImageboard.value == nil || force {
+            let result = self.coreData.findModel(with: CoreDataImageboard.self, predicate: NSPredicate(format: "current = YES")) as? ImageboardModel
+            
+            self.currentCachedImageboard.value = result
+        }
+
     }
 }

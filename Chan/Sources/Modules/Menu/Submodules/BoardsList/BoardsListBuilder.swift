@@ -47,7 +47,7 @@ final class BoardsListBuilder: Builder<BoardsListDependency>, BoardsListBuildabl
     // MARK: Private
     private func buildInteractor(vc viewController: BoardsListPresentable) -> BoardsListInteractor {
         
-        let list = BoardsListService()
+        let list = ImageboardService.instance()
         
         let interactor = BoardsListInteractor(presenter: viewController, list: list)
         return interactor
