@@ -28,8 +28,6 @@ final class ImageboardListViewController: BaseViewController, ImageboardListPres
     
     private var data: [ImageboardViewModel] = []
     
-
-    
     // UI
     @IBOutlet weak var tableView: UITableView!
     private let header = ImageboardHeader.instance

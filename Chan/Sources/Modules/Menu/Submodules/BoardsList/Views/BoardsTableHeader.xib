@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,23 +13,45 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="Cbk-72-VwF" customClass="BoardsTableHeader" customModule="Chan" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="471" height="30"/>
+            <rect key="frame" x="0.0" y="0.0" width="471" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9c-Gy-ibz">
-                    <rect key="frame" x="0.0" y="0.0" width="471" height="30"/>
+                    <rect key="frame" x="0.0" y="0.0" width="471" height="60"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hR-Bb-tSm" customClass="ChanLabel" customModule="Chan" customModuleProvider="target">
-                            <rect key="frame" x="16" y="3" width="447" height="24"/>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5T5-0U-4uO">
+                            <rect key="frame" x="14" y="10" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="1vp-ui-XsY"/>
+                                <constraint firstAttribute="width" secondItem="5T5-0U-4uO" secondAttribute="height" id="LK1-Nv-mAX"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2ch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLe-m1-bIL">
+                            <rect key="frame" x="64" y="19.5" width="343" height="21"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yvz-yA-Wdt">
+                            <rect key="frame" x="417" y="10" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="Jyf-ah-b9m"/>
+                                <constraint firstAttribute="width" secondItem="Yvz-yA-Wdt" secondAttribute="height" id="Tjd-fO-o0z"/>
+                            </constraints>
+                            <state key="normal" image="addBoard"/>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="2hR-Bb-tSm" firstAttribute="centerY" secondItem="f9c-Gy-ibz" secondAttribute="centerY" id="BpV-kZ-YPt"/>
-                        <constraint firstAttribute="trailing" secondItem="2hR-Bb-tSm" secondAttribute="trailing" constant="8" id="ORY-n8-DP4"/>
-                        <constraint firstItem="2hR-Bb-tSm" firstAttribute="leading" secondItem="f9c-Gy-ibz" secondAttribute="leading" constant="16" id="f24-Md-LXC"/>
+                        <constraint firstItem="5T5-0U-4uO" firstAttribute="leading" secondItem="f9c-Gy-ibz" secondAttribute="leading" constant="14" id="2Ht-i4-vJN"/>
+                        <constraint firstItem="qLe-m1-bIL" firstAttribute="centerY" secondItem="5T5-0U-4uO" secondAttribute="centerY" id="G8e-9W-2Xo"/>
+                        <constraint firstItem="qLe-m1-bIL" firstAttribute="leading" secondItem="5T5-0U-4uO" secondAttribute="trailing" constant="10" id="P3Q-pM-f3I"/>
+                        <constraint firstAttribute="bottom" secondItem="5T5-0U-4uO" secondAttribute="bottom" constant="10" id="VV9-Nq-Xin"/>
+                        <constraint firstItem="5T5-0U-4uO" firstAttribute="top" secondItem="f9c-Gy-ibz" secondAttribute="top" constant="10" id="eCv-wK-gr7"/>
+                        <constraint firstItem="Yvz-yA-Wdt" firstAttribute="top" secondItem="f9c-Gy-ibz" secondAttribute="top" constant="10" id="f5Y-Ig-Wit"/>
+                        <constraint firstAttribute="trailing" secondItem="Yvz-yA-Wdt" secondAttribute="trailing" constant="14" id="nWT-QX-ttO"/>
+                        <constraint firstAttribute="bottom" secondItem="Yvz-yA-Wdt" secondAttribute="bottom" constant="10" id="wmH-Ij-fSa"/>
+                        <constraint firstItem="Yvz-yA-Wdt" firstAttribute="leading" secondItem="qLe-m1-bIL" secondAttribute="trailing" constant="10" id="zUY-4b-o6F"/>
                     </constraints>
                 </view>
             </subviews>
@@ -45,10 +67,15 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="TGt-GL-cS3"/>
             <connections>
+                <outlet property="addBoards" destination="Yvz-yA-Wdt" id="hAc-XW-eI8"/>
+                <outlet property="boardImage" destination="5T5-0U-4uO" id="Al4-dK-CMt"/>
+                <outlet property="boardTitle" destination="qLe-m1-bIL" id="zMX-ye-4k5"/>
                 <outlet property="canvasView" destination="f9c-Gy-ibz" id="eOB-Eq-1Om"/>
-                <outlet property="title" destination="2hR-Bb-tSm" id="dib-m1-jyb"/>
             </connections>
-            <point key="canvasLocation" x="113.5" y="-623"/>
+            <point key="canvasLocation" x="112.8" y="-608.09595202398805"/>
         </view>
     </objects>
+    <resources>
+        <image name="addBoard" width="40" height="40"/>
+    </resources>
 </document>

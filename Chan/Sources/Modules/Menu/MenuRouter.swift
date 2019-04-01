@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol MenuInteractable: Interactable, ImageboardListListener, BoardsListListener {
+protocol MenuInteractable: Interactable, ImageboardListListener, BoardsListListener, BoardSelectionListener {
     var router: MenuRouting? { get set }
     var listener: MenuListener? { get set }
 }
@@ -25,11 +25,22 @@ protocol MenuViewControllable: ViewControllable {
 final class MenuRouter: ViewableRouter<MenuInteractable, MenuViewControllable>, MenuRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: MenuInteractable, viewController: MenuViewControllable, imageboardList: ImageboardListBuildable, boardList: BoardsListBuildable) {
+    init(interactor: MenuInteractable, viewController: MenuViewControllable, imageboardList: ImageboardListBuildable, boardList: BoardsListBuildable, boardsSelection: BoardSelectionBuildable) {
         self.imageboardListBuilder = imageboardList
         self.boardListBuilder = boardList
+        self.boardsSelectionBuilder = boardsSelection
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
+    }
+    
+    func openBoardSelection() {
+        if self.canDeattach(router: self.boardsSelection) {
+            let boardsSelection = self.boardsSelectionBuilder.build(withListener: self.interactor)
+            self.attachChild(boardsSelection)
+            self.boardsSelection = boardsSelection
+            
+            self.viewController.present(vc: BaseNavigationController(rootViewController: boardsSelection.viewControllable.uiviewController))
+        }
     }
     
     // MARK: Private
@@ -38,6 +49,9 @@ final class MenuRouter: ViewableRouter<MenuInteractable, MenuViewControllable>, 
     
     private var boardListBuilder: BoardsListBuildable
     private var boardList: ViewableRouting?
+    
+    private var boardsSelectionBuilder: BoardSelectionBuildable
+    private var boardsSelection: ViewableRouting?
 
     
     func setupViews() {

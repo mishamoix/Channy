@@ -74,9 +74,9 @@ class BoardsListService: BaseService, BoardsListServiceProtocol {
     
     func loadCachedBoards() -> ResultType {
         
-        if let result = self.imageboardService.currentImageboard() {
-            return result.boards
-        }
+//        if let result = self.imageboardService.currentImageboard() {
+//            return result.boards
+//        }
         
         let result = (CoreDataStore.shared.findModels(with: CoreDataBoard.self) as? [BoardModel] ?? []).sorted(by: { $0.sort < $1.sort })
         return result

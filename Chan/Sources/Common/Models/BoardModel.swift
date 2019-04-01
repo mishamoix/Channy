@@ -18,13 +18,14 @@ class BoardModel: BaseModel, Decodable {
         self.id = uid
     }
 
-    
-    
+
     var id = ""
     var name = ""
     
     var sort = 0
     var imageboard: ImageboardModel? = nil
+    var selected: Bool = false
+    var current: Bool = false
 
     enum CodingKeys : String, CodingKey {
         case name

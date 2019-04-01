@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,23 +23,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="340" height="39.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBo-bG-DRC" customClass="ChanLabel" customModule="Chan" customModuleProvider="target">
-                                <rect key="frame" x="24" y="9.5" width="268" height="21"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                <rect key="frame" x="14" y="9.5" width="312" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dragReorder" translatesAutoresizingMaskIntoConstraints="NO" id="8iK-pe-iiG" customClass="ChanImageView" customModule="Chan" customModuleProvider="target">
-                                <rect key="frame" x="300" y="12" width="32" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="8iK-pe-iiG" secondAttribute="height" multiplier="2:1" id="mFF-Bp-GZM"/>
-                                    <constraint firstAttribute="width" constant="32" id="yEF-fJ-ULz"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="needCensor" value="NO"/>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkB-dZ-uPY">
-                                <rect key="frame" x="24" y="39" width="316" height="0.5"/>
+                                <rect key="frame" x="14" y="39" width="326" height="0.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="NBR-qe-d7b"/>
@@ -48,14 +38,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="TBo-bG-DRC" secondAttribute="trailing" constant="14" id="0a9-uY-bc3"/>
                             <constraint firstItem="TBo-bG-DRC" firstAttribute="centerY" secondItem="RD5-jo-O6Q" secondAttribute="centerY" id="3pt-Pi-sVi"/>
-                            <constraint firstItem="8iK-pe-iiG" firstAttribute="leading" secondItem="TBo-bG-DRC" secondAttribute="trailing" constant="8" id="JF9-9i-GL9"/>
                             <constraint firstAttribute="trailing" secondItem="dkB-dZ-uPY" secondAttribute="trailing" id="KUI-in-J2u"/>
                             <constraint firstAttribute="bottom" secondItem="dkB-dZ-uPY" secondAttribute="bottom" id="OUq-wl-anS"/>
                             <constraint firstItem="dkB-dZ-uPY" firstAttribute="leading" secondItem="TBo-bG-DRC" secondAttribute="leading" id="PoW-Bw-mqj"/>
-                            <constraint firstItem="TBo-bG-DRC" firstAttribute="leading" secondItem="RD5-jo-O6Q" secondAttribute="leading" constant="24" id="iYt-Vr-99R"/>
-                            <constraint firstAttribute="trailing" secondItem="8iK-pe-iiG" secondAttribute="trailing" constant="8" id="lm9-zZ-xB3"/>
-                            <constraint firstItem="8iK-pe-iiG" firstAttribute="centerY" secondItem="RD5-jo-O6Q" secondAttribute="centerY" id="o3k-2m-NMC"/>
+                            <constraint firstItem="TBo-bG-DRC" firstAttribute="leading" secondItem="RD5-jo-O6Q" secondAttribute="leading" constant="14" id="iYt-Vr-99R"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -68,7 +56,6 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="arrow" destination="8iK-pe-iiG" id="yVm-Kp-T3D"/>
                 <outlet property="canvas" destination="RD5-jo-O6Q" id="aFn-gk-iBz"/>
                 <outlet property="separator" destination="dkB-dZ-uPY" id="xo7-hw-s9M"/>
                 <outlet property="title" destination="TBo-bG-DRC" id="6GH-4S-yr7"/>
@@ -76,7 +63,4 @@
             <point key="canvasLocation" x="43.200000000000003" y="51.27436281859071"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="dragReorder" width="45" height="45"/>
-    </resources>
 </document>

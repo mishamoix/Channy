@@ -34,6 +34,7 @@ protocol BoardListener: class {
 
 final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInteractable, BoardPresentableListener {
 
+
     weak var router: BoardRouting?
     weak var listener: BoardListener?
     
@@ -294,6 +295,11 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
 
         }
     }
+    
+    func openBoardSelection() {
+        
+    }
+    
     
     private func initialLoad() {
         self.presenter.showCentralActivity()

@@ -11,6 +11,8 @@ import RxSwift
 
 protocol MenuRouting: ViewableRouting {
     func setupViews()
+    func openBoardSelection()
+
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
 }
 
@@ -58,5 +60,9 @@ final class MenuInteractor: PresentableInteractor<MenuPresentable>, MenuInteract
     
     func closeBoardsList() {
         
+    }
+    
+    func openBoardSelection() {
+        self.router?.openBoardSelection()
     }
 }
