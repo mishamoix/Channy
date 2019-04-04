@@ -57,7 +57,11 @@ extension BoardModel: CoreDataCachedModel {
     }
     
     var fetching: NSPredicate {
-        return NSPredicate(format: "id = \"\(self.id)\"")
+        if let imageboard = self.imageboard {
+            return NSPredicate(format: "id = \"\(self.id)\" AND imageboard.id = \"\(imageboard.id)\"")
+        } else {
+            return NSPredicate(format: "id = \"\(self.id)\"")
+        }
     }
 }
 

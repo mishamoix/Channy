@@ -15,6 +15,7 @@ protocol BoardSelectionPresentableListener: class {
     func select(model: BoardSelectionViewModel)
     func save()
     func update(search string: String?)
+    
 }
 
 final class BoardSelectionViewController: UIViewController, BoardSelectionPresentable, BoardSelectionViewControllable {
@@ -29,11 +30,8 @@ final class BoardSelectionViewController: UIViewController, BoardSelectionPresen
         return self._uiLoaded.asObservable()
     }
     
-    
-    
     // MARK: UI
     @IBOutlet weak var tableView: UITableView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +45,10 @@ final class BoardSelectionViewController: UIViewController, BoardSelectionPresen
     func update(data: [BoardSelectionViewModel]) {
         self.data = data
         self.tableView.reloadData()
+    }
+    
+    func close() {
+        self.dismiss(animated: true)
     }
     
     //MARK: Private
@@ -69,6 +71,8 @@ final class BoardSelectionViewController: UIViewController, BoardSelectionPresen
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        self.tableView.keyboardDismissMode = .onDrag
+        
         self.tableView.rowHeight = 60.0
     }
     
@@ -84,7 +88,7 @@ final class BoardSelectionViewController: UIViewController, BoardSelectionPresen
             .tap
             .asObservable()
             .subscribe(onNext: { [weak self] in
-                self?.dismiss(animated: true)
+                self?.close()
             })
             .disposed(by: self.disposeBag)
         
@@ -92,9 +96,17 @@ final class BoardSelectionViewController: UIViewController, BoardSelectionPresen
         let saveButton = UIBarButtonItem(title: "Готово", style: .done, target: nil, action: nil)
         self.navigationItem.rightBarButtonItem = saveButton
         
+        saveButton.rx
+            .tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                self?.listener?.save()
+            })
+            .disposed(by: self.disposeBag)
         
         let search = UISearchController(searchResultsController: nil)
         search.searchResultsUpdater = self
+        search.dimsBackgroundDuringPresentation = false
         search.searchBar.placeholder = "Введите название или код доски"
         
         if #available(iOS 11.0, *) {

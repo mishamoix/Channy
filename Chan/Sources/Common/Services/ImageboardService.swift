@@ -15,7 +15,7 @@ protocol BoardlistProtocol {
 }
 
 protocol BoardlistSelectionProtocol: BoardlistProtocol {
-    
+    func save(boards: [BoardModel])
 }
 
 protocol ImageboardServiceProtocol: BaseServiceProtocol, BoardlistSelectionProtocol {
@@ -44,6 +44,12 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
     
     static func instance() -> ImageboardServiceProtocol {
         return ImageboardService.shared
+    }
+    
+    func save(boards: [BoardModel]) {
+        self.coreData.saveModels(with: boards, with: CoreDataBoard.self) {
+            self.updateCurrentCachedImageboard(force: true)
+        }
     }
     
     func reload() {

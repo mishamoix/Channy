@@ -28,6 +28,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     
     // MARK: Data
     private var imageboard: ImageboardModel? = nil
+    private var boards: [BoardModel] = []
     
     //MARK: UI
     @IBOutlet weak var tableView: UITableView!
@@ -247,6 +248,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     private func updateViews() {
         if let data = self.imageboard {
             self.header.update(with: data)
+            self.boards = data.boards.filter({ $0.selected })
             self.tableView.reloadData()
         }
     }
@@ -273,7 +275,7 @@ extension BoardsListViewController: UITableViewDelegate {
         if self.canAction {
             return [UITableViewRowAction(style: .destructive, title: "Удалить", handler: { [weak self] (action, idexPath) in
                 
-                if let board = self?.imageboard?.boards[indexPath.row] {
+                if let board = self?.boards[indexPath.row] {
 //                    self?.listener?.viewActions.on(.next(.delete(uid: board.uid)))
                 }
 
@@ -299,10 +301,9 @@ extension BoardsListViewController: UITableViewDataSource {
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: BoardsListCellIdentifier, for: indexPath) as! BoardsListCell
-        if let data = self.imageboard?.boards[indexPath.row] {
-            let data = data
-            cell.update(with: data)
-        }
+        let data = self.boards[indexPath.row]
+        cell.update(with: data)
+        
         
         return cell
     }
@@ -312,7 +313,7 @@ extension BoardsListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.imageboard?.boards.count ?? 0
+        return self.boards.count
     }
 
 }

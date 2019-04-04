@@ -18,6 +18,7 @@ protocol BoardSelectionPresentable: Presentable {
     var uiLoaded: Observable<Bool> { get }
     
     func update(data: [BoardSelectionViewModel])
+    func close()
     
 }
 
@@ -35,6 +36,7 @@ final class BoardSelectionInteractor: PresentableInteractor<BoardSelectionPresen
     
     private var data: [BoardSelectionViewModel] = []
     private var filtredData: [BoardSelectionViewModel] = []
+    private var models: [BoardModel] = []
     private var currentSearchString: String? = nil
     
     init(presenter: BoardSelectionPresentable, service: BoardlistSelectionProtocol) {
@@ -63,6 +65,14 @@ final class BoardSelectionInteractor: PresentableInteractor<BoardSelectionPresen
     }
     
     func save() {
+        let selectedIds = self.data.filter({ $0.selected }).map({ $0.id })
+        let modelsForSave = self.models.map({ model -> BoardModel in
+            model.selected = selectedIds.contains(model.id)
+            return model
+        })
+        
+        self.service.save(boards: modelsForSave)
+        self.presenter.close()
         
     }
     
@@ -93,6 +103,7 @@ final class BoardSelectionInteractor: PresentableInteractor<BoardSelectionPresen
             })
             .subscribe(onNext: { [weak self] model in
                 if let boards = model?.boards {
+                    self?.models = boards
                     let newBoards = boards.map({ BoardSelectionViewModel(model: $0) })
                     self?.data = newBoards
                     self?.makeSearch()
@@ -103,29 +114,31 @@ final class BoardSelectionInteractor: PresentableInteractor<BoardSelectionPresen
     }
     
     func makeSearch() {
-        var result: [BoardSelectionViewModel] = []
-        
-        if let search = self.currentSearchString {
-            if search.count == 0 {
-                result = self.data
-            } else {
-                let searchText = UCCTransliteration.shared.transliterate(s: search).lowercased()
-                for model in self.data {
-                    let name = UCCTransliteration.shared.transliterate(s: model.name).lowercased()
-                    let substring = UCCTransliteration.shared.transliterate(s: model.substring).lowercased()
-                    
-                    if name.contains(searchText) || substring.contains(searchText) {
-                        result.append(model)
+//        Helper.performOnBGThread {
+            var result: [BoardSelectionViewModel] = []
+            
+            if let search = self.currentSearchString {
+                if search.count == 0 {
+                    result = self.data
+                } else {
+                    let searchText = search.lowercased() // UCCTransliteration.shared.transliterate(s: search).lowercased()
+                    for model in self.data {
+                        let name = model.name.lowercased() // UCCTransliteration.shared.transliterate(s: model.name).lowercased()
+                        let substring = model.substring.lowercased() // UCCTransliteration.shared.transliterate(s: model.substring).lowercased()
+                        
+                        if name.contains(searchText) || substring.contains(searchText) {
+                            result.append(model)
+                        }
                     }
                 }
+            } else {
+                result = self.data
             }
-        } else {
-            result = self.data
-        }
-        
-
-        
-        self.filtredData = result
-        self.presenter.update(data: self.filtredData)
+            
+            Helper.performOnMainThread {
+                self.filtredData = result
+                self.presenter.update(data: self.filtredData)
+            }
+//        }
     }
 }
