@@ -86,12 +86,13 @@ extension CoreDataImageboard: CacheTrackerEntity {
                 // TODO: refactor
                 
                 if let coreDataBoard = board.entity(in: self.managedObjectContext!) as? CoreDataBoard {
+                    coreDataBoard.imageboard = self
                     coreDataBoards.add(coreDataBoard)
                 }
                 
             }
             
-            self.boards =  coreDataBoards
+            self.boards = coreDataBoards
         }
     }
     
@@ -114,6 +115,7 @@ extension CoreDataImageboard: CacheTrackerEntity {
         for coreDataBoard in self.boards {
             
             if let board = coreDataBoard as? CoreDataBoard, let model = board.model as? BoardModel {
+                model.imageboard = result
                 boards.append(model)
             }
         }

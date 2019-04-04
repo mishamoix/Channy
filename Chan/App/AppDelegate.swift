@@ -18,10 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         self.window = window
         AppDependency.shared.startApp(with: window)
-        
-//        print(UCCTransliteration.shared.transliterate(s: "привет"))
-//        print(UCCTransliteration.shared.transliterate(s: "privet loh"))
-        
+                
         return true
     }
 

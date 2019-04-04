@@ -37,9 +37,9 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
 //        }
         
         if model.name.count != 0 {
-            self.title.text = "\(model.name) /\(model.uid)/"
+            self.title.text = "\(model.name) /\(model.id)/"
         } else {
-            self.title.text = "/\(model.uid)/"
+            self.title.text = "/\(model.id)/"
         }
     }
     
