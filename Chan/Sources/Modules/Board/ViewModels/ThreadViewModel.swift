@@ -22,26 +22,38 @@ class ThreadViewModel {
     private(set) var messageSize: CGSize = .zero
     private(set) var titleSize: CGSize = .zero
     
+    private(set) var media: MediaModel? = nil
+    
     let uid: String
     
-    let file: FileModel?
+    var file: FileModel? = nil
     
-    var displayText: String {
-        return "[\(max(self.postsCount, 1))] " + (self.comment ?? "")
+    var displayText: String? {
+        return self.comment
+    }
+    var number: String {
+        return "№\(self.uid)"
     }
     
     init(with model: ThreadModel) {
-        self.uid = model.uid
-        self.file = model.posts.first?.files.first
-        self.title = "The Request Thread Is Back /request/ The Request Thread Is Back /request/"
-        if let post = model.posts.first {
-//            self.title = post.subject
-            self.comment = TextStripper.fullClean(text: post.comment)
-            self.postsCount = model.postsCount + model.posts.count
-            if let file = post.files.first {
-                self.thumbnail = URL(string: MakeFullPath(path: file.thumbnail))
-            }
-        }
+        
+        self.uid = String(model.id)
+        self.title = model.subject
+        self.comment = model.subject
+        self.postsCount = model.postsCount
+        self.media = model.media.first
+        
+//        self.uid = model.uid
+//        self.file = model.posts.first?.files.first
+//        self.title = "The Request Thread Is Back /request/ The Request Thread Is Back /request/"
+//        if let post = model.posts.first {
+////            self.title = post.subject
+//            self.comment = TextStripper.fullClean(text: post.comment)
+//            self.postsCount = model.postsCount + model.posts.count
+//            if let file = post.files.first {
+//                self.thumbnail = URL(string: MakeFullPath(path: file.thumbnail))
+//            }
+//        }
     }
     
     func calculateSize(max width: CGFloat) -> ThreadViewModel {

@@ -35,7 +35,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     weak var router: BoardsListRouting?
     weak var listener: BoardsListListener?
     
-    private let service: BoardlistProtocol
+    private let service: ImageboardListProtocol
 //    private var listServiceResult: PublishSubject<BoardsListServiceProtocol.ResultType> = PublishSubject<BoardsListServiceProtocol.ResultType>()
     
     private let disposeBag = DisposeBag()
@@ -45,7 +45,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
-    init(presenter: BoardsListPresentable, list: BoardlistProtocol) {
+    init(presenter: BoardsListPresentable, list: ImageboardListProtocol) {
         self.service = list
 
         super.init(presenter: presenter)
@@ -104,6 +104,16 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
                 switch action {
                 case .openBoardsSelection: do {
                     self?.listener?.openBoardSelection()
+                }
+                case .openBoard(let model): do {
+                    guard let self = self else { return }
+                    self.service
+                        .selectBoard(model: model)
+                        .debug()
+                        .subscribe({ _ in
+                            self.listener?.open(board: model)
+                        })
+                        .disposed(by: self.disposeBag)
                 }
                 }
             })

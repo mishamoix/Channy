@@ -207,17 +207,17 @@ class ThreadImageViewer: NSObject {
             .subscribe(onNext: { [weak self] _ in
                 if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx), let url = model.url {
                     
-                    if CensorManager.isCensored(model: FileModel(path: url.absoluteString)) {
-                    
-                        Helper.open(url: url)
-                    } else {
-//                        model.needBlur = false
-//                        model.ax_loadingState = .notLoaded
-//                        if let ds = self?.browser?.dataSource {
-//                            ds.initialPhotoIndex = idx
-//                            self?.browser?.dataSource = ds
-//                        }
-                    }
+//                    if CensorManager.isCensored(model: FileModel(path: url.absoluteString)) {
+//
+//                        Helper.open(url: url)
+//                    } else {
+////                        model.needBlur = false
+////                        model.ax_loadingState = .notLoaded
+////                        if let ds = self?.browser?.dataSource {
+////                            ds.initialPhotoIndex = idx
+////                            self?.browser?.dataSource = ds
+////                        }
+//                    }
                 }
             })
             .disposed(by: self.disposeBag)
@@ -235,8 +235,8 @@ class ThreadImageViewer: NSObject {
         self.browser = browser
         browser.delegate = self
         self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
-        self.openInBrowserButton.alpha = CensorManager.isCensored(model: self.anchor) ? 1 : 0
-        self.textCanvas.isHidden = CensorManager.isCensored(model: self.anchor)
+//        self.openInBrowserButton.alpha = CensorManager.isCensored(model: self.anchor) ? 1 : 0
+//        self.textCanvas.isHidden = CensorManager.isCensored(model: self.anchor)
         
     }
     
@@ -280,17 +280,17 @@ class ThreadImageViewer: NSObject {
     private func updateOverlay(with photo: AXPhotoProtocol) {
         if let url = photo.url {
             let model = FileModel(path: url.absoluteString)
-            if CensorManager.isCensored(model: model) {
-                self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
-                self.openInBrowserButton.alpha = 1
-                self.textCanvas.isHidden = true
-                //                self.openInBrowserButton.isEnabled = true
-            } else {
-                self.openInBrowserButton.alpha = 0
-                self.textCanvas.isHidden = !photo.needBlur
-
-                //              self.openInBrowserButton.setTitle("Показать", for: .normal)
-            }
+//            if CensorManager.isCensored(model: model) {
+//                self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
+//                self.openInBrowserButton.alpha = 1
+//                self.textCanvas.isHidden = true
+//                //                self.openInBrowserButton.isEnabled = true
+//            } else {
+//                self.openInBrowserButton.alpha = 0
+//                self.textCanvas.isHidden = !photo.needBlur
+//
+//                //              self.openInBrowserButton.setTitle("Показать", for: .normal)
+//            }
         }
         
 
@@ -327,14 +327,14 @@ extension ThreadImageViewer: AXPhotosViewControllerDelegate {
             .drive(onNext: { [weak self] gesture in
                 if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx), let url = model.url {
                     
-                    if !CensorManager.isCensored(model: FileModel(path: url.absoluteString)) {
-                        model.needBlur = false
-                        model.ax_loadingState = .notLoaded
-                        if let ds = self?.browser?.dataSource {
-                            ds.initialPhotoIndex = idx
-                            self?.browser?.dataSource = ds
-                        }
-                    }
+//                    if !CensorManager.isCensored(model: FileModel(path: url.absoluteString)) {
+//                        model.needBlur = false
+//                        model.ax_loadingState = .notLoaded
+//                        if let ds = self?.browser?.dataSource {
+//                            ds.initialPhotoIndex = idx
+//                            self?.browser?.dataSource = ds
+//                        }
+//                    }
                 }
                 
             }).disposed(by: self.disposeBag)

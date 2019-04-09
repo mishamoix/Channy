@@ -10,15 +10,20 @@ import UIKit
 import RxSwift
 import SwiftyJSON
 
-protocol BoardlistProtocol {
+protocol ImageboardCurrentProtocol {
     func currentImageboard() -> Observable<ImageboardModel?>
+    func currentBoard() -> Observable<BoardModel?>
 }
 
-protocol BoardlistSelectionProtocol: BoardlistProtocol {
+protocol ImageboardListProtocol: ImageboardCurrentProtocol {
+    func selectBoard(model: BoardModel) -> Observable<Void>
+}
+
+protocol ImageboardlistSelectionProtocol: ImageboardListProtocol {
     func save(boards: [BoardModel])
 }
 
-protocol ImageboardServiceProtocol: BaseServiceProtocol, BoardlistSelectionProtocol {
+protocol ImageboardServiceProtocol: BaseServiceProtocol, ImageboardlistSelectionProtocol {
     
     typealias DataType = ImageboardModel
     typealias ResultType = [ImageboardServiceProtocol.DataType]
@@ -37,6 +42,7 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
     private let provider = ChanProvider<ImageboardTarget>()
     private let replaySubject = ReplaySubject<ResultType>.create(bufferSize: 1) // only last value
     private let currentCachedImageboard = Variable<DataType?>(nil)
+    private let currentCachedBoard = Variable<BoardModel?>(nil)
     private static let shared = ImageboardService()
     
 //    private var currentCachedImageboard: DataType? = nil
@@ -94,8 +100,44 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
         self.coreData.saveModels(with: models, with: CoreDataImageboard.self) { [weak self] in
             self?.loadFromCache()
             self?.updateCurrentCachedImageboard(force: true)
+            self?.updateCurrentCachedBoard(force: true)
         }
         
+    }
+    
+    func selectBoard(model: BoardModel) -> Observable<Void> {
+        
+        return Observable<Void>.create({ [weak self] observer -> Disposable in
+            
+            guard let boards = self?.currentCachedImageboard.value?.boards else {
+                observer.on(.next(Void()))
+                observer.on(.completed)
+                return Disposables.create()
+            }
+            
+            let resultBoards = boards.map({ board -> BoardModel in
+                board.current = board.id == model.id
+                return board
+            })
+            
+            self?.coreData.saveModels(with: resultBoards, with: CoreDataBoard.self) {
+                observer.on(.next(Void()))
+                observer.on(.completed)
+                
+                self?.updateCurrentCachedImageboard(force: true)
+                self?.updateCurrentCachedBoard(force: true)
+            }
+            
+            
+            
+            return Disposables.create()
+        })
+        
+    }
+    
+    func currentBoard() -> Observable<BoardModel?> {
+        self.updateCurrentCachedBoard()
+        return self.currentCachedBoard.asObservable()
     }
     
     func currentImageboard() -> Observable<DataType?> {
@@ -136,6 +178,12 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
             
             self.currentCachedImageboard.value = result
         }
-
+    }
+    
+    private func updateCurrentCachedBoard(force: Bool = false) {
+        if (self.currentCachedBoard.value == nil || force) {
+            let result = self.coreData.findModel(with: CoreDataBoard.self, predicate: NSPredicate(format: "current = YES AND imageboard.current = YES")) as? BoardModel
+            self.currentCachedBoard.value = result
+        }
     }
 }

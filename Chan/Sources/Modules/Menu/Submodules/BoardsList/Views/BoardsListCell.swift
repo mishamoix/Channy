@@ -18,7 +18,7 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setupTheme()
-      self.separator.isHidden = true
+        self.separator.isHidden = true
 
     }
 
@@ -29,17 +29,17 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
     
     override func update(with model: BoardModel) {
         super.update(with: model)
-        
-//        if model.isHome {
-//            self.arrow.image = .home
-//        } else {
-//            self.arrow.image = .dragReorder
-//        }
-        
+
         if model.name.count != 0 {
             self.title.text = "\(model.name) /\(model.id)/"
         } else {
             self.title.text = "/\(model.id)/"
+        }
+        
+        if model.current {
+            self.title.textColor = UIColor.main
+        } else {
+            self.title.textColor = UIColor.black
         }
     }
     

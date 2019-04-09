@@ -13,6 +13,7 @@ protocol RootRouting: ViewableRouting {
     func setupMainViews()
     func setupOnboard()
     func openMenu()
+    func closeMenu()
 }
 
 protocol RootPresentable: Presentable {
@@ -59,5 +60,9 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
     // MARK: MainContainerListner
     func openMenu() {
         self.router?.openMenu()
+    }
+    
+    func closeMenu() {
+        self.router?.closeMenu()
     }
 }

@@ -17,6 +17,8 @@ protocol RootViewControllable: ViewControllable {
     
     func setupViews(main view: UIViewController, side menu: UIViewController)
     func openMenu()
+    func closeMenu()
+
 
     // TODO: Declare methods the router invokes to manipulate the view hierarchy.
 }
@@ -83,5 +85,9 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     
     func openMenu() {
         self.viewController.openMenu()
+    }
+    
+    func closeMenu() {
+        self.viewController.closeMenu()
     }
 }

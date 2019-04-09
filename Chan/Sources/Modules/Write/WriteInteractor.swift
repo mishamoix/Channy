@@ -88,24 +88,27 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
             .loadInvisibleRecaptcha()
             .observeOn(Helper.rxMainThread)
             .flatMap { [weak self] recaptchaId -> Observable<WriteModel> in
-                guard let self = self else { return Observable<WriteModel>.error(ChanError.none) }
+                return Observable<WriteModel>.error(ChanError.none)
+//                guard let self = self else { return Observable<WriteModel>.error(ChanError.none) }
 //                self.presenter.stopAnyLoaders()
-                return self.presenter
-                    .solveRecaptcha(with: recaptchaId)
-                    .asObservable().flatMap({ [weak self] (key, resultCaptcha) -> Observable<WriteModel> in
-                        if let thread = self?.service.thread, let boardUid = thread.board?.uid {
-                            self?.presenter.showCentralActivity()
-                            var treadUid = thread.uid
-                            if let state = self?.moduleState, state == .create {
-                                treadUid = "0"
-                            }
-                            let writeModel = WriteModel(recaptchaId: key, text: text, recaptachToken: resultCaptcha, threadUid: treadUid, boardUid: boardUid, images: self?.presenter.images ?? [])
-                            return Observable<WriteModel>.just(writeModel)
-
-                        } else {
-                            return Observable<WriteModel>.error(ChanError.none)
-                        }
-                    })
+//                return self.presenter
+//                    .solveRecaptcha(with: recaptchaId)
+//                    .asObservable()
+//                    .flatMap({ [weak self] (key, resultCaptcha) -> Observable<WriteModel> in
+////                        if let thread = self?.service.thread, let boardUid = thread.board?.uid {
+////                            self?.presenter.showCentralActivity()
+////                            var treadUid = thread.uid
+////                            if let state = self?.moduleState, state == .create {
+////                                treadUid = "0"
+////                            }
+////                            let writeModel = WriteModel(recaptchaId: key, text: text, recaptachToken: resultCaptcha, threadUid: treadUid, boardUid: boardUid, images: self?.presenter.images ?? [])
+////                            return Observable<WriteModel>.just(writeModel)
+////
+////                        } else {
+////                            return Observable<WriteModel>.error(ChanError.none)
+////                        }
+//                        return
+//                    })
             }
             .observeOn(Helper.rxBackgroundThread)
             .flatMap { [weak self] model -> Observable<WriteResponseModel> in

@@ -16,6 +16,11 @@ class ThreadCell: UICollectionViewCell {
 
     @IBOutlet weak var canvas: ChanView!
     @IBOutlet weak var iconView: ChanImageView!
+    @IBOutlet weak var number: UILabel!
+    @IBOutlet weak var postsCount: UILabel!
+    @IBOutlet weak var newPosts: UILabel!
+    @IBOutlet weak var starred: UIImageView!
+    
     private var title: UILabel = UILabel()
     private var message: UILabel = UILabel()
     
@@ -87,24 +92,19 @@ class ThreadCell: UICollectionViewCell {
         
         self.message.text = model.displayText
         self.title.text = model.title
-//        self.message.textColor = .black
-//        self.message.backgroundColor = .clear
-        
-//        self.message.setNeedsDisplay()
-        
 
-        self.iconView.cancelLoad()
-        self.iconView.image = nil
-        if let thumbnail = model.thumbnail {
-            self.iconView.load(url: thumbnail)
-            self.iconView.censor(file: model.file)
-//            self.iconView.af_setImage(withURL: thumbnail)
-        }
+        self.iconView.loadImage(media: model.media)
         
         let textRightOffset = ThreadImageLeftMargin + ThreadImageSize + ThreadImageTextMargin
         
         self.title.frame = CGRect(x: textRightOffset, y: ThreadTopMargin, width: model.titleSize.width, height: model.titleSize.height)
         self.message.frame = CGRect(x: textRightOffset, y: ThreadTopMargin + model.titleSize.height + ThreadTitleMessageMargin, width: model.messageSize.width, height: model.messageSize.height)
+        
+        self.starred.isHidden = true
+        self.newPosts.isHidden = true
+        
+        self.postsCount.text = String(model.postsCount)
+        self.number.text = String(model.number)
       
     }
     

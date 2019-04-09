@@ -185,7 +185,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                         }
 
                     }, completion: { finished in
-                        
+                        self?.stopAnyLoaders()
                     })
 //                    collectionView.beginUpdates()
 //                    tableView.performBatchUpdates({

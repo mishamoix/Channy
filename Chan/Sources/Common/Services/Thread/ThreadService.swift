@@ -37,24 +37,24 @@ class ThreadService: BaseService, ThreadServiceProtocol {
         self.thread = thread
         super.init()
         
-        self.updateInternalName(thread.posts)
+//        self.updateInternalName(thread.posts)
     }
     
     func load() -> Observable<ResultType> {
-        
-        return self.provider
-            .rx
-            .request(.load(board: self.thread.board?.uid ?? "", idx: self.thread.uid))
-            .asObservable()
-            .flatMap({ [weak self] response -> Observable<ResultType> in
-                if let res = self?.makeModel(data: response.data) {
-                    self?.updateInternalName(res)
-                    let result = ResultThreadModel<DataType>(result: res, type: .all)
-                    return Observable<ResultType>.just(result)
-                } else {
-                    return Observable<ResultType>.error(ChanError.parseError)
-                }
-            })
+        return Observable<ResultType>.error(ChanError.badRequest)
+//        return self.provider
+//            .rx
+//            .request(.load(board: self.thread.board?.uid ?? "", idx: self.thread.uid))
+//            .asObservable()
+//            .flatMap({ [weak self] response -> Observable<ResultType> in
+//                if let res = self?.makeModel(data: response.data) {
+//                    self?.updateInternalName(res)
+//                    let result = ResultThreadModel<DataType>(result: res, type: .all)
+//                    return Observable<ResultType>.just(result)
+//                } else {
+//                    return Observable<ResultType>.error(ChanError.parseError)
+//                }
+//            })
     }
     
     private func makeModel(data: Data) -> DataType {

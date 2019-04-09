@@ -64,9 +64,9 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         super.init(presenter: presenter)
         presenter.listener = self
         
-        if let post = self.service.thread.currentPost, self.moduleIsRoot {
-            self.presenter.autosctollUid = post
-        }
+//        if let post = self.service.thread.currentPost, self.moduleIsRoot {
+//            self.presenter.autosctollUid = post
+//        }
     }
 
     override func didBecomeActive() {
@@ -195,7 +195,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .all:
                     strongSelf.postsManager?.resetFilters()
                     let files = models.flatMap { $0.files }
-                    CensorManager.censor(files: files)
+//                    CensorManager.censor(files: files)
                 case .replys(let parent): strongSelf.postsManager?.addFilter(by: parent.uid)
                 case .replyed(let model): strongSelf.postsManager?.onlyReplyed(uid: model.uid)
                 }
@@ -305,14 +305,14 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func copyLinkPost(uid: String) {
-        if let link = self.service.thread.buildLink {
-            
-            UIPasteboard.general.string = link + "#\(uid)"
-//            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: SmallDismissTime)
-            
-        } else {
-//            ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
-        }
+//        if let link = self.service.thread.buildLink {
+//            
+//            UIPasteboard.general.string = link + "#\(uid)"
+////            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: SmallDismissTime)
+//            
+//        } else {
+////            ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
+//        }
 
     }
 
@@ -437,13 +437,13 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     
     private func copyLinkOnThread() {
-        if let link = self.service.thread.buildLink {
-            UIPasteboard.general.string = link
-            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: SmallDismissTime)
-
-        } else {
-            ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
-        }
+//        if let link = self.service.thread.buildLink {
+//            UIPasteboard.general.string = link
+//            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: SmallDismissTime)
+//
+//        } else {
+//            ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
+//        }
     }
     
     private func openMediaInBrowser(_ media: FileModel) {

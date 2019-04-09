@@ -94,6 +94,13 @@ final class RootViewController: BaseViewController, RootPresentable, RootViewCon
         }
     }
     
+    func closeMenu() {
+        if let left = SideMenuManager.default.menuLeftNavigationController {
+            left.dismiss(animated: true, completion: nil)
+        }
+    }
+
+    
     
 }
 

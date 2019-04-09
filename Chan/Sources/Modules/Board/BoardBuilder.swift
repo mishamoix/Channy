@@ -33,7 +33,8 @@ final class BoardBuilder: Builder<BoardDependency>, BoardBuildable {
         let viewController = UIStoryboard(name: "BoardViewController", bundle: nil).instantiateViewController(withIdentifier: "BoardViewController") as! BoardViewController
         
         let service = BoardService()
-        let interactor = BoardInteractor(presenter: viewController, service: service)
+        let imageboardService = ImageboardService.instance()
+        let interactor = BoardInteractor(presenter: viewController, imageboardService: imageboardService, service: service)
         interactor.listener = listener
         
         let threadBuilder = ThreadBuilder(dependency: component)

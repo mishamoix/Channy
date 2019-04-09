@@ -10,42 +10,56 @@ import UIKit
 
 class ThreadModel: BaseModel, Decodable {
     
+    // old
     var uid = ""
-    var filesCount = 0
-    var postsCount = 0
-    
-    var currentPost: String? = nil
-    
-    var posts: [PostModel] = []
-    
-    var board: BoardModel?
-    
     init(uid: String, board: BoardModel? = nil) {
         self.uid = uid
-        self.board = board
+//        self.board = board
     }
     
-    func update(board: BoardModel?) {
-        self.board = board
-    }
-    
+    var id: String = ""
+    var subject: String = ""
+    var content: String = ""
+    var postsCount: Int = 0
+    var markups: [Markup] = []
+    var media: [MediaModel] = []
+
     enum CodingKeys : String, CodingKey {
-        case uid = "thread_num"
-        case filesCount = "files_count"
-        case postsCount = "posts_count"
-        case posts
+        case id
+        case subject
+        case content
+        case postsCount
+        case markups
+        case files
     }
     
-    var threadPath: String {
-        return "\(self.board?.uid ?? "")_\(self.uid)"
-    }
-    
-    var buildLink: String? {
-        if let board = self.board {
-            let result = "\(Enviroment.default.oldBasePath)/\(board.uid)/res/\(self.uid).html"
-            return result
+    public required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        if let id = try? values.decode(String.self, forKey: .id) {
+            self.id = id
         }
-        return nil
+        if let subject = try? values.decode(String.self, forKey: .subject) {
+            self.subject = subject
+        }
+
+        if let content = try? values.decode(String.self, forKey: .content) {
+            self.content = content
+        }
+
+
+        if let postsCount = try? values.decode(Int.self, forKey: .postsCount) {
+            self.postsCount = postsCount
+        }
+        
+        if let markups = try? values.decode([Markup].self, forKey: .markups) {
+            self.markups = markups
+        }
+        
+        if let files = try? values.decode([MediaModel].self, forKey: .files) {
+            self.media = files
+        }
     }
+
 
 }

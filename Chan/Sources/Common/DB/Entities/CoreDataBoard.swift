@@ -26,17 +26,6 @@ class CoreDataBoard: NSManagedObject {
 
 extension BoardModel: CoreDataCachedModel {
     func entity(in context: NSManagedObjectContext) -> NSManagedObject? {
-        return self.boardEntity(in: context)
-//        let entity: CoreDataBoard? = CoreDataBoard.mr_findFirst(with: self.fetching, in: context) ?? CoreDataBoard.mr_createEntity(in: context)
-//        
-//        if entity?.isInserted ?? false {
-//            entity?.update(with: self as AnyObject)
-//        }
-//        
-//        return entity
-    }
-    
-    private func boardEntity(in context: NSManagedObjectContext) -> CoreDataBoard? {
         let entity: CoreDataBoard? = CoreDataBoard.mr_findFirst(with: self.fetching, in: context) ?? CoreDataBoard.mr_createEntity(in: context)
         
         if entity?.isInserted ?? false {
@@ -44,8 +33,20 @@ extension BoardModel: CoreDataCachedModel {
         }
         
         return entity
-    }
 
+    }
+    
+    func entityWithoutImageboard(in context: NSManagedObjectContext) -> NSManagedObject? {
+        let entity: CoreDataBoard? = CoreDataBoard.mr_findFirst(with: self.fetching, in: context) ?? CoreDataBoard.mr_createEntity(in: context)
+        
+        if entity?.isInserted ?? false {
+            entity?.updateWithoutImageboard(with: self as AnyObject)
+        }
+        
+        return entity
+
+    }
+    
     
     func save(in context: NSManagedObjectContext) -> NSManagedObject? {
         let entity = self.entity(in: context)
@@ -73,17 +74,43 @@ extension CoreDataBoard: CacheTrackerEntity {
             self.sort = UInt64(model.sort)
             self.selected = model.selected
             self.current = model.current
+            
             // TODO: refactor
-//            self.imageboard = model.imageboard!.entity(in: self.managedObjectContext!) as! CoreDataImageboard
+            if let imageboard = model.imageboard?.entity(in: self.managedObjectContext!) as? CoreDataImageboard {
+                self.imageboard = imageboard
+            }
         }
     }
+    
+    func updateWithoutImageboard(with model: AnyObject) {
+        if let model = model as? BoardModel {
+            self.id = model.id
+            self.name = model.name
+            self.sort = UInt64(model.sort)
+            self.selected = model.selected
+            self.current = model.current
+
+        }
+
+    }
+    
     var model: AnyObject {
         let model = BoardModel(id: self.id)
         model.name = self.name
         model.sort = Int(self.sort)
         model.selected = self.selected
         model.current = self.current
-//        model.imageboard = self.imageboard.model as? ImageboardModel
+        model.imageboard = self.imageboard.model as? ImageboardModel
+        return model as AnyObject
+    }
+    
+    var modelWithoutImageboard: AnyObject {
+        let model = BoardModel(id: self.id)
+        model.name = self.name
+        model.sort = Int(self.sort)
+        model.selected = self.selected
+        model.current = self.current
+        //        model.imageboard = self.imageboard.model as? ImageboardModel
         return model as AnyObject
     }
 

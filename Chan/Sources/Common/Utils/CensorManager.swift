@@ -72,21 +72,22 @@ class CensorManager {
     }
     
     
-    static func censor(files: [FileModel]) {
+    static func censor(files: [MediaModel]) {
         if Values.shared.censorEnabled {
             for file in files {
-                let path = CensorManager.path(for: file)
-                let _ = CensorManager.shared.censor(url: path)
+                if let path = CensorManager.path(for: file) {
+                    let _ = CensorManager.shared.censor(url: path)
+                }
             }
         }
     }
     
-    static func path(for file: FileModel) -> String {
-        return MakeFullPath(path: file.path)
+    static func path(for file: MediaModel) -> String? {
+        return file.url?.absoluteString
 //        return file.type == .video ? MakeFullPath(path: file.thumbnail) : MakeFullPath(path: file.path)
     }
   
-    static func isCensored(model: FileModel) -> Bool {
+    static func isCensored(model: MediaModel) -> Bool {
       #if RELEASE
         var needCensor = true
         if let result = CensorManager.shared.cache[CensorManager.path(for: model)] {
