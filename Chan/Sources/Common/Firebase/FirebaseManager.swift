@@ -114,8 +114,8 @@ class FirebaseManager {
         formatter.timeStyle = .full
         let key = formatter.string(from: Date()).replacingOccurrences(of: " ", with: "_")
         
-        let value = thread.threadPath
-      
+//        let value = thread.threadPath
+//
       #if RELEASE
 
         self.db.report(thread: value, key: key)

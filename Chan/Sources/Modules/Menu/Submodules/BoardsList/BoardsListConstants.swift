@@ -16,6 +16,7 @@ let BoardsTableHeaderHeight: CGFloat = 44.0
 
 enum BoardsListAction {
     case openBoardsSelection
+    case openBoard(model: BoardModel)
 //    case seacrh(text: String?)
 //    case openBoard(index: IndexPath)
 //    case openSettings

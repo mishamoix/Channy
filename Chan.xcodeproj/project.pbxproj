@@ -63,6 +63,7 @@
 		0A2E0CDE2145B3F600CBD619 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDD2145B3F600CBD619 /* PostModel.swift */; };
 		0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CDF2145B48300CBD619 /* FileModel.swift */; };
 		0A2E0CE22145C8D600CBD619 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */; };
+		0A326B85225CDCCF00E94AED /* MediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A326B84225CDCCF00E94AED /* MediaModel.swift */; };
 		0A37B01521BC3774009EC571 /* AXBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFEF21BC376F009EC571 /* AXBundle.swift */; };
 		0A37B01621BC3774009EC571 /* AXConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFF921BC3771009EC571 /* AXConstants.swift */; };
 		0A37B01821BC3873009EC571 /* AXPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AFFF21BC3774009EC571 /* AXPhotoViewController.swift */; };
@@ -303,6 +304,7 @@
 		0A2E0CDD2145B3F600CBD619 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		0A2E0CDF2145B48300CBD619 /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		0A2E0CE12145C8D600CBD619 /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
+		0A326B84225CDCCF00E94AED /* MediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaModel.swift; sourceTree = "<group>"; };
 		0A37AFE621BC376E009EC571 /* FLAnimatedImageView+AXExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "FLAnimatedImageView+AXExtensions.m"; sourceTree = "<group>"; };
 		0A37AFE721BC376E009EC571 /* UIView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animations.swift"; sourceTree = "<group>"; };
 		0A37AFE821BC376E009EC571 /* UIImageView+AXExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AXExtensions.m"; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 				0A905F7B21A9C8BF00ADE51E /* WriteModel.swift */,
 				0A72E18621B95BEF00BD488E /* WriteResponseModel.swift */,
 				0AFD187C22351AAD00F844BE /* ImageboardModel.swift */,
+				0A326B84225CDCCF00E94AED /* MediaModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1734,6 +1737,7 @@
 				0A8641282250F3A6000BBE07 /* UCCTransliteration.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
 				0A37B02F2222E40300FFACDF /* MainContainerRouter.swift in Sources */,
+				0A326B85225CDCCF00E94AED /* MediaModel.swift in Sources */,
 				0A0D570B21A5800E00A8053D /* ChanAXPhotosViewController.swift in Sources */,
 				0A113219215F96EA00BB3C79 /* SettingsInteractor.swift in Sources */,
 				0AFFFDBC2149B06E0002E832 /* ResultBoardModel.swift in Sources */,

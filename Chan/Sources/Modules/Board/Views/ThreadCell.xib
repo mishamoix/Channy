@@ -104,6 +104,10 @@
             <connections>
                 <outlet property="canvas" destination="H0b-Un-22L" id="QZa-mb-HAz"/>
                 <outlet property="iconView" destination="CUs-6a-F78" id="Aqv-MD-bj5"/>
+                <outlet property="newPosts" destination="UeM-hF-icV" id="tmX-d7-jW9"/>
+                <outlet property="number" destination="QmL-1w-CFw" id="Gzl-7b-Dic"/>
+                <outlet property="postsCount" destination="gAP-DG-TVX" id="tu5-8i-uNg"/>
+                <outlet property="starred" destination="gJ0-7r-Ty8" id="epP-h7-1nN"/>
             </connections>
             <point key="canvasLocation" x="408.80000000000001" y="-64.31784107946028"/>
         </collectionViewCell>

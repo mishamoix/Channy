@@ -22,5 +22,5 @@ extension UIImage {
     static var reply: UIImage { return UIImage(named: "reply")!}
     static var addThread: UIImage { return UIImage(named: "addThread")!}
 
-
+    static var placeholder: UIImage { return UIImage(named: "imagePlaceholder")!}
 }

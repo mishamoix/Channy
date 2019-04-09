@@ -20,6 +20,7 @@ protocol MainContainerPresentable: Presentable {
 
 protocol MainContainerListener: class {
     func openMenu()
+    func closeMenu()
 }
 
 final class MainContainerInteractor: PresentableInteractor<MainContainerPresentable>, MainContainerInteractable, MainContainerPresentableListener {
@@ -50,5 +51,9 @@ final class MainContainerInteractor: PresentableInteractor<MainContainerPresenta
     // MARK: BoardListener
     func openMenu() {
         self.listener?.openMenu()
+    }
+    
+    func closeMenu() {
+        self.listener?.closeMenu()
     }
 }

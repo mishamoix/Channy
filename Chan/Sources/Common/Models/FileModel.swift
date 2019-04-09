@@ -26,19 +26,20 @@ class FileModel: BaseModel, Decodable {
         }
         return .image
     }
-    
+  
+  
     var url: URL? {
         return URL(string: MakeFullPath(path: self.path))
     }
-    
+  
     var urlThumb: URL? {
         return URL(string: MakeFullPath(path: self.thumbnail))
     }
-    
+  
     init(path: String) {
         self.path = path
     }
-    
+  
     required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -47,15 +48,14 @@ class FileModel: BaseModel, Decodable {
         
         self.path = try values.decode(String.self, forKey: .path)
         self.thumbnail = try values.decode(String.self, forKey: .thumbnail)
-        
+      
         if let type: Int = try? values.decode(Int.self, forKey: ._type) {
             if [6, 10].contains(type) {
                 self._type = .video
             }
         }
-
     }
-    
+  
     
     enum CodingKeys : String, CodingKey {
         case name

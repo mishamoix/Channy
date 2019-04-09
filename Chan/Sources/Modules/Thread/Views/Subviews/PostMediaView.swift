@@ -49,7 +49,7 @@ class PostMediaView: UIView {
             self.load(url: thumb)
         }
         
-        self.image.censor(file: file)
+//        self.image.censor(file: file)
         
     }
     

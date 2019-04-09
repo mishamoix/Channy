@@ -31,7 +31,7 @@ final class BoardSelectionInteractor: PresentableInteractor<BoardSelectionPresen
     weak var router: BoardSelectionRouting?
     weak var listener: BoardSelectionListener?
     
-    private let service: BoardlistSelectionProtocol
+    private let service: ImageboardlistSelectionProtocol
     private let disposeBag = DisposeBag()
     
     private var data: [BoardSelectionViewModel] = []
@@ -39,7 +39,7 @@ final class BoardSelectionInteractor: PresentableInteractor<BoardSelectionPresen
     private var models: [BoardModel] = []
     private var currentSearchString: String? = nil
     
-    init(presenter: BoardSelectionPresentable, service: BoardlistSelectionProtocol) {
+    init(presenter: BoardSelectionPresentable, service: ImageboardlistSelectionProtocol) {
         self.service = service
         
         super.init(presenter: presenter)

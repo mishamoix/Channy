@@ -22,7 +22,7 @@ protocol MenuPresentable: Presentable {
 }
 
 protocol MenuListener: class {
-    // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+    func closeMenu()
 }
 
 final class MenuInteractor: PresentableInteractor<MenuPresentable>, MenuInteractable, MenuPresentableListener {
@@ -55,7 +55,7 @@ final class MenuInteractor: PresentableInteractor<MenuPresentable>, MenuInteract
     
     // BoardListListener
     func open(board: BoardModel) {
-        
+        self.listener?.closeMenu()
     }
     
     func closeBoardsList() {

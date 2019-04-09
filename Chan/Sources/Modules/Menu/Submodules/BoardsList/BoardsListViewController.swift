@@ -257,7 +257,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
 extension BoardsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        self.listener?.viewActions.on(.next(.openBoard(index: indexPath)))
+        self.listener?.viewActions.on(.next(.openBoard(model: self.boards[indexPath.row])))
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -271,20 +271,20 @@ extension BoardsListViewController: UITableViewDelegate {
 //        }
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        if self.canAction {
-            return [UITableViewRowAction(style: .destructive, title: "Удалить", handler: { [weak self] (action, idexPath) in
-                
-                if let board = self?.boards[indexPath.row] {
-//                    self?.listener?.viewActions.on(.next(.delete(uid: board.uid)))
-                }
-
-                
-            })]
-        } else {
-            return nil
-        }
-    }
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        if self.canAction {
+//            return [UITableViewRowAction(style: .destructive, title: "Удалить", handler: { [weak self] (action, idexPath) in
+//
+////                if let board = self?.boards[indexPath.row] {
+////                    self?.listener?.viewActions.on(.next(.delete(uid: board.uid)))
+////                }
+//
+//
+//            })]
+//        } else {
+//            return nil
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true

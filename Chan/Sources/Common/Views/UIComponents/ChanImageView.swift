@@ -38,7 +38,6 @@ class ChanImageView: UIImageView {
                         
                         Helper.performOnBGThread {
                             let newImage = newValue?.applyBlur(percent: BlurRadiusPreview)
-////                        self.blurredImage = newImage
                             Helper.performOnMainThread {
                                 if !self.cancellation.isCancelled {
                                     super.image = newImage
@@ -90,14 +89,29 @@ class ChanImageView: UIImageView {
         }
     }
     
-    func censor(file: FileModel?) {
-        if self.needCensor {
+    func loadImage(media: MediaModel?) {
+        self.cancelLoad()
+        
+        guard let model = media else {
+            return
+        }
+        
+        self.censor(media: media)
+        
+        self.image = UIImage.placeholder
+        if let url: URL = (model.thumbnail ?? model.url) {
+            self.af_setImage(withURL: url)
+        }
+        
+    }
+    
+    func censor(media: MediaModel?) {
+        if self.needCensor && Values.shared.censorEnabled {
             self.dispose()
-            if let file = file {
-                if Values.shared.censorEnabled {
-                    let path = CensorManager.path(for: file)
-                    self.censor(path: path)
-                }
+            if let media = media {
+//                self.cen
+//                let path = CensorManager.path(for: media)
+//                self.censor(path: path)
             }
         }
     }
