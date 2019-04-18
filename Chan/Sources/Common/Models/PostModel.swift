@@ -69,12 +69,12 @@ class PostModel: BaseModel, Decodable {
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
-        if let uidSrting = try? values.decode(String.self, forKey: .uid) {
+        if let uidSrting = try? values.decode(String.self, forKey: .id) {
             self.uid = uidSrting
         }
-        if let uidInt = try? values.decode(Int.self, forKey: .uid) {
-            self.uid = String(uidInt)
-        }
+//        if let uidInt = try? values.decode(Int.self, forKey: .uid) {
+//            self.uid = String(uidInt)
+//        }
         
         self.comment = try values.decode(String.self, forKey: .comment)
         if let files = try? values.decode([FileModel].self, forKey: .files) {
@@ -90,7 +90,7 @@ class PostModel: BaseModel, Decodable {
     }
     
     enum CodingKeys : String, CodingKey {
-        case uid = "num"
+        case id = "id"
 //        case name
 //        case subject
         case comment

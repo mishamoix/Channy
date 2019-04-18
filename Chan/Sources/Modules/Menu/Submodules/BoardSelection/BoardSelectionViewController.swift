@@ -18,7 +18,7 @@ protocol BoardSelectionPresentableListener: class {
     
 }
 
-final class BoardSelectionViewController: UIViewController, BoardSelectionPresentable, BoardSelectionViewControllable {
+final class BoardSelectionViewController: BaseViewController, BoardSelectionPresentable, BoardSelectionViewControllable {
 
     weak var listener: BoardSelectionPresentableListener?
     
@@ -39,6 +39,12 @@ final class BoardSelectionViewController: UIViewController, BoardSelectionPresen
         
         self._uiLoaded.value = true
     }
+    
+    override func setupTheme() {
+        super.setupTheme()
+        self.themeManager.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
+    }
+
     
     // MARK: BoardSelectionPresentable
     

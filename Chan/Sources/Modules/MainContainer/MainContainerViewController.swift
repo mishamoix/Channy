@@ -21,6 +21,8 @@ final class MainContainerViewController: BaseTabBarController, MainContainerPres
 
     weak var listener: MainContainerPresentableListener?
     
+    private var tabBarView: UIView? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,17 +55,27 @@ final class MainContainerViewController: BaseTabBarController, MainContainerPres
         self.viewControllers = [view, vc]
     }
     
+    
+    
     // MARK: private
     
+    
+    
     private func setupUI() {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-//        view.backgroundColor = .red
-        self.tabBar.addSubview(view)
+        let tabbar = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        self.tabBar.addSubview(tabbar)
         
-        view.snp.makeConstraints { make in
+        self.tabBarView = tabbar
+        
+        tabbar.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
+        self.setupTheme()
+    }
+    
+    private func setupTheme() {
+        ThemeManager.shared.append(view: ThemeView(view: self.tabBarView, type: .viewControllerBG, subtype: .none))
     }
 }
 

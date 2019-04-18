@@ -74,7 +74,7 @@ class ThreadCell: UICollectionViewCell {
 //        
 //        self.canvas.backgroundColor = .snow
         
-//        self.setupTheme()
+        self.setupTheme()
         
     }
 
@@ -112,7 +112,12 @@ class ThreadCell: UICollectionViewCell {
     private func setupTheme() {
         ThemeManager.shared.append(view: ThemeView(view: self.canvas, type: .cell, subtype: .border))
         ThemeManager.shared.append(view: ThemeView(view: self.message, type: .text, subtype: .none))
-      
+        ThemeManager.shared.append(view: ThemeView(view: self.number, type: .text, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self.postsCount, type: .text, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self.newPosts, type: .text, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self.title, type: .text, subtype: .none))
+
+
         self.backgroundColor = .clear
 
     }

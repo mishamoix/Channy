@@ -14,15 +14,23 @@ class ThreadModel: BaseModel, Decodable {
     var uid = ""
     init(uid: String, board: BoardModel? = nil) {
         self.uid = uid
-//        self.board = board
+        self.board = board
     }
     
+    init(id: String, board: BoardModel) {
+        self.id = id
+        self.board = board
+    }
+
+    
     var id: String = ""
+    var board: BoardModel? = nil
     var subject: String = ""
     var content: String = ""
     var postsCount: Int = 0
     var markups: [Markup] = []
     var media: [MediaModel] = []
+    
 
     enum CodingKeys : String, CodingKey {
         case id
