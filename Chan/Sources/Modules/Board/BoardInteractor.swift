@@ -152,6 +152,9 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 })
             })
             .subscribe(onNext: { [weak self] models in
+                
+                let _ = models.map({ $0.board = self?.currentModel })
+                
                 self?.isLoading = false
                 self?.checkAgreement()
                 

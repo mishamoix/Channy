@@ -16,6 +16,8 @@ class BoardSelectionCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.setupTheme()
         // Initialization code
     }
 
@@ -32,4 +34,15 @@ class BoardSelectionCell: UITableViewCell {
         
         self.checkmark.isHidden = !model.selected
     }
+    
+    private func setupTheme() {
+        
+        ThemeManager.shared.append(view: ThemeView(view: self.name, type: .text, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self.additionalInfo, type: .text, subtype: .second))
+        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
+
+//        self.setupTheme()
+//        self.themeManager.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
+    }
+
 }

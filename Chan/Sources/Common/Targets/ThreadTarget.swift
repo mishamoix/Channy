@@ -10,17 +10,17 @@ import Foundation
 import Moya
 
 enum ThreadTarget {
-    case load(board: String, idx: String)
+  case load(imageboard: Int, board: String, idx: String)
 }
 
 extension ThreadTarget: TargetType {
     
     
-    public var baseURL: URL { return Enviroment.default.oldBaseUrl }
+    public var baseURL: URL { return Enviroment.default.baseUrl }
     public var path: String {
         switch self {
-        case .load(let board, let idx):
-            return "/\(board)/res/\(idx).json"
+        case .load(let imageboard, let board, let id):
+            return "\(imageboard)/\(board)/\(id)"
             
         }
     }

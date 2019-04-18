@@ -378,6 +378,9 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     
     override func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
+        
+        self.themeManager.append(view: ThemeView(view: self.rightNavbarLabel, type: .text, subtype: .none))
+        self.themeManager.append(view: ThemeView(view: self.leftNavbarLabel, type: .text, subtype: .none))
     }
     
     private func updateRightLabel(hide: Bool = false) {
