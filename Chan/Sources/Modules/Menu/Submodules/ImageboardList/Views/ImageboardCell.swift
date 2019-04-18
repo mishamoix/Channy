@@ -22,6 +22,8 @@ class ImageboardCell: UITableViewCell {
         self.imageCanvas.clipsToBounds = true
         self.iconImage.layer.cornerRadius = DefaultCornerRadius
         self.imageCanvas.layer.cornerRadius = DefaultCornerRadius
+        
+        self.setupTheme()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,6 +38,13 @@ class ImageboardCell: UITableViewCell {
         }
         
         self.imageCanvas.backgroundColor = model.current ? model.backgroundColor : .clear
+    }
+    
+    func setupTheme() {
+        self.backgroundColor = .clear
+        ThemeManager.shared.append(view: ThemeView(view: self.title, type: .text, subtype: .second))
+//        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
+
     }
     
 }

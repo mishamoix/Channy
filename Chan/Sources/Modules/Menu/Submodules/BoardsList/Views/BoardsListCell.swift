@@ -17,9 +17,9 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.setupTheme()
         self.separator.isHidden = true
-
+        
+        self.setupTheme()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -37,20 +37,16 @@ class BoardsListCell: BaseTableViewCell<BoardModel> {
         }
         
         if model.current {
-            self.title.textColor = UIColor.main
+            self.title.textColor = ThemeManager.shared.theme.accnt
         } else {
-            self.title.textColor = UIColor.black
+            self.title.textColor = ThemeManager.shared.theme.accentText
         }
     }
     
     private func setupTheme() {
-        let bgColorView = UIView()
-        self.selectedBackgroundView = bgColorView
-
-        ThemeManager.shared.append(view: ThemeView(view: self.title, type: .text, subtype: .none))
-//        ThemeManager.shared.append(view: ThemeView(view: self.separator, type: .separator, subtype: .none))
-        ThemeManager.shared.append(view: ThemeView(view: bgColorView, type: .cell, subtype: .selected))
-        
+        self.backgroundColor = .clear
+        self.canvas.backgroundColor = .clear
+        ThemeManager.shared.append(view: ThemeView(view: self.title, type: .text, subtype: .none))        
     }
     
     

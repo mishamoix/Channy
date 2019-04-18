@@ -128,7 +128,7 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
             .disposed(by: self.disposeBag)
         
         self.textView.placeholder = "Введите текст"
-        self.textView.placeholderColor = self.themeManager.theme.secondText.withAlphaComponent(0.4)
+//        self.textView.placeholderColor = self.themeManager.theme.secondText.withAlphaComponent(0.4)
         self.textView.keyboardDismissMode = .onDrag
         self.textView.alwaysBounceVertical = true
 
@@ -345,19 +345,19 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
             .disposed(by: self.disposeBag)
     }
     
-    private func setupTheme() {
+    override func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.textView, type: .input, subtype: .none))
-        let _ = self.buttons.map({ $0.tintColor = self.themeManager.theme.main })
+//        let _ = self.buttons.map({ $0.tintColor = self.themeManager.theme.main })
     }
     
     private func setup(view button: UIView) {
         button.layer.borderWidth = 1
-        button.layer.borderColor = self.themeManager.theme.main.cgColor
+//        button.layer.borderColor = self.themeManager.theme.main.cgColor
         button.layer.cornerRadius = DefaultCornerRadius
     }
     
     private func setupImageButton(_ button: UIView) {
-        button.tintColor = self.themeManager.theme.main
+//        button.tintColor = self.themeManager.theme.main
     }
 
     private func setupImage(_ image: UIView) {

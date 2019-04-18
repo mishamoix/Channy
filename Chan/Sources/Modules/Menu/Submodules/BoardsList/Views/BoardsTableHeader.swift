@@ -24,6 +24,7 @@ class BoardsTableHeader: UITableViewHeaderFooterView {
         super.awakeFromNib()
         
         self.boardImage.layer.cornerRadius = DefaultCornerRadius
+        self.setupTheme()
     }
 
     func update(with model: ImageboardModel) {
@@ -32,6 +33,13 @@ class BoardsTableHeader: UITableViewHeaderFooterView {
         if let logo = model.logo {
             self.boardImage.af_setImage(withURL: logo)
         }
+    }
+    
+    
+    private func setupTheme() {
+        self.backgroundColor = .clear
+        self.canvasView.backgroundColor = .clear
+        ThemeManager.shared.append(view: ThemeView(view: self.boardTitle, type: .text, subtype: .none))
     }
     
 }

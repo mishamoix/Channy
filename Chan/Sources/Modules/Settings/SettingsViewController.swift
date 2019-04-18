@@ -48,6 +48,11 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         return [subtitleLimitor]
     }
     
+    public var managedScrollView: UIScrollView? {
+        return self.tableView
+    }
+
+    
     weak var listener: SettingsPresentableListener?
     
     private let disposeBag = DisposeBag()
@@ -80,6 +85,9 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         self.updateThemeText()
         self.updateSelectedBrowser()
         self.setupTheme()
+        
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Готово", style: UIBarButtonItem.Style.done, target: nil, action: nil)
     }
     
     private func setupRx() {
@@ -149,44 +157,44 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                 }
 
                 let currentType = self.themeManager.savedThemeType
-                
-                if currentType != .light {
-                    vc.addAction(UIAlertAction(title: "Светлая", style: UIAlertAction.Style.default, handler: { [weak self] _ in
-                        guard let self = self else { return }
-                        self.themeManager.save(theme: .light)
-                        self.updateThemeText()
-                        
-                    }))
-                }
-                
-                if currentType != .dark {
-                    vc.addAction(UIAlertAction(title: "Темная", style: UIAlertAction.Style.default, handler: { [weak self] _ in
-                        guard let self = self else { return }
-                        self.themeManager.save(theme: .dark)
-                        self.updateThemeText()
-
-                    }))
-                }
-                
-                if currentType != .darkBlue {
-
-                    vc.addAction(UIAlertAction(title: "Темно-синяя", style: UIAlertAction.Style.default, handler: { [weak self] _ in
-                        guard let self = self else { return }
-                        self.themeManager.save(theme: .darkBlue)
-                        self.updateThemeText()
-
-                    }))
-                }
-                
-                if currentType != .macaba {
-                    
-                    vc.addAction(UIAlertAction(title: "Macaba", style: UIAlertAction.Style.default, handler: { [weak self] _ in
-                        guard let self = self else { return }
-                        self.themeManager.save(theme: .macaba)
-                        self.updateThemeText()
-                        
-                    }))
-                }
+//
+//                if currentType != .light {
+//                    vc.addAction(UIAlertAction(title: "Светлая", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+//                        guard let self = self else { return }
+//                        self.themeManager.save(theme: .light)
+//                        self.updateThemeText()
+//
+//                    }))
+//                }
+//
+//                if currentType != .dark {
+//                    vc.addAction(UIAlertAction(title: "Темная", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+//                        guard let self = self else { return }
+//                        self.themeManager.save(theme: .dark)
+//                        self.updateThemeText()
+//
+//                    }))
+//                }
+//
+//                if currentType != .darkBlue {
+//
+//                    vc.addAction(UIAlertAction(title: "Темно-синяя", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+//                        guard let self = self else { return }
+//                        self.themeManager.save(theme: .darkBlue)
+//                        self.updateThemeText()
+//
+//                    }))
+//                }
+//
+//                if currentType != .macaba {
+//
+//                    vc.addAction(UIAlertAction(title: "Macaba", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+//                        guard let self = self else { return }
+//                        self.themeManager.save(theme: .macaba)
+//                        self.updateThemeText()
+//
+//                    }))
+//                }
                 
                 vc.addAction(UIAlertAction(title: "Отменить", style: UIAlertAction.Style.cancel, handler: nil))
                 
@@ -225,6 +233,15 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
 //            }).disposed(by: self.disposeBag)
 
         
+        self.navigationItem
+            .rightBarButtonItem?
+            .rx
+            .tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss()
+            })
+            .disposed(by: self.disposeBag)
     }
     
     private func setupVersion() {
@@ -258,12 +275,12 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         switch self.themeManager.savedThemeType {
         case .dark:
             text = "темная"
-        case .darkBlue:
-            text = "темно-синяя"
-        case .light:
-            text = "светлая"
-        case .macaba:
-            text = "macaba"
+//        case .darkBlue:
+//            text = "темно-синяя"
+//        case .light:
+//            text = "светлая"
+//        case .macaba:
+//            text = "macaba"
         }
         self.changeThemeButton.setTitle("Выберите тему: сейчас \(text)", for: UIControl.State.normal)
 

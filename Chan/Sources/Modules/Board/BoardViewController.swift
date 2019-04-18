@@ -353,7 +353,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         let writeButton = UIButton()
         writeButton.setImage(.addThread, for: .normal)
         writeButton.imageEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
-        writeButton.tintColor = self.themeManager.theme.main
+        writeButton.tintColor = self.themeManager.theme.accnt
         writeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         self.createNewThreadButton = writeButton
         let writeBarButton = UIBarButtonItem(customView: writeButton)
@@ -376,7 +376,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         self.homeButton = home
     }
     
-    private func setupTheme() {
+    override func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
     }
     

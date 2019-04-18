@@ -15,9 +15,11 @@ let ImageboardCellIdentifier = "ImageboardCell"
 protocol ImageboardListPresentableListener: class {
 
     func select(idx: Int)
+    func settingTapped()
 }
 
 final class ImageboardListViewController: BaseViewController, ImageboardListPresentable, ImageboardListViewControllable {
+    
 
     weak var listener: ImageboardListPresentableListener?
     private let disposeBag = DisposeBag()
@@ -70,8 +72,23 @@ final class ImageboardListViewController: BaseViewController, ImageboardListPres
     }
     
     private func setupRx() {
+        self.header
+            .settingsButton
+            .rx
+            .tap
+            .asDriver()
+            .drive(onNext: { [weak self] _ in
+                self?.listener?.settingTapped()
+            })
+            .disposed(by: self.disposeBag)
     }
     
+    
+    override func setupTheme() {
+        super.setupTheme()
+        
+        ThemeManager.shared.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
+    }
 }
 
 extension ImageboardListViewController: UITableViewDelegate {

@@ -24,7 +24,11 @@ public extension ViewControllable {
     }
 
     func present(view controllable: ViewControllable, animated: Bool = true) {
-        self.uiviewController.present(controllable.uiviewController, animated: animated, completion: nil)
+//        if let fromVC = self.uiviewController as? BaseViewController {
+//            fromVC.presentUsingHalfSheet(controllable.uiviewController)
+//        } else {
+            self.uiviewController.present(controllable.uiviewController, animated: animated, completion: nil)
+//        }
     }
     
     func present(vc: UIViewController, animated: Bool = true) {

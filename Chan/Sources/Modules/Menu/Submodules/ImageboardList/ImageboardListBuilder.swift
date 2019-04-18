@@ -13,7 +13,7 @@ protocol ImageboardListDependency: Dependency {
     // created by this RIB.
 }
 
-final class ImageboardListComponent: Component<ImageboardListDependency> {
+final class ImageboardListComponent: Component<ImageboardListDependency>, SettingsDependency {
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
@@ -38,6 +38,8 @@ final class ImageboardListBuilder: Builder<ImageboardListDependency>, Imageboard
         
         let interactor = ImageboardListInteractor(presenter: viewController, service: service)
         interactor.listener = listener
-        return ImageboardListRouter(interactor: interactor, viewController: viewController)
+        
+        let settings = SettingsBuilder(dependency: component)
+        return ImageboardListRouter(interactor: interactor, viewController: viewController, settings: settings)
     }
 }

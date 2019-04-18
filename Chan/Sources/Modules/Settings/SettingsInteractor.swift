@@ -19,7 +19,6 @@ protocol SettingsPresentable: Presentable {
 }
 
 protocol SettingsListener: class {
-    func limitorChanged()
 }
 
 final class SettingsInteractor: PresentableInteractor<SettingsPresentable>, SettingsInteractable, SettingsPresentableListener {
@@ -45,6 +44,6 @@ final class SettingsInteractor: PresentableInteractor<SettingsPresentable>, Sett
     }
     
     func limitorChanged() {
-        self.listener?.limitorChanged()
+//        self.listener?.limitorChanged()
     }
 }

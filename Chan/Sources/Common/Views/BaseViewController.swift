@@ -16,9 +16,10 @@ protocol RefreshingViewController {
     func stopAllRefreshers()
 }
 
-open class BaseViewController: UIViewController {
+open class BaseViewController: UIViewController, HalfSheetPresentingProtocol {
     
-    
+    public var transitionManager: HalfSheetPresentationManager!
+
     let didLoadSignal = Variable<Bool>(false)
     var didLoadSignalObservable: Observable<Bool> {
         return self.didLoadSignal.asObservable()
@@ -52,10 +53,9 @@ open class BaseViewController: UIViewController {
     }
 
     
-    private func setupTheme() {
+    func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.view, type: .viewControllerBG, subtype: .none))
         self.themeManager.append(view: ThemeView(object: self, type: .viewController, subtype: .none))
-
     }
     
 //    var refresher: UIRefreshControl? {
@@ -76,4 +76,19 @@ open class BaseViewController: UIViewController {
      }
      */
     
+}
+
+
+extension BaseViewController: HalfSheetPresentableProtocol {
+    public var managedScrollView: UIScrollView? {
+        return nil
+    }
+    
+    public var dismissMethod: [DismissMethod] {
+        return [.tap, .swipe]
+    }
+    
+    public var sheetHeight: CGFloat? {
+        return nil
+    }
 }

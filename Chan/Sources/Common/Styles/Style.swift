@@ -15,11 +15,11 @@ class Style {
 //    }
     
     class func post(text: String) -> NSMutableAttributedString {
-      return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.text, NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.mainText])
+      return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.text, NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.accentText])
     }
     
     class func postTitle(text: String) -> NSMutableAttributedString {
-        return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.postTitle, NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.mainText])
+        return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.postTitle, NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.accentText])
     }
     
     class func em(text: NSMutableAttributedString, range: NSRange) {
@@ -47,7 +47,7 @@ class Style {
     }
     
     class func linkPost(text: NSMutableAttributedString, range: NSRange, url: URL? = nil) {
-        let attrs: [NSAttributedString.Key:Any] = [NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.link]
+        let attrs: [NSAttributedString.Key:Any] = [NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.accnt]
         if let url = url {
           let linkAttrs = [NSAttributedString.Key.chanlink: url]
           text.addAttributes(linkAttrs, range: range)

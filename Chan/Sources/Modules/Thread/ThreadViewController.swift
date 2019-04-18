@@ -311,8 +311,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
 
     }
     
-    private func setupTheme() {
-        
+    override func setupTheme() {
+        super.setupTheme()
         self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
         
     }
@@ -336,7 +336,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             let writeButton = UIButton()
             writeButton.setImage(.write, for: .normal)
             writeButton.imageEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
-            writeButton.tintColor = self.themeManager.theme.main
+            writeButton.tintColor = self.themeManager.theme.accnt
             writeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
 //            writeButton.semanticContentAttribute = .forceRightToLeft
 
@@ -394,7 +394,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             if self.collectionView.footRefreshControl == nil {
                 self.collectionView.bindFootRefreshHandler({ [weak self] in
                     self?.refresh()
-                }, themeColor: self.themeManager.theme.main, refreshStyle: KafkaRefreshStyle.native)
+                }, themeColor: self.themeManager.theme.accnt, refreshStyle: KafkaRefreshStyle.native)
                 
                 
                 if let refreshControl = self.collectionView.footRefreshControl.value(forKey: "_indicator") as? UIActivityIndicatorView {

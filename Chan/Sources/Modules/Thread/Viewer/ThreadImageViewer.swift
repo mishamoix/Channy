@@ -171,7 +171,7 @@ class ThreadImageViewer: NSObject {
     }
     
     private func setupButton() {
-        let mainColor = ThemeManager.shared.theme.main
+        let mainColor = ThemeManager.shared.theme.accnt
         self.openInBrowserButton.backgroundColor = .clear
         self.openInBrowserButton.layer.cornerRadius = DefaultCornerRadius
         self.openInBrowserButton.layer.borderWidth = 2.0
