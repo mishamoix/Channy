@@ -82,41 +82,41 @@ class ThemeView {
             if self.subtype == .border {
                 (self.view as? UIView)?.layer.borderColor = theme.border.cgColor
             } else if self.subtype == .selected {
-                (self.view as? UIView)?.backgroundColor = theme.cellSelected
+                (self.view as? UIView)?.backgroundColor = theme.background
             }
             break
 
         case .input:
             if let textView = self.view as? UITextView {
                 textView.backgroundColor = theme.background
-                textView.textColor = theme.mainText
+                textView.textColor = theme.accentText
                 textView.keyboardAppearance = theme.keyboard
             }
             break
         case .text:
-            let color = self.subtype == .second ? theme.secondText : theme.mainText
+            let color = self.subtype == .second ? theme.text : theme.accentText
             (view as? UILabel)?.textColor = color
             (view as? TGReusableLabel)?.textColor = color
             (view as? TGReusableLabel)?.setNeedsDisplay()
             break
         case .navBar:
             if let navBar = self.view as? UINavigationBar {
-                navBar.barTintColor = theme.navigationBar
-                navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.navigationBarTitle]
+                navBar.barTintColor = theme.background
+                navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.accentText]
                 navBar.isTranslucent = false
                 navBar.layoutIfNeeded()
             }
         case .icon:
-            (view as? UIImageView)?.tintColor = theme.icon
+            (view as? UIImageView)?.tintColor = theme.accnt
         case .navBarButton:
-            (view as? UIBarButtonItem)?.tintColor = theme.navigationBarItem
-            (view as? UIButton)?.tintColor = theme.navigationBarItem
+            (view as? UIBarButtonItem)?.tintColor = theme.accnt
+            (view as? UIButton)?.tintColor = theme.accnt
         case .viewController:
             break
         case .action:
             (self.view as? UIView)?.backgroundColor = theme.cell
             if self.subtype == .border {
-                (self.view as? UIView)?.layer.borderColor = theme.actionButtonBorder.cgColor
+//                (self.view as? UIView)?.layer.borderColor = theme.actionButtonBorder.cgColor
             }
 
             break
@@ -131,7 +131,7 @@ class ThemeView {
             }
         }
         
-        UIBarButtonItem.appearance().tintColor = theme.navigationBarItem
+        UIBarButtonItem.appearance().tintColor = theme.accnt
     }
 }
 
@@ -140,11 +140,12 @@ class ThemeManager {
     static let shared = ThemeManager()
     
     var statusBar: UIStatusBarStyle {
-        if [.dark, .darkBlue].contains(self.savedThemeType) {
-            return UIStatusBarStyle.lightContent
-        }
-        
-        return UIStatusBarStyle.default
+        return UIStatusBarStyle.lightContent
+//        if [.dark, .darkBlue].contains(self.savedThemeType) {
+//            return UIStatusBarStyle.lightContent
+//        }
+//
+//        return UIStatusBarStyle.default
     }
     
     var savedThemeType: ThemeType {
@@ -170,12 +171,12 @@ class ThemeManager {
     }
     
     func changeTheme() {
-        if self.savedThemeType == .dark {
-            self.save(theme: .light)
-        } else {
+//        if self.savedThemeType == .dark {
+//            self.save(theme: .light)
+//        } else {
             self.save(theme: .dark)
 
-        }
+//        }
     }
     
     func save(theme: ThemeType) {
@@ -207,27 +208,27 @@ class ThemeManager {
     }
     
     private func theme(for type: ThemeType) -> Theme {
-        if type == .dark {
+//        if type == .dark {
             return Theme.dark
-        } else if type == .darkBlue {
-            return Theme.darkBlue
-        } else if type == .macaba {
-            return Theme.macaba
-        }
-        
-        return Theme.light
+//        } else if type == .darkBlue {
+//            return Theme.darkBlue
+//        } else if type == .macaba {
+//            return Theme.macaba
+//        }
+//
+//        return Theme.light
     }
     
     private func themeType(from string: String) -> ThemeType {
-        if string == "dark" {
+//        if string == "dark" {
             return .dark
-        } else if string == "darkBlue" {
-            return .darkBlue
-        } else if  string == "macaba" {
-            return .macaba
-        }
-        
-        return .light
+//        } else if string == "darkBlue" {
+//            return .darkBlue
+//        } else if  string == "macaba" {
+//            return .macaba
+//        }
+//
+//        return .light
     }
     
     

@@ -58,9 +58,9 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         
         self.contentView.addSubview(self.replyedButton)
         self.replyedButton.layer.cornerRadius = DefaultCornerRadius
-        self.replyedButton.layer.borderColor = ThemeManager.shared.theme.main.cgColor
+        self.replyedButton.layer.borderColor = ThemeManager.shared.theme.accnt.cgColor
         self.replyedButton.layer.borderWidth = 1
-        self.replyedButton.setTitleColor(ThemeManager.shared.theme.main, for: .normal)
+        self.replyedButton.setTitleColor(ThemeManager.shared.theme.accnt, for: .normal)
         self.replyedButton.titleLabel?.font = UIFont.postTitle
         
         self.replyedButton.snp.makeConstraints { make in
@@ -71,16 +71,16 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         
         self.contentView.addSubview(self.replyButton)
         self.replyButton.layer.cornerRadius = DefaultCornerRadius
-        self.replyButton.layer.borderColor = ThemeManager.shared.theme.main.cgColor
+        self.replyButton.layer.borderColor = ThemeManager.shared.theme.accnt.cgColor
         self.replyButton.layer.borderWidth = 1
-        self.replyButton.setTitleColor(ThemeManager.shared.theme.main, for: .normal)
+        self.replyButton.setTitleColor(ThemeManager.shared.theme.accnt, for: .normal)
         self.replyButton.titleLabel?.font = UIFont.postTitle
 //        self.replyButton.setBackgroundImage(.reply, for: .normal)
         self.replyButton.setImage(.reply, for: .normal)
         
         let inset: CGFloat = 4
         self.replyButton.imageEdgeInsets = UIEdgeInsets(top: inset, left: 2 * inset, bottom: inset, right: 2 * inset)
-        self.replyButton.tintColor = ThemeManager.shared.theme.main
+        self.replyButton.tintColor = ThemeManager.shared.theme.accnt
 
 
         self.replyButton.snp.makeConstraints { make in
@@ -160,11 +160,11 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     }
     
     @objc public func screenshot() {
-        if let image = self.snapshot() {
-            CameraPermissionManager.request {
-                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
-            }
-        }
+//        if let image = self.snapshot() {
+//            CameraPermissionManager.request {
+//                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+//            }
+//        }
     }
     
     

@@ -10,7 +10,7 @@ import RIBs
 import RxSwift
 
 protocol ImageboardListRouting: ViewableRouting {
-    // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+    func settingTapped()
 }
 
 protocol ImageboardListPresentable: Presentable {
@@ -19,6 +19,7 @@ protocol ImageboardListPresentable: Presentable {
     
 //    var newDataSubject: PublishSubject<[ImageboardViewModel]> { get }
     func update(data: [ImageboardViewModel])
+
     
 }
 
@@ -61,6 +62,10 @@ final class ImageboardListInteractor: PresentableInteractor<ImageboardListPresen
         let model = self.data[idx]
         
         self.service.selectImageboard(model: model)
+    }
+    
+    func settingTapped() {
+        self.router?.settingTapped()
     }
     
     // MARK: Private

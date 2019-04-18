@@ -230,7 +230,7 @@ public class SwiftyOnboard: UIView, UIScrollViewDelegate {
     
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentPosition = Double(getCurrentPosition())
-        self.overlay?.currentPage(index: Int(round(currentPosition)))
+        self.overlay?.currentPage(index: Int(Darwin.round(currentPosition)))
         if self.fadePages {
             fadePageTransitions(containerView: scrollView, currentPage: Int(getCurrentPosition()))
         }

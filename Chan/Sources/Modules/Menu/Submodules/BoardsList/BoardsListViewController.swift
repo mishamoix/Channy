@@ -137,35 +137,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
                 .bind(to: listener.viewActions)
                 .disposed(by: self.disposeBag)
         }
-        
-//        self.settingButton?
-//            .rx
-//            .tap
-//            .asObservable()
-//            .subscribe(onNext: { [weak self] in
-//                self?.listener?.viewActions.on(.next(.openSettings))
-//            })
-//            .disposed(by: self.disposeBag)
-//
-//        self.plusButton?
-//            .rx
-//            .tap
-//            .asObservable()
-//            .subscribe(onNext: { [weak self] in
-//                self?.listener?.viewActions.on(.next(.addNewBoard))
-//            })
-//            .disposed(by: self.disposeBag)
-//
-//        self.closeButton?
-//            .rx
-//            .tap
-//            .asObservable()
-//            .subscribe(onNext: { [weak self] in
-////                self?.navigationController?.dismiss(animated: true, completion: nil)
-//                self?.listener?.viewActions.on(.next(.close))
-//            })
-//            .disposed(by: self.disposeBag)
-        
+
         
     }
     
@@ -240,7 +212,8 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
 
     }
     
-    private func setupTheme() {
+    override func setupTheme() {
+        super.setupTheme()
         self.themeManager.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
 //        ThemeManager.shared.append(view: ThemeView(object: self.navigationController?.navigationBar, type: .navBar, subtype: .none))
     }

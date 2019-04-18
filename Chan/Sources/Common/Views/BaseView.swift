@@ -18,5 +18,15 @@ class BaseView: UIView {
         let view = Bundle.main.loadNibNamed(String(describing: self), owner: self, options: nil)?.first as? T
         return view
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.setupTheme()
+    }
+    
+    
+    func setupTheme() {
+        
+    }
 
 }

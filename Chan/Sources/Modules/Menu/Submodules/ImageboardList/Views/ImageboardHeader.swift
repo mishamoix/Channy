@@ -18,6 +18,16 @@ class ImageboardHeader: BaseView {
     }
     
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func setupTheme() {
+        self.backgroundColor = .clear
+//        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self.title, type: .text, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self.settingsButton, type: .navBarButton, subtype: .none))
+    }
     
         
 }
