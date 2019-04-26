@@ -90,7 +90,7 @@ class ThreadCell: UICollectionViewCell {
     func update(with model: ThreadViewModel) {
 //        super.update(with: model)
         
-        self.message.text = model.displayText
+        self.message.attributedText = model.comment
         self.title.text = model.title
 
         self.iconView.loadImage(media: model.media)
@@ -111,7 +111,7 @@ class ThreadCell: UICollectionViewCell {
     
     private func setupTheme() {
         ThemeManager.shared.append(view: ThemeView(view: self.canvas, type: .cell, subtype: .border))
-        ThemeManager.shared.append(view: ThemeView(view: self.message, type: .text, subtype: .none))
+//        ThemeManager.shared.append(view: ThemeView(view: self.message, type: .text, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.number, type: .text, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.postsCount, type: .text, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.newPosts, type: .text, subtype: .none))

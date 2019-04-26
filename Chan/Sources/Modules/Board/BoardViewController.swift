@@ -54,6 +54,9 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     
     private var mainViewModel: BoardMainViewModel? = nil
     
+    private var needStopLoadersAfterRefresh = false
+    
+    // MARK: Main
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
@@ -126,6 +129,9 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
 //    }
     
     // MARK: BoardPresentable
+    func stopLoadersAfterRefresh() {
+        self.needStopLoadersAfterRefresh = true
+    }
 
     //MARK: Private
     private func setup() {
@@ -163,7 +169,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         self.listener?
             .dataSource
             .asObservable()
-            .debug()
+//            .debug()
             .observeOn(Helper.rxBackgroundThread)
             .map({ [weak self] models -> [ThreadViewModel] in
                 return models.map { $0.calculateSize(max: self?.tableWidth ?? 0) }
@@ -185,18 +191,13 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                         }
 
                     }, completion: { finished in
-                        self?.stopAnyLoaders()
+                        if self?.needStopLoadersAfterRefresh ?? true {
+                            self?.stopAnyLoaders()
+                        }
                     })
-//                    collectionView.beginUpdates()
-//                    tableView.performBatchUpdates({
-//                    }, completion: { finished in
-//
-//                    })
-                    
-//                    tableView.endUpdates()
                 } else {
-                    self?.data = result
                     self?.collectionView.reloadData()
+                    
                 }
             }).disposed(by: self.disposeBag)
         

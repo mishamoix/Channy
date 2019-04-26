@@ -29,8 +29,10 @@ enum ThemeViewSubtype {
     case none
     case scrollButton
     case second
+    case third
     case border
     case selected
+    case primary
 }
 
 class ThemeView {
@@ -94,7 +96,18 @@ class ThemeView {
             }
             break
         case .text:
-            let color = self.subtype == .second ? theme.text : theme.accentText
+            
+            var color = theme.accentText
+            if self.subtype == .primary {
+                color = theme.accnt
+            } else if self.subtype == .second {
+                color = theme.accentText
+            } else if self.subtype == .third {
+                color = theme.thirdText
+            }
+            
+//            var color = self.subtype == .second ? theme.text : theme.accentText
+//            color = self.subtype == .primary ? theme.accnt : color
             (view as? UILabel)?.textColor = color
             (view as? TGReusableLabel)?.textColor = color
             (view as? TGReusableLabel)?.setNeedsDisplay()

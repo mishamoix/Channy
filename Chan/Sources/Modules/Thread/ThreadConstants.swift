@@ -9,14 +9,19 @@
 import Foundation
 import UIKit
 
+let ThreadCornerRadius: CGFloat = 5
+
+
+let PostHeaderHeight: CGFloat = 62
+
 let PostTitleTopMargin: CGFloat = PostTitleLeftMargin / 2
 let PostTitleLeftMargin: CGFloat = DefaultMargin
 let PostTitleRightMargin: CGFloat = PostTitleLeftMargin
 
 let PostTextTopMargin: CGFloat = PostTitleTopMargin
 let PostTextBottomMargin: CGFloat = DefaultMargin
-let PostTextLeftMargin: CGFloat = PostTitleLeftMargin
-let PostTextRightMargin: CGFloat = PostTitleRightMargin
+let PostTextLeftMargin: CGFloat = 22
+let PostTextRightMargin: CGFloat = 12
 
 let PostCellTopMargin: CGFloat = PostTitleLeftMargin
 let PostCellBottomMargin: CGFloat = PostCellTopMargin

@@ -13,7 +13,7 @@ protocol MainContainerDependency: Dependency {
     // created by this RIB.
 }
 
-final class MainContainerComponent: Component<MainContainerDependency>, BoardDependency {
+final class MainContainerComponent: Component<MainContainerDependency>, BoardDependency, FavoritesDependency, HistoryDependency {
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
@@ -37,8 +37,10 @@ final class MainContainerBuilder: Builder<MainContainerDependency>, MainContaine
         interactor.listener = listener
         
         let board = BoardBuilder(dependency: component)
+        let favorites = FavoritesBuilder(dependency: component)
+        let history = HistoryBuilder(dependency: component)
         
-        return MainContainerRouter(interactor: interactor, viewController: viewController, board: board)
+        return MainContainerRouter(interactor: interactor, viewController: viewController, board: board, favorites: favorites, history: history)
     }
     
     

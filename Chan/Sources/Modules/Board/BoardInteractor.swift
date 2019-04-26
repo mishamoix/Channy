@@ -17,12 +17,16 @@ protocol BoardRouting: ViewableRouting {
     
     func openCreateThread(_ thread: ThreadModel)
     func closeCreateThread()
+    
 }
 
 protocol BoardPresentable: Presentable {
     var listener: BoardPresentableListener? { get set }
     var vc: UIViewController { get }
     var isVisible: Bool { get }
+    
+    func stopLoadersAfterRefresh()
+
 }
 
 protocol BoardListener: class {
@@ -163,6 +167,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 self?.data = models
                 self?.viewModels = viewModels
                 
+                self?.presenter.stopLoadersAfterRefresh()
                 self?.dataSource.value = viewModels
 //                self?.presenter.stopAnyLoaders()
 

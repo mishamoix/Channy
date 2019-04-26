@@ -8,53 +8,6 @@
 
 import UIKit
 
-class Markup: BaseModel, Decodable {
-    
-    enum MarkupType {
-        case none
-        case bold
-        case quote
-        
-        static func type(from: String) -> MarkupType {
-            switch from {
-            case "bold":
-                return .bold
-            case "quote":
-                return .quote
-            default:
-                return .none
-            }
-        }
-//        case lin
-    }
-    
-    var type: MarkupType = .none
-    var start: Int = 0
-    var end: Int = 0
-    
-    enum CodingKeys : String, CodingKey {
-        case type
-        case start
-        case end
-    }
-    
-    public required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        
-        if let type = try? values.decode(String.self, forKey: .type) {
-            self.type = MarkupType.type(from: type)
-        }
-        if let start = try? values.decode(Int.self, forKey: .start) {
-            self.start = start
-        }
-        if let end = try? values.decode(Int.self, forKey: .end) {
-            self.end = end
-        }        
-    }
-
-
-}
-
 class PostModel: BaseModel, Decodable {
     var uid = ""
 //    var name = ""
@@ -64,6 +17,7 @@ class PostModel: BaseModel, Decodable {
     var name = ""
     var date: TimeInterval = 0
     var number = 0
+    var markups: [MarkupModel] = []
     
     
     public required init(from decoder: Decoder) throws {
@@ -81,23 +35,29 @@ class PostModel: BaseModel, Decodable {
             self.files = files
         }
         
-        self.name = try values.decode(String.self, forKey: .name)
+//        self.name = try values.decode(String.self, forKey: .name)
         self.date = try values.decode(TimeInterval.self, forKey: .date)
-        if let number = try? values.decode(Int.self, forKey: .number) {
-            self.number = number
-        }
+//        if let number = try? values.decode(Int.self, forKey: .number) {
+//            self.number = number
+//        }
         
+        if let markups = try? values.decode([MarkupModel].self, forKey: .markups) {
+            self.markups = markups
+        }
+
+      
     }
     
     enum CodingKeys : String, CodingKey {
         case id = "id"
 //        case name
 //        case subject
-        case comment
+        case comment = "content"
         case files
         case name
         case number
         case date = "timestamp"
+        case markups = "decorations"
     }
 
     

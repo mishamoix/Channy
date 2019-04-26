@@ -23,4 +23,8 @@ extension UIImage {
     static var addThread: UIImage { return UIImage(named: "addThread")!}
 
     static var placeholder: UIImage { return UIImage(named: "imagePlaceholder")!}
+    
+    static var boards: UIImage { return UIImage(named: "board")!}
+    static var history: UIImage { return UIImage(named: "history")!}
+    static var favorites: UIImage { return UIImage(named: "favorites")!}
 }

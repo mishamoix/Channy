@@ -42,17 +42,8 @@ final class MainContainerViewController: BaseTabBarController, MainContainerPres
         
     }
     
-    func addTab(view: UIViewController) {
-        let test = UITabBarItem(title: "", image: nil, selectedImage: nil)
-        
-        view.tabBarItem = test
-        
-        
-        let vc = UIViewController()
-        let test2 =  UITabBarItem(title: "", image: nil, selectedImage: nil)
-        vc.tabBarItem = test2
-        
-        self.viewControllers = [view, vc]
+    func addTabs(views: [UIViewController]) {
+        self.viewControllers = views
     }
     
     
@@ -64,14 +55,16 @@ final class MainContainerViewController: BaseTabBarController, MainContainerPres
     private func setupUI() {
         let tabbar = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.tabBar.addSubview(tabbar)
-        
+
         self.tabBarView = tabbar
-        
+
         tabbar.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
         self.setupTheme()
+        
+        self.tabBar.tintColor = ThemeManager.shared.theme.accnt
     }
     
     private func setupTheme() {

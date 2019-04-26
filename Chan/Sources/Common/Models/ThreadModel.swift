@@ -28,8 +28,9 @@ class ThreadModel: BaseModel, Decodable {
     var subject: String = ""
     var content: String = ""
     var postsCount: Int = 0
-    var markups: [Markup] = []
+    var markups: [MarkupModel] = []
     var media: [MediaModel] = []
+    var posts: [PostModel] = []
     
 
     enum CodingKeys : String, CodingKey {
@@ -37,7 +38,7 @@ class ThreadModel: BaseModel, Decodable {
         case subject
         case content
         case postsCount
-        case markups
+        case markups = "decorations"
         case files
     }
     
@@ -60,7 +61,7 @@ class ThreadModel: BaseModel, Decodable {
             self.postsCount = postsCount
         }
         
-        if let markups = try? values.decode([Markup].self, forKey: .markups) {
+        if let markups = try? values.decode([MarkupModel].self, forKey: .markups) {
             self.markups = markups
         }
         

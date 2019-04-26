@@ -12,10 +12,10 @@ import RxSwift
 
 protocol ThreadServiceProtocol: BaseServiceProtocol {
     
-    typealias DataType = [PostModel]
+    typealias DataType = ThreadModel
     typealias ResultType = ResultThreadModel<DataType>
 
-    var thread: ThreadModel { get }
+//    var thread: ThreadModel { get }
 //    var publish: PublishSubject<ResultType>? { get set }
 
     func load() -> Observable<ResultType>
@@ -25,7 +25,7 @@ protocol ThreadServiceProtocol: BaseServiceProtocol {
 
 class ThreadService: BaseService, ThreadServiceProtocol {
     
-    let thread: ThreadModel
+    var thread: ThreadModel
 //    var publish: PublishSubject<ResultType>? = nil
     
     private let provider = ChanProvider<ThreadTarget>()
@@ -60,20 +60,26 @@ class ThreadService: BaseService, ThreadServiceProtocol {
             })
     }
     
-    private func makeModel(data: Data) -> DataType {
+    private func makeModel(data: Data) -> DataType? {
         
-        var result: DataType = []
-//        if let json = self.fromJson(data: data) {
+        var result: DataType? = nil
+        if let dict = self.fromJson(data: data) {
         
             
-//            if let threads = json["threads"] as? [Any], let postsArray = threads.first as? [String:Any], let posts = postsArray["posts"] as? [[String:AnyObject]] {
-//                if let valueData = self.toJson(array: posts) {
-            if let res = PostModel.parseArray(from: data) {
-                result = res
+            if let posts = dict["posts"] as? [Any], let threadDict = dict["thread"] {
+                
+                if let postsData = self.toJson(array: posts), let threadData = self.toJson(any: threadDict) {
+                    
+                    if let thread = ThreadModel.parse(from: threadData), let postsArray = PostModel.parseArray(from: postsData) {
+                        thread.posts = postsArray
+                        result = thread
+                        
+                        thread.board = self.thread.board
+                        self.thread = thread
+                    }
+                }
             }
-//                }
-//            }
-//        }
+        }
         
         return result
         
