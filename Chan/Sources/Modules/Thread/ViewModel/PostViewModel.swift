@@ -10,9 +10,10 @@ import UIKit
 
 class PostViewModel {
 
-    let modifier: PostPreparation
+    let modifier: TextPreparation
     let uid: String
     let media: [FileModel]
+    
     
     private let date: String
     private let name: String
@@ -36,6 +37,18 @@ class PostViewModel {
     }
 
     
+    var numberDisplay: String {
+        return "#\(self.number)"
+    }
+    
+    var uidDisplay: String {
+        return "№\(self.uid)"
+    }
+    
+    var dateDisplay: String {
+        return self.date
+    }
+    
     var title: NSAttributedString {
         let number = "#\(self.number)"
         let str = "\(number) • \(self.uid) • \(self.date)"
@@ -56,18 +69,17 @@ class PostViewModel {
     }
     
     
-    init(model: PostModel, thread: String) {
+    init(model: PostModel, idx: Int) {
         self.uid = model.uid
         self.media = model.files
-        self.modifier = PostPreparation(text: model.comment, thread: thread, post: model.uid)
-        
+        self.modifier = TextPreparation(text: model.comment, decorations: model.markups)
+        self.modifier.process()
         let date = Date(timeIntervalSince1970: model.date)
 
         self.name = model.name
-        self.number = model.number
+        self.number = idx
         self.date = String.date(from: date)
         
-//        print("Inited PostVM \(model.number)")
     }
     
     func calculateSize(max width: CGFloat) {
@@ -77,9 +89,9 @@ class PostViewModel {
         let textSize = TextSize(text: self.text.string, maxWidth: maxTextWidth, font: UIFont.text, lineHeight: UIFont.text.lineHeight)
         let textHeight = textSize.calculate().height
         
-        let titleHeight = TextSize(text: self.title.string, maxWidth: CGFloat.infinity, font: UIFont.postTitle, lineHeight: UIFont.postTitle.lineHeight).calculate().height
+//        let titleHeight = TextSize(text: self.title.string, maxWidth: CGFloat.infinity, font: UIFont.postTitle, lineHeight: UIFont.postTitle.lineHeight).calculate().height
 
-        let headerSection: CGFloat = PostTitleTopMargin + titleHeight
+        let headerSection: CGFloat = PostHeaderHeight
         var mediaSection: CGFloat = 0
         let textSection: CGFloat = PostTextTopMargin + textHeight
         var bottomSection: CGFloat = 0
@@ -97,7 +109,7 @@ class PostViewModel {
 //            bottomSection = PostTextBottomMargin
 //        }
 
-        self.titleFrame = CGRect(x: PostTitleLeftMargin, y: PostTitleTopMargin, width: width - (PostTitleLeftMargin + PostTitleRightMargin), height: titleHeight)
+        self.titleFrame = CGRect(x: PostTitleLeftMargin, y: PostTitleTopMargin, width: width - (PostTitleLeftMargin + PostTitleRightMargin), height: 0)
         self.mediaFrame = CGRect(x: PostMediaMargin, y: headerSection + PostMediaTopMargin, width: mediaWidthHeight, height: mediaWidthHeight)
         
         self.textFrame = CGRect(x: PostTextLeftMargin, y: headerSection + mediaSection + PostTextTopMargin, width: width - PostTextLeftMargin - PostTextRightMargin, height: textHeight)
@@ -118,7 +130,8 @@ class PostViewModel {
     }
     
     func tag(for idx: Int) -> TagViewModel? {
-        return self.modifier.tags.filter({ $0.isIdxInRange(idx) }).first
+        return nil
+//        return self.modifier.tags.filter({ $0.isIdxInRange(idx) }).first
     }
     
     

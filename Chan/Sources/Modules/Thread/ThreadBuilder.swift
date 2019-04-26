@@ -42,7 +42,7 @@ final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
         let viewController = UIStoryboard(name: "ThreadViewController", bundle: nil).instantiateViewController(withIdentifier: "ThreadViewController") as! ThreadViewController
         
         let service = ThreadService(thread: thread)
-        let interactor = ThreadInteractor(presenter: viewController, service: service, moduleIsRoot: true)
+        let interactor = ThreadInteractor(presenter: viewController, service: service, moduleIsRoot: true, thread: thread)
         interactor.listener = listener
         
         let thread = ThreadBuilder(dependency: component)
@@ -64,7 +64,7 @@ final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
             service = ThreadReplyService(thread: replys.thread, parent: replys.parent, posts: replys.posts)
         }
         
-        let interactor = ThreadInteractor(presenter: viewController, service: service, moduleIsRoot:false, cachedVM: replys.cachedVM)
+        let interactor = ThreadInteractor(presenter: viewController, service: service, moduleIsRoot:false, cachedVM: replys.cachedVM, thread: nil)
         interactor.listener = listener
         
         let thread = ThreadBuilder(dependency: component)

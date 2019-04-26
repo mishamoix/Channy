@@ -21,6 +21,8 @@ let LongAnimationDuration: TimeInterval = 0.75
 
 let RetryCount = 3
 
+
+
 let IsIpad = {
     return UIDevice.current.userInterfaceIdiom == .pad
 }()

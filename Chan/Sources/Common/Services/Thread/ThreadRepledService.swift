@@ -25,8 +25,10 @@ class ThreadRepledService: ThreadReplyService {
     
     
     override func load() -> Observable<ResultType> {
-        let result = ResultThreadModel<DataType>(result: self.posts, type: .replyed(post: self.replyedPost))
-        return Observable<ResultType>.just(result)
+        return Observable<ResultType>.error(ChanError.notFound)
+
+//        let result = ResultThreadModel<DataType>(result: self.posts, type: .replyed(post: self.replyedPost))
+//        return Observable<ResultType>.just(result)
     }
     
 

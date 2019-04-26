@@ -17,7 +17,7 @@ extension UIFont {
     static var textItalic: UIFont { return UIFont.italicSystemFont(ofSize: UIFont.fontSize) }
     static var textItalicStrong: UIFont { return UIFont.text.with(traits: [.traitBold, .traitItalic]) }
     
-    
+    static var secondaryText: UIFont { return UIFont.systemFont(ofSize: UIFont.fontSize - 3) }
     
     static var postTitle: UIFont { return UIFont.systemFont(ofSize: UIFont.fontSize + 2, weight: .semibold) }
     static var postTitleExtra: UIFont { return UIFont.systemFont(ofSize: UIFont.fontSize + 5, weight: .semibold) }

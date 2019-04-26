@@ -13,7 +13,7 @@ class ThreadViewModel {
     
     private(set) var thumbnail: URL? = nil
     private(set) var title: String? = nil
-    private(set) var comment: String? = nil
+    private(set) var comment: NSAttributedString
     private(set) var postsCount: Int = 0
     
     private(set) var height: CGFloat = 0
@@ -29,7 +29,7 @@ class ThreadViewModel {
     var file: FileModel? = nil
     
     var displayText: String? {
-        return self.comment
+        return self.comment.string
     }
     var number: String {
         return "№\(self.uid)"
@@ -39,21 +39,11 @@ class ThreadViewModel {
         
         self.uid = String(model.id)
         self.title = model.subject
-        self.comment = model.subject
+        
+        self.comment = TextPreparation(text: model.content, decorations: model.markups).process()
+        
         self.postsCount = model.postsCount
         self.media = model.media.first
-        
-//        self.uid = model.uid
-//        self.file = model.posts.first?.files.first
-//        self.title = "The Request Thread Is Back /request/ The Request Thread Is Back /request/"
-//        if let post = model.posts.first {
-////            self.title = post.subject
-//            self.comment = TextStripper.fullClean(text: post.comment)
-//            self.postsCount = model.postsCount + model.posts.count
-//            if let file = post.files.first {
-//                self.thumbnail = URL(string: MakeFullPath(path: file.thumbnail))
-//            }
-//        }
     }
     
     func calculateSize(max width: CGFloat) -> ThreadViewModel {
@@ -66,7 +56,7 @@ class ThreadViewModel {
         titleSize = CGSize(width: titleSize.width, height: min(titleSize.height, ThreadTitleMaxHeight))
         self.titleSize = titleSize
         
-        var messageSize = TextSize(text: self.comment, maxWidth: textMaxWidth, font: UIFont.text).calculate()
+        var messageSize = TextSize(attributed: self.comment, maxWidth: textMaxWidth).calculate()
         messageSize = CGSize(width: messageSize.width, height: min(messageSize.height, ThreadMessageMaxHeight))
         self.messageSize = messageSize
         

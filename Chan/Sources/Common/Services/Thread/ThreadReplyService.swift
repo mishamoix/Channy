@@ -31,8 +31,9 @@ class ThreadReplyService: ThreadServiceProtocol {
     }
     
     func load() -> Observable<ResultType> {
-        let result = ResultThreadModel<DataType>(result: self.posts, type: .replys(parent: self.parent))
-        return Observable<ResultType>.just(result)
+        return Observable<ResultType>.error(ChanError.notFound)
+//        let result = ResultThreadModel<DataType>(result: self.posts, type: .replys(parent: self.parent))
+//        return Observable<ResultType>.just(result)
     }
     
     

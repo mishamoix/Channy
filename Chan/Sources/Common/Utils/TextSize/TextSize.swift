@@ -12,19 +12,29 @@ import Foundation
 open class TextSize {
   
     public let text: String
-    public let font: UIFont
+    public let font: UIFont?
     public let maxWidth: CGFloat
     public let attributedString: NSAttributedString
     public let lineHeight: CGFloat?
   
-  public init(text: String?, maxWidth: CGFloat, font: UIFont, lineHeight: CGFloat? = nil) {
-    self.maxWidth = maxWidth
-    self.text = TextSize.prepareText(text)
-    self.font = font
-    self.lineHeight = lineHeight
+      public init(text: String?, maxWidth: CGFloat, font: UIFont, lineHeight: CGFloat? = nil) {
+        self.maxWidth = maxWidth
+        self.text = TextSize.prepareText(text)
+        self.font = font
+        self.lineHeight = lineHeight
+        
+        self.attributedString = NSAttributedString(string: self.text, attributes: [NSAttributedString.Key.font : font])
+      }
     
-    self.attributedString = NSAttributedString(string: self.text, attributes: [NSAttributedString.Key.font : font])
-  }
+    public init(attributed: NSAttributedString, maxWidth: CGFloat) {
+        self.maxWidth = maxWidth
+        self.text = attributed.string
+        self.attributedString = attributed
+        
+        self.lineHeight = nil
+        self.font = nil
+    }
+
   
 //  public init(attributed: NSAttributedString, maxWidth: CGFloat, lineHeight: CGFloat? = nil) {
 //    self.maxWidth = maxWidth
@@ -41,13 +51,13 @@ open class TextSize {
     }
     
     open func tgCalculate() -> CGSize {
-        let data = TGReusableLabel.calculateLayout(self.text, additionalAttributes: [], textCheckingResults: [], font: self.font, textColor: .white, frame: CGRect(x: 0, y: 0, width: self.maxWidth, height: CGFloat.infinity), orMaxWidth: Float(self.maxWidth), flags: Int32(TGReusableLabelLayoutMultiline.rawValue), textAlignment: NSTextAlignment.left, outIsRTL: nil)
-
-        if let data = data {
-          let size = CGSize(width: data.drawingSize().width, height: CGFloat(data.textLines.count) * (self.lineHeight ?? self.font.lineHeight))
-          
-          return size
-        }
+//        let data = TGReusableLabel.calculateLayout(self.text, additionalAttributes: [], textCheckingResults: [], font: self.font, textColor: .white, frame: CGRect(x: 0, y: 0, width: self.maxWidth, height: CGFloat.infinity), orMaxWidth: Float(self.maxWidth), flags: Int32(TGReusableLabelLayoutMultiline.rawValue), textAlignment: NSTextAlignment.left, outIsRTL: nil)
+//
+//        if let data = data {
+//          let size = CGSize(width: data.drawingSize().width, height: CGFloat(data.textLines.count) * (self.lineHeight ?? self.font?.lineHeight))
+//
+//          return size
+//        }
 
         return .zero
     }
