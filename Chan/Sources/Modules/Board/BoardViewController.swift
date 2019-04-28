@@ -11,7 +11,7 @@ import RxSwift
 import UIKit
 import IGListKit
 import SnapKit
-import SwiftTryCatch
+import SwipeCellKit
 
 let ThreadCellIdentifier = "ThreadCell"
 
@@ -279,11 +279,13 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         self.collectionView.dataSource = self
         
         self.tableWidth = self.collectionView.frame.width
-        
-        
-//        self.tableView.backgroundColor = .snow
         self.collectionView.backgroundColor = .clear
         self.collectionView.contentInset = UIEdgeInsets(top: DefaultMargin, left: 0, bottom: DefaultMargin, right: 0)
+        
+        if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.minimumLineSpacing = 0.01
+            layout.minimumInteritemSpacing = 0.01
+        }
     }
     
     private func setupNavBar() {
@@ -327,8 +329,6 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 }
                 
                 self.navigationItem.hidesBackButton = true
-//                self.n
-
                 let search = UISearchController(searchResultsController: nil)
                 self.navigationItem.searchController = search
                 
@@ -379,7 +379,6 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     
     override func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
-        
         self.themeManager.append(view: ThemeView(view: self.rightNavbarLabel, type: .text, subtype: .none))
         self.themeManager.append(view: ThemeView(view: self.leftNavbarLabel, type: .text, subtype: .none))
     }
@@ -479,7 +478,9 @@ extension BoardViewController: UICollectionViewDataSource {
         if let c = cell as? ThreadCell {
             c.update(with: data)
             c.actions = self.cellActions
+            c.delegate = self
         }
+        
         return cell
 
     }
@@ -500,4 +501,36 @@ extension BoardViewController: UICollectionViewDataSource {
 }
 
 
+extension BoardViewController: SwipeCollectionViewCellDelegate {
+    func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        
+        let bgColor = ThemeManager.shared.theme.background
+        
+        if orientation == .left {
+            
+            self.listener?.viewActions.on(.next(.openHome))
+            
+            
+            return nil
+        }
+        
+        let toFavorites = SwipeAction(style: .default, title: "В избранное") { [weak self] (action, indexPath) in
+            self?.listener?.viewActions.on(.next(.addToFavorites(index: indexPath.row)))
+        }
+        toFavorites.image = .addFavorite
+        toFavorites.backgroundColor = bgColor
+        toFavorites.hidesWhenSelected = true
+        
+        
+        let hidePost = SwipeAction(style: .default, title: "Скрыть") { [weak self] (action, indexPath) in
+            self?.listener?.viewActions.on(.next(.hide(index: indexPath.row)))
+        }
+        hidePost.image = .hide
+        hidePost.backgroundColor = bgColor
+        hidePost.hidesWhenSelected = true
+        
+        return [hidePost, toFavorites]
 
+    }
+    
+}

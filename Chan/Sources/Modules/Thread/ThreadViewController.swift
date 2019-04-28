@@ -12,7 +12,6 @@ import UIKit
 import SnapKit
 import AVKit
 import KafkaRefresh
-//import KRPullLoader
 
 
 let ThreadAvailableContextMenu = ["copyLink", "copyOrigianlText", "copyText", "screenshot"]
@@ -43,6 +42,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private let scrollUpButton = ScrollDownButton()
     private var writeButton: UIButton? = nil
     private var moreButton: UIBarButtonItem? = nil
+    
+    private let header = ThreadHeaderView(max: 200, min: 60)
 
 //    moreButton
     
@@ -116,7 +117,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private func setupUI() {
         self.setupNavBar()
         self.setupCollectionView()
-        
+        self.setupHeader()
+
         self.view.addSubview(self.scrollDownButton)
         self.scrollDownButton.snp.makeConstraints { (make) in
             make.right.equalToSuperview().offset(-PostScrollDownButtonRightMargin)
@@ -133,8 +135,9 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             .asObservable()
             .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] model in
-                self?.navigationItem.title = model.title
                 
+                self?.header.update(model: model.thread)
+                                
                 self?.setupRefreshers(can: model.canRefresh)
                 
                 if model.canRefresh {
@@ -324,7 +327,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         } else {
             // Fallback on earlier versions
         }
-
+        
+        
         
         let moreButton = UIBarButtonItem(image: .more, landscapeImagePhone: .more, style: UIBarButtonItem.Style.done, target: nil, action: nil)
         self.moreButton = moreButton
@@ -352,6 +356,18 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         }
     }
     
+    private func setupHeader() {
+//        let view = UIView()
+//        view.backgroundColor = .green
+        
+        self.collectionView.parallaxHeader.view = self.header
+        self.collectionView.parallaxHeader.height = self.header.maxHeight
+        self.collectionView.parallaxHeader.minimumHeight = self.header.minHeight
+        self.collectionView.parallaxHeader.mode = .fill
+        
+//        self.collectionView.contentInset
+    }
+    
     private func setupCollectionView() {
         
         self.collectionView.dataSource = self
@@ -360,19 +376,20 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         if let collectionLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             collectionLayout.minimumInteritemSpacing = PostCellTopMargin
         }
+//        PostCellTopMargin + (self.navigationController?.navigationBar.frame.size.height ?? 0)
+        self.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.collectionView.contentInset.bottom + PostCellBottomMargin, right: 0)
         
-        self.collectionView.contentInset = UIEdgeInsets(top: PostCellTopMargin, left: 0, bottom: self.collectionView.contentInset.bottom + PostCellBottomMargin, right: 0)
-        
-        if #available(iOS 11.0, *) {} else {
-            self.automaticallyAdjustsScrollViewInsets = false
-        }
+//        if #available(iOS 11.0, *) {
+//            self.collectionView.contentInsetAdjustmentBehavior = .never
+//        } else {
+//            self.automaticallyAdjustsScrollViewInsets = false
+//        }
         
         self.collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCellIdentifier)
         self.collectionView.register(PostMediaCell.self, forCellWithReuseIdentifier: PostMediaCellIdentifier)
     }
     
     private func setupRefreshers(can refresh: Bool) {
-        
         
         if refresh {
             if self.refreshControl.superview == nil {
@@ -472,6 +489,9 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     }
     
     private func updateScrollDownButton() {
+        
+        self.header.update(scroll: self.collectionView)
+        
         let currentOffset = self.collectionView.contentOffset.y + self.collectionView.frame.height
         let contentSize = self.collectionView.contentSize.height + self.collectionView.contentInset.bottom
         let delta = PostScrollDownButtonBottomMargin + PostScrollDownButtonSize.height

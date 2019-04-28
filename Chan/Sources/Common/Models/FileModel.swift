@@ -44,23 +44,24 @@ class FileModel: BaseModel, Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         self.name = try? values.decode(String.self, forKey: .name)
-        self.fullname = try? values.decode(String.self, forKey: .fullname)
+//        self.fullname = try? values.decode(String.self, forKey: .fullname)
         
-        self.path = try values.decode(String.self, forKey: .path)
+//        self.path = try values.decode(String.self, forKey: .path)
         self.thumbnail = try values.decode(String.self, forKey: .thumbnail)
+        self.path = try values.decode(String.self, forKey: .path)
       
-        if let type: Int = try? values.decode(Int.self, forKey: ._type) {
-            if [6, 10].contains(type) {
-                self._type = .video
-            }
-        }
+//        if let type: Int = try? values.decode(Int.self, forKey: ._type) {
+//            if [6, 10].contains(type) {
+//                self._type = .video
+//            }
+//        }
     }
   
     
     enum CodingKeys : String, CodingKey {
         case name
         case fullname
-        case path
+        case path = "full"
         case thumbnail
         case _type = "type"
     }

@@ -18,6 +18,8 @@
 		0A11321C215F9B3300BB3C79 /* FirebaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11321B215F9B3300BB3C79 /* FirebaseDB.swift */; };
 		0A11321E215F9E4C00BB3C79 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A11321D215F9E4C00BB3C79 /* FirebaseManager.swift */; };
 		0A1132212160112400BB3C79 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1132202160112400BB3C79 /* Values.swift */; };
+		0A18F62D2275E621002D21DA /* ThreadHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A18F62C2275E621002D21DA /* ThreadHeaderView.swift */; };
+		0A18F62F2275EAA6002D21DA /* ValueMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A18F62E2275EAA6002D21DA /* ValueMapper.swift */; };
 		0A1A79B921C6D58D0020463F /* launchIconNY.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A1A79B821C6D58D0020463F /* launchIconNY.png */; };
 		0A203F15219C9CCA00A51554 /* CensorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203F14219C9CCA00A51554 /* CensorService.swift */; };
 		0A203F17219C9CEC00A51554 /* CensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203F16219C9CEC00A51554 /* CensorManager.swift */; };
@@ -130,6 +132,9 @@
 		0A37B05321BC4251009EC571 /* AXStateButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A37B04021BC3A1B009EC571 /* AXStateButton.h */; };
 		0A37B05421BC4251009EC571 /* FLAnimatedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A37B04821BC3A1B009EC571 /* FLAnimatedImage.h */; };
 		0A37B05521BC4251009EC571 /* FLAnimatedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A37B04921BC3A1B009EC571 /* FLAnimatedImageView.h */; };
+		0A4FEA2D2275F14E00A78A72 /* ParallaxHeaderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FEA2C2275F14E00A78A72 /* ParallaxHeaderMode.swift */; };
+		0A4FEA2E2275F14E00A78A72 /* UIScrollView+ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FEA2A2275F14E00A78A72 /* UIScrollView+ParallaxHeader.swift */; };
+		0A4FEA2F2275F14E00A78A72 /* ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FEA2B2275F14E00A78A72 /* ParallaxHeader.swift */; };
 		0A505D76216D060A0076F383 /* WebAcceptRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D71216D060A0076F383 /* WebAcceptRouter.swift */; };
 		0A505D77216D060A0076F383 /* WebAcceptViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */; };
 		0A505D78216D060A0076F383 /* WebAcceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D73216D060A0076F383 /* WebAcceptViewController.swift */; };
@@ -282,6 +287,8 @@
 		0A11321B215F9B3300BB3C79 /* FirebaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDB.swift; sourceTree = "<group>"; };
 		0A11321D215F9E4C00BB3C79 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		0A1132202160112400BB3C79 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
+		0A18F62C2275E621002D21DA /* ThreadHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadHeaderView.swift; sourceTree = "<group>"; };
+		0A18F62E2275EAA6002D21DA /* ValueMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueMapper.swift; sourceTree = "<group>"; };
 		0A1A79B821C6D58D0020463F /* launchIconNY.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchIconNY.png; sourceTree = "<group>"; };
 		0A203F14219C9CCA00A51554 /* CensorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorService.swift; sourceTree = "<group>"; };
 		0A203F16219C9CEC00A51554 /* CensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorManager.swift; sourceTree = "<group>"; };
@@ -397,6 +404,9 @@
 		0A37B04721BC3A1B009EC571 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
 		0A37B04821BC3A1B009EC571 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
 		0A37B04921BC3A1B009EC571 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
+		0A4FEA2A2275F14E00A78A72 /* UIScrollView+ParallaxHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ParallaxHeader.swift"; sourceTree = "<group>"; };
+		0A4FEA2B2275F14E00A78A72 /* ParallaxHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxHeader.swift; sourceTree = "<group>"; };
+		0A4FEA2C2275F14E00A78A72 /* ParallaxHeaderMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderMode.swift; sourceTree = "<group>"; };
 		0A505D71216D060A0076F383 /* WebAcceptRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptRouter.swift; sourceTree = "<group>"; };
 		0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebAcceptViewController.storyboard; sourceTree = "<group>"; };
 		0A505D73216D060A0076F383 /* WebAcceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptViewController.swift; sourceTree = "<group>"; };
@@ -706,6 +716,7 @@
 				0AAA323E21EA055C00330CF5 /* LinkOpener.swift */,
 				0A86048522106817004C6B6C /* VLCOpener.swift */,
 				0A8641272250F3A6000BBE07 /* UCCTransliteration.swift */,
+				0A18F62E2275EAA6002D21DA /* ValueMapper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -970,6 +981,16 @@
 			path = Submodules;
 			sourceTree = "<group>";
 		};
+		0A4FEA292275F13C00A78A72 /* ParallaxHeader */ = {
+			isa = PBXGroup;
+			children = (
+				0A4FEA2B2275F14E00A78A72 /* ParallaxHeader.swift */,
+				0A4FEA2C2275F14E00A78A72 /* ParallaxHeaderMode.swift */,
+				0A4FEA2A2275F14E00A78A72 /* UIScrollView+ParallaxHeader.swift */,
+			);
+			path = ParallaxHeader;
+			sourceTree = "<group>";
+		};
 		0A505D70216D05EF0076F383 /* WebAccept */ = {
 			isa = PBXGroup;
 			children = (
@@ -1021,6 +1042,7 @@
 			children = (
 				0AFFB6D821596D6000A122A0 /* Subviews */,
 				0AFFB6D721596D4000A122A0 /* Cells */,
+				0A18F62C2275E621002D21DA /* ThreadHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1132,6 +1154,7 @@
 		0AACC18B218A5A7200B7BD19 /* 3d party */ = {
 			isa = PBXGroup;
 			children = (
+				0A4FEA292275F13C00A78A72 /* ParallaxHeader */,
 				0A326B86225CEADE00E94AED /* GTSheet */,
 				0A37AFDC21BC3734009EC571 /* AXPhotoViewer */,
 				0AACC18C218A5A7B00B7BD19 /* SwiftyOnboard */,
@@ -1638,6 +1661,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chan/Pods-Chan-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/FPSCounter/FPSCounter.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/KafkaRefresh/KafkaRefresh.framework",
@@ -1656,6 +1680,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftTryCatch/SwiftTryCatch.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/libnestegg/nestegg.framework",
@@ -1669,6 +1694,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FPSCounter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KafkaRefresh.framework",
@@ -1687,6 +1713,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftTryCatch.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nestegg.framework",
@@ -1735,6 +1762,7 @@
 				0A37B02721BC3873009EC571 /* AXPhotosTransitionController.swift in Sources */,
 				0A37B02821BC3873009EC571 /* AXPhotosTransitionAnimator.swift in Sources */,
 				0A37B02921BC3873009EC571 /* AXPhotosDismissalAnimator.swift in Sources */,
+				0A4FEA2E2275F14E00A78A72 /* UIScrollView+ParallaxHeader.swift in Sources */,
 				0A37B02A21BC3873009EC571 /* FLAnimatedImageView+AXExtensions.m in Sources */,
 				0A37B02B21BC3873009EC571 /* UIView+Animations.swift in Sources */,
 				0A37B02C21BC3873009EC571 /* UIImageView+AXExtensions.m in Sources */,
@@ -1746,6 +1774,7 @@
 				0A37B03121BC3874009EC571 /* UIInterfaceOrientation+Transform.swift in Sources */,
 				0A37B03221BC3874009EC571 /* Data+GIF.swift in Sources */,
 				0AE2867222479B2300513D70 /* CoreDataImageboard.swift in Sources */,
+				0A18F62D2275E621002D21DA /* ThreadHeaderView.swift in Sources */,
 				0A37B03321BC3874009EC571 /* SimpleNetworkIntegration.swift in Sources */,
 				0A37B03421BC3874009EC571 /* AXPageableViewControllerProtocol.swift in Sources */,
 				0A37B03521BC3874009EC571 /* AXPhotoProtocol.swift in Sources */,
@@ -1789,6 +1818,7 @@
 				0AFD186D2235111900F844BE /* ImageboardListBuilder.swift in Sources */,
 				0AE3BC7F2273110D0096C384 /* MarkupModel.swift in Sources */,
 				0AFD18842235403B00F844BE /* MenuConstants.swift in Sources */,
+				0A18F62F2275EAA6002D21DA /* ValueMapper.swift in Sources */,
 				0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */,
 				0AFFFDAF2149A1F50002E832 /* ThreadBuilder.swift in Sources */,
 				0A905F7621A9C29500ADE51E /* WriteTarget.swift in Sources */,
@@ -1852,6 +1882,7 @@
 				0A11321E215F9E4C00BB3C79 /* FirebaseManager.swift in Sources */,
 				0ACC29882143F79900B4E53B /* RootViewController.swift in Sources */,
 				0A2E0CAF2145588A00CBD619 /* BoardsTableHeader.swift in Sources */,
+				0A4FEA2D2275F14E00A78A72 /* ParallaxHeaderMode.swift in Sources */,
 				0A37B0312222E40300FFACDF /* MainContainerViewController.swift in Sources */,
 				0ACC29872143F79900B4E53B /* RootRouter.swift in Sources */,
 				0A90E78D2151A76B00B71EAA /* ThreadReplyService.swift in Sources */,
@@ -1923,6 +1954,7 @@
 				0A2E0CC22145968000CBD619 /* BoardService.swift in Sources */,
 				0A90E78A2151A58700B71EAA /* PostReplysViewModel.swift in Sources */,
 				0A2E0CDC2145B08300CBD619 /* UIFont+AppFonts.swift in Sources */,
+				0A4FEA2F2275F14E00A78A72 /* ParallaxHeader.swift in Sources */,
 				0A37B0332222E40300FFACDF /* MainContainerInteractor.swift in Sources */,
 				0AFFFDB72149AC3D0002E832 /* ThreadConstants.swift in Sources */,
 				0A2E0CAB2145566700CBD619 /* ChanImageView.swift in Sources */,

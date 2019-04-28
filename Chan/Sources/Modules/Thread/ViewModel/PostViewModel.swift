@@ -18,6 +18,7 @@ class PostViewModel {
     private let date: String
     private let name: String
     private let number: Int
+
     
     var needHighlight = false
     
@@ -68,6 +69,9 @@ class PostViewModel {
         return self.replyPosts.count == 0
     }
     
+    var isFirst: Bool {
+        return self.number == 1
+    }
     
     init(model: PostModel, idx: Int) {
         self.uid = model.uid
@@ -99,7 +103,7 @@ class PostViewModel {
         var mediaWidthHeight: CGFloat = 0
         
         if self.media.count != 0 {
-            mediaWidthHeight = (width - 5 * PostMediaMargin) / 4
+            mediaWidthHeight = (width - 3 * PostMediaMargin - PostTextLeftMargin - PostTextRightMargin) / 4
             mediaSection = PostMediaTopMargin + mediaWidthHeight
         }
         

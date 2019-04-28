@@ -15,6 +15,9 @@ class MarkupModel: BaseModel, Decodable {
         case none
         case bold
         case quote
+        case reply
+        case spoiler
+        case strikethrough
         
         static func type(from: String) -> MarkupType {
             switch from {
@@ -22,6 +25,12 @@ class MarkupModel: BaseModel, Decodable {
                 return .bold
             case "quote":
                 return .quote
+            case "reply":
+                return .reply
+            case "spoiler":
+                return .spoiler
+            case "strikethrough":
+                return .strikethrough
             default:
                 return .none
             }

@@ -39,6 +39,7 @@ PODS:
     - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
+  - FPSCounter (4.0.1)
   - GoogleAppMeasurement (5.2.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -172,6 +173,7 @@ PODS:
   - SwiftTryCatch (0.0.1)
   - SwiftyJSON (4.2.0)
   - SwiftyUserDefaults (4.0.0-alpha.1)
+  - SwipeCellKit (2.6.0)
   - "UITextView+Placeholder (1.2.1)"
 
 DEPENDENCIES:
@@ -182,6 +184,7 @@ DEPENDENCIES:
   - Fabric
   - Firebase/Core
   - Firebase/Database
+  - FPSCounter (~> 4.0)
   - IGListKit (~> 3.0)
   - KafkaRefresh
   - MagicalRecord
@@ -199,6 +202,7 @@ DEPENDENCIES:
   - SwiftTryCatch
   - SwiftyJSON
   - SwiftyUserDefaults (= 4.0.0-alpha.1)
+  - SwipeCellKit
   - "UITextView+Placeholder"
 
 SPEC REPOS:
@@ -219,6 +223,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseDatabase
     - FirebaseInstanceID
+    - FPSCounter
     - GoogleAppMeasurement
     - GoogleUtilities
     - IGListKit
@@ -240,6 +245,7 @@ SPEC REPOS:
     - SwiftTryCatch
     - SwiftyJSON
     - SwiftyUserDefaults
+    - SwipeCellKit
     - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
@@ -253,6 +259,7 @@ SPEC CHECKSUMS:
   FirebaseCore: c6079de64c1a87000e52e9b408dddcadc901177f
   FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
   FirebaseInstanceID: 78ba376fcd5b94c001f9999b2cbd3d1f1e56e78d
+  FPSCounter: 262ec30f9f5a2fd7843b593ea80016fece7c809c
   GoogleAppMeasurement: 2b3a023a61239c8d002e6e4fcf4abce8eddce0e0
   GoogleUtilities: 8208aee3e97a1ae93d44c57e96c476a5a3b03f0a
   IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
@@ -279,8 +286,9 @@ SPEC CHECKSUMS:
   SwiftTryCatch: fb6d2b34abe48efd69578dac919293a44f95b481
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
+  SwipeCellKit: 935ca28c187ec6e1ffb2b578cf8ddca842bfdcbb
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: 180e03d34c378ef0e01166d07cfd9e95fe366dbe
+PODFILE CHECKSUM: ed1e550e8d58f745d77e5924fc65efff0ec5a469
 
 COCOAPODS: 1.5.3
