@@ -11,8 +11,11 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
+import SwipeCellKit
 
-class ThreadCell: UICollectionViewCell {
+
+
+class ThreadCell: SwipeCollectionViewCell {
 
     @IBOutlet weak var canvas: ChanView!
     @IBOutlet weak var iconView: ChanImageView!
@@ -76,6 +79,7 @@ class ThreadCell: UICollectionViewCell {
         
         self.setupTheme()
         
+//        self.actionsView?.backgroudColor = .clear
     }
 
 //    override func setSelected(_ selected: Bool, animated: Bool) {

@@ -18,6 +18,8 @@ class PostModel: BaseModel, Decodable {
     var date: TimeInterval = 0
     var number = 0
     var markups: [MarkupModel] = []
+    var selfReplies: [String] = []
+    
     
     
     public required init(from decoder: Decoder) throws {
@@ -42,8 +44,17 @@ class PostModel: BaseModel, Decodable {
 //        }
         
         if let markups = try? values.decode([MarkupModel].self, forKey: .markups) {
-            self.markups = markups
+            self.markups += markups
         }
+        
+        if let replies = try? values.decode([MarkupModel].self, forKey: .replies) {
+            self.markups += replies
+        }
+        
+        if let replies = try? values.decode([String].self, forKey: .selfReplies) {
+            self.selfReplies = replies
+        }
+
 
       
     }
@@ -58,6 +69,8 @@ class PostModel: BaseModel, Decodable {
         case number
         case date = "timestamp"
         case markups = "decorations"
+        case replies
+        case selfReplies
     }
 
     

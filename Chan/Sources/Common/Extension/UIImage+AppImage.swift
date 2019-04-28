@@ -27,4 +27,8 @@ extension UIImage {
     static var boards: UIImage { return UIImage(named: "board")!}
     static var history: UIImage { return UIImage(named: "history")!}
     static var favorites: UIImage { return UIImage(named: "favorites")!}
+    
+    static var addFavorite: UIImage { return UIImage(named: "addFavorites")!}
+    static var hide: UIImage { return UIImage(named: "hide")!}
+
 }

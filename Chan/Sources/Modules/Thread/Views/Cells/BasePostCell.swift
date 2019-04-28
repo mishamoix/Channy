@@ -151,6 +151,12 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         
         self.updateHeader(with: model)
         
+        if model.isFirst {
+            self.backgroundColor = .clear
+        } else {
+            self.backgroundColor = ThemeManager.shared.theme.cell
+        }
+        
 //        self.titleLabel.attributedText = model.title
 //        self.titleLabel.frame = model.titleFrame
 //        self.titleLabel.setNeedsDisplay()
@@ -173,7 +179,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
 //    self.themeManager.append(view: ThemeView(view: self.collectionView, type: .collection, subtype: .none))
 
     func setupTheme() {
-        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
+//        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.number, type: .text, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.uid, type: .text, subtype: .third))
         ThemeManager.shared.append(view: ThemeView(view: self.date, type: .text, subtype: .third))

@@ -39,9 +39,7 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
                         photo.image = img
                         self.delegate?.networkIntegration(self, loadDidFinishWith: photo)
                     }
-                    
                     return
-
                 }
                 
                 ImageNetworkIntegration.imageDownloader.download([request], filter: nil, progress: { [weak self, weak photo] progress in
@@ -224,6 +222,8 @@ class ThreadImageViewer: NSObject {
         
         self.openInBrowserButton.isUserInteractionEnabled = true
         
+        self.openInBrowserButton.alpha = 0
+        
         
     }
     
@@ -258,7 +258,7 @@ class ThreadImageViewer: NSObject {
             self.textCanvas.snp.makeConstraints { make in
                 make.centerX.centerY.equalToSuperview()
                 make.left.greaterThanOrEqualToSuperview().offset(36)
-                make.right.greaterThanOrEqualToSuperview().offset(36)
+                make.right.greaterThanOrEqualToSuperview().offset(-36)
             }
             
             self.text.snp.makeConstraints { make in
@@ -274,10 +274,15 @@ class ThreadImageViewer: NSObject {
         }
         
 
+        self.textCanvas.alpha = 0
     }
     
     
     private func updateOverlay(with photo: AXPhotoProtocol) {
+        
+        self.openInBrowserButton.alpha = 0
+        self.textCanvas.isHidden = true
+        
         if let url = photo.url {
             let model = FileModel(path: url.absoluteString)
 //            if CensorManager.isCensored(model: model) {

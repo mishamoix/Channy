@@ -34,6 +34,8 @@ target 'Chan' do
     pod 'ReCaptcha/RxSwift'
     pod 'UITextView+Placeholder'
     pod 'SideMenu'
+    pod 'SwipeCellKit'
+
 
     # Analyticts
     pod 'Firebase/Core'

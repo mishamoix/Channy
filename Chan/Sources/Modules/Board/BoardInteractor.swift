@@ -341,7 +341,22 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     break
 //                    let thread = ThreadModel(uid: "", board: self?.service.board)
 //                    self?.router?.openCreateThread(thread)
+                    
+                case .addToFavorites(let idx): do {
+                    if let model = self?.data[idx] {
+                        
+                    }
                 }
+                    
+                case .hide(let idx): do {
+                    if let model = self?.data[idx] {
+                        
+                    }
+
+                }
+                }
+                
+
             }).disposed(by: self.disposeBag)
         
         

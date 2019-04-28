@@ -46,6 +46,18 @@ class Style {
         text.addAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.quote], range: range)
     }
     
+    class func reply(text: NSMutableAttributedString, range: NSRange) {
+        text.addAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.accnt], range: range)
+
+    }
+    
+    class func strikethrough(text: NSMutableAttributedString, range: NSRange) {
+        text.addAttributes([NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.strikethroughColor: ThemeManager.shared.theme.text], range: range)
+        
+    }
+
+    
+    
     class func linkPost(text: NSMutableAttributedString, range: NSRange, url: URL? = nil) {
         let attrs: [NSAttributedString.Key:Any] = [NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.accnt]
         if let url = url {

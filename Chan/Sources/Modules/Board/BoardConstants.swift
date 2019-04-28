@@ -49,6 +49,9 @@ enum BoardAction {
     case viewWillAppear
     case openByLink
     case createNewThread
+    
+    case addToFavorites(index: Int)
+    case hide(index: Int)
 }
 
 enum BoardCellAction {

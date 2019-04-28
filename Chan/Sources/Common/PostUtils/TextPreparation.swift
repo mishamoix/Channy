@@ -34,13 +34,22 @@ class TextPreparation {
         
         for markup in self.markups {
             
-            let range = NSRange(location: markup.start, length: max(markup.end - markup.start - 1, 0))
+            if markup.end > self.text.count {
+                let a = 1
+            }
+            
+            
+            let length = markup.end - markup.start
+            
+            let range = NSRange(location: markup.start, length: max(length, 0))
             
             switch markup.type {
-            case .bold: Style.strong(text: attributed, range: range)
-            case .quote: Style.quote(text: attributed, range: range)
-            case .none:
-                break
+                case .bold: Style.strong(text: attributed, range: range)
+                case .quote: Style.quote(text: attributed, range: range)
+                case .reply: Style.reply(text: attributed, range: range)
+                case .spoiler: Style.spoiler(text: attributed, range: range)
+                case .strikethrough: Style.strikethrough(text: attributed, range: range)
+                case .none: break
             }
         }
         

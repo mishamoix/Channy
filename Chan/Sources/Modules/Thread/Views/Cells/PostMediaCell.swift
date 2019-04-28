@@ -36,7 +36,7 @@ class PostMediaCell: PostCell {
     
     override func update(with model: PostViewModel) {
         super.update(with: model)
-        self.setupConstrainst(with: model)
+//        self.setupConstrainst(with: model)
         
         let _ = self.images.map { $0.cancelLoad() }
         let _ = self.images.map { $0.isHidden = true }
@@ -45,6 +45,8 @@ class PostMediaCell: PostCell {
             if idx < self.images.count {
                 let imgView = self.images[idx]
                 imgView.update(with: media)
+                
+                self.updateImagePosition(with: imgView, model: model, idx: idx)
             }
         }
     }
@@ -71,12 +73,9 @@ class PostMediaCell: PostCell {
             }).disposed(by: self.disposeBag)
     }
     
-    private func setupConstrainst(with model: PostViewModel) {
+    private func updateImagePosition(with view: UIView, model: PostViewModel, idx: Int) {
         
-        self.firstImage.frame = CGRect(x: PostMediaMargin, y: model.mediaFrame.minY, width: model.mediaFrame.width, height: model.mediaFrame.height)
-        self.secondImage.frame = CGRect(x: self.firstImage.frame.maxX + PostMediaMargin, y: self.firstImage.frame.minY, width: model.mediaFrame.width, height: model.mediaFrame.height)
-        self.thirdImage.frame = CGRect(x: self.secondImage.frame.maxX + PostMediaMargin, y: self.firstImage.frame.minY, width: model.mediaFrame.width, height: model.mediaFrame.height)
-        self.forthImage.frame = CGRect(x: self.thirdImage.frame.maxX + PostMediaMargin, y: self.firstImage.frame.minY, width: model.mediaFrame.width, height: model.mediaFrame.height)
+        view.frame = CGRect(x: PostTextLeftMargin + CGFloat(idx) * (PostMediaMargin + model.mediaFrame.width), y: model.mediaFrame.minY, width: model.mediaFrame.width, height: model.mediaFrame.height)
     }
     
     

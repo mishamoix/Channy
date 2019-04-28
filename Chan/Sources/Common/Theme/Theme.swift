@@ -45,7 +45,7 @@ extension Theme {
         border: #colorLiteral(red: 0.7176470588, green: 0.7607843137, blue: 0.8352941176, alpha: 1),
         accent: #colorLiteral(red: 0.4039215686, green: 0.6431372549, blue: 0.9843137255, alpha: 1),
         accnt: #colorLiteral(red: 1, green: 0.5333333333, blue: 0.1058823529, alpha: 1),
-        quote: #colorLiteral(red: 0.9215686275, green: 0.9176470588, blue: 0.9098039216, alpha: 1),
+        quote: #colorLiteral(red: 0.3137254902, green: 0.6, blue: 0.1333333333, alpha: 1),
     
         keyboard: UIKeyboardAppearance.dark
     )
