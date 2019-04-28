@@ -84,6 +84,8 @@ class PostViewModel {
         self.number = idx
         self.date = String.date(from: date)
         
+        self.replyPosts = model.selfReplies
+        
     }
     
     func calculateSize(max width: CGFloat) {

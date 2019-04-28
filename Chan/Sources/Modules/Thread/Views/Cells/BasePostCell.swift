@@ -29,6 +29,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     let date = UILabel()
     let reply = UIButton()
     let headerDelimeter = UIView()
+    let repliesButton = UIButton()
     
     private var highlightDisposeBag = DisposeBag()
     
@@ -64,6 +65,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.contentView.addSubview(self.date)
         self.contentView.addSubview(self.reply)
         self.contentView.addSubview(self.headerDelimeter)
+        self.contentView.addSubview(self.repliesButton)
         
         self.number.font = .postTitle
         
@@ -76,6 +78,9 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.reply.setTitle("Ответить", for: .normal)
         self.reply.titleLabel?.font = .secondaryText
         self.reply.contentHorizontalAlignment = .right
+        
+        self.repliesButton.titleLabel?.font = .textStrong
+        self.repliesButton.contentHorizontalAlignment = .left
 //        self.reply.titleLabel?.textAlignment = .left
         
 //        self.layer.borderColor = UIColor.groupTableViewBackground.cgColor
@@ -150,6 +155,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     func update(with model: PostViewModel) {
         
         self.updateHeader(with: model)
+        self.updateFooter(with: model)
         
         if model.isFirst {
             self.backgroundColor = .clear
@@ -298,5 +304,17 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         
         
 //        self.date
+    }
+    
+    private func updateFooter(with model: PostViewModel) {
+        if (model.replyPosts.count > 0) {
+            self.repliesButton.isHidden = false
+            
+            self.repliesButton.frame = CGRect(x: PostTextLeftMargin, y: self.frame.height - UIFont.textStrong.lineHeight - PostTextBottomMargin, width: self.frame.width, height: UIFont.textStrong.lineHeight)
+        } else {
+            self.repliesButton.isHidden = true
+        }
+        
+        self.repliesButton.setTitle("\(model.replyPosts.count) ответов", for: .normal)
     }
 }

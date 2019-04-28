@@ -17,7 +17,7 @@ class ThreadModel: BaseModel, Decodable {
         self.board = board
     }
     
-    init(id: String, board: BoardModel) {
+    init(id: String, board: BoardModel?) {
         self.id = id
         self.board = board
     }
@@ -31,6 +31,9 @@ class ThreadModel: BaseModel, Decodable {
     var markups: [MarkupModel] = []
     var media: [MediaModel] = []
     var posts: [PostModel] = []
+    
+    var favorited: Bool = false
+    var created: Date = Date()
     
 
     enum CodingKeys : String, CodingKey {

@@ -118,7 +118,7 @@ class FirebaseManager {
 //
       #if RELEASE
 
-        self.db.report(thread: value, key: key)
+//        self.db.report(thread: value, key: key)
       #endif
     }
 }

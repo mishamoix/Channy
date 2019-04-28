@@ -42,7 +42,8 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     weak var listener: ThreadListener?
     private var viewer: ThreadImageViewer? = nil
     
-    var service: ThreadServiceProtocol
+    let service: ThreadServiceProtocol
+    let historyService: WriteHistoryServiceProtocol?
     
     private let disposeBag = DisposeBag()
     
@@ -55,10 +56,11 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     private let replySubject = BehaviorSubject<String>(value: "")
     
-    init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, cachedVM: [PostViewModel]? = nil, thread: ThreadModel?) {
+    init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, cachedVM: [PostViewModel]? = nil, thread: ThreadModel?, history: WriteHistoryServiceProtocol? = nil) {
         self.service = service
         self.moduleIsRoot = moduleIsRoot
         self.thread = thread
+        self.historyService = history
         self.mainViewModel = Variable(PostMainViewModel(thread: thread, canRefresh: self.moduleIsRoot))
 //        self.postsManager = PostManager(thread: service.thread)
 //        self.postsManager?.update(vms: cachedVM)
@@ -74,6 +76,10 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     override func didBecomeActive() {
         super.didBecomeActive()
         self.setup()
+        
+        if let thread = self.thread {
+            self.historyService?.write(thread: thread)
+        }
     }
 
     override func willResignActive() {
