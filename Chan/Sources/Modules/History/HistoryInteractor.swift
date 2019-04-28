@@ -36,6 +36,10 @@ final class HistoryInteractor: PresentableInteractor<HistoryPresentable>, Histor
 
     override func didBecomeActive() {
         super.didBecomeActive()
+        
+        let history = HistoryService()
+        let _ = history.read()
+        
         // TODO: Implement business logic here.
     }
 

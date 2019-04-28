@@ -82,7 +82,7 @@ class ThreadHeaderView: UIView {
     }
     
     private func setupTheme() {
-        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self, type: .viewControllerBG, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.title, type: .text, subtype: .none))
     }
     

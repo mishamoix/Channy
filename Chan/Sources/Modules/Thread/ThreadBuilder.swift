@@ -41,9 +41,12 @@ final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
         
         let viewController = UIStoryboard(name: "ThreadViewController", bundle: nil).instantiateViewController(withIdentifier: "ThreadViewController") as! ThreadViewController
         
+        let history = HistoryService()
         let service = ThreadService(thread: thread)
-        let interactor = ThreadInteractor(presenter: viewController, service: service, moduleIsRoot: true, thread: thread)
+        
+        let interactor = ThreadInteractor(presenter: viewController, service: service, moduleIsRoot: true, thread: thread, history: history)
         interactor.listener = listener
+        
         
         let thread = ThreadBuilder(dependency: component)
         let write = WriteBuilder(dependency: component)

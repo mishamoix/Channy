@@ -90,9 +90,9 @@ class CensorManager {
     static func isCensored(model: MediaModel) -> Bool {
       #if RELEASE
         var needCensor = true
-        if let result = CensorManager.shared.cache[CensorManager.path(for: model)] {
-            needCensor = result
-        }
+//        if let result = CensorManager.shared.cache[CensorManager.path(for: model)] {
+//            needCensor = result
+//        }
         
         
         return needCensor
