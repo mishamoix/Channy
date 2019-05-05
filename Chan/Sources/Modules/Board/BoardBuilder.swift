@@ -24,23 +24,36 @@ protocol BoardBuildable: Buildable {
 
 final class BoardBuilder: Builder<BoardDependency>, BoardBuildable {
 
+    
+    private let interactor: BoardInteractor
+    private let vc: BoardViewControllable
+    
     override init(dependency: BoardDependency) {
+        
+        let service = BoardService()
+        let imageboardService = ImageboardService.instance()
+        let viewController = UIStoryboard(name: "BoardViewController", bundle: nil).instantiateViewController(withIdentifier: "BoardViewController") as! BoardViewController
+        
+        self.vc = viewController
+        self.interactor = BoardInteractor(presenter: viewController, imageboardService: imageboardService, service: service, favoriteService: FavoriteService())
+
+        
         super.init(dependency: dependency)
+    }
+    
+    var boardInput: BoardInputProtocol {
+        return self.interactor
     }
 
     func build(withListener listener: BoardListener) -> BoardRouting {
         let component = BoardComponent(dependency: dependency)
-        let viewController = UIStoryboard(name: "BoardViewController", bundle: nil).instantiateViewController(withIdentifier: "BoardViewController") as! BoardViewController
         
-        let service = BoardService()
-        let imageboardService = ImageboardService.instance()
-        let interactor = BoardInteractor(presenter: viewController, imageboardService: imageboardService, service: service)
-        interactor.listener = listener
+        self.interactor.listener = listener
         
         let threadBuilder = ThreadBuilder(dependency: component)
         let agreement = WebAcceptBuilder(dependency: component)
         let createThread = WriteBuilder(dependency: component)
         
-        return BoardRouter(interactor: interactor, viewController: viewController, thread: threadBuilder, agreement: agreement, createThread: createThread)
+        return BoardRouter(interactor: self.interactor, viewController: self.vc, thread: threadBuilder, agreement: agreement, createThread: createThread)
     }
 }

@@ -56,10 +56,10 @@ class CoreDataStore {
         //        MagicalRecord.cleanUp()
     }
     
-    func findModels<T: NSManagedObject>(with modelClass: T.Type, predicate: NSPredicate? = nil) -> [AnyObject] {
+    func findModels<T: NSManagedObject>(with modelClass: T.Type, predicate: NSPredicate? = nil, sorts: [NSSortDescriptor]? = nil, count: Int? = nil, offset: Int? = nil) -> [AnyObject] {
         let localContext = self.localContext
         var toReturn: [AnyObject] = []
-        let request = self.buildRequest(with: modelClass, predicate: predicate)
+        let request = self.buildRequest(with: modelClass, predicate: predicate, sorts: sorts, offset: offset, limit: count)
         
         localContext.performAndWait {
             let results = modelClass.mr_executeFetchRequest(request, in: localContext)
@@ -136,9 +136,17 @@ class CoreDataStore {
         return CoreDataStore.sharedContext
     }
     
-    private func buildRequest<T: NSManagedObject>(with modelClass: T.Type, predicate: NSPredicate? = nil) -> NSFetchRequest<NSFetchRequestResult> {
+    private func buildRequest<T: NSManagedObject>(with modelClass: T.Type, predicate: NSPredicate? = nil, sorts: [NSSortDescriptor]? = nil, offset: Int? = nil, limit: Int? = nil) -> NSFetchRequest<NSFetchRequestResult> {
         let request = modelClass.mr_requestAll()
         request.predicate = predicate
+        request.sortDescriptors = sorts
+        if let limit = limit {
+            request.fetchLimit = limit
+        }
+        
+        if let offset = offset {
+            request.fetchOffset = offset
+        }
         return request
     }
 }

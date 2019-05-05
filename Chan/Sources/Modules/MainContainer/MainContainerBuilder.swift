@@ -13,7 +13,7 @@ protocol MainContainerDependency: Dependency {
     // created by this RIB.
 }
 
-final class MainContainerComponent: Component<MainContainerDependency>, BoardDependency, FavoritesDependency, HistoryDependency {
+final class MainContainerComponent: Component<MainContainerDependency>, BoardDependency, MarkedDependency {
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
@@ -32,13 +32,14 @@ final class MainContainerBuilder: Builder<MainContainerDependency>, MainContaine
 
     func build(withListener listener: MainContainerListener) -> MainContainerRouting {
         let component = MainContainerComponent(dependency: dependency)
-        let viewController = MainContainerViewController()
-        let interactor = MainContainerInteractor(presenter: viewController)
-        interactor.listener = listener
         
         let board = BoardBuilder(dependency: component)
-        let favorites = FavoritesBuilder(dependency: component)
-        let history = HistoryBuilder(dependency: component)
+        let favorites = MarkedBuilder(dependency: component)
+        let history = MarkedBuilder(dependency: component)
+        
+        let viewController = MainContainerViewController()
+        let interactor = MainContainerInteractor(presenter: viewController, boardInput: board.boardInput)
+        interactor.listener = listener
         
         return MainContainerRouter(interactor: interactor, viewController: viewController, board: board, favorites: favorites, history: history)
     }

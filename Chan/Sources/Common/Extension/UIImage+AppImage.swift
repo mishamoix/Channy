@@ -30,5 +30,8 @@ extension UIImage {
     
     static var addFavorite: UIImage { return UIImage(named: "addFavorites")!}
     static var hide: UIImage { return UIImage(named: "hide")!}
+    
+    static var star: UIImage { return UIImage(named: "star")!}
+    static var fullStar: UIImage { return UIImage(named: "fullStar")!}
 
 }

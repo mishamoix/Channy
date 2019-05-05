@@ -23,6 +23,10 @@ class ThreadViewModel {
     private(set) var titleSize: CGSize = .zero
     
     private(set) var media: MediaModel? = nil
+    var favorited: Bool = false
+    
+    
+    private var sizeCalculated: Bool = false
     
     let uid: String
     
@@ -44,11 +48,17 @@ class ThreadViewModel {
         
         self.postsCount = model.postsCount
         self.media = model.media.first
+        self.favorited = model.favorited
     }
     
     func calculateSize(max width: CGFloat) -> ThreadViewModel {
 //        self.height = ThreadCellMinHeight
-
+        
+        if self.sizeCalculated {
+            return self
+        }
+        
+        self.sizeCalculated = true
         
         let textMaxWidth = width - (ThreadImageLeftMargin + ThreadImageSize + ThreadImageTextMargin + ThreadTextLeftMargin)
         
@@ -74,7 +84,7 @@ extension ThreadViewModel: ListDiffable {
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if let obj = object as? ThreadViewModel {
-            return obj.uid == self.uid
+            return obj.uid == self.uid && obj.favorited == self.favorited
         }
         
         return false

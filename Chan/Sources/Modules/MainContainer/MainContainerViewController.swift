@@ -47,6 +47,10 @@ final class MainContainerViewController: BaseTabBarController, MainContainerPres
     }
     
     
+    func openBoards() {
+        self.selectedIndex = 0
+    }
+    
     
     // MARK: private
     

@@ -104,7 +104,14 @@ class ThreadCell: SwipeCollectionViewCell {
         self.title.frame = CGRect(x: textRightOffset, y: ThreadTopMargin, width: model.titleSize.width, height: model.titleSize.height)
         self.message.frame = CGRect(x: textRightOffset, y: ThreadTopMargin + model.titleSize.height + ThreadTitleMessageMargin, width: model.messageSize.width, height: model.messageSize.height)
         
-        self.starred.isHidden = true
+        
+        if model.favorited {
+            self.starred.image = .fullStar
+        } else {
+            self.starred.image = .star
+        }
+        
+//        self.starred.isHidden = true
         self.newPosts.isHidden = true
         
         self.postsCount.text = String(model.postsCount)

@@ -49,7 +49,7 @@ class ThreadHeaderView: UIView {
         guard let model = model else { return }
         
         self.bgImage.cancelLoad()
-        self.bgImage.loadImage(media: model.media.first)
+        self.bgImage.loadImage(media: model.media.first, full: true)
         
         self.title.text = model.subject
     }
