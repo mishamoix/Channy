@@ -43,7 +43,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     private var viewer: ThreadImageViewer? = nil
     
     let service: ThreadServiceProtocol
-    let historyService: WriteHistoryServiceProtocol?
+    let historyService: WriteMarkServiceProtocol?
     
     private let disposeBag = DisposeBag()
     
@@ -56,7 +56,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     private let replySubject = BehaviorSubject<String>(value: "")
     
-    init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, cachedVM: [PostViewModel]? = nil, thread: ThreadModel?, history: WriteHistoryServiceProtocol? = nil) {
+    init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, cachedVM: [PostViewModel]? = nil, thread: ThreadModel?, history: WriteMarkServiceProtocol? = nil) {
         self.service = service
         self.moduleIsRoot = moduleIsRoot
         self.thread = thread

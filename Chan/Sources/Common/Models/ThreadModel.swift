@@ -35,6 +35,8 @@ class ThreadModel: BaseModel, Decodable {
     var favorited: Bool = false
     var created: Date = Date()
     
+    var hidden: Bool = false
+    
 
     enum CodingKeys : String, CodingKey {
         case id
@@ -74,4 +76,12 @@ class ThreadModel: BaseModel, Decodable {
     }
 
 
+//    override var hash: Int {
+//        return self.id.hash
+//    }
+    
+
+//    override func isEqual(_ object: Any?) -> Bool {
+//        if
+//    }
 }

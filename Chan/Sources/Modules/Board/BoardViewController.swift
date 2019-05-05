@@ -515,11 +515,20 @@ extension BoardViewController: SwipeCollectionViewCellDelegate {
         }
         
         let toFavorites = SwipeAction(style: .default, title: "В избранное") { [weak self] (action, indexPath) in
-            self?.listener?.viewActions.on(.next(.addToFavorites(index: indexPath.row)))
+            
+            guard let self = self else { return }
+            
+            self.listener?.viewActions.on(.next(.addToFavorites(index: indexPath.row)))
+            
+//            let data = self.data[indexPath.item]
+//            data.favorited = !data.favorited
+//
+//            let _ = self.collectionView(self.collectionView, cellForItemAt: indexPath)
+            
         }
         toFavorites.image = .addFavorite
         toFavorites.backgroundColor = bgColor
-        toFavorites.hidesWhenSelected = true
+//        toFavorites.hidesWhenSelected = true
         
         
         let hidePost = SwipeAction(style: .default, title: "Скрыть") { [weak self] (action, indexPath) in
@@ -527,7 +536,7 @@ extension BoardViewController: SwipeCollectionViewCellDelegate {
         }
         hidePost.image = .hide
         hidePost.backgroundColor = bgColor
-        hidePost.hidesWhenSelected = true
+//        hidePost.hidesWhenSelected = true
         
         return [hidePost, toFavorites]
 

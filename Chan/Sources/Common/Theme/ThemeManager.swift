@@ -94,6 +94,20 @@ class ThemeView {
                 textView.textColor = theme.accentText
                 textView.keyboardAppearance = theme.keyboard
             }
+            
+            if let textField = self.view as? UITextField {
+                textField.backgroundColor = theme.background
+                textField.textColor = theme.accentText
+                textField.keyboardAppearance = theme.keyboard
+            }
+            
+            if let searchBar = self.view as? UISearchBar {
+                searchBar.barStyle = .black
+//                searchBar.backgroundColor = theme.background
+//                searchBar.tintColor = theme.accentText
+//                searchBar.keyboardAppearance = theme.keyboard
+//                searchBar.
+            }
             break
         case .text:
             

@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol MainContainerInteractable: Interactable, BoardListener, FavoritesListener, HistoryListener {
+protocol MainContainerInteractable: Interactable, BoardListener, MarkedListener {
     var router: MainContainerRouting? { get set }
     var listener: MainContainerListener? { get set }
 }
@@ -20,7 +20,7 @@ protocol MainContainerViewControllable: ViewControllable {
 final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainContainerViewControllable>, MainContainerRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: MainContainerInteractable, viewController: MainContainerViewControllable, board: BoardBuildable, favorites: FavoritesBuildable, history: HistoryBuildable) {
+    init(interactor: MainContainerInteractable, viewController: MainContainerViewControllable, board: BoardBuildable, favorites: MarkedBuildable, history: MarkedBuildable) {
         
         self.boardBuilder = board
         self.favoritesBuilder = favorites
@@ -35,10 +35,10 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
     private let boardBuilder: BoardBuildable
     private weak var board: ViewableRouting?
     
-    private let favoritesBuilder: FavoritesBuildable
+    private let favoritesBuilder: MarkedBuildable
     private weak var favorites: ViewableRouting?
 
-    private let historyBuilder: HistoryBuildable
+    private let historyBuilder: MarkedBuildable
     private weak var history: ViewableRouting?
 
 
@@ -63,11 +63,11 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
         
         
         if self.canDeattach(router: self.favorites) {
-            let favorites = self.favoritesBuilder.build(withListener: self.interactor)
+            let favorites = self.favoritesBuilder.buildFavorited(withListener: self.interactor)
             self.favorites = favorites
             self.attachChild(favorites)
             
-            let vc = favorites.viewControllable.uiviewController
+            let vc = BaseNavigationController(rootViewController: favorites.viewControllable.uiviewController)
             
             vc.tabBarItem = UITabBarItem(title: "Избранное", image: .favorites, tag: 1)
             
@@ -75,11 +75,11 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
         }
         
         if self.canDeattach(router: self.history) {
-            let history = self.historyBuilder.build(withListener: self.interactor)
+            let history = self.historyBuilder.buildHistory(withListener: self.interactor)
             self.history = history
             self.attachChild(history)
             
-            let vc = history.viewControllable.uiviewController
+            let vc = BaseNavigationController(rootViewController: history.viewControllable.uiviewController)
             
             vc.tabBarItem = UITabBarItem(title: "История", image: .history, tag: 2)
             

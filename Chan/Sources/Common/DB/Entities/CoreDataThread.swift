@@ -20,6 +20,8 @@ class CoreDataThread: NSManagedObject {
     @NSManaged var favorited: Bool
     @NSManaged var created: Date
     
+    @NSManaged var cachedImageURL: String?
+    
     @NSManaged var board: CoreDataBoard
 
     
@@ -75,6 +77,8 @@ extension CoreDataThread: CacheTrackerEntity {
                 self.board = board
             }
             
+            self.cachedImageURL = obj.media.first?.url?.absoluteString
+            
         }
     }
     
@@ -88,6 +92,10 @@ extension CoreDataThread: CacheTrackerEntity {
         
         result.board = self.board.model as? BoardModel
         
+        if let url = self.cachedImageURL {
+            let media = MediaModel(url: url)
+            result.media = [media]
+        }
         
         return result as AnyObject
     }

@@ -15,7 +15,8 @@ protocol MainContainerRouting: ViewableRouting {
 
 protocol MainContainerPresentable: Presentable {
     var listener: MainContainerPresentableListener? { get set }
-    // TODO: Declare methods the interactor can invoke the presenter to present data.
+
+    func openBoards()
 }
 
 protocol MainContainerListener: class {
@@ -27,10 +28,13 @@ final class MainContainerInteractor: PresentableInteractor<MainContainerPresenta
 
     weak var router: MainContainerRouting?
     weak var listener: MainContainerListener?
+    
+    let boardInput: BoardInputProtocol
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
-    override init(presenter: MainContainerPresentable) {
+    init(presenter: MainContainerPresentable, boardInput: BoardInputProtocol) {
+        self.boardInput = boardInput
         super.init(presenter: presenter)
         presenter.listener = self
         
@@ -55,5 +59,11 @@ final class MainContainerInteractor: PresentableInteractor<MainContainerPresenta
     
     func closeMenu() {
         self.listener?.closeMenu()
+    }
+    
+    // MARK: MarkedListener
+    func open(thread: ThreadModel) {
+        self.presenter.openBoards()
+        self.boardInput.open(thread: thread)
     }
 }

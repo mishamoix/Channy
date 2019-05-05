@@ -89,7 +89,7 @@ class ChanImageView: UIImageView {
         }
     }
     
-    func loadImage(media: MediaModel?) {
+  func loadImage(media: MediaModel?, full: Bool = false) {
         self.cancelLoad()
         
         guard let model = media else {
@@ -99,7 +99,10 @@ class ChanImageView: UIImageView {
         self.censor(media: media)
         
         self.image = UIImage.placeholder
-        if let url: URL = (model.thumbnail ?? model.url) {
+    
+        let url = full ? model.url ?? model.thumbnail : model.thumbnail ?? model.url
+    
+        if let url: URL = (url) {
             self.af_setImage(withURL: url)
         }
         

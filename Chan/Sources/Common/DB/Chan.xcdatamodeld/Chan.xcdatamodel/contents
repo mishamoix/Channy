@@ -22,6 +22,7 @@
         <relationship name="boards" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="CoreDataBoard" inverseName="imageboard" inverseEntity="CoreDataBoard" syncable="YES"/>
     </entity>
     <entity name="CoreDataThread" representedClassName="CoreDataThread" syncable="YES">
+        <attribute name="cachedImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="favorited" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
@@ -32,6 +33,6 @@
     <elements>
         <element name="CoreDataBoard" positionX="-63" positionY="-1239.83203125" width="128" height="135"/>
         <element name="CoreDataImageboard" positionX="-345.796875" positionY="-1239.359375" width="128" height="210"/>
-        <element name="CoreDataThread" positionX="-207" positionY="-1152" width="128" height="30"/>
+        <element name="CoreDataThread" positionX="-207" positionY="-1152" width="128" height="150"/>
     </elements>
 </model>

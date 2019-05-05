@@ -34,15 +34,20 @@ final class BoardSelectionViewController: BaseViewController, BoardSelectionPres
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         self.setup()
-        
+        super.viewDidLoad()
         self._uiLoaded.value = true
     }
     
     override func setupTheme() {
         super.setupTheme()
         self.themeManager.append(view: ThemeView(view: self.tableView, type: .table, subtype: .none))
+        if #available(iOS 11.0, *) {
+            self.themeManager.append(view: ThemeView(object: self.navigationItem.searchController?.searchBar, type: .input, subtype: .none))
+        } else {
+            // Fallback on earlier versions
+        }
+        
     }
 
     

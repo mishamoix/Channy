@@ -14,6 +14,13 @@ class MediaModel: BaseModel, Decodable {
     var url: URL? = nil
     var thumbnail: URL? = nil
     
+    
+    init(url: String? = nil) {
+        if let url = url {
+            self.url = URL(string: url)
+        }
+    }
+    
     required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -30,7 +37,7 @@ class MediaModel: BaseModel, Decodable {
   
     enum CodingKeys : String, CodingKey {
         case name
-        case url = "path"
+        case url = "full"
         case thumbnail
         case type
     }

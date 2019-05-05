@@ -36,7 +36,11 @@ protocol BoardListener: class {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
-final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInteractable, BoardPresentableListener {
+protocol BoardInputProtocol {
+    func open(thread: ThreadModel)
+}
+
+final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInteractable, BoardPresentableListener, BoardInputProtocol {
 
 
     weak var router: BoardRouting?
@@ -48,6 +52,8 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     private var data: [ThreadModel] = []
     private var viewModels: [ThreadViewModel] = []
+    
+    private var favoriteService: WriteMarkServiceProtocol
     
     private var currentModel: BoardModel? = nil
     
@@ -61,9 +67,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
-    init(presenter: BoardPresentable, imageboardService: ImageboardCurrentProtocol, service: BoardServiceProtocol) {
+    init(presenter: BoardPresentable, imageboardService: ImageboardCurrentProtocol, service: BoardServiceProtocol, favoriteService: WriteMarkServiceProtocol) {
         self.imageboardService = imageboardService
         self.service = service
+        self.favoriteService = favoriteService
         super.init(presenter: presenter)
         presenter.listener = self
     }
@@ -87,6 +94,12 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     func popToRoot(animated: Bool) {}
     func reply(postUid: String) {}
     
+    
+    // MARK: BoardInputProtocol
+    
+    func open(thread: ThreadModel) {
+        self.router?.open(thread: thread)
+    }
     
     // MARK: Private
     func setup() {
@@ -326,14 +339,6 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 }
 
                 case .copyLinkOnBoard: do {
-//                    if let link = self?.service.board?.buildLink {
-//                        UIPasteboard.general.string = link
-//                        ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: SmallDismissTime)
-//
-//                    } else {
-//                        ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
-//                    }
-
                 }
                 case .viewWillAppear: self?.viewWillAppear()
                 case .openByLink: self?.openByLink()
@@ -343,16 +348,22 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
 //                    self?.router?.openCreateThread(thread)
                     
                 case .addToFavorites(let idx): do {
-                    if let model = self?.data[idx] {
-                        
-                    }
+                    guard let self = self else { return }
+                    let model = self.data[idx]
+                    model.favorited = !model.favorited
+                    self.favoriteService.write(thread: model)
+                    self.viewModels[idx] = ThreadViewModel(with: model)
+                    self.dataSource.value = self.viewModels
+                    
+                    self.favoriteService.write(thread: model)
+                    
                 }
                     
                 case .hide(let idx): do {
-                    if let model = self?.data[idx] {
-                        
-                    }
-
+                    guard let self = self else { return }
+                    let model = self.data[idx]
+//                    model.
+                    
                 }
                 }
                 
