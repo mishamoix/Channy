@@ -72,7 +72,7 @@ final class MainContainerViewController: BaseTabBarController, MainContainerPres
     }
     
     private func setupTheme() {
-        ThemeManager.shared.append(view: ThemeView(view: self.tabBarView, type: .viewControllerBG, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self.tabBarView, type: .background, subtype: .none))
     }
 }
 

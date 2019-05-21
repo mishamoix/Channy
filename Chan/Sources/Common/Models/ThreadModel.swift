@@ -75,6 +75,16 @@ class ThreadModel: BaseModel, Decodable {
         }
     }
 
+    
+    override func copy() -> Any {
+        let thread = ThreadModel(id: self.id, board: self.board)
+        thread.subject = self.subject
+        thread.content = self.content
+        thread.postsCount = self.postsCount
+        thread.markups = self.markups
+
+        return thread
+    }
 
 //    override var hash: Int {
 //        return self.id.hash

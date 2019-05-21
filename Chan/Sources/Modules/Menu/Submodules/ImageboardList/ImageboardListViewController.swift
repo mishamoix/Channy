@@ -55,19 +55,25 @@ final class ImageboardListViewController: BaseViewController, ImageboardListPres
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.register(UINib(nibName: ImageboardCellIdentifier, bundle: nil), forCellReuseIdentifier: ImageboardCellIdentifier)
 
+        
+        let headerHeight: CGFloat = 60
+        
         self.header.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.tableHeaderView = self.header
+        self.view.addSubview(self.header)
+//        self.tableView.tableHeaderView = self.header
         
         self.header.snp.makeConstraints { make in
             make.width.equalToSuperview()
+            make.height.equalTo(headerHeight)
+            make.top.equalToSuperview().offset(self.tableView.frame.minY)
+            
         }
-        
         self.tableView.rowHeight = 80
         self.tableView.delegate = self
         self.tableView.dataSource = self
+      
         
-        
-        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: MenuIndicatorBottomOffset, right: 0)
+        self.tableView.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: MenuIndicatorBottomOffset, right: 0)
         
     }
     

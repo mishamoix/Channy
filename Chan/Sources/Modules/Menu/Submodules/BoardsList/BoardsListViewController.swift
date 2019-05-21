@@ -153,11 +153,22 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.tableView.reorder.isEnabled = false
         
         self.header.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.tableHeaderView = self.header
+//        self.tableView.tableHeaderView = self.header
+        self.view.addSubview(self.header)
+        
+        let headerHeight: CGFloat = 60
+
         
         self.header.snp.makeConstraints { make in
             make.width.equalToSuperview()
+            make.left.equalToSuperview()
+            make.height.equalTo(headerHeight)
+            make.top.equalToSuperview().offset(self.tableView.frame.minY)
+            
         }
+        
+        self.tableView.contentInset = UIEdgeInsets(top: headerHeight + 2, left: 0, bottom: MenuIndicatorBottomOffset, right: 0)
+
 
         
         if #available(iOS 11.0, *) {} else {

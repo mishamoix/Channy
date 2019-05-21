@@ -71,7 +71,15 @@ class ThreadService: BaseService, ThreadServiceProtocol {
                 if let postsData = self.toJson(array: posts), let threadData = self.toJson(any: threadDict) {
                     
                     if let thread = ThreadModel.parse(from: threadData), let postsArray = PostModel.parseArray(from: postsData) {
-                        thread.posts = postsArray
+                        
+                        var idx = 0
+                        
+                        thread.posts = postsArray.map({ (model) -> PostModel in
+                            idx += 1
+                            model.number = idx
+                            return model
+                        })
+                        
                         result = thread
                         
                         thread.board = self.thread.board

@@ -46,9 +46,12 @@ class Style {
         text.addAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.quote], range: range)
     }
     
-    class func reply(text: NSMutableAttributedString, range: NSRange) {
-        text.addAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.accnt], range: range)
-
+    class func reply(text: NSMutableAttributedString, range: NSRange, reply: String? = nil) {
+        if let reply = reply {
+            text.addAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.accnt], range: range)
+            let replyAttrs = [NSAttributedString.Key.reply: reply]
+            text.addAttributes(replyAttrs, range: range)
+        }
     }
     
     class func strikethrough(text: NSMutableAttributedString, range: NSRange) {

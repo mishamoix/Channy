@@ -32,8 +32,8 @@ class PostManager {
     
     func process() {
         var result: [PostViewModel] = []
-        for (idx, post) in self.posts.enumerated() {
-            let vm = PostViewModel(model: post, idx: idx + 1)
+        for post in self.posts {
+            let vm = PostViewModel(model: post)
             result.append(vm)
 //            PostPreparation
         }

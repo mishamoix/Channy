@@ -15,7 +15,7 @@ enum ThemeViewType {
 //    case view
     case navBar
     case navBarButton
-    case viewControllerBG
+    case background
     case cell
     case text
     case separator
@@ -73,7 +73,7 @@ class ThemeView {
         case .collection:
             (self.view as? UICollectionView)?.backgroundColor = theme.background
             break
-        case .viewControllerBG:
+        case .background:
             (self.view as? UIView)?.backgroundColor = theme.background
             break
         case .separator:
@@ -134,7 +134,7 @@ class ThemeView {
                 navBar.layoutIfNeeded()
             }
         case .icon:
-            (view as? UIImageView)?.tintColor = theme.accnt
+            (view as? UIImageView)?.tintColor = theme.border
         case .navBarButton:
             (view as? UIBarButtonItem)?.tintColor = theme.accnt
             (view as? UIButton)?.tintColor = theme.accnt

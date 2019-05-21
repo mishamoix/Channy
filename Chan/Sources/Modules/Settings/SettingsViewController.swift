@@ -266,7 +266,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         
         self.themeManager.append(view: ThemeView(view: self.infoTextView, type: .input, subtype: .none))
       
-        self.themeManager.append(view: ThemeView(view: self.view, type: .viewControllerBG, subtype: .none))
+        self.themeManager.append(view: ThemeView(view: self.view, type: .background, subtype: .none))
     }
     
     

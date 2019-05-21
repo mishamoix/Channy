@@ -41,13 +41,21 @@ class MarkupModel: BaseModel, Decodable {
     var start: Int = 0
     var end: Int = 0
     
+    var extra: [String: Any] = [:]
+    
     enum CodingKeys : String, CodingKey {
         case type = "kind"
         case start
         case end
+        
+        case post
+//        case thread
     }
     
     public required init(from decoder: Decoder) throws {
+        
+        var extra: [String: Any] = [:]
+        
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         if let type = try? values.decode(String.self, forKey: .type) {
@@ -59,6 +67,13 @@ class MarkupModel: BaseModel, Decodable {
         if let end = try? values.decode(Int.self, forKey: .end) {
             self.end = end
         }
+        
+        if let post = try? values.decode(String.self, forKey: .post) {
+            extra["post"] = post
+        }
+        
+        self.extra = extra
+        
     }
     
     

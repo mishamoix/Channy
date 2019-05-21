@@ -23,8 +23,8 @@ class ImageboardHeader: BaseView {
     }
     
     override func setupTheme() {
-        self.backgroundColor = .clear
-//        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .none))
+//        self.backgroundColor = .clear
+        ThemeManager.shared.append(view: ThemeView(view: self, type: .background, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.title, type: .text, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.settingsButton, type: .navBarButton, subtype: .none))
     }

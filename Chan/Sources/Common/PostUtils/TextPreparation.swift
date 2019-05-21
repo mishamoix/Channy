@@ -34,10 +34,10 @@ class TextPreparation {
         
         for markup in self.markups {
             
-            if markup.end > self.text.count {
-                let a = 1
-            }
-            
+//            if markup.end > self.text.count {
+//                let a = 1
+//            }
+//
             
             let length = markup.end - markup.start
             
@@ -46,7 +46,7 @@ class TextPreparation {
             switch markup.type {
                 case .bold: Style.strong(text: attributed, range: range)
                 case .quote: Style.quote(text: attributed, range: range)
-                case .reply: Style.reply(text: attributed, range: range)
+                case .reply: Style.reply(text: attributed, range: range, reply: markup.extra["post"] as? String)
                 case .spoiler: Style.spoiler(text: attributed, range: range)
                 case .strikethrough: Style.strikethrough(text: attributed, range: range)
                 case .none: break

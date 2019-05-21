@@ -31,7 +31,7 @@ final class ThreadRouter: ViewableRouter<ThreadInteractable, ThreadViewControlla
     // MARK: ThreadRouting
     func openThread(with post: PostReplysViewModel) {
         if self.canDeattach(router: self.thread) {
-            let thread = self.threadBuilder.build(withListener: self.interactor, replys: post)
+            let thread = self.threadBuilder.build(withListener: self.interactor, reply: post)
             self.thread = thread
             self.attachChild(thread)
             self.viewController.push(view: thread.viewControllable)

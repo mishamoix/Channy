@@ -56,7 +56,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     private let replySubject = BehaviorSubject<String>(value: "")
     
-    init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, cachedVM: [PostViewModel]? = nil, thread: ThreadModel?, history: WriteMarkServiceProtocol? = nil) {
+    init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, thread: ThreadModel?, history: WriteMarkServiceProtocol? = nil) {
         self.service = service
         self.moduleIsRoot = moduleIsRoot
         self.thread = thread
@@ -135,14 +135,22 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
             .subscribe(onNext: { [weak self] action in
                 switch action {
                 case .openReplys(let postUid): do {
-//                    if let post = self?.data.filter({ $0.uid == postUid }).first, let posts = self?.data, let thread = self?.service.thread {
-//                        let replyModel = PostReplysViewModel(parent: post, posts: posts, thread: thread, cachedVM: self?.postsManager?.internalPostVM)
-//                        self?.router?.openThread(with: replyModel)
-//                    }
+                    if let post = self?.data.filter({ $0.uid == postUid }).first, let thread = self?.thread {
+                        let model = PostReplysViewModel(parent: post, thread: thread)
+                        self?.router?.openThread(with: model)
+                    }
+                }
+                case .openPostReply(let postUid): do {
+                    if let post = self?.thread?.posts.filter({ $0.uid == postUid }).first, let thread = self?.thread {
+                        let model = PostReplysViewModel(parent: post, thread: thread, type: .reply)
+                        self?.router?.openThread(with: model)
+                    }
+
                 }
                 case .reply(let postUid): self?.reply(postUid: postUid)
                 case .refresh: do {
                     if self?.moduleIsRoot ?? false {
+                        self?.load()
 //                        self?.postsManager?.resetCache()
 //                        self?.load()
                     }
@@ -198,20 +206,12 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 
                 let thread = result.result
                 
-                self.thread = thread
+                if self.moduleIsRoot {
+                    self.thread = thread
+                }
                 self.data = thread.posts
 
-//                switch result.type {
-//                case .all:
-//                    strongSelf.postsManager?.resetFilters()
-//                    let files = models.flatMap { $0.files }
-////                    CensorManager.censor(files: files)
-//                case .replys(let parent): strongSelf.postsManager?.addFilter(by: parent.uid)
-//                case .replyed(let model): strongSelf.postsManager?.onlyReplyed(uid: model.uid)
-//                }
-//                self?.postsManager?.update(posts: models)
-
-                self.mainViewModel.value = PostMainViewModel(thread: self.thread, canRefresh: self.moduleIsRoot)
+                self.mainViewModel.value = PostMainViewModel(thread: thread, canRefresh: self.moduleIsRoot)
 
                 return Observable<ThreadModel>.just(thread)
             })
