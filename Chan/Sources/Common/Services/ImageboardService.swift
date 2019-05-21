@@ -80,6 +80,7 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
                 }
                                 
             }, onError: { error in
+              let a = 1
 //                self?.replaySubject.on(.error(error))
             })
             .disposed(by: self.disposeBag)

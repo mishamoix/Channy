@@ -43,7 +43,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     private var writeButton: UIButton? = nil
     private var moreButton: UIBarButtonItem? = nil
     
-    private let header = ThreadHeaderView(max: 200, min: 60)
+    private let header = ThreadHeaderView(max: 200, min: 40)
 
 //    moreButton
     
@@ -53,6 +53,9 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     // MARK: Data
     private var data: [PostViewModel] = []
     var autosctollUid: String? = nil
+    var isSubmodule: Bool {
+        return !(self.listener?.moduleIsRoot ?? false)
+    }
 
     
     override func viewDidLoad() {
@@ -131,28 +134,35 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     
     
     private func setupRx() {
-        self.listener?.mainViewModel
+        self.listener?
+            .mainViewModel
             .asObservable()
             .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] model in
                 
-                self?.header.update(model: model.thread)
+                guard let self = self else { return }
+                
+                self.header.update(model: model.thread)
                                 
-                self?.setupRefreshers(can: model.canRefresh)
+                self.setupRefreshers(can: model.canRefresh)
+                
+                if self.isSubmodule {
+                    self.navigationItem.title = model.title
+                }
                 
                 if model.canRefresh {
                     if #available(iOS 10.0, *) {
-                        self?.collectionView.refreshControl = self?.refreshControl
+                        self.collectionView.refreshControl = self.refreshControl
                     } else {
-                        if let refresher = self?.refreshControl {
-                            self?.collectionView.addSubview(refresher)
-                        }
+//                        if let refresher =  {
+                            self.collectionView.addSubview(self.refreshControl)
+//                        }
                     }
                 } else {
                     if #available(iOS 10.0, *) {
-                        self?.collectionView.refreshControl = nil
+                        self.collectionView.refreshControl = nil
                     } else {
-                        self?.refreshControl.removeFromSuperview()
+                        self.refreshControl.removeFromSuperview()
                     }
                 }
                 
@@ -196,6 +206,11 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                     if let idx = self?.collectionView.indexPath(for: cell), let post = self?.data[idx.item] {
                         self?.listener?.viewActions.on(.next(.reply(postUid: post.uid)))
                     }
+                }
+                case .openPostReply(let reply, _): do {
+//                    if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
+                        self?.listener?.viewActions.on(.next(.openPostReply(postUid: reply)))
+//                    }
                 }
                     
                 case .tappedAtLink(let url, let cell): do {
@@ -357,6 +372,11 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     }
     
     private func setupHeader() {
+        
+        if self.isSubmodule {
+            return
+        }
+        
 //        let view = UIView()
 //        view.backgroundColor = .green
         
@@ -377,16 +397,18 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             collectionLayout.minimumInteritemSpacing = PostCellTopMargin
         }
 //        PostCellTopMargin + (self.navigationController?.navigationBar.frame.size.height ?? 0)
-        self.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.collectionView.contentInset.bottom + PostCellBottomMargin, right: 0)
         
-//        if #available(iOS 11.0, *) {
-//            self.collectionView.contentInsetAdjustmentBehavior = .never
-//        } else {
-//            self.automaticallyAdjustsScrollViewInsets = false
-//        }
+        var topInset: CGFloat = 0
+        if self.isSubmodule {
+            topInset = PostCellTopMargin
+        }
+        
+        self.collectionView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: self.collectionView.contentInset.bottom + PostCellBottomMargin, right: 0)
         
         self.collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCellIdentifier)
         self.collectionView.register(PostMediaCell.self, forCellWithReuseIdentifier: PostMediaCellIdentifier)
+        
+        self.collectionView.alwaysBounceVertical = true
     }
     
     private func setupRefreshers(can refresh: Bool) {
@@ -453,7 +475,8 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: PostCellIdentifier, for: index)
         }
     
-        if let cl = cell as? BasePostCellProtocol {
+        if var cl = cell as? BasePostCellProtocol {
+            cl.canBeFirst = !self.isSubmodule
             cl.update(with: data)
             cl.update(action: self.cellActions)
         }

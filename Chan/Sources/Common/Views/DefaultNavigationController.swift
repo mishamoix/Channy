@@ -23,7 +23,7 @@ class DefaultNavigationController: UINavigationController {
     private func setupTheme() {
         self.themeManager.append(view: ThemeView(object: self.navigationBar, type: .navBar, subtype: .none))
         self.themeManager.append(view: ThemeView(object: self, type: .viewController, subtype: .none))
-        self.themeManager.append(view: ThemeView(object: self.view, type: .viewControllerBG, subtype: .none))
+        self.themeManager.append(view: ThemeView(object: self.view, type: .background, subtype: .none))
         
         self.navigationBar.tintColor = .main
     }

@@ -10,5 +10,6 @@ import Foundation
 
 extension NSAttributedString.Key {
     public static let chanlink: NSAttributedString.Key = NSAttributedString.Key(rawValue: "chanLink")
+    public static let reply: NSAttributedString.Key = NSAttributedString.Key(rawValue: "reply")
 
 }

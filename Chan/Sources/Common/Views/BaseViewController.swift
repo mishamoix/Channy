@@ -54,7 +54,7 @@ open class BaseViewController: UIViewController, HalfSheetPresentingProtocol {
 
     
     func setupTheme() {
-        self.themeManager.append(view: ThemeView(view: self.view, type: .viewControllerBG, subtype: .none))
+        self.themeManager.append(view: ThemeView(view: self.view, type: .background, subtype: .none))
         self.themeManager.append(view: ThemeView(object: self, type: .viewController, subtype: .none))
     }
     

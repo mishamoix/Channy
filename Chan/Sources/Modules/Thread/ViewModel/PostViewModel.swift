@@ -73,7 +73,7 @@ class PostViewModel {
         return self.number == 1
     }
     
-    init(model: PostModel, idx: Int) {
+    init(model: PostModel) {
         self.uid = model.uid
         self.media = model.files
         self.modifier = TextPreparation(text: model.comment, decorations: model.markups)
@@ -81,7 +81,7 @@ class PostViewModel {
         let date = Date(timeIntervalSince1970: model.date)
 
         self.name = model.name
-        self.number = idx
+        self.number = model.number
         self.date = String.date(from: date)
         
         self.replyPosts = model.selfReplies
@@ -99,8 +99,12 @@ class PostViewModel {
 
         let headerSection: CGFloat = PostHeaderHeight
         var mediaSection: CGFloat = 0
-        let textSection: CGFloat = PostTextTopMargin + textHeight
+        var textSection: CGFloat = 0
         var bottomSection: CGFloat = 0
+        
+        if self.text.string.count > 0 {
+            textSection = PostTextTopMargin + textHeight
+        }
         
         var mediaWidthHeight: CGFloat = 0
         
@@ -109,11 +113,11 @@ class PostViewModel {
             mediaSection = PostMediaTopMargin + mediaWidthHeight
         }
         
-//        if !self.shoudHideReplyedButton {
+        if self.replyPosts.count != 0 {
             bottomSection += PostButtonTopMargin + PostBottomHeight
-//        } else {
-//            bottomSection = PostTextBottomMargin
-//        }
+        } else {
+            bottomSection = PostTextBottomMargin
+        }
 
         self.titleFrame = CGRect(x: PostTitleLeftMargin, y: PostTitleTopMargin, width: width - (PostTitleLeftMargin + PostTitleRightMargin), height: 0)
         self.mediaFrame = CGRect(x: PostMediaMargin, y: headerSection + PostMediaTopMargin, width: mediaWidthHeight, height: mediaWidthHeight)
