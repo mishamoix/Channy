@@ -37,10 +37,9 @@ class BoardsTableHeader: UITableViewHeaderFooterView {
     
     
     private func setupTheme() {
-        self.backgroundColor = .clear
-        self.canvasView.backgroundColor = .clear
-        ThemeManager.shared.append(view: ThemeView(view: self, type: .background, subtype: .none))
-
+//        self.backgroundColor = .clear
+//        self.canvasView.backgroundColor = .clear
+        ThemeManager.shared.append(view: ThemeView(view: self.canvasView, type: .background, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.boardTitle, type: .text, subtype: .none))
     }
     

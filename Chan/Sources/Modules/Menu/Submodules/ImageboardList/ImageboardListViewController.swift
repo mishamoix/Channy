@@ -65,8 +65,7 @@ final class ImageboardListViewController: BaseViewController, ImageboardListPres
         self.header.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.height.equalTo(headerHeight)
-            make.top.equalToSuperview().offset(self.tableView.frame.minY)
-            
+            make.top.equalToSuperview().offset(Utils.statusBarHeight)
         }
         self.tableView.rowHeight = 80
         self.tableView.delegate = self

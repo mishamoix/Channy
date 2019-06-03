@@ -154,6 +154,8 @@
 		0A5D949021923CB500E84314 /* DefaultNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D948F21923CB500E84314 /* DefaultNavigationController.swift */; };
 		0A65579B21B6C6D9003FA355 /* ImageFixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65579A21B6C6D9003FA355 /* ImageFixer.swift */; };
 		0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */; };
+		0A6C2CB122958CF600147C09 /* StatusbarBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C2CB022958CF600147C09 /* StatusbarBackground.swift */; };
+		0A6C2CB322958F6900147C09 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C2CB222958F6900147C09 /* Utils.swift */; };
 		0A6D8F40227F21E200AC6382 /* MarkedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D8F3F227F21E200AC6382 /* MarkedCell.swift */; };
 		0A72E18721B95BEF00BD488E /* WriteResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72E18621B95BEF00BD488E /* WriteResponseModel.swift */; };
 		0A72E18E21BABEB500BD488E /* StatisticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72E18D21BABEB500BD488E /* StatisticManager.swift */; };
@@ -429,6 +431,8 @@
 		0A5D948F21923CB500E84314 /* DefaultNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationController.swift; sourceTree = "<group>"; };
 		0A65579A21B6C6D9003FA355 /* ImageFixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFixer.swift; sourceTree = "<group>"; };
 		0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.Key.swift; sourceTree = "<group>"; };
+		0A6C2CB022958CF600147C09 /* StatusbarBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusbarBackground.swift; sourceTree = "<group>"; };
+		0A6C2CB222958F6900147C09 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		0A6D8F3F227F21E200AC6382 /* MarkedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedCell.swift; sourceTree = "<group>"; };
 		0A72E18621B95BEF00BD488E /* WriteResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteResponseModel.swift; sourceTree = "<group>"; };
 		0A72E18D21BABEB500BD488E /* StatisticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticManager.swift; sourceTree = "<group>"; };
@@ -725,6 +729,8 @@
 				0A86048522106817004C6B6C /* VLCOpener.swift */,
 				0A8641272250F3A6000BBE07 /* UCCTransliteration.swift */,
 				0A18F62E2275EAA6002D21DA /* ValueMapper.swift */,
+				0A6C2CB022958CF600147C09 /* StatusbarBackground.swift */,
+				0A6C2CB222958F6900147C09 /* Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1792,6 +1798,7 @@
 				0A37B02821BC3873009EC571 /* AXPhotosTransitionAnimator.swift in Sources */,
 				0A37B02921BC3873009EC571 /* AXPhotosDismissalAnimator.swift in Sources */,
 				0A4FEA2E2275F14E00A78A72 /* UIScrollView+ParallaxHeader.swift in Sources */,
+				0A6C2CB322958F6900147C09 /* Utils.swift in Sources */,
 				0A37B02A21BC3873009EC571 /* FLAnimatedImageView+AXExtensions.m in Sources */,
 				0A37B02B21BC3873009EC571 /* UIView+Animations.swift in Sources */,
 				0A37B02C21BC3873009EC571 /* UIImageView+AXExtensions.m in Sources */,
@@ -1926,6 +1933,7 @@
 				0A905F7421A9C1E400ADE51E /* WriteService.swift in Sources */,
 				0A326B9B225CEADE00E94AED /* DismissalAnimator.swift in Sources */,
 				0A2E0C9C2145464000CBD619 /* Error.swift in Sources */,
+				0A6C2CB122958CF600147C09 /* StatusbarBackground.swift in Sources */,
 				0AD5C2DA215AC89700F68AF4 /* ErrorManager.swift in Sources */,
 				0AAFBBF2227EF2740085DB51 /* MarkedViewController.swift in Sources */,
 				0A905F7A21A9C5FF00ADE51E /* WriteConstants.swift in Sources */,

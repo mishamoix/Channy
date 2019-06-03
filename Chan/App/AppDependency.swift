@@ -47,6 +47,8 @@ class AppDependency: NSObject {
         let launchRouter = RootBuilder(dependency: AppComponent()).build()
         self.launchRouter = launchRouter
         launchRouter.launchFromWindow(window)
+        
+        self.prepareUIElements()
     }
     
     func commonSetup() {
@@ -89,6 +91,12 @@ class AppDependency: NSObject {
         UIMenuController.shared.setMenuVisible(true, animated: true)
         
         UIApplication.shared.isIdleTimerDisabled = true
+        
+        
+    }
+    
+    func prepareUIElements() {
+        StatusbarBackground.shared.changeBG()
     }
 
     
