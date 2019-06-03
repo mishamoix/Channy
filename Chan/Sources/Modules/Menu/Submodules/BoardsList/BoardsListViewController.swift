@@ -142,6 +142,13 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     }
     
     private func setupTableView() {
+        
+        self.tableView.snp.makeConstraints { make in
+            make.right.left.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(Utils.statusBarHeight)
+//            make.edges.equalToSuperview()
+        }
+        
         self.tableView.register(UINib(nibName: BoardsListCellIdentifier, bundle: nil), forCellReuseIdentifier: BoardsListCellIdentifier)
         self.tableView.register(UINib(nibName: BoardsTableHeaderIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: BoardsTableHeaderIdentifier)
         
@@ -151,8 +158,9 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.tableView.keyboardDismissMode = .interactive
         self.tableView.reorder.delegate = self
         self.tableView.reorder.isEnabled = false
-        
-        self.header.translatesAutoresizingMaskIntoConstraints = false
+//        self.automaticallyAdjustsScrollViewInsets = false
+
+//        self.header.translatesAutoresizingMaskIntoConstraints = false
 //        self.tableView.tableHeaderView = self.header
         self.view.addSubview(self.header)
         
@@ -163,17 +171,15 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
             make.width.equalToSuperview()
             make.left.equalToSuperview()
             make.height.equalTo(headerHeight)
-            make.top.equalToSuperview().offset(self.tableView.frame.minY)
-            
+            make.top.equalToSuperview().offset(Utils.statusBarHeight)
         }
         
         self.tableView.contentInset = UIEdgeInsets(top: headerHeight + 2, left: 0, bottom: MenuIndicatorBottomOffset, right: 0)
 
 
         
-        if #available(iOS 11.0, *) {} else {
-            self.automaticallyAdjustsScrollViewInsets = false
-        }
+//        if #available(iOS 11.0, *) {} else {
+//        }
         
         
     }
