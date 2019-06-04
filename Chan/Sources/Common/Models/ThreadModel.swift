@@ -8,6 +8,23 @@
 
 import UIKit
 
+enum ThreadModelType: String {
+    case none = "none"
+    case history = "history"
+    case favorited = "favorited"
+    
+    static func type(_ string: String) -> ThreadModelType {
+        switch string {
+        case "history":
+            return .history
+        case "favorited":
+            return .favorited
+        default:
+            return .none
+        }
+    }
+}
+
 class ThreadModel: BaseModel, Decodable {
     
     // old
@@ -32,7 +49,10 @@ class ThreadModel: BaseModel, Decodable {
     var media: [MediaModel] = []
     var posts: [PostModel] = []
     
-    var favorited: Bool = false
+    var type: ThreadModelType = .none
+    
+//    var favorited: Bool = false
+//    var history: Bool = false
     var created: Date = Date()
     
     var hidden: Bool = false

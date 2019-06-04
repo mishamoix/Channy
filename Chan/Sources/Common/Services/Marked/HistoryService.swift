@@ -10,5 +10,30 @@ import UIKit
 
 
 class HistoryService: MarkService {
+    
+    override func write(thread: ThreadModel) {
+        if thread.type != .favorited {
+            thread.type = .history
+            super.write(thread: thread)
+        }
+    }
 
+    
+    override var readQuery: NSPredicate? {
+//        if let board = self.board {
+//            return NSPredicate(format: "history = true AND board.id = \"\(board.id)\"")
+//        } else {
+            return NSPredicate(format: "type = \"history\"")
+//        }
+    }
+
+    
+    override func delete(marked thread: ThreadModel) {
+        let predicate = NSPredicate(format: "board.id = \"\(thread.board!.id)\" AND id = \"\(thread.id)\" AND type = \"history\"")
+        self.coreData.delete(with: CoreDataThread.self, predicate: predicate)
+    }
+    
+    override func deleteAll() {
+        self.coreData.delete(with: CoreDataThread.self, predicate: self.readQuery)
+    }
 }

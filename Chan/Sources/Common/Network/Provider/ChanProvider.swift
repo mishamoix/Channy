@@ -47,6 +47,36 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
         manager.startRequestsImmediately = false
         return manager
     }
+    
+    @discardableResult
+    open override func request(_ target: Target,
+                      callbackQueue: DispatchQueue? = .none,
+                      progress: ProgressBlock? = .none,
+                      completion: @escaping Completion) -> Cancellable {
+        
+        
+//        let ownCompletion: Completion = { result in
+////            res
+//            switch result {
+//            case .failure(let error):
+//                if let err = try? error.response?.mapJSON() as? [String: Any] {
+//                    if let value = err?["error"] as? String {
+////                        let error = ChanError.error(title: "Ошибка", description: value)
+////                        let finally: Result<Response, Error> = Result<Response, ChanError>(error: )
+//                        return completion()
+//                    }
+//                }
+//            default:
+//                return completion(result)
+//
+//            }
+//
+//            completion(result)
+//        }
+        
+        return super.request(target, callbackQueue: callbackQueue, progress: progress, completion: completion)
+    }
+
 
     
 }

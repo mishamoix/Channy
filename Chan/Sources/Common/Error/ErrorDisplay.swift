@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import Moya
 
 protocol ErrorDisplayProtocol {
     init(error: Error)
@@ -59,9 +60,6 @@ class ErrorDisplay: ErrorDisplayProtocol {
     
     func show(on vc: UIViewController?) {
         let error = ErrorHelper(error: self.error).makeError()
-        
-        
-        
         if let err = error as? ChanError {
             if err == .none {
                 return
@@ -70,6 +68,7 @@ class ErrorDisplay: ErrorDisplayProtocol {
         } else {
             let message = self.error.localizedDescription
             self.showAlertView(with: nil, message: message, vc: vc)
+
         }
     }
     

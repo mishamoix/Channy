@@ -350,7 +350,11 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 case .addToFavorites(let idx): do {
                     guard let self = self else { return }
                     let model = self.data[idx]
-                    model.favorited = !model.favorited
+                    if model.type == .favorited {
+                        model.type = .none
+                    } else {
+                        model.type = .favorited
+                    }
                     self.favoriteService.write(thread: model)
                     self.viewModels[idx] = ThreadViewModel(with: model)
                     self.dataSource.value = self.viewModels

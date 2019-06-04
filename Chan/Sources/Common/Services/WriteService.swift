@@ -15,6 +15,7 @@ protocol WriteServiceProtocol: BaseServiceProtocol {
     func format(for model: WriteModel) -> Observable<[String: Any]>
     func send(model: WriteModel) -> Observable<WriteResponseModel>
     var thread: ThreadModel { get }
+    var currentImageboard: ImageboardModel { get }
 }
 
 class WriteService: BaseService, WriteServiceProtocol {
@@ -25,6 +26,10 @@ class WriteService: BaseService, WriteServiceProtocol {
     
     init(thread: ThreadModel) {
         self.thread = thread
+    }
+    
+    var currentImageboard: ImageboardModel {
+        return self.thread.board!.imageboard!
     }
 
     func loadInvisibleRecaptcha() -> Observable<String> {

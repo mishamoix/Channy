@@ -35,14 +35,14 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
     var viewActions: PublishSubject<WriteViewActions> = PublishSubject()
     
     private let service: WriteServiceProtocol
-    private let imageboardService: ImageboardServiceProtocol
+//    private let imageboardService: ImageboardServiceProtocol
     private let disposeBag = DisposeBag()
 
 
     init(presenter: WritePresentable, service: WriteServiceProtocol, imageboardService: ImageboardServiceProtocol, state: WriteModuleState) {
         self.service = service
         self.moduleState = state
-        self.imageboardService = imageboardService
+//        self.imageboardService = imageboardService
         super.init(presenter: presenter)
         presenter.listener = self
         
@@ -61,7 +61,8 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
     }
     
     func imagesCount() -> Observable<Int> {
-        return self.imageboardService.currentImageboard().map({ $0?.maxImages ?? 0 })
+        return Observable<Int>.just(self.service.currentImageboard.maxImages)
+//        return self.service.currentImageboard.map({ $0?.maxImages ?? 0 })
     }
     
     // MARK: Private
@@ -95,7 +96,9 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
             .just(())
             .flatMap { [weak self] _ -> Observable<(String?, String)> in
                 guard let self = self else { return Observable<(String?, String)>.error(ChanError.none) }
-                return self.imageboardService.currentImageboard().map({ return ($0?.captcha?.key, $0!.baseURL!.absoluteString)})
+                
+                let imageboard = self.service.currentImageboard
+                return Observable<(String?, String)>.just((imageboard.captcha?.key, imageboard.baseURL!.absoluteString))
             }
             .observeOn(Helper.rxMainThread)
             .flatMap { [weak self] (recaptchaId, host) -> Observable<WriteModel> in

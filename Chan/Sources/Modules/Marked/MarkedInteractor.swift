@@ -76,6 +76,18 @@ final class MarkedInteractor: PresentableInteractor<MarkedPresentable>, MarkedIn
         return self.canLoadMore
     }
     
+    func delete(uid: String) {
+        if let thread = self.threads.first(where: { $0.id == uid }) {
+            self.service.delete(marked: thread)
+            self.load(reload: true)
+        }
+    }
+    
+    func deleteAll() {
+        self.service.deleteAll()
+        self.load(reload: true)
+    }
+    
     // MARK: Private
     private func setupRx() {
     }
@@ -97,4 +109,6 @@ final class MarkedInteractor: PresentableInteractor<MarkedPresentable>, MarkedIn
         self.presenter.update(with: self.threads)
         
     }
+    
+    
 }

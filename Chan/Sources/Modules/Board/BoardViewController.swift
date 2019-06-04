@@ -182,23 +182,32 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                     let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
                     self?.data = result
                     
-                    collectionView.performBatchUpdates({
-                        collectionView.deleteItems(at: diff.deletes)
-                        collectionView.insertItems(at: diff.inserts)
-                        collectionView.reloadItems(at: diff.updates)
-                        for move in diff.moves {
-                            collectionView.moveItem(at: move.from, to: move.to)
-                        }
-
-                    }, completion: { finished in
-                        if self?.needStopLoadersAfterRefresh ?? true {
-                            self?.stopAnyLoaders()
-                        }
-                    })
-                } else {
-                    self?.collectionView.reloadData()
+                    let movesNotNull = diff.moves.count != 0
+                    let otherNotNull = (diff.updates.count + diff.deletes.count + diff.inserts.count) != 0
                     
+                    if (movesNotNull && !otherNotNull || !movesNotNull) {
+                    
+                        collectionView.performBatchUpdates({
+                            for move in diff.moves {
+                                collectionView.moveItem(at: move.from, to: move.to)
+                            }
+
+                            collectionView.deleteItems(at: diff.deletes)
+                            collectionView.insertItems(at: diff.inserts)
+                            collectionView.reloadItems(at: diff.updates)
+
+                        }, completion: { finished in
+                            if self?.needStopLoadersAfterRefresh ?? true {
+                                self?.stopAnyLoaders()
+                            }
+                        })
+                        
+                        return
+                    }
                 }
+                
+                self?.collectionView.reloadData()
+                
             }).disposed(by: self.disposeBag)
         
         self.cellActions
