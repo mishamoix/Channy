@@ -58,7 +58,7 @@ class ErrorHelper {
     
     private func make(moya error: MoyaError) -> ChanError {
         switch error {
-        case .underlying(let _, let response):
+        case .underlying(_, let response):
             if response == nil {
                 return .offline
             } else if response?.statusCode ?? 0 == 404 {

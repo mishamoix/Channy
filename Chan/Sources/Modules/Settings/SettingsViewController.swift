@@ -12,6 +12,7 @@ import UIKit
 
 protocol SettingsPresentableListener: class {
     func limitorChanged()
+    func historyWriteChanged(write: Bool)
 }
 
 final class SettingsViewController: UITableViewController, SettingsPresentable, SettingsViewControllable {
@@ -36,16 +37,22 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     @IBOutlet weak var changeThemeButton: UIButton!
     @IBOutlet weak var changeDefaultBrowser: UIButton!
     
+    @IBOutlet weak var cellCanvasHistory: UIView!
+    @IBOutlet weak var historySwitch: UISwitch!
+    @IBOutlet weak var titleHistory: UILabel!
+    @IBOutlet weak var subtitleHistory: UILabel!
+    
+    
     private var canvas: [UIView] {
-        return [cellCanvasLimitor, cellCanvasNightMode, cellCanvasVersion, cellCanvasNightMode2]
+        return [cellCanvasLimitor, cellCanvasNightMode, cellCanvasVersion, cellCanvasNightMode2, cellCanvasHistory]
     }
     
     private var titles: [UILabel] {
-        return [titleLimitor, titleVersion]
+        return [titleLimitor, titleVersion, titleHistory]
     }
     
     private var subtitels: [UILabel] {
-        return [subtitleLimitor]
+        return [subtitleLimitor, subtitleHistory]
     }
     
     public var managedScrollView: UIScrollView? {
@@ -76,6 +83,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     private func setupUI() {
         
         self.limitorSwitch.isOn = Values.shared.safeMode
+        self.historySwitch.isOn = Values.shared.historyWrite
         self.navigationItem.title = "Настройки"
 
         self.infoTextView.text = FirebaseManager.shared.mainInfo
@@ -242,6 +250,17 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                 self?.dismiss()
             })
             .disposed(by: self.disposeBag)
+        
+        
+        self.historySwitch
+            .rx
+            .controlEvent(.valueChanged)
+            .subscribe(onNext: { [weak self] _ in
+                if let value = self?.historySwitch.isOn {
+                    self?.listener?.historyWriteChanged(write: value)
+                }
+            })
+            .disposed(by: self.disposeBag)
     }
     
     private func setupVersion() {
@@ -267,6 +286,9 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         self.themeManager.append(view: ThemeView(view: self.infoTextView, type: .input, subtype: .none))
       
         self.themeManager.append(view: ThemeView(view: self.view, type: .background, subtype: .none))
+        
+        
+        
     }
     
     

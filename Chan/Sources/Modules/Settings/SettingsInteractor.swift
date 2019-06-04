@@ -46,4 +46,8 @@ final class SettingsInteractor: PresentableInteractor<SettingsPresentable>, Sett
     func limitorChanged() {
 //        self.listener?.limitorChanged()
     }
+    
+    func historyWriteChanged(write: Bool) {
+        Values.shared.historyWrite = write
+    }
 }
