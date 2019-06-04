@@ -12,14 +12,17 @@ import RxSwift
 class RecaptchaManager {
     
     let key: String
+    let host: String
 
-    init(recptcha key: String) {
+    init(recptcha key: String, host: String, type: ImageboardModel.CaptchaType = .noCaptcha ) {
         self.key = key
+        self.host = host
     }
     
     func solve(from vc: UIViewController) -> Observable<String> {
         let recaptchaVC = RecaptchaViewController()
         recaptchaVC.recaptchaKey = self.key
+        recaptchaVC.host = self.host
         let nc = BaseNavigationController(rootViewController: recaptchaVC)
         vc.present(nc, animated: true, completion: nil)
         return recaptchaVC

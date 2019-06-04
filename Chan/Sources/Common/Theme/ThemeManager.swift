@@ -12,7 +12,6 @@ import UIKit
 enum ThemeViewType {
     case table
     case collection
-//    case view
     case navBar
     case navBarButton
     case background
@@ -23,6 +22,7 @@ enum ThemeViewType {
     case input
     case icon
     case action
+    case button
 }
 
 enum ThemeViewSubtype {
@@ -93,6 +93,7 @@ class ThemeView {
                 textView.backgroundColor = theme.background
                 textView.textColor = theme.accentText
                 textView.keyboardAppearance = theme.keyboard
+                textView.placeholderColor = theme.thirdText
             }
             
             if let textField = self.view as? UITextField {
@@ -147,6 +148,14 @@ class ThemeView {
             }
 
             break
+        case .button :
+            if let button = self.view as? UIButton {
+                button.backgroundColor = .clear
+                button.tintColor = theme.accnt
+                button.layer.borderColor = theme.accnt.cgColor
+                button.setTitleColor(theme.accnt, for: .normal)
+            }
+
         }
         
     }

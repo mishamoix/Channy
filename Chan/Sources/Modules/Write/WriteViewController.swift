@@ -16,6 +16,7 @@ import UITextView_Placeholder
 protocol WritePresentableListener: class {
     var viewActions: PublishSubject<WriteViewActions> { get }
     var moduleState: WriteModuleState { get }
+    func imagesCount() -> Observable<Int>
 }
 
 final class WriteViewController: BaseViewController, WritePresentable, WriteViewControllable {
@@ -96,15 +97,19 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
     }
     
     // MARK: WritePresentable
-    func solveRecaptcha(with key: String) -> Observable<(String, String)> {
+    func solveRecaptcha(with key: String?, host: String) -> Observable<(String?, String?)> {
         
-        let manager = RecaptchaManager(recptcha: key)
-        return manager
-            .solve(from: self)
-            .flatMap({ result -> Observable<(String, String)> in
-                return Observable<(String, String)>.just((key, result))
-            })
-
+        if let key = key {
+            let manager = RecaptchaManager(recptcha: key, host: host)
+            return manager
+                .solve(from: self)
+                .flatMap({ result -> Observable<(String?, String?)> in
+                    return Observable<(String?, String?)>.just((key, result))
+                })
+        } else {
+            return Observable<(String?, String?)>.just((nil, nil))
+        }
+        
     }
     
     //MARK: Private
@@ -128,7 +133,6 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
             .disposed(by: self.disposeBag)
         
         self.textView.placeholder = "Введите текст"
-//        self.textView.placeholderColor = self.themeManager.theme.secondText.withAlphaComponent(0.4)
         self.textView.keyboardDismissMode = .onDrag
         self.textView.alwaysBounceVertical = true
 
@@ -150,6 +154,22 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
             }
         }
       
+        
+        self.listener?
+            .imagesCount()
+            .subscribe(onNext: { [weak self] count in
+                guard let self = self else { return }
+                
+                var c: Int = count
+                if count == 0 {
+                    c = -1
+                }
+                
+                for (idx, imageView) in self.imageButtons.enumerated() {
+                    imageView.isEnabled = idx < c
+                }
+            })
+            .disposed(by: self.disposeBag)
       
     }
     
@@ -347,7 +367,11 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
     
     override func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.textView, type: .input, subtype: .none))
-//        let _ = self.buttons.map({ $0.tintColor = self.themeManager.theme.main })
+        self.themeManager.append(view: ThemeView(object: self.view, type: .background, subtype: .none))
+        
+        for button in self.buttons + self.imageButtons {
+            self.themeManager.append(view: ThemeView(object: button, type: .button, subtype: .none))
+        }
     }
     
     private func setup(view button: UIView) {
