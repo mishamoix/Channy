@@ -141,7 +141,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         ThemeManager.shared.append(view: ThemeView(view: self.uid, type: .text, subtype: .third))
         ThemeManager.shared.append(view: ThemeView(view: self.date, type: .text, subtype: .third))
         ThemeManager.shared.append(view: ThemeView(view: self.headerDelimeter, type: .separator, subtype: .none))
-        ThemeManager.shared.append(view: ThemeView(view: self.reply.titleLabel, type: .text, subtype: .primary))
+        ThemeManager.shared.append(view: ThemeView(view: self.reply, type: .button, subtype: .none))
 //        ThemeManager.shared.append(view: ThemeView(view: self, type: .cell, subtype: .border))
     }
     

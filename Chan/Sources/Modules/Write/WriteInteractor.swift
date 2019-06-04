@@ -16,7 +16,7 @@ protocol WriteRouting: ViewableRouting {
 protocol WritePresentable: Presentable {
     var listener: WritePresentableListener? { get set }
     
-    func solveRecaptcha(with id: String) -> Observable<(String, String)>
+    func solveRecaptcha(with id: String?, host: String) -> Observable<(String?, String?)>
     var vc: UIViewController { get }
     var images: [UIImage] { get }
 }
@@ -35,12 +35,14 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
     var viewActions: PublishSubject<WriteViewActions> = PublishSubject()
     
     private let service: WriteServiceProtocol
+    private let imageboardService: ImageboardServiceProtocol
     private let disposeBag = DisposeBag()
 
 
-    init(presenter: WritePresentable, service: WriteServiceProtocol, state: WriteModuleState) {
+    init(presenter: WritePresentable, service: WriteServiceProtocol, imageboardService: ImageboardServiceProtocol, state: WriteModuleState) {
         self.service = service
         self.moduleState = state
+        self.imageboardService = imageboardService
         super.init(presenter: presenter)
         presenter.listener = self
         
@@ -56,6 +58,10 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
+    }
+    
+    func imagesCount() -> Observable<Int> {
+        return self.imageboardService.currentImageboard().map({ $0?.maxImages ?? 0 })
     }
     
     // MARK: Private
@@ -84,31 +90,36 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
         
         self.presenter.showCentralActivity()
         
-        self.service
-            .loadInvisibleRecaptcha()
+        
+        Observable<Void>
+            .just(())
+            .flatMap { [weak self] _ -> Observable<(String?, String)> in
+                guard let self = self else { return Observable<(String?, String)>.error(ChanError.none) }
+                return self.imageboardService.currentImageboard().map({ return ($0?.captcha?.key, $0!.baseURL!.absoluteString)})
+            }
             .observeOn(Helper.rxMainThread)
-            .flatMap { [weak self] recaptchaId -> Observable<WriteModel> in
-                return Observable<WriteModel>.error(ChanError.none)
-//                guard let self = self else { return Observable<WriteModel>.error(ChanError.none) }
-//                self.presenter.stopAnyLoaders()
-//                return self.presenter
-//                    .solveRecaptcha(with: recaptchaId)
-//                    .asObservable()
-//                    .flatMap({ [weak self] (key, resultCaptcha) -> Observable<WriteModel> in
-////                        if let thread = self?.service.thread, let boardUid = thread.board?.uid {
-////                            self?.presenter.showCentralActivity()
-////                            var treadUid = thread.uid
-////                            if let state = self?.moduleState, state == .create {
-////                                treadUid = "0"
-////                            }
-////                            let writeModel = WriteModel(recaptchaId: key, text: text, recaptachToken: resultCaptcha, threadUid: treadUid, boardUid: boardUid, images: self?.presenter.images ?? [])
-////                            return Observable<WriteModel>.just(writeModel)
-////
-////                        } else {
-////                            return Observable<WriteModel>.error(ChanError.none)
-////                        }
-//                        return
-//                    })
+            .flatMap { [weak self] (recaptchaId, host) -> Observable<WriteModel> in
+                guard let self = self else { return Observable<WriteModel>.error(ChanError.none) }
+                self.presenter.stopAnyLoaders()
+                return self.presenter
+                    .solveRecaptcha(with: recaptchaId, host: host)
+                    .asObservable()
+                    .flatMap({ [weak self] (key, resultCaptcha) -> Observable<WriteModel> in
+                        if let thread = self?.service.thread, let boardUid = thread.board?.id, let imageboard = thread.board?.imageboard {
+                            self?.presenter.showCentralActivity()
+                            var treadUid = thread.id
+                            if let state = self?.moduleState, state == .create {
+                                treadUid = "0"
+                            }
+                            
+                            let writeModel = WriteModel(recaptchaId: key, text: text, recaptachToken: resultCaptcha, threadUid: treadUid, boardUid: boardUid, images: self?.presenter.images ?? [], imageboard: imageboard.id)
+                            
+                            return Observable<WriteModel>.just(writeModel)
+
+                        } else {
+                            return Observable<WriteModel>.error(ChanError.none)
+                        }
+                    })
             }
             .observeOn(Helper.rxBackgroundThread)
             .flatMap { [weak self] model -> Observable<WriteResponseModel> in

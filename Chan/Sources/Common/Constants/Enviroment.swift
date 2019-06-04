@@ -17,11 +17,11 @@ class Enviroment {
     }
     
     var baseUrl: URL {
-        return URL(string: "https://one.yablach.co/")!
+        return URL(string: "https://one.channy.io/")!
     }
     
     var baseUrlCensor: URL {
-        return URL(string: "https://censor.yablach.co")!
+        return URL(string: "https://censor.channy.io")!
     }
     
     var oldBasePath: String {

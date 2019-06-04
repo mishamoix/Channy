@@ -13,6 +13,7 @@ class ImageboardModel: BaseModel, Decodable {
     enum CaptchaType: String {
         case noCaptcha
         case recaptchaV2 = "reCAPTCHA v2"
+        case invisibleRecaptcha = "invisible_recaptcha"
         
         var value: String? {
             switch self {
@@ -20,21 +21,27 @@ class ImageboardModel: BaseModel, Decodable {
                 return nil
             case .recaptchaV2:
                 return self.rawValue
+            case .invisibleRecaptcha:
+                return self.rawValue
             }
         }
         
         static func captchaType(with string: String?) -> CaptchaType {
-            guard let _ = string else {
-                return .noCaptcha
+            if let string = string {
+                if string == "reCAPTCHA v2" {
+                    return .recaptchaV2
+                } else if string == "invisible_recaptcha" {
+                    return .invisibleRecaptcha
+                }
             }
-            
-            return .recaptchaV2
+            return .noCaptcha
         }
     }
     
     class Captcha: BaseModel, Decodable {
         var type: CaptchaType = .noCaptcha
         var key: String? = nil
+        var url: String? = nil
         
         init(type: String?, key: String?) {
             self.key = key
@@ -46,6 +53,11 @@ class ImageboardModel: BaseModel, Decodable {
             
             if let captchaKey = try? values.decode(String.self, forKey: .key), let captchaType = try? values.decode(String.self, forKey: .type) {
                 self.init(type: captchaType, key: captchaKey)
+                
+                if let url = try? values.decode(String.self, forKey: .url) {
+                    self.url = url
+                }
+
             } else {
                 self.init(type: nil, key: nil)
             }
@@ -53,7 +65,8 @@ class ImageboardModel: BaseModel, Decodable {
         
         enum CodingKeys: String, CodingKey {
             case key
-            case type
+            case type = "kind"
+            case url = "url"
         }
     }
     
@@ -103,9 +116,9 @@ class ImageboardModel: BaseModel, Decodable {
             self.name = name
         }
         
-        if let baseUrl = try? values.decode(String.self, forKey: .baseURL) {
-            self.baseURL = URL(string: baseUrl)
-        }
+//        if let baseUrl = try? values.decode(String.self, forKey: .baseURL) {
+//            self.baseURL = URL(string: baseUrl)
+//        }
         
         if let logo = try? values.decode(String.self, forKey: .logo) {
             self.logo = URL(string: logo)
@@ -121,6 +134,11 @@ class ImageboardModel: BaseModel, Decodable {
         
         if let captcha = try? values.decode(ImageboardModel.Captcha.self, forKey: .captcha) {
             self.captcha = captcha
+            
+            if let url = captcha.url {
+                self.baseURL = URL(string: url)
+            }
+            
         }
         
     }

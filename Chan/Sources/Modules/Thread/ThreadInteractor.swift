@@ -109,7 +109,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     func messageWrote(model: WriteResponseModel) {
         switch model {
         case .postCreated(let post):
-            self.presenter.autosctollUid = post
+            self.presenter.autosctollUid = post ?? "last"
         default: break
             
         }
@@ -292,7 +292,9 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func openWrite() {
-//        self.router?.showWrite(model: self.service.thread, data: self.replySubject.asObservable())
+        if let thread = self.thread {
+            self.router?.showWrite(model: thread, data: self.replySubject.asObservable())
+        }
     }
     
     private func reportThread() {

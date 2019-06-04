@@ -36,8 +36,9 @@ final class WriteBuilder: Builder<WriteDependency>, WriteBuildable {
         viewController.data = data
         
         let service = WriteService(thread: thread)
+        let imageboardService = ImageboardService.instance()
         
-        let interactor = WriteInteractor(presenter: viewController, service: service, state: dependency.writeModuleState)
+        let interactor = WriteInteractor(presenter: viewController, service: service, imageboardService: imageboardService, state: dependency.writeModuleState)
         interactor.listener = listener
         return WriteRouter(interactor: interactor, viewController: viewController)
     }

@@ -212,7 +212,7 @@
 		0AAFBBF3227EF2740085DB51 /* MarkedBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBBEE227EF2740085DB51 /* MarkedBuilder.swift */; };
 		0AAFBBF4227EF2740085DB51 /* MarkedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBBEF227EF2740085DB51 /* MarkedInteractor.swift */; };
 		0AB3C69521B462F000A58FDE /* RecaptchaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3C69421B462F000A58FDE /* RecaptchaManager.swift */; };
-		0AB3C69721B4630800A58FDE /* RecaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3C69621B4630800A58FDE /* RecaptchaViewController.swift */; };
+		0AB3C69721B4630800A58FDE /* InvisibleRecaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3C69621B4630800A58FDE /* InvisibleRecaptchaViewController.swift */; };
 		0AB88E0A227621920052AF45 /* CoreDataThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB88E09227621920052AF45 /* CoreDataThread.swift */; };
 		0AB88E0C227625280052AF45 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB88E0B227625280052AF45 /* HistoryService.swift */; };
 		0AC5FAB521FF297F00113078 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AC5FAB421FF297F00113078 /* GoogleService-Info.plist */; };
@@ -251,6 +251,9 @@
 		0AF77B37217E40D1007D8C5B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF77B36217E40D1007D8C5B /* CoreData.framework */; };
 		0AF77B42217E4C85007D8C5B /* CoreDataBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF77B41217E4C85007D8C5B /* CoreDataBoard.swift */; };
 		0AF77B44217E4F19007D8C5B /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF77B43217E4F19007D8C5B /* CoreDataStore.swift */; };
+		0AFD071622A66BCD0093E18E /* RecaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD071522A66BCD0093E18E /* RecaptchaViewController.swift */; };
+		0AFD071822A66D250093E18E /* recaptchaScript.js in Resources */ = {isa = PBXBuildFile; fileRef = 0AFD071722A66D250093E18E /* recaptchaScript.js */; };
+		0AFD071A22A672850093E18E /* RecaptchaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD071922A672850093E18E /* RecaptchaTest.swift */; };
 		0AFD186A2235111900F844BE /* ImageboardListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD18652235111900F844BE /* ImageboardListRouter.swift */; };
 		0AFD186B2235111900F844BE /* ImageboardListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AFD18662235111900F844BE /* ImageboardListViewController.storyboard */; };
 		0AFD186C2235111900F844BE /* ImageboardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD18672235111900F844BE /* ImageboardListViewController.swift */; };
@@ -493,7 +496,7 @@
 		0AAFBBEE227EF2740085DB51 /* MarkedBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedBuilder.swift; sourceTree = "<group>"; };
 		0AAFBBEF227EF2740085DB51 /* MarkedInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedInteractor.swift; sourceTree = "<group>"; };
 		0AB3C69421B462F000A58FDE /* RecaptchaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaManager.swift; sourceTree = "<group>"; };
-		0AB3C69621B4630800A58FDE /* RecaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaViewController.swift; sourceTree = "<group>"; };
+		0AB3C69621B4630800A58FDE /* InvisibleRecaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvisibleRecaptchaViewController.swift; sourceTree = "<group>"; };
 		0AB88E09227621920052AF45 /* CoreDataThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataThread.swift; sourceTree = "<group>"; };
 		0AB88E0B227625280052AF45 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
 		0AC5FAB421FF297F00113078 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -534,6 +537,9 @@
 		0AF77B36217E40D1007D8C5B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0AF77B41217E4C85007D8C5B /* CoreDataBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBoard.swift; sourceTree = "<group>"; };
 		0AF77B43217E4F19007D8C5B /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
+		0AFD071522A66BCD0093E18E /* RecaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaViewController.swift; sourceTree = "<group>"; };
+		0AFD071722A66D250093E18E /* recaptchaScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = recaptchaScript.js; sourceTree = "<group>"; };
+		0AFD071922A672850093E18E /* RecaptchaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaTest.swift; sourceTree = "<group>"; };
 		0AFD18652235111900F844BE /* ImageboardListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageboardListRouter.swift; sourceTree = "<group>"; };
 		0AFD18662235111900F844BE /* ImageboardListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImageboardListViewController.storyboard; sourceTree = "<group>"; };
 		0AFD18672235111900F844BE /* ImageboardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageboardListViewController.swift; sourceTree = "<group>"; };
@@ -1221,7 +1227,9 @@
 			isa = PBXGroup;
 			children = (
 				0AB3C69421B462F000A58FDE /* RecaptchaManager.swift */,
-				0AB3C69621B4630800A58FDE /* RecaptchaViewController.swift */,
+				0AB3C69621B4630800A58FDE /* InvisibleRecaptchaViewController.swift */,
+				0AFD071522A66BCD0093E18E /* RecaptchaViewController.swift */,
+				0AFD071922A672850093E18E /* RecaptchaTest.swift */,
 			);
 			path = Recaptcha;
 			sourceTree = "<group>";
@@ -1377,6 +1385,7 @@
 				0A37B01721BC378A009EC571 /* AXPhotoViewer.xcassets */,
 				0A2E0CCA2145A36200CBD619 /* Chan-Bridging-Header.h */,
 				0A2E0C81214460FB00CBD619 /* Main.storyboard */,
+				0AFD071722A66D250093E18E /* recaptchaScript.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1627,6 +1636,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AFD186B2235111900F844BE /* ImageboardListViewController.storyboard in Resources */,
+				0AFD071822A66D250093E18E /* recaptchaScript.js in Resources */,
 				0A9120B221E8EA1500A209FF /* launchIcon.png in Resources */,
 				0AFD18732235167500F844BE /* ImageboardCell.xib in Resources */,
 				0A113216215F96EA00BB3C79 /* SettingsViewController.storyboard in Resources */,
@@ -1899,7 +1909,7 @@
 				0AACC187218A5A2A00B7BD19 /* OnboardViewController.swift in Sources */,
 				0AACC190218A5A8800B7BD19 /* SwiftyOnboard.swift in Sources */,
 				0A505D7C216D074B0076F383 /* WebAcceptViewModel.swift in Sources */,
-				0AB3C69721B4630800A58FDE /* RecaptchaViewController.swift in Sources */,
+				0AB3C69721B4630800A58FDE /* InvisibleRecaptchaViewController.swift in Sources */,
 				0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */,
 				0A2E0CBC2145790300CBD619 /* BoardRouter.swift in Sources */,
 				0AE3BC8B2273348F0096C384 /* FavoritesInteractor.swift in Sources */,
@@ -1919,6 +1929,7 @@
 				0AB88E0A227621920052AF45 /* CoreDataThread.swift in Sources */,
 				0A2E0CAF2145588A00CBD619 /* BoardsTableHeader.swift in Sources */,
 				0A4FEA2D2275F14E00A78A72 /* ParallaxHeaderMode.swift in Sources */,
+				0AFD071622A66BCD0093E18E /* RecaptchaViewController.swift in Sources */,
 				0A37B0312222E40300FFACDF /* MainContainerViewController.swift in Sources */,
 				0ACC29872143F79900B4E53B /* RootRouter.swift in Sources */,
 				0A90E78D2151A76B00B71EAA /* ThreadReplyService.swift in Sources */,
@@ -1982,6 +1993,7 @@
 				0A113218215F96EA00BB3C79 /* SettingsBuilder.swift in Sources */,
 				0AACC185218A5A2A00B7BD19 /* OnboardRouter.swift in Sources */,
 				0A6D8F40227F21E200AC6382 /* MarkedCell.swift in Sources */,
+				0AFD071A22A672850093E18E /* RecaptchaTest.swift in Sources */,
 				0A90E7912151AD0300B71EAA /* PostMainViewModel.swift in Sources */,
 				0ACC296F2143F22F00B4E53B /* BoardsListBuilder.swift in Sources */,
 				0ACC29812143F77500B4E53B /* AppComponent.swift in Sources */,
