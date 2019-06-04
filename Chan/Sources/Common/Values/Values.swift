@@ -8,18 +8,28 @@
 
 import UIKit
 import SwiftyUserDefaults
+import RxSwift
 
 extension DefaultsKeys {
     static let safeMode = DefaultsKey<Bool>("safeMode")
     static let privacyPolicy = DefaultsKey<Bool>("privacyPolicy")
     static let currentTheme = DefaultsKey<String?>("currentTheme")
     static let currentBrowser = DefaultsKey<String?>("selectedBrowser")
+    
+    static let historyWrite = DefaultsKey<Bool?>("safeMode")
 }
 
 class Values {
 
     
     static let shared = Values()
+    
+    init() {
+        self.historyWriteObservable = Variable<Bool>(false)
+//        super.init()
+        
+        self.historyWriteObservable.value = self.historyWrite
+    }
     
     var safeMode: Bool {
         get {
@@ -77,6 +87,23 @@ class Values {
 //            }
         }
     }
+    
+    var historyWrite: Bool {
+        get {
+            if Defaults.hasKey(.historyWrite) {
+                if let value = Defaults[.historyWrite] {
+                    return value
+                }
+            }
+            return true
+        }
+        
+        set {
+            Defaults[.historyWrite] = newValue
+            self.historyWriteObservable.value = newValue
+        }
+    }
+    var historyWriteObservable: Variable<Bool>
     
     private let defaults = UserDefaults(suiteName: "chan")
     

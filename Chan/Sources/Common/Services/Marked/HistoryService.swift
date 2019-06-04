@@ -12,7 +12,8 @@ import UIKit
 class HistoryService: MarkService {
     
     override func write(thread: ThreadModel) {
-        if thread.type != .favorited {
+        
+        if thread.type != .favorited && Values.shared.historyWriteObservable.value {
             thread.type = .history
             super.write(thread: thread)
         }
