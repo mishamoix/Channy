@@ -48,7 +48,7 @@ class ThreadViewModel {
         
         self.postsCount = model.postsCount
         self.media = model.media.first
-        self.favorited = model.favorited
+        self.favorited = model.type == .favorited
     }
     
     func calculateSize(max width: CGFloat) -> ThreadViewModel {

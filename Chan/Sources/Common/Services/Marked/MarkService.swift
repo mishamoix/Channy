@@ -10,6 +10,7 @@ import Foundation
 
 protocol DeleteMarkServiceProtocol: BaseServiceProtocol {
     func delete(marked thread: ThreadModel)
+    func deleteAll()
 }
 
 protocol WriteMarkServiceProtocol {
@@ -27,6 +28,10 @@ class MarkService: BaseService, WriteMarkServiceProtocol, ReadMarkServiceProtoco
     var readQuery: NSPredicate? {
         return nil
     }
+    
+//    func deleteQuery(for model: ThreadModel) -> NSPredicate? {
+//        return nil
+//    }
     
     func write(thread: ThreadModel) {
         thread.created = Date()
@@ -48,6 +53,10 @@ class MarkService: BaseService, WriteMarkServiceProtocol, ReadMarkServiceProtoco
   
     
     func delete(marked thread: ThreadModel) {
+//        self.coreData.delete(with: CoreDataThread.self, predicate: self.deleteQuery(for: thread))
+    }
+    
+    func deleteAll() {
         
     }
 }

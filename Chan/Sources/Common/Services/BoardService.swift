@@ -74,7 +74,7 @@ class BoardService: BaseService, BoardServiceProtocol {
         
         for model in models {
             if favorited.contains(where: { $0.id == model.id }) {
-                model.favorited = true
+                model.type = .favorited
             }
         }
     }

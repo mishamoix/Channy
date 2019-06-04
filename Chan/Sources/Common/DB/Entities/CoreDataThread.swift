@@ -17,7 +17,10 @@ class CoreDataThread: NSManagedObject {
     @NSManaged var id: String
     @NSManaged var content: String
     @NSManaged var subject: String
-    @NSManaged var favorited: Bool
+    
+    @NSManaged var type: String
+//    @NSManaged var history: Bool
+    
     @NSManaged var created: Date
     
     @NSManaged var cachedImageURL: String?
@@ -70,8 +73,10 @@ extension CoreDataThread: CacheTrackerEntity {
             self.content = obj.content
             self.subject = obj.subject
             
-            self.favorited = obj.favorited
+            self.type = obj.type.rawValue
+//            self.favorited = obj.favorited
             self.created = obj.created
+//            self.history = obj.history
             
             if let board = obj.board?.entity(in: self.managedObjectContext!) as? CoreDataBoard {
                 self.board = board
@@ -88,7 +93,9 @@ extension CoreDataThread: CacheTrackerEntity {
         result.content = self.content
         result.subject = self.subject
         result.created = self.created
-        result.favorited = self.favorited
+        result.type = ThreadModelType.type(self.type)
+//        result.favorited = self.favorited
+//        result.history = self.history
         
         result.board = self.board.model as? BoardModel
         

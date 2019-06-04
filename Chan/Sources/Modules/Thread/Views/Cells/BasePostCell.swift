@@ -101,15 +101,15 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
                 }
             }).disposed(by: self.disposeBag)
 //
-//        self.replyButton
-//            .rx
-//            .tap
-//            .asDriver()
-//            .drive(onNext: { [weak self] in
-//                if let strongSelf = self {
-//                    self?.action?.on(.next(.reply(cell: strongSelf)))
-//                }
-//            }).disposed(by: self.disposeBag)
+        self.reply
+            .rx
+            .tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                if let strongSelf = self {
+                    self?.action?.on(.next(.reply(cell: strongSelf)))
+                }
+            }).disposed(by: self.disposeBag)
 
     }
     

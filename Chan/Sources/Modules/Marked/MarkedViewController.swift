@@ -9,6 +9,7 @@
 import RIBs
 import RxSwift
 import UIKit
+import RxCocoa
 
 protocol MarkedPresentableListener: class {
     func open(idx: Int)
@@ -18,6 +19,9 @@ protocol MarkedPresentableListener: class {
     func loadNext()
     
     var hasMore: Bool { get }
+    
+    func delete(uid: String)
+    func deleteAll()
 }
 
 final class MarkedViewController: BaseViewController, MarkedPresentable, MarkedViewControllable {
@@ -72,6 +76,33 @@ final class MarkedViewController: BaseViewController, MarkedPresentable, MarkedV
                 self.navigationItem.title = "История"
             }
         }
+        
+        
+        let deleteButton = UIBarButtonItem(title: "Удалить", style: UIBarButtonItem.Style.done, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = deleteButton
+
+        deleteButton
+            .rx
+            .tap
+            .flatMap ({ _ -> Observable<Bool> in
+                let err = ChanError.error(title: "Удаление всего списка", description: "Вы уверены?")
+                let manager = ErrorDisplay(error: err, buttons: [ErrorButton.ok, ErrorButton.cancel])
+                manager.show()
+                return manager.actions.asObservable().map({ button -> Bool in
+                    if button == ErrorButton.ok {
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+            })
+            .asObservable()
+            .subscribe(onNext: { [weak self] delete in
+                if delete {
+                    self?.listener?.deleteAll()
+                }
+            }, onError: nil, onCompleted: nil, onDisposed: nil)
+            .disposed(by: self.disposeBag)
 
     }
     
@@ -104,6 +135,33 @@ extension MarkedViewController: UITableViewDelegate {
             self.listener?.loadNext()
         }
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            let board = self.boards[indexPath.row]
+//            self.listener?.viewActions.on(.next(.delete(uid: board.uid)))
+//        }
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//            if self.canAction {
+            return [UITableViewRowAction(style: .destructive, title: "Удалить", handler: { [weak self] (action, idexPath) in
+
+                if let item = self?.models[indexPath.row] {
+                    self?.listener?.delete(uid: item.id)
+//                        self?.listener?.viewActions.on(.next(.delete(uid: item.id)))
+                }
+            })]
+//            } else {
+//                return nil
+//            }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+
 }
 
 extension MarkedViewController: UITableViewDataSource {
