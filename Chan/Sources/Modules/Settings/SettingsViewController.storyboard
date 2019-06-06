@@ -95,16 +95,23 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Proxy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBQ-ap-K6J">
-                                                    <rect key="frame" x="16" y="17.5" width="43" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0c-mL-cxf">
+                                                    <rect key="frame" x="16" y="13" width="229" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                    <state key="normal" title="Proxy">
+                                                        <color key="titleColor" red="0.97254901959999995" green="0.56470588239999997" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                </button>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TyE-3f-YPM">
+                                                    <rect key="frame" x="253" y="12.5" width="51" height="31"/>
+                                                </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="JBQ-ap-K6J" firstAttribute="leading" secondItem="Z4Q-iZ-so5" secondAttribute="leading" constant="16" id="ipi-yJ-zGb"/>
-                                                <constraint firstItem="JBQ-ap-K6J" firstAttribute="centerY" secondItem="Z4Q-iZ-so5" secondAttribute="centerY" id="wdY-jr-Mv4"/>
+                                                <constraint firstAttribute="trailing" secondItem="TyE-3f-YPM" secondAttribute="trailing" constant="18" id="6Vf-0c-VCI"/>
+                                                <constraint firstItem="r0c-mL-cxf" firstAttribute="leading" secondItem="Z4Q-iZ-so5" secondAttribute="leadingMargin" id="ccS-qo-QIh"/>
+                                                <constraint firstItem="r0c-mL-cxf" firstAttribute="centerY" secondItem="Z4Q-iZ-so5" secondAttribute="centerY" id="hAC-pF-jIW"/>
+                                                <constraint firstItem="TyE-3f-YPM" firstAttribute="leading" secondItem="r0c-mL-cxf" secondAttribute="trailing" constant="8" id="jgX-vy-fHb"/>
+                                                <constraint firstItem="TyE-3f-YPM" firstAttribute="centerY" secondItem="Z4Q-iZ-so5" secondAttribute="centerY" id="zXu-Ji-u4o"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -258,6 +265,9 @@
                         <outlet property="historySwitch" destination="5bM-ZG-vGo" id="OhC-5s-cPV"/>
                         <outlet property="infoTextView" destination="z7J-6h-SRD" id="OzI-Qx-40W"/>
                         <outlet property="limitorSwitch" destination="2w0-l8-7pB" id="QFM-st-eoy"/>
+                        <outlet property="proxyButton" destination="r0c-mL-cxf" id="TUe-E0-CH4"/>
+                        <outlet property="proxyCanvas" destination="Z4Q-iZ-so5" id="O7y-Kn-ZYa"/>
+                        <outlet property="proxySwitch" destination="TyE-3f-YPM" id="DbE-BX-NmL"/>
                         <outlet property="subtitleHistory" destination="OtK-IJ-06n" id="gPD-Xl-XTA"/>
                         <outlet property="subtitleLimitor" destination="5bT-wn-Aic" id="LrA-cm-k46"/>
                         <outlet property="titleHistory" destination="Xi5-ab-fME" id="ZrN-FU-Fbv"/>

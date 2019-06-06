@@ -40,6 +40,7 @@ PODS:
     - GoogleUtilities/Environment (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
   - FPSCounter (4.0.1)
+  - Google-Mobile-Ads-SDK (7.41.0)
   - GoogleAppMeasurement (5.2.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -185,6 +186,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - FPSCounter (~> 4.0)
+  - Google-Mobile-Ads-SDK
   - IGListKit (~> 3.0)
   - KafkaRefresh
   - MagicalRecord
@@ -224,6 +226,7 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseInstanceID
     - FPSCounter
+    - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleUtilities
     - IGListKit
@@ -260,6 +263,7 @@ SPEC CHECKSUMS:
   FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
   FirebaseInstanceID: 78ba376fcd5b94c001f9999b2cbd3d1f1e56e78d
   FPSCounter: 262ec30f9f5a2fd7843b593ea80016fece7c809c
+  Google-Mobile-Ads-SDK: 101ce89b94fdf60ec64ba7b6e9b9d812dc765936
   GoogleAppMeasurement: 2b3a023a61239c8d002e6e4fcf4abce8eddce0e0
   GoogleUtilities: 8208aee3e97a1ae93d44c57e96c476a5a3b03f0a
   IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
@@ -289,6 +293,6 @@ SPEC CHECKSUMS:
   SwipeCellKit: 935ca28c187ec6e1ffb2b578cf8ddca842bfdcbb
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: ed1e550e8d58f745d77e5924fc65efff0ec5a469
+PODFILE CHECKSUM: bc97316ada8736da3bc159634503060370cec893
 
 COCOAPODS: 1.5.3

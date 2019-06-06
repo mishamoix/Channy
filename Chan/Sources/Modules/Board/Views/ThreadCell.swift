@@ -17,6 +17,7 @@ import SwipeCellKit
 
 class ThreadCell: SwipeCollectionViewCell {
 
+    
     @IBOutlet weak var canvas: ChanView!
     @IBOutlet weak var iconView: ChanImageView!
     @IBOutlet weak var number: UILabel!

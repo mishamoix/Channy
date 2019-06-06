@@ -33,6 +33,7 @@ class FirebaseManager {
     private(set) var needExcludeBoards: Bool = false
     private(set) var censorEnabled: Bool = false
     private(set) var agreementUrl: URL? = nil
+    private(set) var oneAdsByCountThreads: Int = 7
     
 
     
@@ -105,6 +106,10 @@ class FirebaseManager {
         
         if let censorEnabled = result["censor_enabled_\(version)"] as? Bool {
             self.censorEnabled = censorEnabled
+        }
+        
+        if let oneAdsByCountThreads = result["oneAdsByCountThreads"] as? Int {
+            self.oneAdsByCountThreads = oneAdsByCountThreads
         }
     }
     

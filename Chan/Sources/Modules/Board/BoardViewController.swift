@@ -14,6 +14,7 @@ import SnapKit
 import SwipeCellKit
 
 let ThreadCellIdentifier = "ThreadCell"
+let AdThreadCellIdentifier = "AdThreadCell"
 
 
 protocol BoardPresentableListener: class {
@@ -214,8 +215,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             .subscribe(onNext: { [weak self] action in
                 switch action {
                 case .tapped(let cell): do {
-                    if let idx = self?.collectionView.indexPath(for: cell) {
-                        self?.listener?.viewActions.on(.next(.openThread(idx: idx.row)))
+                    if let idx = self?.collectionView.indexPath(for: cell), let model = self?.data[idx.row] {
+                        self?.listener?.viewActions.on(.next(.openThread(uid: model.uid)))
                     }
                 }
                 }
@@ -283,6 +284,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         }
         
         self.collectionView.register(UINib(nibName: ThreadCellIdentifier, bundle: nil), forCellWithReuseIdentifier: ThreadCellIdentifier)
+        self.collectionView.register(AdThreadCell.self, forCellWithReuseIdentifier: AdThreadCellIdentifier)
+//        self.collectionView.register(UINib(nibName: AdThreadCellIdentifier, bundle: nil), forCellWithReuseIdentifier: AdThreadCellIdentifier)
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -450,7 +453,8 @@ extension BoardViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.collectionView.deselectItem(at: indexPath, animated: true)
-        self.listener?.viewActions.on(.next(.openThread(idx: indexPath.row)))
+        let model = self.data[indexPath.row]
+        self.listener?.viewActions.on(.next(.openThread(uid: model.uid)))
     }
     
     
@@ -483,14 +487,24 @@ extension BoardViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = self.data[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreadCellIdentifier, for: indexPath)
-        if let c = cell as? ThreadCell {
-            c.update(with: data)
-            c.actions = self.cellActions
-            c.delegate = self
+        if data.type == .thread {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreadCellIdentifier, for: indexPath)
+            if let c = cell as? ThreadCell {
+                c.update(with: data)
+                c.actions = self.cellActions
+                c.delegate = self
+            }
+            return cell
+
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdThreadCellIdentifier, for: indexPath)
+            if let c = cell as? AdThreadCell {
+                c.update(vc: self)
+            }
+            
+            return cell
         }
         
-        return cell
 
     }
 //    collectionViewItemFor
@@ -527,7 +541,7 @@ extension BoardViewController: SwipeCollectionViewCellDelegate {
             
             guard let self = self else { return }
             
-            self.listener?.viewActions.on(.next(.addToFavorites(index: indexPath.row)))
+            self.listener?.viewActions.on(.next(.addToFavorites(uid: self.data[indexPath.row].uid)))
             
 //            let data = self.data[indexPath.item]
 //            data.favorited = !data.favorited
@@ -541,7 +555,9 @@ extension BoardViewController: SwipeCollectionViewCellDelegate {
         
         
         let hidePost = SwipeAction(style: .default, title: "Скрыть") { [weak self] (action, indexPath) in
-            self?.listener?.viewActions.on(.next(.hide(index: indexPath.row)))
+            if let model = self?.data[indexPath.row] {
+                self?.listener?.viewActions.on(.next(.hide(uid: model.uid)))
+            }
         }
         hidePost.image = .hide
         hidePost.backgroundColor = bgColor

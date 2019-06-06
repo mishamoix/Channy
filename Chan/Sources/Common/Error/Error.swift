@@ -15,6 +15,7 @@ enum ChanError: Error, Equatable {
     case error(title: String, description: String)
     case offline
     case parseError
+    case badProxy
     
     case badRequest // 400
     case notFound // 404
@@ -25,6 +26,7 @@ enum ChanError: Error, Equatable {
     case noModel
     
     case none
+    
     
     
     public static func == (lhs: ChanError, rhs: ChanError) -> Bool {
@@ -58,8 +60,12 @@ class ErrorHelper {
     
     private func make(moya error: MoyaError) -> ChanError {
         switch error {
-        case .underlying(_, let response):
+        case .underlying(let error, let response):
             if response == nil {
+                let nsErr = error as NSError
+                if [-1022, 310].contains(nsErr.code)  {
+                    return .badProxy
+                }
                 return .offline
             } else if response?.statusCode ?? 0 == 404 {
                 return .notFound

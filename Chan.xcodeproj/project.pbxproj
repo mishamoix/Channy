@@ -152,6 +152,7 @@
 		0A5D7D9A217CE9AD004429B0 /* Pods_Chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5239A404CA4DD902961DB4 /* Pods_Chan.framework */; };
 		0A5D7D9E217D0835004429B0 /* Chan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D7D9C217D0835004429B0 /* Chan.xcdatamodeld */; };
 		0A5D949021923CB500E84314 /* DefaultNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D948F21923CB500E84314 /* DefaultNavigationController.swift */; };
+		0A6331B222A93EED001DDF9F /* ChanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6331B122A93EED001DDF9F /* ChanManager.swift */; };
 		0A65579B21B6C6D9003FA355 /* ImageFixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65579A21B6C6D9003FA355 /* ImageFixer.swift */; };
 		0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */; };
 		0A6C2CB122958CF600147C09 /* StatusbarBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C2CB022958CF600147C09 /* StatusbarBackground.swift */; };
@@ -160,6 +161,14 @@
 		0A72E18721B95BEF00BD488E /* WriteResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72E18621B95BEF00BD488E /* WriteResponseModel.swift */; };
 		0A72E18E21BABEB500BD488E /* StatisticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72E18D21BABEB500BD488E /* StatisticManager.swift */; };
 		0A7349AA217A36E400244B59 /* PostMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7349A9217A36E400244B59 /* PostMediaView.swift */; };
+		0A7A378E22A7F83C00E35C49 /* ProxyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7A378D22A7F83C00E35C49 /* ProxyViewController.storyboard */; };
+		0A7A379322A7F84E00E35C49 /* ProxyRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A378F22A7F84E00E35C49 /* ProxyRouter.swift */; };
+		0A7A379422A7F84E00E35C49 /* ProxyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A379022A7F84E00E35C49 /* ProxyViewController.swift */; };
+		0A7A379522A7F84E00E35C49 /* ProxyBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A379122A7F84E00E35C49 /* ProxyBuilder.swift */; };
+		0A7A379622A7F84E00E35C49 /* ProxyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A379222A7F84E00E35C49 /* ProxyInteractor.swift */; };
+		0A7A379822A800B400E35C49 /* ProxyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A379722A800B400E35C49 /* ProxyModel.swift */; };
+		0A7A379A22A808F100E35C49 /* ProxyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A379922A808F100E35C49 /* ProxyTarget.swift */; };
+		0A7A379C22A8096F00E35C49 /* ProxyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A379B22A8096F00E35C49 /* ProxyService.swift */; };
 		0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */; };
 		0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */; };
 		0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856292216E518900D053F7 /* ThreadImageViewer.swift */; };
@@ -239,6 +248,11 @@
 		0AD5C2D8215AC7B900F68AF4 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2D7215AC7B900F68AF4 /* ErrorDisplay.swift */; };
 		0AD5C2DA215AC89700F68AF4 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2D9215AC89700F68AF4 /* ErrorManager.swift */; };
 		0AD5C2DC215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5C2DB215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift */; };
+		0AD6DA2522A949DA00024DED /* ChanImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6DA2422A949DA00024DED /* ChanImageDownloader.swift */; };
+		0AD6DA2722A9509A00024DED /* ProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6DA2622A9509A00024DED /* ProxyManager.swift */; };
+		0AD6DA2A22A9617000024DED /* AdsBoardListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6DA2922A9617000024DED /* AdsBoardListManager.swift */; };
+		0AD6DA2C22A9623500024DED /* AdsThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6DA2B22A9623500024DED /* AdsThreadViewModel.swift */; };
+		0AD6DA2E22A9641300024DED /* AdThreadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6DA2D22A9641300024DED /* AdThreadCell.swift */; };
 		0AE2867222479B2300513D70 /* CoreDataImageboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE2867122479B2300513D70 /* CoreDataImageboard.swift */; };
 		0AE286742247A0B600513D70 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE286732247A0B600513D70 /* UIColor+Utils.swift */; };
 		0AE3BC7D227310700096C384 /* TextPreparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE3BC7C227310700096C384 /* TextPreparation.swift */; };
@@ -432,6 +446,7 @@
 		0A5B0EC4214F995400AECE3C /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		0A5D7D9D217D0835004429B0 /* Chan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chan.xcdatamodel; sourceTree = "<group>"; };
 		0A5D948F21923CB500E84314 /* DefaultNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationController.swift; sourceTree = "<group>"; };
+		0A6331B122A93EED001DDF9F /* ChanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanManager.swift; sourceTree = "<group>"; };
 		0A65579A21B6C6D9003FA355 /* ImageFixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFixer.swift; sourceTree = "<group>"; };
 		0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.Key.swift; sourceTree = "<group>"; };
 		0A6C2CB022958CF600147C09 /* StatusbarBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusbarBackground.swift; sourceTree = "<group>"; };
@@ -444,6 +459,14 @@
 		0A78C08F217BEA710050630D /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		0A78C091217BEA7B0050630D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0A78C093217BEA890050630D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0A7A378D22A7F83C00E35C49 /* ProxyViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProxyViewController.storyboard; sourceTree = "<group>"; };
+		0A7A378F22A7F84E00E35C49 /* ProxyRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyRouter.swift; sourceTree = "<group>"; };
+		0A7A379022A7F84E00E35C49 /* ProxyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyViewController.swift; sourceTree = "<group>"; };
+		0A7A379122A7F84E00E35C49 /* ProxyBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyBuilder.swift; sourceTree = "<group>"; };
+		0A7A379222A7F84E00E35C49 /* ProxyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyInteractor.swift; sourceTree = "<group>"; };
+		0A7A379722A800B400E35C49 /* ProxyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyModel.swift; sourceTree = "<group>"; };
+		0A7A379922A808F100E35C49 /* ProxyTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyTarget.swift; sourceTree = "<group>"; };
+		0A7A379B22A8096F00E35C49 /* ProxyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyService.swift; sourceTree = "<group>"; };
 		0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebmPlayerViewController.swift; sourceTree = "<group>"; };
 		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
@@ -525,6 +548,11 @@
 		0AD5C2D7215AC7B900F68AF4 /* ErrorDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
 		0AD5C2D9215AC89700F68AF4 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
 		0AD5C2DB215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBoardsListDisplay.swift; sourceTree = "<group>"; };
+		0AD6DA2422A949DA00024DED /* ChanImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanImageDownloader.swift; sourceTree = "<group>"; };
+		0AD6DA2622A9509A00024DED /* ProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyManager.swift; sourceTree = "<group>"; };
+		0AD6DA2922A9617000024DED /* AdsBoardListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsBoardListManager.swift; sourceTree = "<group>"; };
+		0AD6DA2B22A9623500024DED /* AdsThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsThreadViewModel.swift; sourceTree = "<group>"; };
+		0AD6DA2D22A9641300024DED /* AdThreadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdThreadCell.swift; sourceTree = "<group>"; };
 		0AE2867122479B2300513D70 /* CoreDataImageboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataImageboard.swift; sourceTree = "<group>"; };
 		0AE286732247A0B600513D70 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		0AE3BC7C227310700096C384 /* TextPreparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPreparation.swift; sourceTree = "<group>"; };
@@ -589,6 +617,7 @@
 		0A11320F215F96D500BB3C79 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				0A7A378C22A7F7E000E35C49 /* Proxy */,
 				0A113210215F96EA00BB3C79 /* SettingsRouter.swift */,
 				0A113211215F96EA00BB3C79 /* SettingsViewController.storyboard */,
 				0A113212215F96EA00BB3C79 /* SettingsViewController.swift */,
@@ -618,6 +647,7 @@
 		0A2E0C832145390D00CBD619 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
+				0A6331B122A93EED001DDF9F /* ChanManager.swift */,
 				0A5B0EB42149BAD700AECE3C /* Plugins */,
 				0A2E0C842145391F00CBD619 /* ChanProvider.swift */,
 			);
@@ -640,6 +670,7 @@
 				0AFD187C22351AAD00F844BE /* ImageboardModel.swift */,
 				0A326B84225CDCCF00E94AED /* MediaModel.swift */,
 				0AE3BC7E2273110D0096C384 /* MarkupModel.swift */,
+				0A7A379722A800B400E35C49 /* ProxyModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -715,6 +746,7 @@
 			children = (
 				0A2E0CC621459F3300CBD619 /* BoardMainViewModel.swift */,
 				0A2E0CD72145A44400CBD619 /* ThreadViewModel.swift */,
+				0AD6DA2B22A9623500024DED /* AdsThreadViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -737,6 +769,8 @@
 				0A18F62E2275EAA6002D21DA /* ValueMapper.swift */,
 				0A6C2CB022958CF600147C09 /* StatusbarBackground.swift */,
 				0A6C2CB222958F6900147C09 /* Utils.swift */,
+				0AD6DA2422A949DA00024DED /* ChanImageDownloader.swift */,
+				0AD6DA2622A9509A00024DED /* ProxyManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -756,6 +790,7 @@
 			children = (
 				0A2E0CD12145A3FE00CBD619 /* ThreadCell.swift */,
 				0A2E0CD22145A3FE00CBD619 /* ThreadCell.xib */,
+				0AD6DA2D22A9641300024DED /* AdThreadCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1093,6 +1128,18 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0A7A378C22A7F7E000E35C49 /* Proxy */ = {
+			isa = PBXGroup;
+			children = (
+				0A7A378D22A7F83C00E35C49 /* ProxyViewController.storyboard */,
+				0A7A378F22A7F84E00E35C49 /* ProxyRouter.swift */,
+				0A7A379022A7F84E00E35C49 /* ProxyViewController.swift */,
+				0A7A379122A7F84E00E35C49 /* ProxyBuilder.swift */,
+				0A7A379222A7F84E00E35C49 /* ProxyInteractor.swift */,
+			);
+			path = Proxy;
+			sourceTree = "<group>";
+		};
 		0A856294216E58C700D053F7 /* Viewer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1293,6 +1340,7 @@
 		0ACC29652143F06A00B4E53B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0AD6DA2822A9614000024DED /* Ads */,
 				0AE3BC7B227310530096C384 /* PostUtils */,
 				0A8BFED7218F4440004AA360 /* Theme */,
 				0AACC18B218A5A7200B7BD19 /* 3d party */,
@@ -1338,6 +1386,7 @@
 				0A203F14219C9CCA00A51554 /* CensorService.swift */,
 				0A905F7321A9C1E400ADE51E /* WriteService.swift */,
 				0AFD18782235190400F844BE /* ImageboardService.swift */,
+				0A7A379B22A8096F00E35C49 /* ProxyService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1351,6 +1400,7 @@
 				0A203F18219C9E6700A51554 /* CensorTarget.swift */,
 				0A905F7521A9C29500ADE51E /* WriteTarget.swift */,
 				0AFD187A2235195200F844BE /* ImageboardTarget.swift */,
+				0A7A379922A808F100E35C49 /* ProxyTarget.swift */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -1413,6 +1463,14 @@
 				0AFD188122352B2B00F844BE /* BaseView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0AD6DA2822A9614000024DED /* Ads */ = {
+			isa = PBXGroup;
+			children = (
+				0AD6DA2922A9617000024DED /* AdsBoardListManager.swift */,
+			);
+			path = Ads;
 			sourceTree = "<group>";
 		};
 		0AE3BC7B227310530096C384 /* PostUtils */ = {
@@ -1652,6 +1710,7 @@
 				0A86411D2250E1B9000BBE07 /* BoardSelectionViewController.storyboard in Resources */,
 				0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */,
 				0A2E0CB12145589600CBD619 /* BoardsTableHeader.xib in Resources */,
+				0A7A378E22A7F83C00E35C49 /* ProxyViewController.storyboard in Resources */,
 				0AE3BC882273348F0096C384 /* FavoritesViewController.storyboard in Resources */,
 				0A2E0CBD2145790300CBD619 /* BoardViewController.storyboard in Resources */,
 				0AACC186218A5A2A00B7BD19 /* OnboardViewController.storyboard in Resources */,
@@ -1813,6 +1872,7 @@
 				0A37B02B21BC3873009EC571 /* UIView+Animations.swift in Sources */,
 				0A37B02C21BC3873009EC571 /* UIImageView+AXExtensions.m in Sources */,
 				0A37B02D21BC3874009EC571 /* FLAnimatedImageView+AXExtensions.h in Sources */,
+				0A7A379822A800B400E35C49 /* ProxyModel.swift in Sources */,
 				0A37B02E21BC3874009EC571 /* AXPhotoProtocol+Internal.swift in Sources */,
 				0A37B02F21BC3874009EC571 /* UIImageView+AXExtensions.h in Sources */,
 				0AE3BC7D227310700096C384 /* TextPreparation.swift in Sources */,
@@ -1858,6 +1918,7 @@
 				0ACC29752143F3AE00B4E53B /* BaseService.swift in Sources */,
 				0A203F17219C9CEC00A51554 /* CensorManager.swift in Sources */,
 				0A37B0432222F15000FFACDF /* MenuInteractor.swift in Sources */,
+				0AD6DA2522A949DA00024DED /* ChanImageDownloader.swift in Sources */,
 				0A2E0C9F2145467F00CBD619 /* ResultModel.swift in Sources */,
 				0AD5C2DC215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift in Sources */,
 				0ACC29892143F79900B4E53B /* RootBuilder.swift in Sources */,
@@ -1873,6 +1934,7 @@
 				0A2E0CA72145564300CBD619 /* ChanLabel.swift in Sources */,
 				0A2E0CB321455A6A00CBD619 /* BoardsListConstants.swift in Sources */,
 				0AFFFDB02149A1F50002E832 /* ThreadInteractor.swift in Sources */,
+				0A6331B222A93EED001DDF9F /* ChanManager.swift in Sources */,
 				0A2E0CA92145565100CBD619 /* ChanView.swift in Sources */,
 				0A37B01621BC3774009EC571 /* AXConstants.swift in Sources */,
 				0AD5C2D8215AC7B900F68AF4 /* ErrorDisplay.swift in Sources */,
@@ -1900,6 +1962,7 @@
 				0ACC29732143F3A400B4E53B /* BoardsListService.swift in Sources */,
 				0AFD18752235168900F844BE /* ImageboardHeader.swift in Sources */,
 				0A2E0CAD214557E900CBD619 /* BaseTableViewCell.swift in Sources */,
+				0AD6DA2E22A9641300024DED /* AdThreadCell.swift in Sources */,
 				0A905F7021A9B10000ADE51E /* WriteViewController.swift in Sources */,
 				0A5B0EC2214F09A400AECE3C /* BasePostCell.swift in Sources */,
 				0A2D0C6A21A4942800B38224 /* UIView+Utils.swift in Sources */,
@@ -1939,13 +2002,16 @@
 				0A37B04C21BC3A1C009EC571 /* AXStateButton.m in Sources */,
 				0A2E0CD62145A41800CBD619 /* ThreadModel.swift in Sources */,
 				0ACC29702143F22F00B4E53B /* BoardsListInteractor.swift in Sources */,
+				0A7A379622A7F84E00E35C49 /* ProxyInteractor.swift in Sources */,
 				0A2E0CE02145B48300CBD619 /* FileModel.swift in Sources */,
 				0A5B0EB9214EED8900AECE3C /* PostPreparation.swift in Sources */,
 				0A905F7421A9C1E400ADE51E /* WriteService.swift in Sources */,
 				0A326B9B225CEADE00E94AED /* DismissalAnimator.swift in Sources */,
 				0A2E0C9C2145464000CBD619 /* Error.swift in Sources */,
+				0A7A379322A7F84E00E35C49 /* ProxyRouter.swift in Sources */,
 				0A6C2CB122958CF600147C09 /* StatusbarBackground.swift in Sources */,
 				0AD5C2DA215AC89700F68AF4 /* ErrorManager.swift in Sources */,
+				0AD6DA2C22A9623500024DED /* AdsThreadViewModel.swift in Sources */,
 				0AAFBBF2227EF2740085DB51 /* MarkedViewController.swift in Sources */,
 				0A905F7A21A9C5FF00ADE51E /* WriteConstants.swift in Sources */,
 				0A113217215F96EA00BB3C79 /* SettingsViewController.swift in Sources */,
@@ -1956,7 +2022,9 @@
 				0ACC296C2143F22F00B4E53B /* BoardsListRouter.swift in Sources */,
 				0A326BA3225CEADE00E94AED /* TransitionConfiguration.swift in Sources */,
 				0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */,
+				0A7A379422A7F84E00E35C49 /* ProxyViewController.swift in Sources */,
 				0A90E7A12152DB4700B71EAA /* Helper.swift in Sources */,
+				0A7A379A22A808F100E35C49 /* ProxyTarget.swift in Sources */,
 				0AFD18792235190400F844BE /* ImageboardService.swift in Sources */,
 				0A8BFED9218F4451004AA360 /* Theme.swift in Sources */,
 				0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */,
@@ -1975,10 +2043,12 @@
 				0AAFBBE9227EF1460085DB51 /* MarkService.swift in Sources */,
 				0AF77B42217E4C85007D8C5B /* CoreDataBoard.swift in Sources */,
 				0AACC188218A5A2A00B7BD19 /* OnboardBuilder.swift in Sources */,
+				0AD6DA2A22A9617000024DED /* AdsBoardListManager.swift in Sources */,
 				0A8641282250F3A6000BBE07 /* UCCTransliteration.swift in Sources */,
 				0AE3BC872273348F0096C384 /* FavoritesRouter.swift in Sources */,
 				0ACC297F2143F73800B4E53B /* AppDependency.swift in Sources */,
 				0A37B02F2222E40300FFACDF /* MainContainerRouter.swift in Sources */,
+				0AD6DA2722A9509A00024DED /* ProxyManager.swift in Sources */,
 				0A326B85225CDCCF00E94AED /* MediaModel.swift in Sources */,
 				0A0D570B21A5800E00A8053D /* ChanAXPhotosViewController.swift in Sources */,
 				0A113219215F96EA00BB3C79 /* SettingsInteractor.swift in Sources */,
@@ -1998,6 +2068,7 @@
 				0ACC296F2143F22F00B4E53B /* BoardsListBuilder.swift in Sources */,
 				0ACC29812143F77500B4E53B /* AppComponent.swift in Sources */,
 				0A2E0CC42145969D00CBD619 /* BoardTarget.swift in Sources */,
+				0A7A379C22A8096F00E35C49 /* ProxyService.swift in Sources */,
 				0AFD186C2235111900F844BE /* ImageboardListViewController.swift in Sources */,
 				0A5D949021923CB500E84314 /* DefaultNavigationController.swift in Sources */,
 				0A505D7A216D060A0076F383 /* WebAcceptInteractor.swift in Sources */,
@@ -2015,6 +2086,7 @@
 				0AFFFDAC2149A1F40002E832 /* ThreadRouter.swift in Sources */,
 				0A2E0CDA2145A61000CBD619 /* BoardConstants.swift in Sources */,
 				0A5B0EB62149BAE600AECE3C /* LoggerPlugin.swift in Sources */,
+				0A7A379522A7F84E00E35C49 /* ProxyBuilder.swift in Sources */,
 				0AFFFDAE2149A1F50002E832 /* ThreadViewController.swift in Sources */,
 				0A86411C2250E1B9000BBE07 /* BoardSelectionRouter.swift in Sources */,
 				0A90E7822151886900B71EAA /* PostManager.swift in Sources */,

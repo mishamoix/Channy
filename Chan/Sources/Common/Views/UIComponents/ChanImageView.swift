@@ -14,6 +14,8 @@ class ChanImageView: UIImageView {
   
     @IBInspectable var needCensor: Bool = true
     
+    private var loadToken: RequestReceipt? = nil
+    
     private var originalImage: UIImage? = nil
 //    private var blurredImage: UIImage? = nil
     private(set) var disposeBag = DisposeBag()
@@ -27,6 +29,10 @@ class ChanImageView: UIImageView {
                 }
             }
         }
+    }
+    
+    private var loader: ChanImageDownloader {
+        return ChanImageDownloader.shared
     }
     
     override var image: UIImage? {
@@ -103,7 +109,14 @@ class ChanImageView: UIImageView {
         let url = full ? model.url ?? model.thumbnail : model.thumbnail ?? model.url
     
         if let url: URL = (url) {
-            self.af_setImage(withURL: url)
+            self.loadToken = self.loader.load(url: url) { [weak self] result in
+                switch result.result {
+                case .success(let img):
+                    self?.image = img
+                default:
+                    break
+                }
+            }
         }
         
     }
@@ -120,10 +133,12 @@ class ChanImageView: UIImageView {
     }
     
     func cancelLoad() {
-        self.af_cancelImageRequest()
+//        self.af_cancelImageRequest()
         self.dispose()
         self.cancellation.isCancelled = true
         self.cancellation = CancellationToken()
+        self.loader.cancel(token: self.loadToken)
+        self.loadToken = nil
     }
     
     private func dispose() {

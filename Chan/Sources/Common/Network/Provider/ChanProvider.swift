@@ -13,7 +13,9 @@ import RxSwift
 
 
 class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
-    public override init(endpointClosure: @escaping EndpointClosure = ChanProvider.defaultEndpointMapping,
+    
+    
+    override public init(endpointClosure: @escaping EndpointClosure = ChanProvider.defaultEndpointMapping,
                 requestClosure: @escaping RequestClosure = ChanProvider.chanRequestMapping,
                 stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
                 callbackQueue: DispatchQueue? = nil,
@@ -22,7 +24,6 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
                 trackInflights: Bool = false) {
         let plugs = plugins + [NetworkLoggerPlugin(verbose: false, cURL: true)]
         super.init(endpointClosure: endpointClosure, requestClosure: requestClosure, stubClosure: stubClosure, callbackQueue: callbackQueue, manager: manager, plugins: plugs, trackInflights: trackInflights)
-
     }
     
     public final class func chanRequestMapping(for endpoint: Endpoint, closure: @escaping RequestResultClosure) {
@@ -39,21 +40,43 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
         }
     }
 
+    public final class func defaultAlamofireManager(timeout: TimeInterval = 60, proxy: ProxyModel? = nil) -> Manager {
+        let configuration = URLSessionConfiguration.default
+//        configuration.httpAdditionalHeaders = Manager.defaultHTTPHeaders
+        configuration.timeoutIntervalForRequest = timeout
+        
+//        if let proxy = proxy {
+//            configuration.connectionProxyDictionary = proxyConfiguration
+//        }
+        
+        configuration.connectionProxyDictionary = Helper.buildProxy(with: proxy)
+        
+        let manager = Manager(configuration: configuration)
+        manager.startRequestsImmediately = false
+
+        
+        return manager
+    }
+    
     public final class func chanAlamofireManager(timeout: TimeInterval = 60) -> Manager {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = Manager.defaultHTTPHeaders
         configuration.timeoutIntervalForRequest = timeout
-        let manager = Manager(configuration: configuration)
+        configuration.connectionProxyDictionary = Helper.buildProxy(with: ProxyManager.shared.proxy)
+        
+        let manager = ChanManager(configuration: configuration)
         manager.startRequestsImmediately = false
         return manager
+
     }
+
     
-    @discardableResult
-    open override func request(_ target: Target,
-                      callbackQueue: DispatchQueue? = .none,
-                      progress: ProgressBlock? = .none,
-                      completion: @escaping Completion) -> Cancellable {
-        
+//    @discardableResult
+//    open override func request(_ target: Target,
+//                      callbackQueue: DispatchQueue? = .none,
+//                      progress: ProgressBlock? = .none,
+//                      completion: @escaping Completion) -> Cancellable {
+    
         
 //        let ownCompletion: Completion = { result in
 ////            res
@@ -74,8 +97,8 @@ class ChanProvider<Target: TargetType>: MoyaProvider<Target> {
 //            completion(result)
 //        }
         
-        return super.request(target, callbackQueue: callbackQueue, progress: progress, completion: completion)
-    }
+//        return super.request(target, callbackQueue: callbackQueue, progress: progress, completion: completion)
+//    }
 
 
     

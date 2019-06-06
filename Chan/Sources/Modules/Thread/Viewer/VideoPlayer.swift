@@ -8,10 +8,12 @@
 
 import UIKit
 import AVKit
+//import VLCVideoView
 
 class VideoPlayer: NSObject {
     
     let videoPlayer: UIViewController?
+//    let a = VLCMed
     
     init(with file: FileModel) {
         if let url = URL(string: MakeFullPath(path: file.path)) {

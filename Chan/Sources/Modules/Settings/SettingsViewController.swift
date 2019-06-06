@@ -13,6 +13,8 @@ import UIKit
 protocol SettingsPresentableListener: class {
     func limitorChanged()
     func historyWriteChanged(write: Bool)
+    func openProxy()
+    func proxyEnable(changed on: Bool)
 }
 
 final class SettingsViewController: UITableViewController, SettingsPresentable, SettingsViewControllable {
@@ -42,9 +44,13 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     @IBOutlet weak var titleHistory: UILabel!
     @IBOutlet weak var subtitleHistory: UILabel!
     
+    @IBOutlet weak var proxyCanvas: UIView!
+    @IBOutlet weak var proxyButton: UIButton!
+    @IBOutlet weak var proxySwitch: UISwitch!
+    
     
     private var canvas: [UIView] {
-        return [cellCanvasLimitor, cellCanvasNightMode, cellCanvasVersion, cellCanvasNightMode2, cellCanvasHistory]
+        return [cellCanvasLimitor, cellCanvasNightMode, cellCanvasVersion, cellCanvasNightMode2, cellCanvasHistory, proxyCanvas]
     }
     
     private var titles: [UILabel] {
@@ -84,6 +90,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         
         self.limitorSwitch.isOn = Values.shared.safeMode
         self.historySwitch.isOn = Values.shared.historyWrite
+        self.proxySwitch.isOn = Values.shared.proxyEnabled
         self.navigationItem.title = "Настройки"
 
         self.infoTextView.text = FirebaseManager.shared.mainInfo
@@ -261,6 +268,26 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                 }
             })
             .disposed(by: self.disposeBag)
+        
+        self.proxyButton
+            .rx
+            .tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                self?.listener?.openProxy()
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.proxySwitch
+            .rx
+            .controlEvent(.valueChanged)
+            .subscribe(onNext: { [weak self] _ in
+                if let on = self?.proxySwitch.isOn {
+                    self?.listener?.proxyEnable(changed: on)
+                }
+            })
+            .disposed(by: self.disposeBag)
+
     }
     
     private func setupVersion() {

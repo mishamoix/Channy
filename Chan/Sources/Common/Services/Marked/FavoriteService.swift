@@ -24,7 +24,7 @@ class FavoriteService: MarkService {
     }
     
     override func write(thread: ThreadModel) {
-        thread.type = .favorited
+//        thread.type = .favorited
         super.write(thread: thread)
     }
     

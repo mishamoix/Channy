@@ -10,6 +10,8 @@ import RIBs
 import RxSwift
 import UIKit
 import RxCocoa
+import SwipeCellKit
+
 
 protocol MarkedPresentableListener: class {
     func open(idx: Int)
@@ -136,30 +138,30 @@ extension MarkedViewController: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            let board = self.boards[indexPath.row]
-//            self.listener?.viewActions.on(.next(.delete(uid: board.uid)))
-//        }
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//            if self.canAction {
-            return [UITableViewRowAction(style: .destructive, title: "Удалить", handler: { [weak self] (action, idexPath) in
-
-                if let item = self?.models[indexPath.row] {
-                    self?.listener?.delete(uid: item.id)
-//                        self?.listener?.viewActions.on(.next(.delete(uid: item.id)))
-                }
-            })]
-//            } else {
-//                return nil
-//            }
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+////        if editingStyle == .delete {
+////            let board = self.boards[indexPath.row]
+////            self.listener?.viewActions.on(.next(.delete(uid: board.uid)))
+////        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+////            if self.canAction {
+//            return [UITableViewRowAction(style: .destructive, title: "Удалить", handler: { [weak self] (action, idexPath) in
+//
+//                if let item = self?.models[indexPath.row] {
+//                    self?.listener?.delete(uid: item.id)
+////                        self?.listener?.viewActions.on(.next(.delete(uid: item.id)))
+//                }
+//            })]
+////            } else {
+////                return nil
+////            }
+//    }
+//
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
 
 
 }
@@ -176,6 +178,7 @@ extension MarkedViewController: UITableViewDataSource {
         
         if let c = cell as? MarkedCell {
             c.update(with: self.models[indexPath.row])
+            c.delegate = self
         }
         
 //        cell.textLabel?.text = self.models[indexPath.row].subject
@@ -184,5 +187,35 @@ extension MarkedViewController: UITableViewDataSource {
     }
     
     
+    
+}
+
+
+extension MarkedViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        
+        let bgColor = ThemeManager.shared.theme.background
+        
+        if orientation == .left {
+            
+//            self.listener?.viewActions.on(.next(.openHome))
+            
+            
+            return nil
+        }
+        
+        let delete = SwipeAction(style: .destructive, title: "Удалить") { [weak self] (action, indexPath) in
+            guard let self = self else { return }
+            let item = self.models[indexPath.row]
+            self.listener?.delete(uid: item.id)
+            
+            
+        }
+        delete.textColor = .white
+//        delete.
+        
+        return [delete]
+        
+    }
     
 }
