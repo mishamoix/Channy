@@ -9,14 +9,21 @@
 import UIKit
 import IGListKit
 
+enum ThreadViewModelType {
+    case thread
+    case ads
+}
+
 class ThreadViewModel {
+    
+    var type: ThreadViewModelType
     
     private(set) var thumbnail: URL? = nil
     private(set) var title: String? = nil
     private(set) var comment: NSAttributedString
     private(set) var postsCount: Int = 0
     
-    private(set) var height: CGFloat = 0
+    var height: CGFloat = 0
     private var heightCalculated = false
     
     private(set) var messageSize: CGSize = .zero
@@ -49,6 +56,8 @@ class ThreadViewModel {
         self.postsCount = model.postsCount
         self.media = model.media.first
         self.favorited = model.type == .favorited
+        
+        self.type = .thread
     }
     
     func calculateSize(max width: CGFloat) -> ThreadViewModel {

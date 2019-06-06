@@ -67,7 +67,7 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
             self.favorites = favorites
             self.attachChild(favorites)
             
-            let vc = BaseNavigationController(rootViewController: favorites.viewControllable.uiviewController)
+            let vc = DefaultNavigationController(rootViewController: favorites.viewControllable.uiviewController)
             
             vc.tabBarItem = UITabBarItem(title: "Избранное", image: .favorites, tag: 1)
             
@@ -79,7 +79,7 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
             self.history = history
             self.attachChild(history)
             
-            let vc = BaseNavigationController(rootViewController: history.viewControllable.uiviewController)
+            let vc = DefaultNavigationController(rootViewController: history.viewControllable.uiviewController)
             
             vc.tabBarItem = UITabBarItem(title: "История", image: .history, tag: 2)
             

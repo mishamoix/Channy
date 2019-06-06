@@ -89,6 +89,9 @@ class ErrorDisplay: ErrorDisplayProtocol {
             if let descr = description {
                 message = descr
             }
+        case .badProxy:
+            title = "Ошибка прокси"
+            message = "Не удается подключиться к прокси"
         case .error(let t, let description):
             title = t
             message = description

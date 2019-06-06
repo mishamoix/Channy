@@ -62,4 +62,29 @@ class Helper {
 //
 //        }
     }
+    
+    static func buildProxy(with model: ProxyModel? = nil) -> [AnyHashable: Any]? {
+        if let proxy = model {
+            var proxyConfiguration = [AnyHashable: Any]()
+            
+            proxyConfiguration[kCFStreamPropertySOCKSProxyHost] = proxy.server
+            proxyConfiguration[kCFStreamPropertySOCKSProxyPort] = proxy.port
+            proxyConfiguration[kCFStreamPropertySOCKSVersion] = kCFStreamSocketSOCKSVersion5
+            
+            if let username = proxy.username, username.count > 0 {
+                proxyConfiguration[kCFStreamPropertySOCKSUser] = username
+            }
+            
+            if let password = proxy.password, password.count > 0 {
+                proxyConfiguration[kCFStreamPropertySOCKSPassword] = password
+            }
+            
+            proxyConfiguration[kCFStreamPropertySOCKSProxy] = 1
+            
+            return proxyConfiguration
+
+        } else {
+            return nil
+        }
+    }
 }

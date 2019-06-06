@@ -41,7 +41,7 @@ let ImageCornerRadius: CGFloat = 14
 
 enum BoardAction {
     case loadNext
-    case openThread(idx: Int)
+    case openThread(uid: String)
     case reload
     case goToNewBoard
     case openHome
@@ -50,8 +50,8 @@ enum BoardAction {
     case openByLink
     case createNewThread
     
-    case addToFavorites(index: Int)
-    case hide(index: Int)
+    case addToFavorites(uid: String)
+    case hide(uid: String)
 }
 
 enum BoardCellAction {

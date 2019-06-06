@@ -17,6 +17,9 @@ extension DefaultsKeys {
     static let currentBrowser = DefaultsKey<String?>("selectedBrowser")
     
     static let historyWrite = DefaultsKey<Bool?>("safeMode")
+    static let proxy = DefaultsKey<Data?>("proxy")
+    static let proxyEnabled = DefaultsKey<Bool?>("proxyEnabled")
+
 }
 
 class Values {
@@ -26,9 +29,13 @@ class Values {
     
     init() {
         self.historyWriteObservable = Variable<Bool>(false)
+        self.proxyObservable = Variable<ProxyModel?>(nil)
+        self.proxyEnabledObservable = Variable<Bool>(false)
 //        super.init()
         
         self.historyWriteObservable.value = self.historyWrite
+        self.proxyObservable.value = self.proxy
+        self.proxyEnabledObservable.value = self.proxyEnabled
     }
     
     var safeMode: Bool {
@@ -104,6 +111,45 @@ class Values {
         }
     }
     var historyWriteObservable: Variable<Bool>
+    
+    
+    var proxy: ProxyModel? {
+        get {
+            if Defaults.hasKey(.historyWrite) {
+                if let value = Defaults[.proxy], let model = ProxyModel.parse(from: value) {
+                    return model
+                }
+            }
+            return nil
+        }
+        
+        set {
+            let data = newValue?.toData()
+            Defaults[.proxy] = data
+            self.proxyObservable.value = newValue
+        }
+    }
+    
+    var proxyObservable: Variable<ProxyModel?>
+    
+    var proxyEnabled: Bool {
+        get {
+            if Defaults.hasKey(.proxyEnabled) {
+                if let value = Defaults[.proxyEnabled] {
+                    return value
+                }
+            }
+            return false
+        }
+        
+        set {
+            Defaults[.proxyEnabled] = newValue
+            self.proxyEnabledObservable.value = newValue
+        }
+    }
+    
+    var proxyEnabledObservable: Variable<Bool>
+    
     
     private let defaults = UserDefaults(suiteName: "chan")
     

@@ -20,6 +20,8 @@ import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
 import AppCenter
+import GoogleMobileAds
+
 
 enum AppAction {
     case willActive
@@ -91,6 +93,9 @@ class AppDependency: NSObject {
         UIMenuController.shared.setMenuVisible(true, animated: true)
         
         UIApplication.shared.isIdleTimerDisabled = true
+        
+        
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         
     }

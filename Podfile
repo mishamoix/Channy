@@ -53,6 +53,9 @@ target 'Chan' do
     pod 'SwiftTryCatch'
     pod 'FPSCounter', '~> 4.0'
     
+    # ADs
+    pod 'Google-Mobile-Ads-SDK'
+    
     # Other
 #    pod 'FLAnimatedImage' # for AXPhotoViewer
 #    pod 'AXStateButton' # for AXPhotoViewer

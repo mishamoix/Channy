@@ -13,7 +13,7 @@ protocol SettingsDependency: Dependency {
     // created by this RIB.
 }
 
-final class SettingsComponent: Component<SettingsDependency> {
+final class SettingsComponent: Component<SettingsDependency>, ProxyDependency {
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
@@ -31,10 +31,13 @@ final class SettingsBuilder: Builder<SettingsDependency>, SettingsBuildable {
     }
 
     func build(withListener listener: SettingsListener) -> SettingsRouting {
-        let _ = SettingsComponent(dependency: dependency)
+        let component = SettingsComponent(dependency: dependency)
         let viewController = UIStoryboard(name: "SettingsViewController", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
         let interactor = SettingsInteractor(presenter: viewController)
         interactor.listener = listener
-        return SettingsRouter(interactor: interactor, viewController: viewController)
+        
+        let proxyBuilder = ProxyBuilder(dependency: component)
+        
+        return SettingsRouter(interactor: interactor, viewController: viewController, proxyBuilable: proxyBuilder)
     }
 }

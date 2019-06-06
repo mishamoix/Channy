@@ -26,6 +26,10 @@ extension Decodable where Self: BaseModel {
         }
         return result
     }
+}
 
-
+extension Encodable where Self: BaseModel {
+    func toData() -> Data? {
+        return try? JSONEncoder().encode(self)
+    }
 }

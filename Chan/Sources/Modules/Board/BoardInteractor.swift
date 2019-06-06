@@ -175,7 +175,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 self?.isLoading = false
                 self?.checkAgreement()
                 
-                let viewModels = models.map({ ThreadViewModel(with: $0)})
+                let viewModels = AdsBoardListManager(threads: models.map({ ThreadViewModel(with: $0)})).prepareAds()
                 
                 self?.data = models
                 self?.viewModels = viewModels
@@ -189,110 +189,6 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     self?.presenter.stopAnyLoaders()
             })
             .disposed(by: self.service.disposeBag)
-
-        
-        
-//        self.service
-//            .loadNext(realod: reload)?
-//            .asObservable()
-//            .observeOn(Helper.rxBackgroundThread)
-//            .retryWhen({ [weak self] errorObservable in
-//                return errorObservable.flatMap({ error -> Observable<Void>  in
-//
-//                    if let err = error as? ChanError, err == ChanError.noModel {
-//                        let noModelError = ChanError.error(title: "Введите код доски ", description: "Вы еще не добавили домашнюю доску 😱, введите код доски")
-//                        let display = ErrorDisplay(error: noModelError, buttons: [.input(result: "Например pr")])
-//
-//                        Helper.performOnMainThread {
-//                            self?.presenter.stopAnyLoaders()
-//                            display.show(on: self?.presenter.vc)
-//                        }
-//
-//                        return display.actions
-//                            .flatMap({ action -> Observable<Void> in
-//                                switch action {
-//                                case .input(let result): do {
-//                                    if let result = TextStripper.onlyChars(text: result) {
-//                                        self?.service.saveBoardAsHomeIfSuccess = true
-//                                        let board = BoardModel(uid: result)
-//                                        self?.service.update(board: board)
-//                                        self?.updateHeader()
-//                                    }
-//                                }
-//                                    default: break
-//                                }
-//                                self?.load(reload: true)
-//                                self?.presenter.showCentralActivity()
-//                                return Observable<Void>.error(ChanError.noModel)
-//                            })
-//                    } else {
-//
-//
-//                        let errorManager = ErrorManager.errorHandler(for: self, error: error, actions: [.retry, .ok])
-//
-//                        Helper.performOnMainThread {
-//                            self?.presenter.stopAnyLoaders()
-//                            errorManager.show(on: self?.presenter.vc)
-//                        }
-//
-//                        return errorManager.actions
-//                            .flatMap({ type -> Observable<Void> in
-//                                if type == .retry {
-//                                    self?.presenter.showCentralActivity()
-//                                    return Observable<Void>.just(Void())
-//                                } else {
-//                                    self?.presenter.stopAnyLoaders()
-//                                    return Observable<Void>.empty()
-//                                }
-//                            })
-//                    }
-//                })
-//            })
-//            .flatMap({ [weak self] result -> Observable<[ThreadViewModel]> in
-//                self?.checkAgreement()
-//                self?.updateHeader()
-//              // TODO: переделать
-//                let threads = result.result
-//                  .filter({ !FirebaseManager.shared.excludeThreads.contains($0.threadPath) })
-//                var threadsVM = threads
-//                    .map({ ThreadViewModel(with: $0) })
-//
-//                var allVM: [ThreadViewModel] = []
-//                if let prev = self?.viewModels {
-//                    allVM += prev
-//                }
-//
-//                switch result.type {
-//                case .first:
-//                    self?.data = threads
-//                    allVM = threadsVM
-//                    self?.viewModels = threadsVM
-//
-//                    if let uid = self?.service.board?.uid {
-//                      StatisticManager.event(name: "loaded_board", values: ["uid" : uid])
-//                    }
-//                default:
-//
-//                    let prevThreads = (self?.data ?? []).map({ $0.uid })
-//
-//                    threadsVM = threadsVM.filter({ !prevThreads.contains($0.uid) })
-//                    self?.viewModels += threadsVM
-//                    self?.data += threads.filter({ !prevThreads.contains($0.uid) })
-//                    allVM += threadsVM
-//                }
-//                self?.presenter.stopAnyLoaders()
-//                return Observable<[ThreadViewModel]>.just(allVM)
-//            })
-//            .subscribe(onNext: { [weak self] models in
-//                self?.dataSource.value = models
-//                self?.isLoading = false
-//            }, onError: { [weak self] _ in
-//                self?.isLoading = false
-//            })
-//            .disposed(by: self.disposeBag)
-//
-//
-//        self.updateHeader()
 
     }
     
@@ -317,8 +213,8 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
 //                        self?.load()
                     }
                 }
-                case .openThread(let idx): do {
-                    if let thread = self?.data[idx] {
+                case .openThread(let uid): do {
+                    if let thread = self?.findThread(by: uid) {
                         self?.router?.open(thread: thread)
                     }
                 }
@@ -347,25 +243,28 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
 //                    let thread = ThreadModel(uid: "", board: self?.service.board)
 //                    self?.router?.openCreateThread(thread)
                     
-                case .addToFavorites(let idx): do {
+                case .addToFavorites(let uid): do {
                     guard let self = self else { return }
-                    let model = self.data[idx]
-                    if model.type == .favorited {
-                        model.type = .none
-                    } else {
-                        model.type = .favorited
+                        if let model = self.findThread(by: uid) {
+                        if model.type == .favorited {
+                            model.type = .none
+                        } else {
+                            model.type = .favorited
+                        }
+                        self.favoriteService.write(thread: model)
+                        if let idx = self.findThreadViewModelIdx(by: uid) {
+                            self.viewModels[idx] = ThreadViewModel(with: model)
+                        }
+                        self.dataSource.value = self.viewModels
+                        
+                        self.favoriteService.write(thread: model)
                     }
-                    self.favoriteService.write(thread: model)
-                    self.viewModels[idx] = ThreadViewModel(with: model)
-                    self.dataSource.value = self.viewModels
-                    
-                    self.favoriteService.write(thread: model)
                     
                 }
                     
-                case .hide(let idx): do {
+                case .hide(let uid): do {
                     guard let self = self else { return }
-                    let model = self.data[idx]
+//                    let model = self.data[idx]
 //                    model.
                     
                 }
@@ -551,6 +450,14 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         default:
             return nil
         }
+    }
+    
+    private func findThread(by uid: String) -> ThreadModel? {
+        return self.data.first(where: { $0.id == uid })
+    }
+    
+    private func findThreadViewModelIdx(by uid: String) -> Int? {
+        return self.viewModels.firstIndex(where: { $0.uid == uid })
     }
 
 }

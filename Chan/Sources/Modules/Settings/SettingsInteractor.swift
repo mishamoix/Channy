@@ -10,6 +10,7 @@ import RIBs
 import RxSwift
 
 protocol SettingsRouting: ViewableRouting {
+    func openProxy()
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
 }
 
@@ -49,5 +50,13 @@ final class SettingsInteractor: PresentableInteractor<SettingsPresentable>, Sett
     
     func historyWriteChanged(write: Bool) {
         Values.shared.historyWrite = write
+    }
+    
+    func openProxy() {
+        self.router?.openProxy()
+    }
+    
+    func proxyEnable(changed on: Bool) {
+        Values.shared.proxyEnabled = on
     }
 }

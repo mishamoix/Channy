@@ -100,10 +100,14 @@ class ThemeView {
                 textField.backgroundColor = theme.background
                 textField.textColor = theme.accentText
                 textField.keyboardAppearance = theme.keyboard
+                textField.setValue(theme.thirdText, forKeyPath: "_placeholderLabel.textColor")
+//                textField.setPla
+//                textField.placeholderColor = theme.thirdText
             }
             
             if let searchBar = self.view as? UISearchBar {
                 searchBar.barStyle = .black
+                searchBar.keyboardAppearance = theme.keyboard
 //                searchBar.backgroundColor = theme.background
 //                searchBar.tintColor = theme.accentText
 //                searchBar.keyboardAppearance = theme.keyboard

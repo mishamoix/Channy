@@ -7,27 +7,33 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class MarkedCell: UITableViewCell {
+
+class MarkedCell: SwipeTableViewCell {
     @IBOutlet weak var preview: ChanImageView!
     @IBOutlet weak var label: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectedBackgroundView = UIView()
+
         self.setupTheme()
 
         self.preview.layer.cornerRadius = DefaultCornerRadius
         self.preview.clipsToBounds = true
         self.preview.contentMode = .scaleAspectFill
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
     func update(with model: ThreadModel) {
+//        self.preview.isHidden = true
+//        self.label.isHidden = true
         self.preview.loadImage(media: model.media.first, full: true)
         
         var text = model.subject
@@ -48,5 +54,7 @@ class MarkedCell: UITableViewCell {
         self.backgroundColor = .clear
         ThemeManager.shared.append(view: ThemeView(view: self.contentView, type: .cell, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.label, type: .text, subtype: .none))
+        
+        self.selectedBackgroundView?.backgroundColor = ThemeManager.shared.theme.background
     }
 }

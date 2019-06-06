@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol SettingsInteractable: Interactable {
+protocol SettingsInteractable: Interactable, ProxyListener {
     var router: SettingsRouting? { get set }
     var listener: SettingsListener? { get set }
 }
@@ -20,8 +20,21 @@ protocol SettingsViewControllable: ViewControllable {
 final class SettingsRouter: ViewableRouter<SettingsInteractable, SettingsViewControllable>, SettingsRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    override init(interactor: SettingsInteractable, viewController: SettingsViewControllable) {
+    init(interactor: SettingsInteractable, viewController: SettingsViewControllable, proxyBuilable: ProxyBuildable) {
+        self.proxyBuilable = proxyBuilable
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
+    }
+    
+    private let proxyBuilable: ProxyBuildable
+    private var proxy: ViewableRouting?
+    
+    func openProxy() {
+        if self.canDeattach(router: self.proxy) {
+            let proxy = self.proxyBuilable.build(withListener: self.interactor)
+            self.proxy = proxy
+            
+            self.viewController.push(view: proxy.viewControllable, animated: true)
+        }
     }
 }

@@ -30,7 +30,7 @@ public extension Presentable {
 
     }
     
-    private func hideCentralActivity() {
+    func hideCentralActivity() {
         Helper.performOnMainThread {
             if let view = (self as? UIViewController)?.view {
                 MBProgressHUD.hide(for: view, animated: true)
