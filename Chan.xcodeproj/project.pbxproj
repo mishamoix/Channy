@@ -224,6 +224,7 @@
 		0AB3C69721B4630800A58FDE /* InvisibleRecaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3C69621B4630800A58FDE /* InvisibleRecaptchaViewController.swift */; };
 		0AB88E0A227621920052AF45 /* CoreDataThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB88E09227621920052AF45 /* CoreDataThread.swift */; };
 		0AB88E0C227625280052AF45 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB88E0B227625280052AF45 /* HistoryService.swift */; };
+		0ABBF8D722AAF6A0009796E0 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBF8D622AAF6A0009796E0 /* RoundedCornerView.swift */; };
 		0AC5FAB521FF297F00113078 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AC5FAB421FF297F00113078 /* GoogleService-Info.plist */; };
 		0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29512143EF0B00B4E53B /* AppDelegate.swift */; };
 		0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC29582143EF1200B4E53B /* Assets.xcassets */; };
@@ -522,6 +523,7 @@
 		0AB3C69621B4630800A58FDE /* InvisibleRecaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvisibleRecaptchaViewController.swift; sourceTree = "<group>"; };
 		0AB88E09227621920052AF45 /* CoreDataThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataThread.swift; sourceTree = "<group>"; };
 		0AB88E0B227625280052AF45 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
+		0ABBF8D622AAF6A0009796E0 /* RoundedCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
 		0AC5FAB421FF297F00113078 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0ACC294E2143EF0B00B4E53B /* Chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC29512143EF0B00B4E53B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1461,6 +1463,7 @@
 				0A2E0CAC214557E900CBD619 /* BaseTableViewCell.swift */,
 				0A37B0392222E49A00FFACDF /* BaseTabBarController.swift */,
 				0AFD188122352B2B00F844BE /* BaseView.swift */,
+				0ABBF8D622AAF6A0009796E0 /* RoundedCornerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2089,6 +2092,7 @@
 				0A7A379522A7F84E00E35C49 /* ProxyBuilder.swift in Sources */,
 				0AFFFDAE2149A1F50002E832 /* ThreadViewController.swift in Sources */,
 				0A86411C2250E1B9000BBE07 /* BoardSelectionRouter.swift in Sources */,
+				0ABBF8D722AAF6A0009796E0 /* RoundedCornerView.swift in Sources */,
 				0A90E7822151886900B71EAA /* PostManager.swift in Sources */,
 				0ACC296E2143F22F00B4E53B /* BoardsListViewController.swift in Sources */,
 				0A72E18E21BABEB500BD488E /* StatisticManager.swift in Sources */,

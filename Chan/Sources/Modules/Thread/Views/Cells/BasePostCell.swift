@@ -33,6 +33,15 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     let headerDelimeter = UIView()
     let repliesButton = UIButton()
     
+    private let roundedCournerLayer = CAShapeLayer()
+    private let backgroundLayer = CALayer()
+    
+//    private let bgView = RoundedCornerView(frame: .zero)
+//
+//    override var contentView: UIView {
+//        return self.bgView
+//    }
+    
     var canBeFirst = false
     
     private var highlightDisposeBag = DisposeBag()
@@ -59,10 +68,16 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     
     func setupUI() {
         
-        self.clipsToBounds = true
-        self.layer.cornerRadius = ThreadCornerRadius
-        self.layer.shouldRasterize = true
-        self.layer.rasterizationScale = UIScreen.main.scale
+//        self.clipsToBounds = true
+//        self.layer.cornerRadius = ThreadCornerRadius
+//        self.layer.shouldRasterize = true
+//        self.layer.rasterizationScale = UIScreen.main.scale
+        
+//        self.contentView.addSubview(self.backgroundView)
+        
+//        self.addSubview(self.bgView)
+//        self.bgView.cornerRadius = ThreadCornerRadius
+        
         
         self.contentView.addSubview(self.number)
         self.contentView.addSubview(self.uid)
@@ -85,10 +100,26 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         
         self.repliesButton.titleLabel?.font = .textStrong
         self.repliesButton.contentHorizontalAlignment = .left
+        
+        self.backgroundLayer.mask = self.roundedCournerLayer
+        self.layer.insertSublayer(self.backgroundLayer, at: 0)
 
         self.setupTheme()
 //
     }
+    
+//    override func draw(_ rect: CGRect) {
+//
+//        self.bgView.frame = self.bounds
+//        super.draw(rect)
+//
+////        let bgPath =
+//
+////        self.backgroundLayer.frame = self.bounds
+////
+////        self.roundedCournerLayer.path = UIBezierPath(roundedRect: self.bounds,  cornerRadius: ThreadCornerRadius).cgPath
+//
+//    }
     
     private func setupRx() {
         self.repliesButton
@@ -119,10 +150,14 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.updateFooter(with: model)
         
         if model.isFirst && self.canBeFirst {
-            self.backgroundColor = .clear
+            self.backgroundLayer.backgroundColor = UIColor.clear.cgColor
         } else {
-            self.backgroundColor = ThemeManager.shared.theme.cell
+            self.backgroundLayer.backgroundColor = ThemeManager.shared.theme.cell.cgColor
         }
+        
+        self.backgroundLayer.frame = self.bounds
+
+        self.roundedCournerLayer.path = UIBezierPath(roundedRect: self.bounds,  cornerRadius: ThreadCornerRadius).cgPath
     }
     
     func update(action: PublishSubject<PostCellAction>?) {

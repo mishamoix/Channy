@@ -16,7 +16,7 @@ enum ThemeType: String {
 }
 
 
-struct Theme {
+class Theme {
     var text: UIColor
     var accentText: UIColor
     var thirdText: UIColor
@@ -29,6 +29,20 @@ struct Theme {
     var quote: UIColor
 
     var keyboard: UIKeyboardAppearance
+    
+    
+    init(text: UIColor, accentText: UIColor, thirdText: UIColor, cell: UIColor, background: UIColor, border: UIColor, accent: UIColor, accnt: UIColor, quote: UIColor, keyboard: UIKeyboardAppearance) {
+        self.text = text
+        self.accentText = accentText
+        self.thirdText = thirdText
+        self.cell = cell
+        self.background = background
+        self.border = border
+        self.accent = accent
+        self.accnt = accnt
+        self.quote = quote
+        self.keyboard = keyboard
+    }
 
 }
 
