@@ -399,13 +399,20 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
         
         let range = self.textView.selectedRange
         let start = range.location
-        let end = range.location + range.length
+        var end = range.location + range.length
+        
+        
         
         var text = self.textView.text
-        
-        text?.insert(contentsOf: close, at: String.Index(encodedOffset: end))
-        text?.insert(contentsOf: open, at: String.Index(encodedOffset: start))
-        
+        if start == end {
+            
+            text?.insert(contentsOf: open, at: String.Index(encodedOffset: start))
+            end += open.count
+            text?.insert(contentsOf: close, at: String.Index(encodedOffset: end))
+        } else {
+            text?.insert(contentsOf: close, at: String.Index(encodedOffset: end))
+            text?.insert(contentsOf: open, at: String.Index(encodedOffset: start))
+        }
         self.textView.text = text
         
         if range.length == 0 {

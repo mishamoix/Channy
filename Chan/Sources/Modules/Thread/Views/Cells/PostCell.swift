@@ -52,6 +52,7 @@ class PostCell: BasePostCell {
         
         self.textLabel.attributedText = model.text
         self.textLabel.frame = model.textFrame
+      
 //        self.textLabel.sizeToFit()
 //        self.textLabel.setNeedsDisplay()
         
