@@ -33,8 +33,8 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     let headerDelimeter = UIView()
     let repliesButton = UIButton()
     
-    private let roundedCournerLayer = CAShapeLayer()
-    private let backgroundLayer = CALayer()
+//    private let roundedCournerLayer = CAShapeLayer()
+//    private let backgroundLayer = CALayer()
     
 //    private let bgView = RoundedCornerView(frame: .zero)
 //
@@ -101,8 +101,8 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.repliesButton.titleLabel?.font = .textStrong
         self.repliesButton.contentHorizontalAlignment = .left
         
-        self.backgroundLayer.mask = self.roundedCournerLayer
-        self.layer.insertSublayer(self.backgroundLayer, at: 0)
+//        self.backgroundLayer.mask = self.roundedCournerLayer
+//        self.layer.insertSublayer(self.backgroundLayer, at: 0)
 
         self.setupTheme()
 //
@@ -150,14 +150,14 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.updateFooter(with: model)
         
         if model.isFirst && self.canBeFirst {
-            self.backgroundLayer.backgroundColor = UIColor.clear.cgColor
+            self.contentView.backgroundColor = UIColor.clear
         } else {
-            self.backgroundLayer.backgroundColor = ThemeManager.shared.theme.cell.cgColor
+            self.contentView.backgroundColor = ThemeManager.shared.theme.cell
         }
         
-        self.backgroundLayer.frame = self.bounds
-
-        self.roundedCournerLayer.path = UIBezierPath(roundedRect: self.bounds,  cornerRadius: ThreadCornerRadius).cgPath
+//        self.backgroundLayer.frame = self.bounds
+//
+//        self.roundedCournerLayer.path = UIBezierPath(roundedRect: self.bounds,  cornerRadius: ThreadCornerRadius).cgPath
     }
     
     func update(action: PublishSubject<PostCellAction>?) {
