@@ -644,10 +644,10 @@ extension ThreadViewController: UICollectionViewDelegateFlowLayout {
     
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let path = UIBezierPath(roundedRect: cell.contentView.bounds, cornerRadius: ThreadCornerRadius)
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        cell.contentView.layer.mask = mask
+//        let path = UIBezierPath(roundedRect: cell.contentView.bounds, cornerRadius: ThreadCornerRadius)
+//        let mask = CAShapeLayer()
+//        mask.path = path.cgPath
+//        cell.contentView.layer.mask = mask
     }
 }
 

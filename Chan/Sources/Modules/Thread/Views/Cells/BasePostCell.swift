@@ -32,6 +32,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     let reply = UIButton()
     let headerDelimeter = UIView()
     let repliesButton = UIButton()
+    let bg = UIImageView(image: .postCellBG)
     
 //    private let roundedCournerLayer = CAShapeLayer()
 //    private let backgroundLayer = CALayer()
@@ -73,12 +74,9 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
 //        self.layer.shouldRasterize = true
 //        self.layer.rasterizationScale = UIScreen.main.scale
         
-//        self.contentView.addSubview(self.backgroundView)
         
-//        self.addSubview(self.bgView)
-//        self.bgView.cornerRadius = ThreadCornerRadius
-        
-        
+        self.contentView.addSubview(self.bg)
+
         self.contentView.addSubview(self.number)
         self.contentView.addSubview(self.uid)
         self.contentView.addSubview(self.date)
@@ -150,10 +148,14 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.updateFooter(with: model)
         
         if model.isFirst && self.canBeFirst {
-            self.contentView.backgroundColor = UIColor.clear
+            self.bg.isHidden = true
+//            self.contentView.backgroundColor = UIColor.clear
         } else {
-            self.contentView.backgroundColor = ThemeManager.shared.theme.cell
+            self.bg.isHidden = false
+            self.bg.frame = self.bounds
+            self.bg.tintColor = ThemeManager.shared.theme.cell
         }
+        
         
 //        self.backgroundLayer.frame = self.bounds
 //
