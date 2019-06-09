@@ -33,5 +33,7 @@ extension UIImage {
     
     static var star: UIImage { return UIImage(named: "star")!}
     static var fullStar: UIImage { return UIImage(named: "fullStar")!}
+    
+    static var postCellBG: UIImage { return UIImage(named: "threadCellBG")!}
 
 }
