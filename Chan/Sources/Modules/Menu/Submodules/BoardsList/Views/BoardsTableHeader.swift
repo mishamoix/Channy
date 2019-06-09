@@ -24,7 +24,10 @@ class BoardsTableHeader: UITableViewHeaderFooterView {
         super.awakeFromNib()
         
         self.boardImage.layer.cornerRadius = DefaultCornerRadius
+        self.boardImage.clipsToBounds = true
         self.setupTheme()
+        
+        
     }
 
     func update(with model: ImageboardModel) {

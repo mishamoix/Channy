@@ -51,6 +51,7 @@ final class BoardsListRouter: ViewableRouter<BoardsListInteractable, BoardsListV
             self.viewController.push(view: setting.viewControllable)
         }
     }
+    
 //
 //    func openAgreement(model: WebAcceptViewModel) {
 //        self.closeAgreement()

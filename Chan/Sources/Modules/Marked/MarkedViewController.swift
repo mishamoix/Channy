@@ -10,7 +10,6 @@ import RIBs
 import RxSwift
 import UIKit
 import RxCocoa
-import SwipeCellKit
 
 
 protocol MarkedPresentableListener: class {

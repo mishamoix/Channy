@@ -139,9 +139,9 @@ class ThreadImageViewer: NSObject {
     
     private var dataSource: AXPhotosDataSource?
     private(set) lazy var browser: AXPhotosViewController? = nil
-    private let anchor: FileModel
+    private let anchor: MediaModel
     
-    init(files: [FileModel], anchor: FileModel) {
+    init(files: [MediaModel], anchor: MediaModel) {
         self.anchor = anchor
         super.init()
         self.process(files: files)
@@ -150,11 +150,11 @@ class ThreadImageViewer: NSObject {
         self.setupText()
     }
     
-    private func process(files: [FileModel]) {
+    private func process(files: [MediaModel]) {
         var photos: [AXPhotoProtocol] = []
         var anchor = 0
         for file in files {
-            guard let url = URL(string: MakeFullPath(path: file.path)) else {
+            guard let url = file.url else {
                 continue
             }
             if file == self.anchor {
@@ -284,7 +284,7 @@ class ThreadImageViewer: NSObject {
         self.textCanvas.isHidden = true
         
         if let url = photo.url {
-            let model = FileModel(path: url.absoluteString)
+//            let model = MediaModel(path: url.absoluteString)
 //            if CensorManager.isCensored(model: model) {
 //                self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
 //                self.openInBrowserButton.alpha = 1

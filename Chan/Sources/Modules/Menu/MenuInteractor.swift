@@ -18,7 +18,9 @@ protocol MenuRouting: ViewableRouting {
 
 protocol MenuPresentable: Presentable {
     var listener: MenuPresentableListener? { get set }
-    // TODO: Declare methods the interactor can invoke the presenter to present data.
+
+    func openBoards()
+
 }
 
 protocol MenuListener: class {
@@ -64,5 +66,11 @@ final class MenuInteractor: PresentableInteractor<MenuPresentable>, MenuInteract
     
     func openBoardSelection() {
         self.router?.openBoardSelection()
+    }
+    
+    // MARK: ImageboardListListener
+    func newImageboardSelected() {
+        self.presenter.openBoards()
+//        self.router?.openBoards()
     }
 }

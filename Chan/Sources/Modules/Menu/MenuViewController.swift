@@ -85,6 +85,11 @@ final class MenuViewController: BaseViewController, MenuPresentable, MenuViewCon
 //        self.pageIndicator
     }
     
+    // MARK: MenuPresentable
+    func openBoards() {
+        self.scrollView.setContentOffset(CGPoint(x: self.view.frame.width, y: 0), animated: true)
+    }
+    
     // MARK: Private
     private func setup() {
         self.setupUI()

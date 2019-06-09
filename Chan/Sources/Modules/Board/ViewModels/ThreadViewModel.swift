@@ -37,7 +37,7 @@ class ThreadViewModel {
     
     let uid: String
     
-    var file: FileModel? = nil
+    var file: MediaModel? = nil
     
     var displayText: String? {
         return self.comment.string

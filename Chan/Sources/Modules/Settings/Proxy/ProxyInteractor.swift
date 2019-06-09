@@ -66,11 +66,11 @@ final class ProxyInteractor: PresentableInteractor<ProxyPresentable>, ProxyInter
         
     }
     
-    func saveProxy() {
+    func saveProxy(title: String?) {
         if let model = self.presenter.buildedModel {
             if self.checkProxy(model: model) {
                 Values.shared.proxy = model
-                ErrorDisplay.presentAlert(with: "Успешно!", message: "Настройки прокси обновлены", dismiss: 1.0)
+                ErrorDisplay.presentAlert(with: title ?? "Успешно!", message: "Настройки прокси обновлены", dismiss: 1.0)
                 return
             }
         }

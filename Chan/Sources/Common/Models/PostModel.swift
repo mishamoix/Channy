@@ -13,14 +13,16 @@ class PostModel: BaseModel, Decodable {
 //    var name = ""
 //    var subject = ""
     var comment = ""
-    var files: [FileModel] = []
+    var files: [MediaModel] = []
     var name = ""
     var date: TimeInterval = 0
     var number = 0
     var markups: [MarkupModel] = []
     var selfReplies: [String] = []
     
-    
+    override init() {
+        super.init()
+    }
     
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -33,7 +35,7 @@ class PostModel: BaseModel, Decodable {
 //        }
         
         self.comment = try values.decode(String.self, forKey: .comment)
-        if let files = try? values.decode([FileModel].self, forKey: .files) {
+        if let files = try? values.decode([MediaModel].self, forKey: .files) {
             self.files = files
         }
         

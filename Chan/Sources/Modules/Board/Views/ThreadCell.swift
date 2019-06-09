@@ -11,8 +11,6 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-import SwipeCellKit
-
 
 
 class ThreadCell: SwipeCollectionViewCell {

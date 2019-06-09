@@ -106,18 +106,11 @@ PODS:
     - KafkaRefresh/Category
     - KafkaRefresh/Default
   - leveldb-library (1.20)
-  - libnestegg (0.3)
-  - libogg (1.3.3)
-  - libopus (1.1):
-    - libopus/float (= 1.1)
-  - libopus/float (1.1)
-  - libvorbis (1.3.5):
-    - libogg (>= 1.0)
-  - libvpx (1.7.0)
   - MagicalRecord (2.3.2):
     - MagicalRecord/Core (= 2.3.2)
   - MagicalRecord/Core (2.3.2)
   - MBProgressHUD (1.1.0)
+  - MobileVLCKit (3.3.0)
   - Moya (11.0.2):
     - Moya/Core (= 11.0.2)
   - Moya/Core (11.0.2):
@@ -131,33 +124,6 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - OGVKit/Core (0.5.13)
-  - OGVKit/OpusDecoder (0.5.13):
-    - libopus
-    - OGVKit/Core
-  - OGVKit/VorbisDecoder (0.5.13):
-    - libvorbis
-    - OGVKit/Core
-  - OGVKit/VP8Decoder (0.5.13):
-    - libvpx (~> 1.7.0)
-    - OGVKit/Core
-  - OGVKit/WebM (0.5.13):
-    - OGVKit/WebM/Opus (= 0.5.13)
-    - OGVKit/WebM/Vorbis (= 0.5.13)
-    - OGVKit/WebM/VP8 (= 0.5.13)
-  - OGVKit/WebM/Opus (0.5.13):
-    - OGVKit/OpusDecoder
-    - OGVKit/WebMDemuxer
-  - OGVKit/WebM/Vorbis (0.5.13):
-    - OGVKit/VorbisDecoder
-    - OGVKit/WebMDemuxer
-  - OGVKit/WebM/VP8 (0.5.13):
-    - OGVKit/VorbisDecoder
-    - OGVKit/VP8Decoder
-    - OGVKit/WebMDemuxer
-  - OGVKit/WebMDemuxer (0.5.13):
-    - libnestegg (~> 0.2)
-    - OGVKit/Core
   - ReCaptcha/Core (1.4)
   - ReCaptcha/RxSwift (1.4):
     - ReCaptcha/Core
@@ -168,13 +134,12 @@ PODS:
   - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
   - RxSwift (4.3.1)
-  - SideMenu (5.0.1)
+  - SideMenu (5.0.3)
   - SnapKit (4.0.1)
   - SwiftReorder (6.0.0)
   - SwiftTryCatch (0.0.1)
   - SwiftyJSON (4.2.0)
   - SwiftyUserDefaults (4.0.0-alpha.1)
-  - SwipeCellKit (2.6.0)
   - "UITextView+Placeholder (1.2.1)"
 
 DEPENDENCIES:
@@ -191,9 +156,9 @@ DEPENDENCIES:
   - KafkaRefresh
   - MagicalRecord
   - MBProgressHUD
+  - MobileVLCKit (= 3.3.0)
   - Moya
   - Moya/RxSwift
-  - OGVKit/WebM
   - ReCaptcha/RxSwift
   - RIBs
   - RxCocoa
@@ -204,16 +169,9 @@ DEPENDENCIES:
   - SwiftTryCatch
   - SwiftyJSON
   - SwiftyUserDefaults (= 4.0.0-alpha.1)
-  - SwipeCellKit
   - "UITextView+Placeholder"
 
 SPEC REPOS:
-  https://github.com/brion/OGVKit-Specs.git:
-    - libnestegg
-    - libogg
-    - libvorbis
-    - libvpx
-    - OGVKit
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
@@ -232,9 +190,9 @@ SPEC REPOS:
     - IGListKit
     - KafkaRefresh
     - leveldb-library
-    - libopus
     - MagicalRecord
     - MBProgressHUD
+    - MobileVLCKit
     - Moya
     - nanopb
     - ReCaptcha
@@ -248,7 +206,6 @@ SPEC REPOS:
     - SwiftTryCatch
     - SwiftyJSON
     - SwiftyUserDefaults
-    - SwipeCellKit
     - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
@@ -269,30 +226,24 @@ SPEC CHECKSUMS:
   IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
   KafkaRefresh: c9794c5a696eaf00371c18ba385c8c3d114b5bff
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
-  libnestegg: 851afa1dc38c810bb18fa6459c39aa124abd7fc0
-  libogg: 35e313159a7270931d0f0f208c2d5f60bc05399b
-  libopus: ad5f060dcb8f30f139777244d70f9111f1c80863
-  libvorbis: b2c6a2c2bb22447d80403981185b213cf688fae7
-  libvpx: 5abeaf729fa406fd65ae1c19adcf00329c40e02a
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  MobileVLCKit: e24ffcf78d919817def060da27b2f7ef75ec08f8
   Moya: a725035953bc1c0eb1be505ab903984501d82440
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  OGVKit: 0e63492407aa2f3734ff18670ca09ecfe63d34e7
   ReCaptcha: c7122c19f515d61f48ce372e1ea2497bcba1fd63
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RIBs: 879184fbca567425c488d6b3d14a9c5abfbf9d47
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
-  SideMenu: 87efd943737bb83aedf0358884d09fcf5576636d
+  SideMenu: 1dcaabce84538c53325c287f7fe62999379a641c
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftReorder: 0eefefe5e469c70a98d129e9aa2952862a2b34d2
   SwiftTryCatch: fb6d2b34abe48efd69578dac919293a44f95b481
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
-  SwipeCellKit: 935ca28c187ec6e1ffb2b578cf8ddca842bfdcbb
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: bc97316ada8736da3bc159634503060370cec893
+PODFILE CHECKSUM: 3bf43816102d80a69abcb959e1352ba495680cdc
 
 COCOAPODS: 1.5.3

@@ -40,22 +40,16 @@ class PostMediaView: UIView {
        super.init(coder: aDecoder)
     }
     
-    func update(with file: FileModel) {
+    func update(with file: MediaModel) {
         
         self.isHidden = false
         self.playCanvas.isHidden = file.type == .image
         self.cancelLoad()
-        if let thumb = URL(string: MakeFullPath(path: file.thumbnail)) {
-            self.load(url: thumb)
-        }
+        self.image.loadImage(media: file)
         
-//        self.image.censor(file: file)
         
     }
     
-    private func load(url: URL) {
-        self.image.load(url: url)
-    }
     
     func cancelLoad() {
         self.image.cancelLoad()
