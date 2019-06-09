@@ -24,6 +24,13 @@ let RetryCount = 3
 let BatchSize = 50
 
 
+let AdHeightDefault: CGFloat = 120
+
+
+let ThreadListAdCount = 15
+let PostListAdCount = 20
+
+
 let IsIpad = {
     return UIDevice.current.userInterfaceIdiom == .pad
 }()

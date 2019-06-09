@@ -77,23 +77,23 @@ class ChanImageView: UIImageView {
     }
 //
     
-    func load(url: URL?) {
-        self.isCensored = nil
-        self.image = nil
-        self.originalImage = nil
-        self.cancelLoad()
-        
-        if !FirebaseManager.shared.disableImages {
-            if let url = url {
-//                self.af_setImage(withURL: url) { (response: DataResponse<UIImage>) in
+//    func load(url: URL?) {
+//        self.isCensored = nil
+//        self.image = nil
+//        self.originalImage = nil
+//        self.cancelLoad()
 //
-//                }
-                self.af_setImage(withURL: url)
-            }
-        } else {
-            self.image = UIImage(color: .black, size: CGSize(width: 1, height: 1))
-        }
-    }
+//        if !FirebaseManager.shared.disableImages {
+//            if let url = url {
+////                self.af_setImage(withURL: url) { (response: DataResponse<UIImage>) in
+////
+////                }
+//                self.af_setImage(withURL: url)
+//            }
+//        } else {
+//            self.image = UIImage(color: .black, size: CGSize(width: 1, height: 1))
+//        }
+//    }
     
   func loadImage(media: MediaModel?, full: Bool = false) {
         self.cancelLoad()

@@ -13,7 +13,7 @@ import RxCocoa
 
 protocol ProxyPresentableListener: class {
     func checkProxy() -> Observable<Bool>
-    func saveProxy()
+    func saveProxy(title: String?)
     func deleteProxy()
 }
 
@@ -99,11 +99,13 @@ final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyV
                 guard let self = self, let listener = self.listener else { return }
                 self.showCentralActivity()
                  listener.checkProxy()
-                .subscribe(onNext: { result in
+                .subscribe(onNext: { [weak self] result in
                     
-                    self.hideCentralActivity()
+                    self?.hideCentralActivity()
                     if result {
-                        ErrorDisplay.presentAlert(with: nil, message: "Успешно", dismiss: 0.75)
+//                        ErrorDisplay.presentAlert(with: nil, message: "Успешно", dismiss: 0.75)
+                        
+                        self?.listener?.saveProxy(title: "Соединение успешно!")
                     } else {
                         ErrorDisplay.presentAlert(with: "Ошибка", message: "Не удалось подключиться к прокси", dismiss: 0.75)
                     }
@@ -124,7 +126,7 @@ final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyV
             .tap
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
-                self?.listener?.saveProxy()
+                self?.listener?.saveProxy(title: nil)
             })
             .disposed(by: self.disposeBag)
         

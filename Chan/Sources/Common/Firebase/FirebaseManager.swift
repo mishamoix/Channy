@@ -33,7 +33,8 @@ class FirebaseManager {
     private(set) var needExcludeBoards: Bool = false
     private(set) var censorEnabled: Bool = false
     private(set) var agreementUrl: URL? = nil
-    private(set) var oneAdsByCountThreads: Int = 7
+    private(set) var oneAdsByCountThreads: Int = ThreadListAdCount
+    private(set) var oneAdsByCountInThread: Int = PostListAdCount
     
 
     
@@ -110,6 +111,9 @@ class FirebaseManager {
         
         if let oneAdsByCountThreads = result["oneAdsByCountThreads"] as? Int {
             self.oneAdsByCountThreads = oneAdsByCountThreads
+        }
+        if let oneAdsByCountInThread = result["oneAdsByCountInThread"] as? Int {
+            self.oneAdsByCountInThread = oneAdsByCountInThread
         }
     }
     

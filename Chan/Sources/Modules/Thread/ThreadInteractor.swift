@@ -17,6 +17,7 @@ protocol ThreadRouting: ViewableRouting {
     func closeThread()
     func showWrite(model: ThreadModel, data: Observable<String>)
     func closeWrite()
+    
 }
 
 protocol ThreadPresentable: Presentable {
@@ -24,7 +25,7 @@ protocol ThreadPresentable: Presentable {
 //    func needAutoscroll(to uid: String)
     var autosctollUid: String? { get set }
     func scrollToLast()
-
+    var vc: UIViewController { get }
 }
 
 protocol ThreadListener: class {
@@ -61,7 +62,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         self.moduleIsRoot = moduleIsRoot
         self.thread = thread
         self.historyService = history
-        self.mainViewModel = Variable(PostMainViewModel(thread: thread, canRefresh: self.moduleIsRoot))
+        self.mainViewModel = Variable(ThreadMainViewModel(thread: thread, canRefresh: self.moduleIsRoot))
 //        self.postsManager = PostManager(thread: service.thread)
 //        self.postsManager?.update(vms: cachedVM)
         
@@ -92,7 +93,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     // MARK: ThreadPresentableListener
-    var mainViewModel: Variable<PostMainViewModel>
+    var mainViewModel: Variable<ThreadMainViewModel>
     var dataSource: Variable<[PostViewModel]> = Variable([])
     var viewActions: PublishSubject<PostAction> = PublishSubject()
     
@@ -211,7 +212,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 }
                 self.data = thread.posts
 
-                self.mainViewModel.value = PostMainViewModel(thread: thread, canRefresh: self.moduleIsRoot)
+                self.mainViewModel.value = ThreadMainViewModel(thread: thread, canRefresh: self.moduleIsRoot)
 
                 return Observable<ThreadModel>.just(thread)
             })
@@ -225,7 +226,10 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
             })
             .flatMap({ [weak self] models -> Observable<[PostViewModel]> in
                 self?.presenter.stopAnyLoaders()
-                return Observable<[PostViewModel]>.just(models)
+                
+                let result = AdsThreadManager(posts: models).prepareAds()
+                
+                return Observable<[PostViewModel]>.just(result)
             })
             .bind(to: self.dataSource)
             .disposed(by: self.service.disposeBag)
@@ -313,10 +317,11 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 //        }
     }
     
-    private func copyMedia(media: FileModel) {
-        let url = MakeFullPath(path: media.path)
-        UIPasteboard.general.string = url
-        ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: url, dismiss: SmallDismissTime)
+    private func copyMedia(media: MediaModel) {
+        if let url = media.url?.absoluteString {
+            UIPasteboard.general.string = url
+            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: url, dismiss: SmallDismissTime)
+        }
     }
     
     private func copyLinkPost(uid: String) {
@@ -332,108 +337,123 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
 
     
-    private func showMedia(with anchor: FileModel) {
-      
-      #if RELEASE
-      
-      if anchor.type == .image {
+    private func showMedia(with anchor: MediaModel) {
+
+
+    if anchor.type == .image {
         let allFiles = self.data.flatMap { $0.files }.filter({ $0.type == .image })
         let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
         if let vc = viewer.browser {
           self.router?.showMediaViewer(vc)
         }
-        
+
         self.viewer = viewer
-      } else {
-        print(anchor.path)
-        
-        
-        if VLCOpener.hasVLC() {
-            VLCOpener.openInVLC(url: anchor.path)
-        } else {
-            let error = ChanError.error(title: "Открытие видео", description: "Для просмотра видео рекомендуем установить VLC плеер.")
-            
-            let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть в браузере", style: UIAlertAction.Style.default), .custom(title: "VLC в App Store", style: UIAlertAction.Style.default)])
-            
-            display
-                .actions
-                .subscribe(onNext: { [weak self, weak anchor] action in
-                    switch action {
-                    case .custom(let title, _):
-                        if title.lowercased() == "vlc в app store" {
-                            if let url = URL(string: "itms-apps://itunes.apple.com/app/id650377962"), UIApplication.shared.canOpenURL(url) {
-                                UIApplication.shared.openURL(url)
-                            }
-                        } else {
-                            if let model = anchor {
-                                self?.openMediaInBrowser(model)
-                            }
-                        }
-                    default: break
-                    }
-                })
-                .disposed(by: self.disposeBag)
-            
-            display.show()
+    } else {
+        let videoPlayer = VideoPlayer(with: anchor)
+        videoPlayer.play(vc: self.presenter.vc)
+    }
 
 
-        }
-        
-//        if anchor.path.hasSuffix(".webm") { //}|| anchor.path.hasSuffix(".ogg") {
-//          let webm = WebmPlayerViewController(with: anchor)
-//          self.router?.showMediaViewer(webm)
-//        } else {
-//          let player = VideoPlayer(with: anchor)
-//          if let pl = player.videoPlayer {
-//            self.router?.showMediaViewer(pl)
-//          }
-//        }
-      }
-
-
-//            if CensorManager.isCensored(model: anchor) {
-//                let error = ChanError.error(title: "Внимание", description: "Медиа содержит неприемлимый контент. ")
-//                //
-//                let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть", style: UIAlertAction.Style.default)])
+//      #if RELEASE
 //
-//                display.show()
-//                display
-//                    .actions
-//                    .subscribe(onNext: { [weak self, weak anchor] action in
-//                        switch action {
-//                        case .custom(_, _):
+//      if anchor.type == .image {
+//        let allFiles = self.data.flatMap { $0.files }.filter({ $0.type == .image })
+//        let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
+//        if let vc = viewer.browser {
+//          self.router?.showMediaViewer(vc)
+//        }
+//
+//        self.viewer = viewer
+//      } else {
+//        print(anchor.path)
+//
+//
+//        if VLCOpener.hasVLC() {
+//            VLCOpener.openInVLC(url: anchor.path)
+//        } else {
+//            let error = ChanError.error(title: "Открытие видео", description: "Для просмотра видео рекомендуем установить VLC плеер.")
+//
+//            let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть в браузере", style: UIAlertAction.Style.default), .custom(title: "VLC в App Store", style: UIAlertAction.Style.default)])
+//
+//            display
+//                .actions
+//                .subscribe(onNext: { [weak self, weak anchor] action in
+//                    switch action {
+//                    case .custom(let title, _):
+//                        if title.lowercased() == "vlc в app store" {
+//                            if let url = URL(string: "itms-apps://itunes.apple.com/app/id650377962"), UIApplication.shared.canOpenURL(url) {
+//                                UIApplication.shared.openURL(url)
+//                            }
+//                        } else {
 //                            if let model = anchor {
 //                                self?.openMediaInBrowser(model)
 //                            }
-//                        default: break
 //                        }
-//                    })
-//                    .disposed(by: self.disposeBag)
-//            } else {
+//                    default: break
+//                    }
+//                })
+//                .disposed(by: self.disposeBag)
 //
-//                self.openMediaInBrowser(anchor)
+//            display.show()
+//
+//
+//        }
+//
+////        if anchor.path.hasSuffix(".webm") { //}|| anchor.path.hasSuffix(".ogg") {
+////          let webm = WebmPlayerViewController(with: anchor)
+////          self.router?.showMediaViewer(webm)
+////        } else {
+////          let player = VideoPlayer(with: anchor)
+////          if let pl = player.videoPlayer {
+////            self.router?.showMediaViewer(pl)
+////          }
+////        }
+//      }
+//
+//
+////            if CensorManager.isCensored(model: anchor) {
+////                let error = ChanError.error(title: "Внимание", description: "Медиа содержит неприемлимый контент. ")
+////                //
+////                let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "Открыть", style: UIAlertAction.Style.default)])
+////
+////                display.show()
+////                display
+////                    .actions
+////                    .subscribe(onNext: { [weak self, weak anchor] action in
+////                        switch action {
+////                        case .custom(_, _):
+////                            if let model = anchor {
+////                                self?.openMediaInBrowser(model)
+////                            }
+////                        default: break
+////                        }
+////                    })
+////                    .disposed(by: self.disposeBag)
+////            } else {
+////
+////                self.openMediaInBrowser(anchor)
+////            }
+//      #else
+//        if anchor.type == .image {
+//            let allFiles = self.data.flatMap { $0.files }.filter({ $0.type == .image })
+//            let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
+//            if let vc = viewer.browser {
+//                self.router?.showMediaViewer(vc)
 //            }
-      #else
-        if anchor.type == .image {
-            let allFiles = self.data.flatMap { $0.files }.filter({ $0.type == .image })
-            let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
-            if let vc = viewer.browser {
-                self.router?.showMediaViewer(vc)
-            }
-        } else {
-            print(anchor.path)
-            if anchor.path.hasSuffix(".webm") { //}|| anchor.path.hasSuffix(".ogg") {
-                let webm = WebmPlayerViewController(with: anchor)
-                self.router?.showMediaViewer(webm)
-            } else {
-                let player = VideoPlayer(with: anchor)
-                if let pl = player.videoPlayer {
-                    self.router?.showMediaViewer(pl)
-                }
-            }
-        }
+//        } else {
+////            print(anchor.path)
+////            if anchor.path.hasSuffix(".webm") { //}|| anchor.path.hasSuffix(".ogg") {
+////                let webm = WebmPlayerViewController(with: anchor)
+////                self.router?.showMediaViewer(webm)
+////            } else {
+////                let player = VideoPlayer(with: anchor)
+////                if let pl = player.videoPlayer {
+////                    self.router?.showMediaViewer(pl)
+////                }
+////            }
+//        }
 
-      #endif
+//      #endif
 
         
 //        if !LinkOpener.shared.browserIsSelected {
@@ -461,7 +481,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 //        }
     }
     
-    private func openMediaInBrowser(_ media: FileModel) {
+    private func openMediaInBrowser(_ media: MediaModel) {
 //        LinkOpener.shared.open(url: media.url)
         Helper.open(url: media.url)
         

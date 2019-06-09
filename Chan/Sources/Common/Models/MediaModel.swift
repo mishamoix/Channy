@@ -8,11 +8,30 @@
 
 import UIKit
 
+enum MediaType: String {
+    case image = "image"
+    case video = "video"
+    
+    static func type(for string: String? = nil) -> MediaType {
+        guard let string = string else {
+            return .image
+        }
+        
+        if string == "video" {
+            return .video
+        }
+        
+        return .image
+    }
+}
+
+
 class MediaModel: BaseModel, Decodable {
 
     var name: String? = nil
     var url: URL? = nil
     var thumbnail: URL? = nil
+    var type: MediaType = .image
     
     
     init(url: String? = nil) {
@@ -32,6 +51,11 @@ class MediaModel: BaseModel, Decodable {
         if let thumbnailString = try? values.decode(String.self, forKey: .thumbnail), let thumbnail = URL(string: thumbnailString) {
             self.thumbnail = thumbnail
         }
+        
+        if let type = try? values.decode(String.self, forKey: .type) {
+            self.type = MediaType.type(for: type)
+        }
+
     }
     
   
@@ -39,6 +63,6 @@ class MediaModel: BaseModel, Decodable {
         case name
         case url = "full"
         case thumbnail
-        case type
+        case type = "kind"
     }
 }

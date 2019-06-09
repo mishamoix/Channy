@@ -27,15 +27,15 @@ target 'Chan' do
     
     # UI
     pod 'SnapKit'
-    pod 'OGVKit/WebM'
+#    pod 'OGVKit/WebM'
     pod 'MBProgressHUD'
     pod 'SwiftReorder', '~> 6.0'
     pod 'KafkaRefresh'
     pod 'ReCaptcha/RxSwift'
     pod 'UITextView+Placeholder'
     pod 'SideMenu'
-    pod 'SwipeCellKit'
-#    pod 'MobileVLCKit', '3.3.0'
+#    pod 'SwipeCellKit'
+    pod 'MobileVLCKit', '3.3.0'
 
 
     # Analyticts

@@ -68,6 +68,7 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
             .observeOn(Helper.rxBackgroundThread)
             .retry(RetryCount)
             .asObservable()
+//            .subscribeOn(Helper.rxBackgroundThread)
             .subscribe(onNext: { [weak self] response in
                 let data = self?.makeModel(data: response.data) ?? []
 
@@ -80,7 +81,6 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
                 }
                                 
             }, onError: { error in
-              let a = 1
 //                self?.replaySubject.on(.error(error))
             })
             .disposed(by: self.disposeBag)
@@ -97,13 +97,12 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
         for model in models {
             model.current = new.id == model.id
         }
-        
+    
         self.coreData.saveModels(with: models, with: CoreDataImageboard.self) { [weak self] in
             self?.loadFromCache()
             self?.updateCurrentCachedImageboard(force: true)
             self?.updateCurrentCachedBoard(force: true)
         }
-        
     }
     
     func selectBoard(model: BoardModel) -> Observable<Void> {
@@ -186,5 +185,9 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
             let result = self.coreData.findModel(with: CoreDataBoard.self, predicate: NSPredicate(format: "current = YES AND imageboard.current = YES")) as? BoardModel
             self.currentCachedBoard.value = result
         }
+    }
+    
+    private func deleteOldImagesboards(new: [ImageboardModel]) {
+        
     }
 }

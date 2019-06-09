@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostMainViewModel: NSObject {
+class ThreadMainViewModel: NSObject {
 
     let title: String
     let canRefresh: Bool

@@ -56,10 +56,10 @@ enum PostAction {
     case copyPost(postUid: String)
     case cutPost(postUid: String)
     case copyLinkPost(postUid: String)
-    case copyMedia(media: FileModel)
-    case openMediaBrowser(media: FileModel)
+    case copyMedia(media: MediaModel)
+    case openMediaBrowser(media: MediaModel)
 
-    case open(media: FileModel)
+    case open(media: MediaModel)
     case copyLinkOnThread
     case replyThread
 

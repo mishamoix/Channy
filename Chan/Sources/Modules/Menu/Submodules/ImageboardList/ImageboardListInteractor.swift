@@ -19,12 +19,13 @@ protocol ImageboardListPresentable: Presentable {
     
 //    var newDataSubject: PublishSubject<[ImageboardViewModel]> { get }
     func update(data: [ImageboardViewModel])
+    
 
     
 }
 
 protocol ImageboardListListener: class {
-    // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+    func newImageboardSelected()
 }
 
 final class ImageboardListInteractor: PresentableInteractor<ImageboardListPresentable>, ImageboardListInteractable, ImageboardListPresentableListener {
@@ -62,6 +63,8 @@ final class ImageboardListInteractor: PresentableInteractor<ImageboardListPresen
         let model = self.data[idx]
         
         self.service.selectImageboard(model: model)
+        
+        self.listener?.newImageboardSelected()
     }
     
     func settingTapped() {

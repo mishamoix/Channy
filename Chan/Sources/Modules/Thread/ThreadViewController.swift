@@ -19,10 +19,11 @@ let ThreadAvailableContextMenu = ["copyLink", "copyOrigianlText", "copyText", "s
 
 private let PostCellIdentifier = "PostCell"
 private let PostMediaCellIdentifier = "PostMediaCell"
+private let AdsPostCellIdentifier = "AdsPostCell"
 
 
 protocol ThreadPresentableListener: class {
-    var mainViewModel: Variable<PostMainViewModel> { get }
+    var mainViewModel: Variable<ThreadMainViewModel> { get }
     var dataSource: Variable<[PostViewModel]> { get }
     var viewActions: PublishSubject<PostAction> { get }
     var moduleIsRoot: Bool { get }
@@ -55,6 +56,10 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     var autosctollUid: String? = nil
     var isSubmodule: Bool {
         return !(self.listener?.moduleIsRoot ?? false)
+    }
+    
+    var vc: UIViewController {
+        return self
     }
 
     
@@ -413,6 +418,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         
         self.collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCellIdentifier)
         self.collectionView.register(PostMediaCell.self, forCellWithReuseIdentifier: PostMediaCellIdentifier)
+        self.collectionView.register(AdsPostCell.self, forCellWithReuseIdentifier: AdsPostCellIdentifier)
         
         self.collectionView.alwaysBounceVertical = true
     }
@@ -477,14 +483,18 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         var cell: UICollectionViewCell
         if data.media.count != 0 {
             cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: PostMediaCellIdentifier, for: index)
-        } else {
+        } else if data.type == .post {
             cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: PostCellIdentifier, for: index)
+        } else {
+            cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: AdsPostCellIdentifier, for: index)
         }
     
         if var cl = cell as? BasePostCellProtocol {
             cl.canBeFirst = !self.isSubmodule
             cl.update(with: data)
             cl.update(action: self.cellActions)
+        } else if let cell = cell as? AdsPostCell, let data = data as? AdPostViewModel {
+            cell.update(model: data, vc: self)
         }
         return cell
     }

@@ -8,11 +8,18 @@
 
 import UIKit
 
+enum PostViewModelType {
+    case ad
+    case post
+}
+
 class PostViewModel {
+    
+    var type: PostViewModelType = .post
 
     let modifier: TextPreparation
     let uid: String
-    let media: [FileModel]
+    let media: [MediaModel]
     
     
     private let date: String
@@ -22,7 +29,7 @@ class PostViewModel {
     
     var needHighlight = false
     
-    private(set) var height: CGFloat = 0
+    var height: CGFloat = 0
     private(set) var titleFrame: CGRect = .zero
     private(set) var textFrame: CGRect = .zero
     private(set) var mediaFrame: CGRect = .zero

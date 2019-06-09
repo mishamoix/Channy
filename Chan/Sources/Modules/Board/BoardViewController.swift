@@ -11,7 +11,6 @@ import RxSwift
 import UIKit
 import IGListKit
 import SnapKit
-import SwipeCellKit
 
 let ThreadCellIdentifier = "ThreadCell"
 let AdThreadCellIdentifier = "AdThreadCell"
@@ -208,6 +207,9 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 }
                 
                 self?.collectionView.reloadData()
+                if self?.needStopLoadersAfterRefresh ?? true {
+                    self?.stopAnyLoaders()
+                }
                 
             }).disposed(by: self.disposeBag)
         
@@ -284,8 +286,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         }
         
         self.collectionView.register(UINib(nibName: ThreadCellIdentifier, bundle: nil), forCellWithReuseIdentifier: ThreadCellIdentifier)
-        self.collectionView.register(AdThreadCell.self, forCellWithReuseIdentifier: AdThreadCellIdentifier)
-//        self.collectionView.register(UINib(nibName: AdThreadCellIdentifier, bundle: nil), forCellWithReuseIdentifier: AdThreadCellIdentifier)
+//        self.collectionView.register(AdThreadCell.self, forCellWithReuseIdentifier: AdThreadCellIdentifier)
+        self.collectionView.register(UINib(nibName: AdThreadCellIdentifier, bundle: nil), forCellWithReuseIdentifier: AdThreadCellIdentifier)
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -342,7 +344,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 
                 self.navigationItem.hidesBackButton = true
                 let search = UISearchController(searchResultsController: nil)
-                self.navigationItem.searchController = search
+//                self.navigationItem.searchController = search
                 
                 
             }
@@ -391,15 +393,15 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     
     override func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.collectionView, type: .cell, subtype: .none))
-        self.themeManager.append(view: ThemeView(view: self.rightNavbarLabel, type: .text, subtype: .none))
+        self.themeManager.append(view: ThemeView(view: self.rightNavbarLabel, type: .text, subtype: .third))
         self.themeManager.append(view: ThemeView(view: self.leftNavbarLabel, type: .text, subtype: .none))
     }
     
     private func updateRightLabel(hide: Bool = false) {
-        return
-        UIView.animate(withDuration: 0) {
-            self.rightNavbarLabel?.alpha = hide ? 0 : 1
-        }
+//        return
+//        UIView.animate(withDuration: 0) {
+//            self.rightNavbarLabel?.alpha = hide ? 0 : 1
+//        }
         
     }
     
@@ -498,8 +500,9 @@ extension BoardViewController: UICollectionViewDataSource {
 
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdThreadCellIdentifier, for: indexPath)
-            if let c = cell as? AdThreadCell {
-                c.update(vc: self)
+            if let c = cell as? AdThreadCell, let data = data as? AdsThreadViewModel {
+                data.updateAdBannerLoader(with: self)
+                c.update(model: data, vc: self)
             }
             
             return cell
@@ -525,15 +528,20 @@ extension BoardViewController: UICollectionViewDataSource {
 
 
 extension BoardViewController: SwipeCollectionViewCellDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
+        let options = SwipeOptions()
+        
+//        options.cancelGestureRecognizerForEmptySwipeActions
+        return options
+    }
+    
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         
         let bgColor = ThemeManager.shared.theme.background
         
         if orientation == .left {
-            
-            self.listener?.viewActions.on(.next(.openHome))
-            
-            
+//            self.listener?.viewActions.on(.next(.openHome))
             return nil
         }
         
@@ -563,7 +571,7 @@ extension BoardViewController: SwipeCollectionViewCellDelegate {
         hidePost.backgroundColor = bgColor
 //        hidePost.hidesWhenSelected = true
         
-        return [hidePost, toFavorites]
+        return [toFavorites]
 
     }
     
