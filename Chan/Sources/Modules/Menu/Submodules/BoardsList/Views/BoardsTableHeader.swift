@@ -35,6 +35,8 @@ class BoardsTableHeader: UITableViewHeaderFooterView {
         self.boardTitle.text = model.name
         if let logo = model.logo {
             self.boardImage.af_setImage(withURL: logo)
+        } else {
+            self.boardImage.image = nil
         }
     }
     

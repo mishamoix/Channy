@@ -98,7 +98,13 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
                 guard let self = self else { return Observable<(String?, String)>.error(ChanError.none) }
                 
                 let imageboard = self.service.currentImageboard
-                return Observable<(String?, String)>.just((imageboard.captcha?.key, imageboard.baseURL!.absoluteString))
+                
+                if let captchaKey = imageboard.captcha?.key, let url = imageboard.baseURL?.absoluteString {
+                
+                    return Observable<(String?, String)>.just((captchaKey, url))
+                } else {
+                    return Observable<(String?, String)>.error(ChanError.error(title: "Невозможно написать", description: "Возможность писать для этой борды еще не активирована"))
+                }
             }
             .observeOn(Helper.rxMainThread)
             .flatMap { [weak self] (recaptchaId, host) -> Observable<WriteModel> in
