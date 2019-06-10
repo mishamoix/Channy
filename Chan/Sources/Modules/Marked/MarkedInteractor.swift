@@ -93,6 +93,7 @@ final class MarkedInteractor: PresentableInteractor<MarkedPresentable>, MarkedIn
     }
     
     private func load(reload: Bool) {
+        
         let models = self.service.read(offset: reload ? 0 : self.threads.count)
         
         if reload {
@@ -101,7 +102,7 @@ final class MarkedInteractor: PresentableInteractor<MarkedPresentable>, MarkedIn
         } else {
             self.threads += models
         }
-        
+
         if models.count < BatchSize {
             self.canLoadMore = false
         }
