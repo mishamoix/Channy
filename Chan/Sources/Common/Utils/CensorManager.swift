@@ -10,7 +10,7 @@
 import UIKit
 import RxSwift
 
-private let MaxParallelExecuter = 2
+private let MaxParallelExecuter = 4
 
 class CensorManagerTask {
     let publish: PublishSubject<Bool>
@@ -47,23 +47,11 @@ class CensorManager {
     private let semaphoreRemoveQueue = DispatchSemaphore(value: 1)
     private let semaphoreAddCache = DispatchSemaphore(value: 1)
 
-    private var maxPriority: Int {
-        if self._currentMaxPriority > Int.max - 10 {
-            self._currentMaxPriority = 0
-        }
-        
-        return self._currentMaxPriority
-    }
-    
-    private var _currentMaxPriority: Int = 0
     
     init() {}
     
     
     func censor(url: String) -> Observable<Bool> {
-        
-//        return Observable<Bool>.just(false)
-        
         if let val = self.cachedResult(for: url) {
             return Observable<Bool>.just(val)
         } else {
@@ -102,6 +90,10 @@ class CensorManager {
     }
   
     private func cachedResult(for path: String) -> Bool? {
+        self.semaphoreAddCache.wait()
+        defer {
+            self.semaphoreAddCache.signal()
+        }
         return self.cache[path]
     }
     
@@ -112,9 +104,7 @@ class CensorManager {
   
     
     private func createOrUpdateTask(by path: String) -> CensorManagerTask {
-//        let priority = self.queue.count
         if let task = self.findTask(by: path) {
-//            task.priority = priority
             task.updatePriority()
             self.executeNextIfCan()
             return task
@@ -142,7 +132,6 @@ class CensorManager {
                 self.semaphoreRemoveQueue.signal()
                 
                 print("start execute time \(executer.priority)")
-//                self.queue.removeElementByReference(executer)
                 
                 self.service
                     .checkCensor(path: executer.path)
@@ -179,22 +168,3 @@ class CensorManager {
     }
 }
 
-extension ChanImageView {
-    func censor(path: String) {
-        CensorManager
-            .shared
-            .censor(url: path)
-            .debug()
-            .observeOn(Helper.createRxBackgroundThread)
-            .subscribe(onNext: { [weak self] censored in
-                print("Result set \(censored)")
-                self?.isCensored = true
-//                self?.isCensored = censored
-            })
-            .disposed(by: self.disposeBag)
-    }
-    
-//    func cancelCensor() {
-//        self.dispose()
-//    }
-}

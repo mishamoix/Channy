@@ -29,9 +29,7 @@ extension CensorTarget: TargetType {
     public var task: Task {
         switch self {
         case .censor(let path):
-            //TODO: переделать
-            let cookies = self.find2chCookies()
-            let result: [String: Any] = ["cookies": cookies, "url": path]
+            let result: [String: Any] = ["url": path]
             return .requestParameters(parameters: result, encoding: JSONEncoding.default)
         }
     }
@@ -45,21 +43,20 @@ extension CensorTarget: TargetType {
     }
     
     public var headers: [String: String]? {
-//        return self.find2chCookies()
-        return nil
+        return CookiesManager.allCookies()
     }
     
     
-    private func find2chCookies() -> [String: String] {
-        
-        for cookie in HTTPCookieStorage.shared.cookies ?? [] {
-            if cookie.domain == "2ch.hk" && cookie.name == "usercode_auth" {
-                return [cookie.name: cookie.value]
-            }
-        }
-        
-        return [:]
-    }
+//    private func find2chCookies() -> [String: String] {
+    
+//        for cookie in HTTPCookieStorage.shared.cookies ?? [] {
+//            if cookie.domain == "2ch.hk" && cookie.name == "usercode_auth" {
+//                return [cookie.name: cookie.value]
+//            }
+//        }
+//
+//        return [:]
+//    }
     
     
 }

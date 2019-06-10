@@ -170,48 +170,45 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             .dataSource
             .asObservable()
 //            .debug()
-            .observeOn(Helper.rxBackgroundThread)
             .map({ [weak self] models -> [ThreadViewModel] in
                 return models.map { $0.calculateSize(max: self?.tableWidth ?? 0) }
             })
-            .observeOn(MainScheduler.instance)
+            .observeOn(Helper.rxMainThread)
             .subscribe(onNext: { [weak self] result in                
-                
-                if let oldData = self?.data, let collectionView = self?.collectionView {
+                guard let self = self else { return }
+                let oldData = self.data
+//                let collectionView = self?.collectionView
 //                    let diff = ListDiff(oldArray: oldData, newArray: result, option: .equality)
-                    let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
-                    self?.data = result
-                    
-                    let movesNotNull = diff.moves.count != 0
-                    let otherNotNull = (diff.updates.count + diff.deletes.count + diff.inserts.count) != 0
-                    
-                    if (movesNotNull && !otherNotNull || !movesNotNull) {
-                    
-                        collectionView.performBatchUpdates({
-                            for move in diff.moves {
-                                collectionView.moveItem(at: move.from, to: move.to)
-                            }
+                let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
+                self.data = result
+                
+                let movesNotNull = diff.moves.count != 0
+                let otherNotNull = (diff.updates.count + diff.deletes.count + diff.inserts.count) != 0
+                
+                if (movesNotNull && !otherNotNull || !movesNotNull) {
+                
+                    self.collectionView.performBatchUpdates({
+                        for move in diff.moves {
+                            self.collectionView.moveItem(at: move.from, to: move.to)
+                        }
 
-                            collectionView.deleteItems(at: diff.deletes)
-                            collectionView.insertItems(at: diff.inserts)
-                            collectionView.reloadItems(at: diff.updates)
+                        self.collectionView.deleteItems(at: diff.deletes)
+                        self.collectionView.insertItems(at: diff.inserts)
+                        self.collectionView.reloadItems(at: diff.updates)
 
-                        }, completion: { finished in
-                            if self?.needStopLoadersAfterRefresh ?? true {
-                                self?.stopAnyLoaders()
-                            }
-                        })
-                        
-                        return
-                    }
+                    }, completion: { finished in
+                        self.stopLoadersIfNeeded()
+                    })
+                    
+                    return
+                    
                 }
                 
-                self?.collectionView.reloadData()
-                if self?.needStopLoadersAfterRefresh ?? true {
-                    self?.stopAnyLoaders()
-                }
+                self.collectionView.reloadData()
+                self.stopLoadersIfNeeded()
                 
-            }).disposed(by: self.disposeBag)
+            })
+            .disposed(by: self.disposeBag)
         
         self.cellActions
             .subscribe(onNext: { [weak self] action in
@@ -281,6 +278,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             .disposed(by: self.disposeBag)
         
     }
+    
     
     private func setupCollectionView() {
         
@@ -424,6 +422,14 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         
         return nil
     }
+    
+    private func stopLoadersIfNeeded() {
+        if self.needStopLoadersAfterRefresh {
+            self.stopAnyLoaders()
+            self.needStopLoadersAfterRefresh = false
+        }
+    }
+
     
 //    private func updateLargeTitleSize() {
 //        if let largeTitle = self.largeTitle, let rightLabel = self.rightNavbarLabel {

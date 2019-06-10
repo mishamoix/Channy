@@ -182,11 +182,9 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 
                 self?.presenter.stopLoadersAfterRefresh()
                 self?.dataSource.value = viewModels
-//                self?.presenter.stopAnyLoaders()
-
-                }, onError: { [weak self] err in
-                    self?.isLoading = false
-                    self?.presenter.stopAnyLoaders()
+            }, onError: { [weak self] err in
+                self?.isLoading = false
+                self?.presenter.stopAnyLoaders()
             })
             .disposed(by: self.service.disposeBag)
 
@@ -324,7 +322,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         if self.isFirst {
             self.isFirst = false
             
-            self.initialLoad()
+//            self.initialLoad()
 
         }
     }
@@ -334,6 +332,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     private func stopAndReload() {
+        self.presenter.hideCentralActivity()
         self.presenter.showCentralActivity()
         self.service.cancel()
         self.load(reload: true)
@@ -342,7 +341,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     private func initialLoad() {
         self.presenter.showCentralActivity()
-        self.load(reload: true)
+//        self.load(reload: true)
     }
     
     private func updateHeader() {

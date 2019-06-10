@@ -26,6 +26,8 @@ class Helper {
     }
     
     static var rxBackgroundThread = ConcurrentDispatchQueueScheduler(qos: .background)
+    static var rxBackgroundPriorityThread = ConcurrentDispatchQueueScheduler(qos: .userInitiated)
+
     static var createRxBackgroundThread: ConcurrentDispatchQueueScheduler {
         return ConcurrentDispatchQueueScheduler(qos: .background)
     }
