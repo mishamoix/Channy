@@ -39,7 +39,7 @@ extension ImageboardTarget: TargetType {
     }
     
     public var headers: [String: String]? {
-        return nil
+        return CookiesManager.allCookies()
     }
 
 

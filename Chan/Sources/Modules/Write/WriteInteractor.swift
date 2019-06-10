@@ -70,9 +70,9 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
         self.viewActions
             .subscribe(onNext: { [weak self] action in
                 switch action {
-                case .send(let text):
+                case .send(let text, let subject):
 //                    if let txt = text, {
-                        self?.send(text: text)
+                        self?.send(text: text, subject: subject)
 //                    }
                 }
             })
@@ -80,7 +80,7 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
     }
     
     
-    private func send(text txt: String? = nil) {
+    private func send(text txt: String? = nil, subject: String? = nil) {
         
         let imgsCount = self.presenter.images.count
         let text = txt ?? ""
@@ -121,7 +121,7 @@ final class WriteInteractor: PresentableInteractor<WritePresentable>, WriteInter
                                 treadUid = "0"
                             }
                             
-                            let writeModel = WriteModel(recaptchaId: key, text: text, recaptachToken: resultCaptcha, threadUid: treadUid, boardUid: boardUid, images: self?.presenter.images ?? [], imageboard: imageboard.id)
+                            let writeModel = WriteModel(recaptchaId: key, subject: subject, text: text, recaptachToken: resultCaptcha, threadUid: treadUid, boardUid: boardUid, images: self?.presenter.images ?? [], imageboard: imageboard.id)
                             
                             return Observable<WriteModel>.just(writeModel)
 

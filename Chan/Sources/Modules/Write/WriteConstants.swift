@@ -14,5 +14,5 @@ enum WriteModuleState {
 }
 
 enum WriteViewActions {
-    case send(text: String?)
+    case send(text: String?, subject: String?)
 }

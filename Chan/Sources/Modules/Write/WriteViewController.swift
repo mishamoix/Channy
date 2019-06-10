@@ -21,7 +21,7 @@ protocol WritePresentableListener: class {
 
 final class WriteViewController: BaseViewController, WritePresentable, WriteViewControllable {
     @IBOutlet weak var textView: UITextView!
-//    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var subjectView: UITextView!
     @IBOutlet weak var bButton: UIButton!
     @IBOutlet weak var iButton: UIButton!
     @IBOutlet weak var spoilerButton: UIButton!
@@ -135,6 +135,10 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
         self.textView.placeholder = "Введите текст"
         self.textView.keyboardDismissMode = .onDrag
         self.textView.alwaysBounceVertical = true
+        
+        self.subjectView.placeholder = "Тема"
+        self.subjectView.keyboardDismissMode = .onDrag
+        
 
         let _ = self.buttons.map({ self.setup(view: $0) })
         let _ = self.imageButtons.map({ self.setupImageButton($0) })
@@ -180,7 +184,7 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
             .asDriver()
             .drive(onNext: { [weak self] _ in
                 self?.view.endEditing(true)
-                self?.listener?.viewActions.on(.next(.send(text: self?.textView.text)))
+                self?.listener?.viewActions.on(.next(.send(text: self?.textView.text, subject: self?.subjectView?.text)))
             }).disposed(by: self.disposeBag)
         
         self.data?
@@ -368,7 +372,8 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
     override func setupTheme() {
         self.themeManager.append(view: ThemeView(view: self.textView, type: .input, subtype: .none))
         self.themeManager.append(view: ThemeView(object: self.view, type: .background, subtype: .none))
-        
+        self.themeManager.append(view: ThemeView(view: self.subjectView, type: .input, subtype: .none))
+
         for button in self.buttons + self.imageButtons {
             self.themeManager.append(view: ThemeView(object: button, type: .button, subtype: .none))
         }
