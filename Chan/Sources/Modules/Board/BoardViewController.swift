@@ -548,7 +548,9 @@ extension BoardViewController: SwipeCollectionViewCellDelegate {
             return nil
         }
         
-        let toFavorites = SwipeAction(style: .default, title: "В избранное") { [weak self] (action, indexPath) in
+        let title = self.data[indexPath.row].favorited ? "Удалить из зибранного" : "В избранное"
+        
+        let toFavorites = SwipeAction(style: .default, title: title) { [weak self] (action, indexPath) in
             
             guard let self = self else { return }
             
@@ -562,6 +564,8 @@ extension BoardViewController: SwipeCollectionViewCellDelegate {
         }
         toFavorites.image = .addFavorite
         toFavorites.backgroundColor = bgColor
+        toFavorites.textColor = ThemeManager.shared.theme.text
+        toFavorites.tintColor = ThemeManager.shared.theme.text
 //        toFavorites.hidesWhenSelected = true
         
         

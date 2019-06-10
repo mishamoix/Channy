@@ -160,7 +160,7 @@ final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyV
             field.backgroundColor = .clear
         })
         
-        theme.append(view: ThemeView(object: self.checkButton, type: .button, subtype: .none))
+        theme.append(view: ThemeView(object: self.checkButton, type: .button, subtype: .accent))
         theme.append(view: ThemeView(object: self.navigationController?.navigationBar, type: .navBar, subtype: .none))
     }
 }

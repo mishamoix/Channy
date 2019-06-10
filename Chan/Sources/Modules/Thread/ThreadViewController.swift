@@ -357,6 +357,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
         
         
         let moreButton = UIBarButtonItem(image: .more, landscapeImagePhone: .more, style: UIBarButtonItem.Style.done, target: nil, action: nil)
+        moreButton.tintColor = self.themeManager.theme.accnt
         self.moreButton = moreButton
 
         self.themeManager.append(view: ThemeView(object: moreButton, type: .navBarButton, subtype: .none))

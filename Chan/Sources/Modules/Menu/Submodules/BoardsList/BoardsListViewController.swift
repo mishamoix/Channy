@@ -9,7 +9,6 @@
 import RIBs
 import RxSwift
 import UIKit
-import SwiftReorder
 import IGListKit
 import ReCaptcha
 
@@ -156,8 +155,8 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.tableView.dataSource = self
         
         self.tableView.keyboardDismissMode = .interactive
-        self.tableView.reorder.delegate = self
-        self.tableView.reorder.isEnabled = false
+//        self.tableView.reorder.delegate = self
+//        self.tableView.reorder.isEnabled = false
 //        self.automaticallyAdjustsScrollViewInsets = false
 
 //        self.header.translatesAutoresizingMaskIntoConstraints = false
@@ -254,12 +253,12 @@ extension BoardsListViewController: UITableViewDelegate {
         return BoardsListCellHeight
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete {
 //            let board = self.boards[indexPath.row]
 //            self.listener?.viewActions.on(.next(.delete(uid: board.uid)))
 //        }
-    }
+//    }
     
 //    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 //        if self.canAction {
@@ -276,9 +275,9 @@ extension BoardsListViewController: UITableViewDelegate {
 //        }
 //    }
     
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
     
     
 }
@@ -286,9 +285,9 @@ extension BoardsListViewController: UITableViewDelegate {
 extension BoardsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let spacer = tableView.reorder.spacerCell(for: indexPath) {
-            return spacer
-        }
+//        if let spacer = tableView.reorder.spacerCell(for: indexPath) {
+//            return spacer
+//        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: BoardsListCellIdentifier, for: indexPath) as! BoardsListCell
         let data = self.boards[indexPath.row]
@@ -308,24 +307,24 @@ extension BoardsListViewController: UITableViewDataSource {
 
 }
 
-extension BoardsListViewController: UISearchBarDelegate {
-    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.tableView.reorder.isEnabled = self.canAction
-//        self.listener?.viewActions.on(.next(.seacrh(text: searchText)))
-    }
-}
+//extension BoardsListViewController: UISearchBarDelegate {
+////    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+////        self.tableView.reorder.isEnabled = self.canAction
+//////        self.listener?.viewActions.on(.next(.seacrh(text: searchText)))
+////    }
+//}
 
-extension BoardsListViewController: TableViewReorderDelegate {
-    func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-
-    }
-    
-    func tableViewDidFinishReordering(_ tableView: UITableView, from initialSourceIndexPath: IndexPath, to finalDestinationIndexPath: IndexPath) {
-//        print("From \(sourceIndexPath), to: \(destinationIndexPath)")
-//        self.listener?.viewActions.on(.next(.move(from: initialSourceIndexPath, to: finalDestinationIndexPath)))
-
-    }
-
-}
-
+//extension BoardsListViewController: TableViewReorderDelegate {
+//    func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//
+//    }
+//
+//    func tableViewDidFinishReordering(_ tableView: UITableView, from initialSourceIndexPath: IndexPath, to finalDestinationIndexPath: IndexPath) {
+////        print("From \(sourceIndexPath), to: \(destinationIndexPath)")
+////        self.listener?.viewActions.on(.next(.move(from: initialSourceIndexPath, to: finalDestinationIndexPath)))
+//
+//    }
+//
+//}
+//
 
