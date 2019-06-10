@@ -6,13 +6,13 @@
         "center" : {
           "mode" : "tile",
           "width" : 1,
-          "height" : 1
+          "height" : 10
         },
         "cap-insets" : {
-          "bottom" : 108,
-          "top" : 133,
-          "right" : 143,
-          "left" : 160
+          "bottom" : 63,
+          "top" : 21,
+          "right" : 81,
+          "left" : 54
         }
       },
       "idiom" : "universal",

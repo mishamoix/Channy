@@ -76,6 +76,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         
         
         self.contentView.addSubview(self.bg)
+        self.bg.contentMode = .scaleToFill
 
         self.contentView.addSubview(self.number)
         self.contentView.addSubview(self.uid)
