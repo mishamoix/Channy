@@ -16,6 +16,7 @@ class CoreDataImageboard: NSManagedObject {
     @NSManaged var name: String
 
     @NSManaged var baseURL: String?
+    @NSManaged var captchaURL: String?
     @NSManaged var logo: String?
     @NSManaged var maxImages: Int64
     @NSManaged var highlight: String?
@@ -75,6 +76,7 @@ extension CoreDataImageboard: CacheTrackerEntity {
             
             self.captchaKey = obj.captcha?.key
             self.captchaType = obj.captcha?.type.value
+            self.captchaURL = obj.captcha?.url
             
             self.sort = Int64(obj.sort)
             if let current = obj.current {
@@ -110,6 +112,7 @@ extension CoreDataImageboard: CacheTrackerEntity {
         result.current = self.current
       
         result.captcha = ImageboardModel.Captcha(type: self.captchaType, key: self.captchaKey)
+        result.captcha?.url = self.captchaURL
         
         var boards: [BoardModel] = []
         for coreDataBoard in self.boards {

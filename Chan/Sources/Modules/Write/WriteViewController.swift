@@ -99,16 +99,16 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
     // MARK: WritePresentable
     func solveRecaptcha(with key: String?, host: String) -> Observable<(String?, String?)> {
         
-        if let key = key {
-            let manager = RecaptchaManager(recptcha: key, host: host)
-            return manager
-                .solve(from: self)
-                .flatMap({ result -> Observable<(String?, String?)> in
-                    return Observable<(String?, String?)>.just((key, result))
-                })
-        } else {
+//        if let key = key {
+//            let manager = RecaptchaManager(recptcha: key, host: host)
+//            return manager
+//                .solve(from: self)
+//                .flatMap({ result -> Observable<(String?, String?)> in
+//                    return Observable<(String?, String?)>.just((key, result))
+//                })
+//        } else {
             return Observable<(String?, String?)>.just((nil, nil))
-        }
+//        }
         
     }
     
@@ -404,21 +404,26 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
         
         let range = self.textView.selectedRange
         let start = range.location
-        var end = range.location + range.length
+        let end = range.location + range.length + open.count
         
         
         
-        var text = self.textView.text
-        if start == end {
+        let text = (self.textView.text as NSString?)?.mutableCopy() as? NSMutableString
+//        if start == end {
+        
+        text?.insert(open, at: start)
+        text?.insert(close, at: end)
             
-            text?.insert(contentsOf: open, at: String.Index(encodedOffset: start))
-            end += open.count
-            text?.insert(contentsOf: close, at: String.Index(encodedOffset: end))
-        } else {
-            text?.insert(contentsOf: close, at: String.Index(encodedOffset: end))
-            text?.insert(contentsOf: open, at: String.Index(encodedOffset: start))
-        }
-        self.textView.text = text
+//            text?.insert(contentsOf: open, at: <#T##String.Index#>)
+//
+//            text?.insert(contentsOf: open, at: String.Index(encodedOffset: start))
+//            end += open.count
+//            text?.insert(contentsOf: close, at: String.Index(encodedOffset: end))
+//        } else {
+//            text?.insert(contentsOf: close, at: String.Index(encodedOffset: end))
+//            text?.insert(contentsOf: open, at: String.Index(encodedOffset: start))
+//        }
+        self.textView.text = text as String?
         
         if range.length == 0 {
             self.textView.selectedRange = NSMakeRange(start + open.count, 0)

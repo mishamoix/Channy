@@ -14,6 +14,7 @@ class ImageboardModel: BaseModel, Decodable {
         case noCaptcha
         case recaptchaV2 = "reCAPTCHA v2"
         case invisibleRecaptcha = "invisible_recaptcha"
+        case custom = "Custom"
         
         var value: String? {
             switch self {
@@ -22,6 +23,8 @@ class ImageboardModel: BaseModel, Decodable {
             case .recaptchaV2:
                 return self.rawValue
             case .invisibleRecaptcha:
+                return self.rawValue
+            case .custom:
                 return self.rawValue
             }
         }
@@ -32,6 +35,8 @@ class ImageboardModel: BaseModel, Decodable {
                     return .recaptchaV2
                 } else if string == "invisible_recaptcha" {
                     return .invisibleRecaptcha
+                } else if string == "Custom" {
+                    return .custom
                 }
             }
             return .noCaptcha

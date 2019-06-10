@@ -13,11 +13,16 @@ class HistoryService: MarkService {
     
     override func write(thread: ThreadModel) {
         
-        if let threadDB = self.coreData.findModel(with: CoreDataThread.self, predicate: NSPredicate(format: "id = \"\(thread.id)\"")) as? ThreadModel {
-        
-            if threadDB.type != .favorited && Values.shared.historyWriteObservable.value {
-                threadDB.type = .history
-                super.write(thread: threadDB)
+        if Values.shared.historyWriteObservable.value {
+            if let threadDB = self.coreData.findModel(with: CoreDataThread.self, predicate: NSPredicate(format: "id = \"\(thread.id)\"")) as? ThreadModel {
+            
+                if threadDB.type != .favorited  {
+                    threadDB.type = .history
+                    super.write(thread: threadDB)
+                }
+            } else {
+                thread.type = .history
+                super.write(thread: thread)
             }
         }
     }

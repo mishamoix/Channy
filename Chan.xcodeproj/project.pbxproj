@@ -51,6 +51,8 @@
 		0A203F15219C9CCA00A51554 /* CensorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203F14219C9CCA00A51554 /* CensorService.swift */; };
 		0A203F17219C9CEC00A51554 /* CensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203F16219C9CEC00A51554 /* CensorManager.swift */; };
 		0A203F19219C9E6700A51554 /* CensorTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203F18219C9E6700A51554 /* CensorTarget.swift */; };
+		0A2BA8DE22AE626A0000AC7D /* CaptchaBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2BA8DD22AE626A0000AC7D /* CaptchaBuilder.swift */; };
+		0A2BA8E022AE65B20000AC7D /* CustomCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2BA8DF22AE65B20000AC7D /* CustomCaptchaViewController.swift */; };
 		0A2D0C6A21A4942800B38224 /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D0C6921A4942800B38224 /* UIView+Utils.swift */; };
 		0A2E0C82214460FB00CBD619 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E0C81214460FB00CBD619 /* Main.storyboard */; };
 		0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E0C842145391F00CBD619 /* ChanProvider.swift */; };
@@ -182,6 +184,7 @@
 		0A65579B21B6C6D9003FA355 /* ImageFixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65579A21B6C6D9003FA355 /* ImageFixer.swift */; };
 		0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */; };
 		0A69E82122AE583600BF2D49 /* CookiesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69E82022AE583600BF2D49 /* CookiesManager.swift */; };
+		0A69E82422AE610D00BF2D49 /* CustomCaptcha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69E82322AE610D00BF2D49 /* CustomCaptcha.swift */; };
 		0A6C2CB122958CF600147C09 /* StatusbarBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C2CB022958CF600147C09 /* StatusbarBackground.swift */; };
 		0A6C2CB322958F6900147C09 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C2CB222958F6900147C09 /* Utils.swift */; };
 		0A6D8F40227F21E200AC6382 /* MarkedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D8F3F227F21E200AC6382 /* MarkedCell.swift */; };
@@ -371,6 +374,8 @@
 		0A203F14219C9CCA00A51554 /* CensorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorService.swift; sourceTree = "<group>"; };
 		0A203F16219C9CEC00A51554 /* CensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorManager.swift; sourceTree = "<group>"; };
 		0A203F18219C9E6700A51554 /* CensorTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorTarget.swift; sourceTree = "<group>"; };
+		0A2BA8DD22AE626A0000AC7D /* CaptchaBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptchaBuilder.swift; sourceTree = "<group>"; };
+		0A2BA8DF22AE65B20000AC7D /* CustomCaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCaptchaViewController.swift; sourceTree = "<group>"; };
 		0A2D0C6921A4942800B38224 /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
 		0A2E0C81214460FB00CBD619 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0A2E0C842145391F00CBD619 /* ChanProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanProvider.swift; sourceTree = "<group>"; };
@@ -504,6 +509,7 @@
 		0A65579A21B6C6D9003FA355 /* ImageFixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFixer.swift; sourceTree = "<group>"; };
 		0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.Key.swift; sourceTree = "<group>"; };
 		0A69E82022AE583600BF2D49 /* CookiesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookiesManager.swift; sourceTree = "<group>"; };
+		0A69E82322AE610D00BF2D49 /* CustomCaptcha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCaptcha.swift; sourceTree = "<group>"; };
 		0A6C2CB022958CF600147C09 /* StatusbarBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusbarBackground.swift; sourceTree = "<group>"; };
 		0A6C2CB222958F6900147C09 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		0A6D8F3F227F21E200AC6382 /* MarkedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedCell.swift; sourceTree = "<group>"; };
@@ -1182,17 +1188,9 @@
 			isa = PBXGroup;
 			children = (
 				0A2E0C832145390D00CBD619 /* Provider */,
-				0A5B0EB32149B95700AECE3C /* Middleware */,
 				0AD5C2D3215A7F2B00F68AF4 /* NetworkManager.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		0A5B0EB32149B95700AECE3C /* Middleware */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Middleware;
 			sourceTree = "<group>";
 		};
 		0A5B0EB42149BAD700AECE3C /* Plugins */ = {
@@ -1237,6 +1235,25 @@
 				0A69E82022AE583600BF2D49 /* CookiesManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		0A69E82222AE60E600BF2D49 /* CustomCaptcha */ = {
+			isa = PBXGroup;
+			children = (
+				0A69E82322AE610D00BF2D49 /* CustomCaptcha.swift */,
+				0A2BA8DF22AE65B20000AC7D /* CustomCaptchaViewController.swift */,
+			);
+			path = CustomCaptcha;
+			sourceTree = "<group>";
+		};
+		0A69E82522AE611C00BF2D49 /* Captcha */ = {
+			isa = PBXGroup;
+			children = (
+				0A69E82222AE60E600BF2D49 /* CustomCaptcha */,
+				0AB3C69321B462D300A58FDE /* Recaptcha */,
+				0A2BA8DD22AE626A0000AC7D /* CaptchaBuilder.swift */,
+			);
+			path = Captcha;
 			sourceTree = "<group>";
 		};
 		0A6D8F3E227F21CB00AC6382 /* Views */ = {
@@ -1310,8 +1327,8 @@
 		0A905F6821A9B0EC00ADE51E /* Write */ = {
 			isa = PBXGroup;
 			children = (
+				0A69E82522AE611C00BF2D49 /* Captcha */,
 				0A51E40B21B5C66900BBF331 /* ImagePicker */,
-				0AB3C69321B462D300A58FDE /* Recaptcha */,
 				0A905F6921A9B10000ADE51E /* WriteRouter.swift */,
 				0A905F6A21A9B10000ADE51E /* WriteViewController.storyboard */,
 				0A905F6B21A9B10000ADE51E /* WriteViewController.swift */,
@@ -2087,6 +2104,7 @@
 				0A203F19219C9E6700A51554 /* CensorTarget.swift in Sources */,
 				0ACC297B2143F4C100B4E53B /* Enviroment.swift in Sources */,
 				0A905F7C21A9C8BF00ADE51E /* WriteModel.swift in Sources */,
+				0A2BA8DE22AE626A0000AC7D /* CaptchaBuilder.swift in Sources */,
 				0ACC29732143F3A400B4E53B /* BoardsListService.swift in Sources */,
 				0AFD18752235168900F844BE /* ImageboardHeader.swift in Sources */,
 				0A2E0CAD214557E900CBD619 /* BaseTableViewCell.swift in Sources */,
@@ -2138,6 +2156,7 @@
 				0A326B9B225CEADE00E94AED /* DismissalAnimator.swift in Sources */,
 				0A2E0C9C2145464000CBD619 /* Error.swift in Sources */,
 				0A7A379322A7F84E00E35C49 /* ProxyRouter.swift in Sources */,
+				0A2BA8E022AE65B20000AC7D /* CustomCaptchaViewController.swift in Sources */,
 				0A6C2CB122958CF600147C09 /* StatusbarBackground.swift in Sources */,
 				0AD5C2DA215AC89700F68AF4 /* ErrorManager.swift in Sources */,
 				0AD6DA2C22A9623500024DED /* AdsThreadViewModel.swift in Sources */,
@@ -2160,6 +2179,7 @@
 				0A8BFED9218F4451004AA360 /* Theme.swift in Sources */,
 				0A5B0EBF214F098400AECE3C /* PostCell.swift in Sources */,
 				0A326B9C225CEADE00E94AED /* PresentationAnimator.swift in Sources */,
+				0A69E82422AE610D00BF2D49 /* CustomCaptcha.swift in Sources */,
 				0A5B0EBC214EFD8000AECE3C /* Style.swift in Sources */,
 				0A505D78216D060A0076F383 /* WebAcceptViewController.swift in Sources */,
 				0AF77B44217E4F19007D8C5B /* CoreDataStore.swift in Sources */,
