@@ -13,32 +13,15 @@ import SnapKit
 
 class VideoPlayer {
     
-    let vlc = VLCViewController()
-    
-//    let videoPlayer = VLCMediaPlayer(options: [])
-//    let vc = UIViewController()
-//    let a = VLCMed
-    
+//    let vlc = VLCViewController()
     init(with file: MediaModel) {
         
-        vlc.url = file.url
-//        if let url = file.url {
-////            let player = VLCMediaPlayer(options: [])
-//            self.videoPlayer?.media = VLCMedia(url: url)
-//        }
-//
-//        self.videoPlayer?.drawable = self.vc.view
-////            let vc = UIViewController()
-//
-////            self.videoPlayer = player
-////        } else {
-////            self.videoPlayer = nil
-////        }
+//        vlc.url = file.url
 //
     }
     
     func play(vc: UIViewController) {
-        vc.present(self.vlc, animated: true, completion: nil)
+//        vc.present(self.vlc, animated: true, completion: nil)
 //        self.videoPlayer?.play()
     }
 }

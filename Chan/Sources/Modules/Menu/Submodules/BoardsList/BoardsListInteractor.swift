@@ -29,9 +29,6 @@ protocol BoardsListListener: class {
 
 final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, BoardsListInteractable, BoardsListPresentableListener {
     
-
-    
-
     weak var router: BoardsListRouting?
     weak var listener: BoardsListListener?
     
@@ -65,7 +62,7 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
     }
     
     //MARK: BoardsListPresentableListener
-    let dataSource = Variable<ImageboardModel?>(nil)
+    let dataSource = Variable<(ImageboardModel?, [BoardModel])>((nil, []))
     var viewActions: PublishSubject<BoardsListAction> = PublishSubject()
     
     // MARK: SettingsListener
@@ -93,6 +90,30 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
         self.service
             .currentImageboard()
             .observeOn(Helper.rxMainThread)
+            .flatMap({ [weak self] imageboard -> Observable<(ImageboardModel?, [BoardModel])> in
+                
+                let selected = imageboard?.boards.filter({ $0.selected }) ?? []
+                
+                var firstBoard: BoardModel? = nil
+                var findedSelected = false
+                
+                for board in selected {
+                    if firstBoard == nil {
+                        firstBoard = board
+                    }
+                    
+                    if board.current {
+                        findedSelected = true
+                    }
+                }
+                
+                if let first = firstBoard, !findedSelected {
+                    self?.select(board: first)
+                    return Observable<(ImageboardModel?, [BoardModel])>.just((imageboard, []))
+                }
+                
+                return Observable<(ImageboardModel?, [BoardModel])>.just((imageboard, selected))
+            })
             .bind(to: self.dataSource)
             .disposed(by: self.disposeBag)
         
@@ -106,14 +127,8 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
                     self?.listener?.openBoardSelection()
                 }
                 case .openBoard(let model): do {
-                    guard let self = self else { return }
-                    self.service
-                        .selectBoard(model: model)
-                        .debug()
-                        .subscribe({ _ in
-                            self.listener?.open(board: model)
-                        })
-                        .disposed(by: self.disposeBag)
+//                    guard let self = self else { return }
+                    self?.select(board: model)
                 }
                 }
             })
@@ -178,6 +193,16 @@ final class BoardsListInteractor: PresentableInteractor<BoardsListPresentable>, 
 //            .disposed(by: self.disposeBag)
         
         
+    }
+    
+    private func select(board model: BoardModel) {
+        self.service
+            .selectBoard(model: model)
+            .subscribe({ _ in
+                self.listener?.open(board: model)
+            })
+            .disposed(by: self.disposeBag)
+
     }
     
     
