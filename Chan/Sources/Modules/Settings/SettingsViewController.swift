@@ -173,43 +173,43 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
 
                 let currentType = self.themeManager.savedThemeType
 //
-//                if currentType != .light {
-//                    vc.addAction(UIAlertAction(title: "Светлая", style: UIAlertAction.Style.default, handler: { [weak self] _ in
-//                        guard let self = self else { return }
-//                        self.themeManager.save(theme: .light)
-//                        self.updateThemeText()
-//
-//                    }))
-//                }
-//
-//                if currentType != .dark {
-//                    vc.addAction(UIAlertAction(title: "Темная", style: UIAlertAction.Style.default, handler: { [weak self] _ in
-//                        guard let self = self else { return }
-//                        self.themeManager.save(theme: .dark)
-//                        self.updateThemeText()
-//
-//                    }))
-//                }
-//
-//                if currentType != .darkBlue {
-//
-//                    vc.addAction(UIAlertAction(title: "Темно-синяя", style: UIAlertAction.Style.default, handler: { [weak self] _ in
-//                        guard let self = self else { return }
-//                        self.themeManager.save(theme: .darkBlue)
-//                        self.updateThemeText()
-//
-//                    }))
-//                }
-//
-//                if currentType != .macaba {
-//
-//                    vc.addAction(UIAlertAction(title: "Macaba", style: UIAlertAction.Style.default, handler: { [weak self] _ in
-//                        guard let self = self else { return }
-//                        self.themeManager.save(theme: .macaba)
-//                        self.updateThemeText()
-//
-//                    }))
-//                }
+                if currentType != .light {
+                    vc.addAction(UIAlertAction(title: "Светлая", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.themeManager.save(theme: .light)
+                        self.updateThemeText()
+
+                    }))
+                }
+
+                if currentType != .dark {
+                    vc.addAction(UIAlertAction(title: "Темная", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.themeManager.save(theme: .dark)
+                        self.updateThemeText()
+
+                    }))
+                }
+
+                if currentType != .blue {
+
+                    vc.addAction(UIAlertAction(title: "Синяя", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.themeManager.save(theme: .blue)
+                        self.updateThemeText()
+
+                    }))
+                }
+
+                if currentType != .superDark {
+
+                    vc.addAction(UIAlertAction(title: "Черная", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.themeManager.save(theme: .superDark)
+                        self.updateThemeText()
+
+                    }))
+                }
                 
                 vc.addAction(UIAlertAction(title: "Отменить", style: UIAlertAction.Style.cancel, handler: nil))
                 
@@ -324,12 +324,12 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         switch self.themeManager.savedThemeType {
         case .dark:
             text = "темная"
-//        case .darkBlue:
-//            text = "темно-синяя"
-//        case .light:
-//            text = "светлая"
-//        case .macaba:
-//            text = "macaba"
+        case .blue:
+            text = "синяя"
+        case .light:
+            text = "светлая"
+        case .superDark:
+            text = "черная"
         }
         self.changeThemeButton.setTitle("Выберите тему: сейчас \(text)", for: UIControl.State.normal)
 

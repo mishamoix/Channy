@@ -22,6 +22,7 @@ class ThreadCell: SwipeCollectionViewCell {
     @IBOutlet weak var postsCount: UILabel!
     @IBOutlet weak var newPosts: UILabel!
     @IBOutlet weak var starred: UIImageView!
+    @IBOutlet weak var commentsImage: UIImageView!
     
     private var title: UILabel = UILabel()
     private var message: UILabel = UILabel()
@@ -126,6 +127,7 @@ class ThreadCell: SwipeCollectionViewCell {
         ThemeManager.shared.append(view: ThemeView(view: self.postsCount, type: .text, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.newPosts, type: .text, subtype: .none))
         ThemeManager.shared.append(view: ThemeView(view: self.title, type: .text, subtype: .none))
+        ThemeManager.shared.append(view: ThemeView(view: self.commentsImage, type: .icon, subtype: .accent))
 
 
         self.backgroundColor = .clear

@@ -12,9 +12,9 @@ import UIKit
 extension UIFont {
     static var title: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .medium) }
     
-    static var text: UIFont { return UIFont.systemFont(ofSize: UIFont.fontSize) }
-    static var textStrong: UIFont { return UIFont.systemFont(ofSize: UIFont.fontSize, weight: .bold) }
-    static var textItalic: UIFont { return UIFont.italicSystemFont(ofSize: UIFont.fontSize) }
+    static var text: UIFont { return UIFont.systemFont(ofSize: UIFont.dynamicFontSize) }
+    static var textStrong: UIFont { return UIFont.systemFont(ofSize: UIFont.dynamicFontSize, weight: .bold) }
+    static var textItalic: UIFont { return UIFont.italicSystemFont(ofSize: UIFont.dynamicFontSize) }
     static var textItalicStrong: UIFont { return UIFont.text.with(traits: [.traitBold, .traitItalic]) }
     
     static var secondaryText: UIFont { return UIFont.systemFont(ofSize: UIFont.fontSize - 3) }
@@ -44,7 +44,22 @@ extension UIFont {
         }
 
         
+        return 15.0
+    }
+    
+    static var dynamicFontSize: CGFloat {
+        let userFont =  UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.body)
+        
+        var size = userFont.pointSize
+        if IsIpad {
+            //            size += 2
+        } else {
+            size -= 2
+        }
+        
+        
         return size
+
     }
     
     

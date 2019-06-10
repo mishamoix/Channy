@@ -23,7 +23,7 @@ extension UIColor {
     static var scrollDown: UIColor { return #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1) }
     static var refreshControl: UIColor { return #colorLiteral(red: 0.3905925131, green: 0.429608715, blue: 0.4824260351, alpha: 1) }
     
-    static var bgLight: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) }
+    static var bgLight: UIColor { return #colorLiteral(red: 0.9773113665, green: 0.9773113665, blue: 0.9773113665, alpha: 1) }
     static var bgDark: UIColor { return #colorLiteral(red: 0.1529411765, green: 0.137254902, blue: 0.1254901961, alpha: 1) }
     static var bgDarkBlue: UIColor { return #colorLiteral(red: 0.09411764706, green: 0.1333333333, blue: 0.1764705882, alpha: 1) }
     static var bgMacaba: UIColor { return #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1) }
@@ -44,7 +44,7 @@ extension UIColor {
     static var subTextMacaba: UIColor { return #colorLiteral(red: 0.5411764706, green: 0.5411764706, blue: 0.5607843137, alpha: 1) }
 
     static var cellLight: UIColor { return #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1) }
-    static var cellDark: UIColor { return #colorLiteral(red: 0.1254901961, green: 0.1098039216, blue: 0.09019607843, alpha: 1) }
+    static var cellDark: UIColor { return #colorLiteral(red: 0.930668289, green: 0.930668289, blue: 0.930668289, alpha: 1) }
     static var cellDarkBlue: UIColor { return #colorLiteral(red: 0.1333333333, green: 0.1882352941, blue: 0.2470588235, alpha: 1) }
     static var cellMacaba: UIColor { return #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 1) }
 

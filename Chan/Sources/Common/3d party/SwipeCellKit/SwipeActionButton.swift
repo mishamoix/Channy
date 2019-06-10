@@ -58,6 +58,9 @@ class SwipeActionButton: UIButton {
         setTitleColor(tintColor, for: .normal)
         setTitleColor(highlightedTextColor, for: .highlighted)
         setImage(action.image, for: .normal)
+        if let tint = action.tintColor {
+            self.tintColor = tint
+        }
         setImage(action.highlightedImage ?? action.image, for: .highlighted)
     }
     

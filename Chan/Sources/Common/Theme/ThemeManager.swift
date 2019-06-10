@@ -33,6 +33,7 @@ enum ThemeViewSubtype {
     case border
     case selected
     case primary
+    case accent
 }
 
 class ThemeView {
@@ -106,7 +107,7 @@ class ThemeView {
             }
             
             if let searchBar = self.view as? UISearchBar {
-                searchBar.barStyle = .black
+                searchBar.barStyle = theme.barStyle
                 searchBar.keyboardAppearance = theme.keyboard
 //                searchBar.backgroundColor = theme.background
 //                searchBar.tintColor = theme.accentText
@@ -139,7 +140,7 @@ class ThemeView {
                 navBar.layoutIfNeeded()
             }
         case .icon:
-            (view as? UIImageView)?.tintColor = theme.border
+            (view as? UIImageView)?.tintColor = self.subtype == .accent ? theme.text : theme.border
         case .navBarButton:
             (view as? UIBarButtonItem)?.tintColor = theme.accnt
             (view as? UIButton)?.tintColor = theme.accnt
@@ -154,10 +155,13 @@ class ThemeView {
             break
         case .button :
             if let button = self.view as? UIButton {
+                
+                let color = self.subtype == .accent ? theme.accnt : theme.text
+                
                 button.backgroundColor = .clear
-                button.tintColor = theme.accnt
+                button.tintColor = color
                 button.layer.borderColor = theme.accnt.cgColor
-                button.setTitleColor(theme.accnt, for: .normal)
+                button.setTitleColor(color, for: .normal)
             }
 
         }
@@ -180,12 +184,13 @@ class ThemeManager {
     static let shared = ThemeManager()
     
     var statusBar: UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
+        
+//        return UIStatusBarStyle.lightContent
 //        if [.dark, .darkBlue].contains(self.savedThemeType) {
 //            return UIStatusBarStyle.lightContent
 //        }
 //
-//        return UIStatusBarStyle.default
+        return self.theme.statusBar
     }
     
     var savedThemeType: ThemeType {
@@ -248,27 +253,27 @@ class ThemeManager {
     }
     
     private func theme(for type: ThemeType) -> Theme {
-//        if type == .dark {
+        if type == .superDark {
+            return Theme.superDark
+        } else if type == .blue {
+            return Theme.blue
+        } else if type == .light {
+            return Theme.light
+        } else {
             return Theme.dark
-//        } else if type == .darkBlue {
-//            return Theme.darkBlue
-//        } else if type == .macaba {
-//            return Theme.macaba
-//        }
-//
-//        return Theme.light
+        }
     }
     
     private func themeType(from string: String) -> ThemeType {
-//        if string == "dark" {
+        if string == "superDark" {
+            return .superDark
+        } else if string == "blue" {
+            return .blue
+        } else if  string == "light" {
+            return .light
+        } else {
             return .dark
-//        } else if string == "darkBlue" {
-//            return .darkBlue
-//        } else if  string == "macaba" {
-//            return .macaba
-//        }
-//
-//        return .light
+        }
     }
     
     
