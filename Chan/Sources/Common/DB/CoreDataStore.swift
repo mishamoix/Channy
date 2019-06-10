@@ -36,6 +36,8 @@ class CoreDataStore {
       
 //        let docPath = path.appendingPathComponent("chan.sqlite")
 //        MagicalRecord.setDefaultModelNamed("CoreDataModel.momd")
+        MagicalRecord.setupAutoMigratingCoreDataStack()
+
         MagicalRecord.setupCoreDataStack(withStoreNamed: "chan.sqlite")
         MagicalRecord.setLoggingLevel(.verbose)
         
