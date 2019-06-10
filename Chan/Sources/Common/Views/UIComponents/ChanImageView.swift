@@ -104,11 +104,20 @@ class ChanImageView: UIImageView {
         
         self.censor(media: media)
         
-        self.image = UIImage.placeholder
     
         let url = full ? model.url ?? model.thumbnail : model.thumbnail ?? model.url
     
         if let url: URL = (url) {
+            
+            if let img = self.loader.checkCache(url: url) {
+                self.image = img
+                return
+            } else {
+                self.image = UIImage.placeholder
+
+            }
+//            self.loader.
+            
             self.loadToken = self.loader.load(url: url) { [weak self] result in
                 switch result.result {
                 case .success(let img):

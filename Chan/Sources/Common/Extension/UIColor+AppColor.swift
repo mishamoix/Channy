@@ -23,7 +23,7 @@ extension UIColor {
     static var scrollDown: UIColor { return #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1) }
     static var refreshControl: UIColor { return #colorLiteral(red: 0.3905925131, green: 0.429608715, blue: 0.4824260351, alpha: 1) }
     
-    static var bgLight: UIColor { return #colorLiteral(red: 0.9773113665, green: 0.9773113665, blue: 0.9773113665, alpha: 1) }
+    static var bgLight: UIColor { return #colorLiteral(red: 0.8632067999, green: 0.8632067999, blue: 0.8632067999, alpha: 1) }
     static var bgDark: UIColor { return #colorLiteral(red: 0.1529411765, green: 0.137254902, blue: 0.1254901961, alpha: 1) }
     static var bgDarkBlue: UIColor { return #colorLiteral(red: 0.09411764706, green: 0.1333333333, blue: 0.1764705882, alpha: 1) }
     static var bgMacaba: UIColor { return #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1) }

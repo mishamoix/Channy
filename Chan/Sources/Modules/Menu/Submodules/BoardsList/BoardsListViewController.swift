@@ -17,7 +17,7 @@ let BoardsListCellIdentifier = "BoardsListCell"
 let BoardsTableHeaderIdentifier = "BoardsTableHeader"
 
 protocol BoardsListPresentableListener: class {
-    var dataSource: Variable<ImageboardModel?> { get }
+    var dataSource: Variable<(ImageboardModel?, [BoardModel])> { get }
     var viewActions: PublishSubject<BoardsListAction> { get }
 
 }
@@ -120,8 +120,9 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
             .dataSource
             .asObservable()
             .observeOn(Helper.rxMainThread)
-            .subscribe(onNext: { [weak self] result in
-                self?.imageboard = result
+            .subscribe(onNext: { [weak self] imageboard, boards in
+                self?.imageboard = imageboard
+                self?.boards = boards
                 self?.updateViews()
             })
             .disposed(by: self.disposeBag)
@@ -237,9 +238,10 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
     private func updateViews() {
         if let data = self.imageboard {
             self.header.update(with: data)
-            self.boards = data.boards.filter({ $0.selected })
-            self.tableView.reloadData()
         }
+//            self.boards = data.boards.filter({ $0.selected })
+            self.tableView.reloadData()
+//        }
     }
 }
 

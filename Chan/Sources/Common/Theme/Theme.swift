@@ -71,8 +71,8 @@ extension Theme {
     )
     
     static var superDark = Theme(
-        text: #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.8980392157, alpha: 1),
-        accentText: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
+        text: #colorLiteral(red: 0.8632067999, green: 0.8632067999, blue: 0.8632067999, alpha: 1),
+        accentText: #colorLiteral(red: 0.9573753238, green: 0.9573753238, blue: 0.9573753238, alpha: 1),
         thirdText: #colorLiteral(red: 0.7411747244, green: 0.7411747244, blue: 0.7411747244, alpha: 1),
         cell: #colorLiteral(red: 0.01960784314, green: 0.01960784314, blue: 0.01960784314, alpha: 1),
         background: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1),
