@@ -47,7 +47,7 @@ extension ThreadTarget: TargetType {
     }
     
     public var headers: [String: String]? {
-        return nil
+        return CookiesManager.allCookies()
     }
     
     

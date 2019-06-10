@@ -11,6 +11,7 @@ import UIKit
 class WriteModel {
     let recaptchaId: String?
     let text: String
+    let subject: String?
     let recaptachToken: String?
     let threadUid: String
     let boardUid: String
@@ -19,8 +20,9 @@ class WriteModel {
     
     var url: String? = nil
     
-    init(recaptchaId: String?, text: String, recaptachToken: String?, threadUid: String, boardUid: String, images: [UIImage], imageboard: Int) {
+    init(recaptchaId: String?, subject: String?, text: String, recaptachToken: String?, threadUid: String, boardUid: String, images: [UIImage], imageboard: Int) {
         self.recaptchaId = recaptchaId
+        self.subject = subject
         self.text = text
         self.recaptachToken = recaptachToken
         self.threadUid = threadUid
@@ -34,8 +36,12 @@ class WriteModel {
             "board": self.boardUid,
             "thread": self.threadUid,
             "text": self.text,
-            "images": self.images.count,
+            "images": self.images.count
         ]
+        
+        if let subject = self.subject {
+            result["subject"] = subject
+        }
         
         if let captcha = self.recaptachToken {
             result["captcha"] = captcha

@@ -70,20 +70,22 @@ extension WriteTarget: TargetType {
     }
     
     public var headers: [String: String]? {
-        return nil
+        switch self {
+        case .write(_, let format):
+            return self.prepareHeaders(format: format)
+        default:
+            return nil
+        }
     }
     
     private func prepareSendData(with model: WriteModel, format: [String: Any]) -> [MultipartFormData] {
         var result: [MultipartFormData] = []
         
-//        (format["data"] as! [String:Any])["captcha_type"] = "invisible_recaptcha"
         if let data = format["data"] as? [String: Any] {
             for (key, value) in data {
-//                if key != "images"  {
                 if let value = value as? String {
                     result.append(MultipartFormData(provider: .data(value.data(using: .utf8)!), name: key))
                 }
-//                }
             }
         }
 
@@ -103,31 +105,14 @@ extension WriteTarget: TargetType {
         
         
         return result
+    }
+    
+    private func prepareHeaders(format: [String: Any]) -> [String: String]? {
         
-        ////            MultipartFormData(provider: "sss", name: "bbb")
-        //            MultipartFormData(provider: MultipartFormData.FormDataProvider., name: <#T##String#>)
-        //            Task.uploadCompositeMultipart([MultipartFormData], urlParameters: <#T##[String : Any]#>)
-        //                MultipartFormData(provider: .data(model.boardUid.data(using: .utf8)!), name: "board"),
-        //                MultipartFormData(provider: .data(model.threadUid.data(using: .utf8)!), name: "thread"),
-        //                MultipartFormData(provider: .data(model.text.data(using: .utf8)!), name: "comment"),
-        //                MultipartFormData(provider: .data("invisible_recaptcha".data(using: .utf8)!), name: "captcha_type"),
-        //                MultipartFormData(provider: .data(model.recaptchaId.data(using: .utf8)!), name: "captcha-key"),
-        //                MultipartFormData(provider: .data(model.recaptachToken.data(using: .utf8)!), name: "g-recaptcha-response"),
-        //                MultipartFormData(provider: .data("post".data(using: .utf8)!), name: "task"),
-        //            ]
+        if let headers = format["headers"] as? [String: String] {
+            return headers
+        }
         
-        //            let imageBaseKey = "image"
-        //            let mimeType = "image/jpeg"
-        //
-        //            for (idx, image) in model.images.enumerated() {
-        //                if let data = image.jpegData(compressionQuality: 1.0) {
-        //                    let key = "\(imageBaseKey)\(idx+1)"
-        //                    let filename = UUID().uuidString + ".jpeg"
-        //                    result.append(MultipartFormData(provider: .data(data), name: key, fileName: filename, mimeType: mimeType))
-        //                }
-        //            }
-        
-
-
+        return nil
     }
 }

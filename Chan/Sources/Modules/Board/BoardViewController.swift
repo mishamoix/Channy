@@ -239,20 +239,23 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             .drive(onNext: { [weak self] in
                 
                 let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-                
+//
                 if IsIpad {
                     actionSheet.popoverPresentationController?.barButtonItem = self?.moreButton
                 }
+//
+//                actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на доску", style: .default, handler: { [weak self] _ in
+//                    self?.listener?.viewActions.on(.next(.copyLinkOnBoard))
+//                }))
+//
+//                actionSheet.addAction(UIAlertAction(title: "Открыть по ссылке", style: .default, handler: { [weak self] _ in
+//                    self?.listener?.viewActions.on(.next(.openByLink))
+//                }))
                 
-                actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на доску", style: .default, handler: { [weak self] _ in
-                    self?.listener?.viewActions.on(.next(.copyLinkOnBoard))
+                actionSheet.addAction(UIAlertAction(title: "Создать тред", style: .default, handler: { [weak self] _ in
+                    self?.listener?.viewActions.on(.next(.createNewThread))
                 }))
-                
-                actionSheet.addAction(UIAlertAction(title: "Открыть по ссылке", style: .default, handler: { [weak self] _ in
-                    self?.listener?.viewActions.on(.next(.openByLink))
-                }))
-                
-                
+
                 actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
                 
                 self?.present(actionSheet, animated: true)
@@ -371,12 +374,12 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         writeButton.tintColor = self.themeManager.theme.accnt
         writeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         self.createNewThreadButton = writeButton
-        let writeBarButton = UIBarButtonItem(customView: writeButton)
+//        let writeBarButton = UIBarButtonItem(customView: writeButton)
 
         let homeCanvas = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         let homeButton = UIBarButtonItem(customView: homeCanvas)
 
-        self.navigationItem.setRightBarButtonItems([writeBarButton], animated: false)
+        self.navigationItem.setRightBarButtonItems([more], animated: false)
         self.navigationItem.setLeftBarButtonItems([homeButton], animated: false)
 
         let home = UIButton(frame: .zero)

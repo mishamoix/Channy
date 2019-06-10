@@ -80,6 +80,9 @@ class WriteService: BaseService, WriteServiceProtocol {
                 .map({ return $0.data })
         })
         .flatMap({ [weak self] data -> Observable<WriteResponseModel> in
+            
+            CookiesManager.clearCookies()
+            
             let data = self?.fromJson(data: data)
             if let status = data?["Status"] as? String {
                 if status.lowercased() == "ok" {
