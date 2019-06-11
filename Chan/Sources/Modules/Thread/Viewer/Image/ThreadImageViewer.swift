@@ -16,12 +16,9 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
   
     private static let cache = AutoPurgingImageCache()
 
-    private static let imageDownloader = ImageDownloader(
-        configuration: ImageDownloader.defaultURLSessionConfiguration(),
-        downloadPrioritization: .lifo,
-        maximumActiveDownloads: 4,
-        imageCache: ImageNetworkIntegration.cache
-    )
+    private static var imageDownloader: ImageDownloader {
+        return ChanImageDownloader.shared.imageLoader
+    }
   
   
     private let requests: [URLRequest] = []

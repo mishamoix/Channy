@@ -66,6 +66,10 @@ class CensorImageManager {
     
     
     private func runCensor() {
+        if Values.shared.safeMode {
+            self.update(need: true)
+            return
+        }
         if self.censorEnabled {
             self.update(need: true)
         }

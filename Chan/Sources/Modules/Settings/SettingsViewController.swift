@@ -46,7 +46,6 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     
     @IBOutlet weak var proxyCanvas: UIView!
     @IBOutlet weak var proxyButton: UIButton!
-    @IBOutlet weak var proxySwitch: UISwitch!
     
     
     private var canvas: [UIView] {
@@ -90,7 +89,6 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         
         self.limitorSwitch.isOn = Values.shared.safeMode
         self.historySwitch.isOn = Values.shared.historyWrite
-        self.proxySwitch.isOn = Values.shared.proxyEnabled
         self.navigationItem.title = "Настройки"
 
         self.infoTextView.text = FirebaseManager.shared.mainInfo
@@ -212,10 +210,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                 }
                 
                 vc.addAction(UIAlertAction(title: "Отменить", style: UIAlertAction.Style.cancel, handler: nil))
-                
                 self.present(vc: vc, animated: true)
-//                vc.prese
-
             })
             .disposed(by: self.disposeBag)
         
@@ -277,17 +272,6 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                 self?.listener?.openProxy()
             })
             .disposed(by: self.disposeBag)
-        
-        self.proxySwitch
-            .rx
-            .controlEvent(.valueChanged)
-            .subscribe(onNext: { [weak self] _ in
-                if let on = self?.proxySwitch.isOn {
-                    self?.listener?.proxyEnable(changed: on)
-                }
-            })
-            .disposed(by: self.disposeBag)
-
     }
     
     private func setupVersion() {
@@ -311,11 +295,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         let _ = self.titles.map({ $0.backgroundColor = .clear })
         
         self.themeManager.append(view: ThemeView(view: self.infoTextView, type: .input, subtype: .none))
-      
         self.themeManager.append(view: ThemeView(view: self.view, type: .background, subtype: .none))
-        
-        
-        
     }
     
     

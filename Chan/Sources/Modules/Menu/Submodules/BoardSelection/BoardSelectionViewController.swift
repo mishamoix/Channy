@@ -119,6 +119,7 @@ final class BoardSelectionViewController: BaseViewController, BoardSelectionPres
         search.searchResultsUpdater = self
         search.dimsBackgroundDuringPresentation = false
         search.searchBar.placeholder = "Введите название или код доски"
+        search.searchBar.searchBarStyle = .default
         
         if #available(iOS 11.0, *) {
             self.navigationItem.hidesSearchBarWhenScrolling = false

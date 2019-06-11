@@ -35,7 +35,7 @@ target 'Chan' do
     pod 'UITextView+Placeholder'
     pod 'SideMenu'
 #    pod 'SwipeCellKit'
-    pod 'MobileVLCKit', '3.3.0'
+#    pod 'MobileVLCKit', '3.3.0'
 
 
     # Analyticts

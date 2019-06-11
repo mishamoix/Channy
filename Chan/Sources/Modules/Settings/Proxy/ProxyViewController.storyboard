@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Ii9-5N-a0f">
-                            <rect key="frame" x="0.0" y="176" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="220" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kI5-rP-4cN">
@@ -140,6 +140,33 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ahQ-Jg-9bq">
+                                        <rect key="frame" x="0.0" y="176" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ahQ-Jg-9bq" id="w18-Qz-83z">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Включено" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prQ-ax-hE9">
+                                                    <rect key="frame" x="16" y="11.5" width="278" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7aA-FA-7LF">
+                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="7aA-FA-7LF" firstAttribute="centerY" secondItem="w18-Qz-83z" secondAttribute="centerY" id="7ye-C7-NVx"/>
+                                                <constraint firstItem="prQ-ax-hE9" firstAttribute="leading" secondItem="w18-Qz-83z" secondAttribute="leading" constant="16" id="DXl-CJ-2qe"/>
+                                                <constraint firstItem="prQ-ax-hE9" firstAttribute="centerY" secondItem="w18-Qz-83z" secondAttribute="centerY" id="VPx-2n-e2y"/>
+                                                <constraint firstAttribute="trailing" secondItem="7aA-FA-7LF" secondAttribute="trailing" constant="16" id="uOm-xD-9ga"/>
+                                                <constraint firstItem="7aA-FA-7LF" firstAttribute="leading" secondItem="prQ-ax-hE9" secondAttribute="trailing" constant="16" id="xxQ-Ab-KW0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -151,6 +178,9 @@
                     <connections>
                         <outlet property="acceptButton" destination="kI5-rP-4cN" id="OJG-j4-AWk"/>
                         <outlet property="checkButton" destination="zLT-OE-7f5" id="oOU-V4-eC2"/>
+                        <outlet property="enableSwitcher" destination="7aA-FA-7LF" id="FUi-uh-9lz"/>
+                        <outlet property="enabledProxyCanvas" destination="ahQ-Jg-9bq" id="sGt-9T-sKH"/>
+                        <outlet property="enabledTitle" destination="prQ-ax-hE9" id="HgK-Fm-yRY"/>
                         <outlet property="passwordCanvas" destination="vZJ-XR-k2X" id="t5e-fi-svY"/>
                         <outlet property="passwordTextField" destination="zcF-r5-um0" id="MfT-y4-6zN"/>
                         <outlet property="portTextField" destination="ENy-VZ-ugA" id="9lf-Bo-VqH"/>

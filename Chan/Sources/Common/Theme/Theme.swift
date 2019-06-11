@@ -65,15 +65,15 @@ extension Theme {
         accnt: #colorLiteral(red: 1, green: 0.5333333333, blue: 0.1058823529, alpha: 1),
         quote: #colorLiteral(red: 0.3137254902, green: 0.6, blue: 0.1333333333, alpha: 1),
     
-        keyboard: UIKeyboardAppearance.dark,
+        keyboard: .dark,
         barStyle: .black,
         statusBar: .lightContent
     )
     
     static var superDark = Theme(
-        text: #colorLiteral(red: 0.8632067999, green: 0.8632067999, blue: 0.8632067999, alpha: 1),
-        accentText: #colorLiteral(red: 0.9573753238, green: 0.9573753238, blue: 0.9573753238, alpha: 1),
-        thirdText: #colorLiteral(red: 0.7411747244, green: 0.7411747244, blue: 0.7411747244, alpha: 1),
+        text: #colorLiteral(red: 0.8087419359, green: 0.8087419359, blue: 0.8087419359, alpha: 1),
+        accentText: #colorLiteral(red: 0.9242227979, green: 0.9242227979, blue: 0.9242227979, alpha: 1),
+        thirdText: #colorLiteral(red: 0.7222304239, green: 0.7222304239, blue: 0.7222304239, alpha: 1),
         cell: #colorLiteral(red: 0.01960784314, green: 0.01960784314, blue: 0.01960784314, alpha: 1),
         background: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1),
         border: #colorLiteral(red: 0.7176470588, green: 0.7607843137, blue: 0.8352941176, alpha: 1),
@@ -81,7 +81,7 @@ extension Theme {
         accnt: #colorLiteral(red: 1, green: 0.5333333333, blue: 0.1058823529, alpha: 1),
         quote: #colorLiteral(red: 0.3137254902, green: 0.6, blue: 0.1333333333, alpha: 1),
         
-        keyboard: UIKeyboardAppearance.dark,
+        keyboard: .dark,
         barStyle: .black,
         statusBar: .lightContent
     )
@@ -96,7 +96,7 @@ extension Theme {
         accent: #colorLiteral(red: 0.4039215686, green: 0.6431372549, blue: 0.9843137255, alpha: 1),
         accnt: #colorLiteral(red: 1, green: 0.4898439753, blue: 0.01706419528, alpha: 1),
         quote: #colorLiteral(red: 0.3137254902, green: 0.6, blue: 0.1333333333, alpha: 1),
-        keyboard: UIKeyboardAppearance.light,
+        keyboard: .light,
         barStyle: .default,
         statusBar: .default
     )
@@ -111,8 +111,8 @@ extension Theme {
         accent: #colorLiteral(red: 0.4039215686, green: 0.6431372549, blue: 0.9843137255, alpha: 1),
         accnt: #colorLiteral(red: 1, green: 0.5333333333, blue: 0.1058823529, alpha: 1),
         quote: #colorLiteral(red: 0.3137254902, green: 0.6, blue: 0.1333333333, alpha: 1),
-        keyboard: UIKeyboardAppearance.light,
-        barStyle: .default,
+        keyboard: .dark,
+        barStyle: .black,
         statusBar: .lightContent
     )
     
