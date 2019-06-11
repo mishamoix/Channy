@@ -84,6 +84,10 @@ final class ProxyInteractor: PresentableInteractor<ProxyPresentable>, ProxyInter
 
     }
     
+    func enableProxy(enable: Bool) {
+        Values.shared.proxyEnabled = enable
+    }
+    
     // MARK: Private
     private func checkProxy(model: ProxyModel) -> Bool {
         if model.server.count > 0 {

@@ -107,12 +107,26 @@ class ThemeView {
             }
             
             if let searchBar = self.view as? UISearchBar {
-                searchBar.barStyle = theme.barStyle
+                
+                searchBar.tintColor = theme.text
+//                if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
+//                    //textfield.textColor = // Set text color
+//                    if let backgroundview = textfield.subviews.first {
+//                        backgroundview.backgroundColor = theme.cell
+//                    }
+//                }
+                
+//                if let textfield = searchBar.subviews.first?.subviews.first(where: { $0.isKind(of: UITextField.self) }) as? UITextField {
+//
+//                    textfield.textColor = theme.text
+//                    textfield.backgroundColor = theme.cell
+//                }
+                
+//                searchBar.setBa
+////                searchBar.barStyle = theme.barStyle
+//                searchBar.backgroundColor = theme.cell
+//                searchBar.tintColor = theme.text
                 searchBar.keyboardAppearance = theme.keyboard
-//                searchBar.backgroundColor = theme.background
-//                searchBar.tintColor = theme.accentText
-//                searchBar.keyboardAppearance = theme.keyboard
-//                searchBar.
             }
             break
         case .text:
@@ -206,6 +220,8 @@ class ThemeManager {
     
     init() {
         self.theme = self.theme(for: self.savedThemeType)
+        
+        self.appearanceApply()
     }
     
     func append(view: ThemeView?) {
@@ -240,12 +256,18 @@ class ThemeManager {
     func themeChanged() {
         self.theme = self.theme(for: self.savedThemeType)
         
+        self.appearanceApply()
         UIView.animate(withDuration: AnimationDuration) {
             for view in self.views {
                 view.apply(theme: self.theme)
                 view.reloadStatusBar(theme: self.theme)
             }
         }
+    }
+    
+    private func appearanceApply() {
+        let result: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: self.theme.text]
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = result
     }
     
     func clean() {

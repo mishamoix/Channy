@@ -14,7 +14,7 @@ private let MaximumActiveDownloads = 8
 
 class ChanImageDownloader {
     private let disposeBag = DisposeBag()
-    private var imageLoader: ImageDownloader
+    private(set) var imageLoader: ImageDownloader
     private let cache = AutoPurgingImageCache()
 
     static let shared = ChanImageDownloader()

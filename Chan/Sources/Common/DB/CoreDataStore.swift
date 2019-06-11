@@ -32,25 +32,16 @@ class CoreDataStore {
     
     func setup() {
         let path = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.allDomainsMask).last!
-      print(path)
+        print(path)
       
-//        let docPath = path.appendingPathComponent("chan.sqlite")
-//        MagicalRecord.setDefaultModelNamed("CoreDataModel.momd")
-        MagicalRecord.setupAutoMigratingCoreDataStack()
+        MagicalRecord.setupCoreDataStack(withAutoMigratingSqliteStoreNamed: "chan.sqlite")
+//        MagicalRecord.setDefaultModelNamed("Chan.momd")
+//        MagicalRecord.setupAutoMigratingCoreDataStack()
 
-        MagicalRecord.setupCoreDataStack(withStoreNamed: "chan.sqlite")
         MagicalRecord.setLoggingLevel(.verbose)
         
-//        if let model = NSManagedObjectModel.mr_default() {
-//            let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-////            let sqlitePath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "default")!.path + "/" + DBName
-////            try! coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: URL(fileURLWithPath: sqlitePath), options: [
-////                    NSMigratePersistentStoresAutomaticallyOption : true,
-////                    NSInferMappingModelAutomaticallyOption: true
-////                ])
-//            NSPersistentStoreCoordinator.mr_setDefaultStoreCoordinator(coordinator)
-//            NSManagedObjectContext.mr_initializeDefaultContext(with: coordinator)
-//        }
+        
+        
     }
   
     

@@ -15,6 +15,7 @@ protocol ProxyPresentableListener: class {
     func checkProxy() -> Observable<Bool>
     func saveProxy(title: String?)
     func deleteProxy()
+    func enableProxy(enable: Bool)
 }
 
 final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyViewControllable {
@@ -28,17 +29,20 @@ final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyV
     @IBOutlet weak var sportCanvas: UITableViewCell!
     @IBOutlet weak var usernameCanvas: UITableViewCell!
     @IBOutlet weak var passwordCanvas: UITableViewCell!
+    @IBOutlet weak var enabledProxyCanvas: UITableViewCell!
     
     @IBOutlet weak var serverTextField: UITextField!
     @IBOutlet weak var portTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var enabledTitle: UILabel!
+    @IBOutlet weak var enableSwitcher: UISwitch!
     
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var acceptButton: UIButton!
     
     private var canvases: [UIView] {
-        return [self.serverCanvas, self.sportCanvas, self.usernameCanvas, self.passwordCanvas]
+        return [self.serverCanvas, self.sportCanvas, self.usernameCanvas, self.passwordCanvas, self.enabledProxyCanvas]
     }
     
     private var textFields: [UIView] {
@@ -87,6 +91,7 @@ final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyV
         
         let deleteButton = UIBarButtonItem(title: "Удалить", style: .plain, target: nil, action: nil)
         self.navigationItem.rightBarButtonItem = deleteButton
+        self.enableSwitcher.isOn = Values.shared.proxyEnabled
     }
 
     
@@ -130,6 +135,17 @@ final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyV
             })
             .disposed(by: self.disposeBag)
         
+        self.enableSwitcher
+            .rx
+            .controlEvent(.valueChanged)
+            .asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                if let value = self?.enableSwitcher.isOn {
+                    self?.listener?.enableProxy(enable: value)
+                }
+            })
+            .disposed(by: self.disposeBag)
+        
         Values.shared.proxyObservable
             .asObservable()
             .subscribeOn(Helper.rxMainThread)
@@ -162,5 +178,6 @@ final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyV
         
         theme.append(view: ThemeView(object: self.checkButton, type: .button, subtype: .accent))
         theme.append(view: ThemeView(object: self.navigationController?.navigationBar, type: .navBar, subtype: .none))
+        theme.append(view: ThemeView(object: self.enabledTitle, type: .text, subtype: .accent))
     }
 }
