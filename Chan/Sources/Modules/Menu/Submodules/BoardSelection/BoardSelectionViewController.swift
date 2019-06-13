@@ -118,6 +118,8 @@ final class BoardSelectionViewController: BaseViewController, BoardSelectionPres
         let search = UISearchController(searchResultsController: nil)
         search.searchResultsUpdater = self
         search.dimsBackgroundDuringPresentation = false
+        search.hidesNavigationBarDuringPresentation = false
+        search.obscuresBackgroundDuringPresentation = false
         search.searchBar.placeholder = "enter_board_or_name".localized
         search.searchBar.searchBarStyle = .default
         
