@@ -20,6 +20,8 @@ class ImageboardHeader: BaseView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.title.text = "Imageboards".localized
     }
     
     override func setupTheme() {

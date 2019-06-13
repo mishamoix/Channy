@@ -93,7 +93,7 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.date.textAlignment = .right
         
         self.reply.backgroundColor = .clear
-        self.reply.setTitle("Ответить", for: .normal)
+        self.reply.setTitle("Reply".localized, for: .normal)
         self.reply.titleLabel?.font = .secondaryText
         self.reply.contentHorizontalAlignment = .right
         
@@ -307,6 +307,10 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
             self.repliesButton.isHidden = true
         }
         
-        self.repliesButton.setTitle("\(model.replyPosts.count) ответов", for: .normal)
+        
+        let replise_count = NSLocalizedString("replies_count", comment: "")
+        let title = String.localizedStringWithFormat(replise_count, model.replyPosts.count)
+
+        self.repliesButton.setTitle(title, for: .normal)
     }
 }

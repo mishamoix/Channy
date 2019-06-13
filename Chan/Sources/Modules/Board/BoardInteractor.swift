@@ -26,6 +26,7 @@ protocol BoardPresentable: Presentable {
     var isVisible: Bool { get }
     
     func stopLoadersAfterRefresh()
+    var serachActive: Bool { get }
 
 }
 
@@ -61,7 +62,9 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     private var isLoading = false
     private var checkLinkPopupOpened = false
+    private var currentSaerchString: String? = nil
     
+    var updateSearchObservable: Variable<String?> = Variable<String?>(nil)
     
     private var prevLinkFromBuffer: String? = nil
 
@@ -107,11 +110,15 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     func load(reload: Bool = false) {
+        
         if self.isLoading && !reload { return }
         self.isLoading = true
         guard let board = self.currentModel else {
             return
         }
+        
+        StatisticManager.openBoard(model: board)
+        
         self.service
             .loadThreads(board: board)
             .asObservable()
@@ -177,11 +184,13 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 
                 let viewModels = AdsBoardListManager(threads: models.map({ ThreadViewModel(with: $0)})).prepareAds()
                 
+                
                 self?.data = models
                 self?.viewModels = viewModels
                 
+                self?.updateData()
+                
                 self?.presenter.stopLoadersAfterRefresh()
-                self?.dataSource.value = viewModels
             }, onError: { [weak self] err in
                 self?.isLoading = false
                 self?.presenter.stopAnyLoaders()
@@ -279,6 +288,11 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 self?.detectUrlAfterOpenApp()
             })
             .disposed(by: self.disposeBag)
+        
+        
+        self.updateSearchObservable.asObservable().debounce(0.3, scheduler: Helper.rxMainThread).subscribe(onNext: { [weak self] _ in
+            self?.updateData()
+        }).disposed(by: self.disposeBag)
     }
     
     
@@ -327,6 +341,27 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         }
     }
     
+    func updateData() {
+        self.dataSource.value = self.filterThreads(view: self.viewModels, isActive: self.presenter.serachActive, search: self.updateSearchObservable.value)
+    }
+    
+    func filterThreads(view models: [ThreadViewModel], isActive: Bool, search text: String?) -> [ThreadViewModel] {
+        
+        if !isActive {
+            return models
+        }
+        
+        guard let text = text, text.count > 0 else {
+            return models
+        }
+        
+        let searchText = text.lowercased()
+        
+        let result = models.filter({ $0.displayText?.lowercased().contains(searchText) ?? false })
+        
+        return result
+    }
+    
     func openBoardSelection() {
         
     }
@@ -353,7 +388,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     private func checkAgreement() {
         if !Values.shared.privacyPolicy {
             if let url = FirebaseManager.shared.agreementUrl {
-                let agreement = WebAcceptViewModel(url: url, title: "Соглашение")
+                let agreement = WebAcceptViewModel(url: url, title: "Agreement".localized)
                 
                 Helper.performOnMainThread {
                     self.router?.openAgreement(model: agreement)
@@ -363,58 +398,59 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     private func openByLink() {
-        let error = ChanError.error(title: "Открытие по ссылке", description: "Введите ссылку и мы попытаемся открыть тред или доску")
-        let display = ErrorDisplay(error: error, buttons: [.input(result: "Например 2ch.hk/pr/res/999999"), .cancel])
-        display.show()
-        display
-            .actions
-            .subscribe(onNext: { action in
-                switch action {
-                case .input(let result):
-                    self.openUrlIfCan(url: result)
-                default: break
-                }
-            })
-            .disposed(by: self.disposeBag)
+//        let error = ChanError.error(title: "Открытие по ссылке", description: "Введите ссылку и мы попытаемся открыть тред или доску")
+//        let display = ErrorDisplay(error: error, buttons: [.input(result: "Например 2ch.hk/pr/res/999999"), .cancel])
+//        display.show()
+//        display
+//            .actions
+//            .subscribe(onNext: { action in
+//                switch action {
+//                case .input(let result):
+//                    self.openUrlIfCan(url: result)
+//                default: break
+//                }
+//            })
+//            .disposed(by: self.disposeBag)
     }
     
     private func detectUrlAfterOpenApp() {
-        print(self.checkLinkPopupOpened)
-        if !self.isLoading && self.presenter.isVisible && !self.checkLinkPopupOpened {
-            let link = UIPasteboard.general.string
-            
-            if let model = self.canOpenChan(url: link), self.prevLinkFromBuffer != link {
-                if model.board != nil || (model.thread != nil && model.board != nil) {
-                    
-//                    if let board = model.board, let currentBoard = self.service.board, model.thread == nil && currentBoard.uid == board {
-////                        if  {
-//                            return
-////                        }
-//                    }
-//                    if let board = model.board, let currentBoard = self.service.board, model.thread == nil, currentBoard.uid == board {
-//                        return
-//                    }
-                    
-                    let error = ChanError.error(title: "Открытие по ссылке", description: "В буфере обмена мы обнаружили ссылку на Двач, перейти по ней?")
-                    self.checkLinkPopupOpened = true
-                    let display = ErrorDisplay(error: error, buttons: [.ok, .cancel])
-                    display.show()
-                    self.prevLinkFromBuffer = link
-                    display
-                        .actions
-                        .subscribe(onNext: { action in
-                            switch action {
-                            case .ok: self.openUrlIfCan(url: link)
-                            default: break
-                            }
-                            
-                            self.checkLinkPopupOpened = false
-                        })
-                        .disposed(by: self.disposeBag)
-                }
-            }
-        }
-        
+        return
+//        print(self.checkLinkPopupOpened)
+//        if !self.isLoading && self.presenter.isVisible && !self.checkLinkPopupOpened {
+//            let link = UIPasteboard.general.string
+//            
+//            if let model = self.canOpenChan(url: link), self.prevLinkFromBuffer != link {
+//                if model.board != nil || (model.thread != nil && model.board != nil) {
+//                    
+////                    if let board = model.board, let currentBoard = self.service.board, model.thread == nil && currentBoard.uid == board {
+//////                        if  {
+////                            return
+//////                        }
+////                    }
+////                    if let board = model.board, let currentBoard = self.service.board, model.thread == nil, currentBoard.uid == board {
+////                        return
+////                    }
+//                    
+//                    let error = ChanError.error(title: "Открытие по ссылке", description: "В буфере обмена мы обнаружили ссылку на Двач, перейти по ней?")
+//                    self.checkLinkPopupOpened = true
+//                    let display = ErrorDisplay(error: error, buttons: [.ok, .cancel])
+//                    display.show()
+//                    self.prevLinkFromBuffer = link
+//                    display
+//                        .actions
+//                        .subscribe(onNext: { action in
+//                            switch action {
+//                            case .ok: self.openUrlIfCan(url: link)
+//                            default: break
+//                            }
+//                            
+//                            self.checkLinkPopupOpened = false
+//                        })
+//                        .disposed(by: self.disposeBag)
+//                }
+//            }
+//        }
+//        
 
     }
     

@@ -56,7 +56,7 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
             
             let nc = BaseNavigationController(rootViewController: board.viewControllable.uiviewController)
             
-            nc.tabBarItem = UITabBarItem(title: "Доска", image: .boards, tag: 0)
+            nc.tabBarItem = UITabBarItem(title: "Board".localized, image: .boards, tag: 0)
             
             result.append(nc)
         }
@@ -69,7 +69,7 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
             
             let vc = DefaultNavigationController(rootViewController: favorites.viewControllable.uiviewController)
             
-            vc.tabBarItem = UITabBarItem(title: "Избранное", image: .favorites, tag: 1)
+            vc.tabBarItem = UITabBarItem(title: "Favorites".localized, image: .favorites, tag: 1)
             
             result.append(vc)
         }
@@ -81,7 +81,7 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
             
             let vc = DefaultNavigationController(rootViewController: history.viewControllable.uiviewController)
             
-            vc.tabBarItem = UITabBarItem(title: "История", image: .history, tag: 2)
+            vc.tabBarItem = UITabBarItem(title: "History".localized, image: .history, tag: 2)
             
             result.append(vc)
         }

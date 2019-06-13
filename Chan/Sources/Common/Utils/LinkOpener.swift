@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 
+
 enum BrowserType: String {
     case safari = "Safari"
     case googleChrome = "Google Chrome"
@@ -158,7 +159,7 @@ class LinkOpener {
             self.save(browser: browser)
             
             if needExcluedSelected {
-                ErrorDisplay.presentAlert(with: "Выбор браузера", message: "У Вас нет сторонних браузеров", dismiss: SmallDismissTime)
+                ErrorDisplay.presentAlert(with: "select_brwoser".localized, message: "no_external_browsers".localized, dismiss: SmallDismissTime)
 //                let err = ChanError.error(title: "Выберите браузер", description: "")
 //                let display = ErrorDisplay(error: err, buttons: [])
 //                display.show()
@@ -181,7 +182,7 @@ class LinkOpener {
         }
         
         
-        let err = ChanError.error(title: "Выберите браузер", description: "Выберите браузер в котором будут открываться ссылки. Браузер можно сменить в настройках")
+        let err = ChanError.error(title: "select_brwoser".localized, description: "select_browser_message".localized)
         let display = ErrorDisplay(error: err, buttons: buttons)
         
         display.show()

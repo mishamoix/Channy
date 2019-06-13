@@ -21,6 +21,8 @@ protocol BoardPresentableListener: class {
     var mainViewModel: Variable<BoardMainViewModel> { get }
     var dataSource: Variable<[ThreadViewModel]> { get }
     var viewActions: PublishSubject<BoardAction> { get }
+    
+    var updateSearchObservable: Variable<String?> { get }
 }
 
 final class BoardViewController: BaseViewController, BoardPresentable, BoardViewControllable {
@@ -46,6 +48,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     
     private var rightNavbarLabel: UILabel? = nil
     private var leftNavbarLabel: UILabel? = nil
+    private let searchController = UISearchController(searchResultsController: nil)
 
     
     // MARK: Data
@@ -55,6 +58,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     private var mainViewModel: BoardMainViewModel? = nil
     
     private var needStopLoadersAfterRefresh = false
+    
     
     // MARK: Main
     override func viewDidLoad() {
@@ -131,6 +135,10 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     // MARK: BoardPresentable
     func stopLoadersAfterRefresh() {
         self.needStopLoadersAfterRefresh = true
+    }
+    
+    var serachActive: Bool {
+        return self.searchController.isActive && (self.searchController.searchBar.text?.count ?? 0) > 0
     }
 
     //MARK: Private
@@ -249,11 +257,11 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
 //                    self?.listener?.viewActions.on(.next(.openByLink))
 //                }))
                 
-                actionSheet.addAction(UIAlertAction(title: "Создать тред", style: .default, handler: { [weak self] _ in
-                    self?.listener?.viewActions.on(.next(.createNewThread))
-                }))
+//                actionSheet.addAction(UIAlertAction(title: "Создать тред", style: .default, handler: { [weak self] _ in
+//                    self?.listener?.viewActions.on(.next(.createNewThread))
+//                }))
 
-                actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
+                actionSheet.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 
                 self?.present(actionSheet, animated: true)
             })
@@ -296,6 +304,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         self.tableWidth = self.collectionView.frame.width
         self.collectionView.backgroundColor = .clear
         self.collectionView.contentInset = UIEdgeInsets(top: DefaultMargin, left: 0, bottom: DefaultMargin, right: 0)
+        self.collectionView.keyboardDismissMode = .onDrag
         
         if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumLineSpacing = 0.01
@@ -344,8 +353,12 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 }
                 
                 self.navigationItem.hidesBackButton = true
-                let search = UISearchController(searchResultsController: nil)
-//                self.navigationItem.searchController = search
+//                let search = UISearchController(searchResultsController: nil)
+                self.searchController.searchResultsUpdater = self
+                self.navigationItem.searchController = self.searchController
+                self.searchController.obscuresBackgroundDuringPresentation = false
+                self.searchController.hidesNavigationBarDuringPresentation = false
+                
                 
                 
             }
@@ -396,6 +409,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         self.themeManager.append(view: ThemeView(view: self.collectionView, type: .cell, subtype: .none))
         self.themeManager.append(view: ThemeView(view: self.rightNavbarLabel, type: .text, subtype: .third))
         self.themeManager.append(view: ThemeView(view: self.leftNavbarLabel, type: .text, subtype: .none))
+        self.themeManager.append(view: ThemeView(view: self.searchController.searchBar, type: .input, subtype: .none))
     }
     
     private func updateRightLabel(hide: Bool = false) {
@@ -554,7 +568,7 @@ extension BoardViewController: SwipeCollectionViewCellDelegate {
             return nil
         }
         
-        let title = self.data[indexPath.row].favorited ? "Удалить из зибранного" : "В избранное"
+        let title = self.data[indexPath.row].favorited ? "delete_from_favorite".localized : "add_to_favorite".localized
         
         let toFavorites = SwipeAction(style: .default, title: title) { [weak self] (action, indexPath) in
             
@@ -588,4 +602,11 @@ extension BoardViewController: SwipeCollectionViewCellDelegate {
 
     }
     
+}
+
+
+extension BoardViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        self.listener?.updateSearchObservable.value = searchController.searchBar.text
+    }
 }

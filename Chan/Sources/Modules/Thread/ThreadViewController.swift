@@ -233,12 +233,12 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                     if let i = self?.collectionView.indexPath(for: cell), let post = self?.data[i.item] {
                         let media = post.media[idx]
                         
-                        if FirebaseManager.shared.disableImages {
-                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Медиа отключено по требованию Apple", styles: [.ok])
-//                        }
-                        } else {
+//                        if FirebaseManager.shared.disableImages {
+//                            ErrorDisplay.presentAlert(with: "Ошибка доступа", message: "Медиа отключено по требованию Apple", styles: [.ok])
+////                        }
+//                        } else {
                             self?.listener?.viewActions.on(.next(.open(media: media)))
-                        }
+//                        }
                     }
                 }
                     
@@ -319,20 +319,20 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 
                 if self?.listener?.moduleIsRoot ?? false {
                     
-                    actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на тред", style: .default, handler: { [weak self] _ in
-                        self?.listener?.viewActions.on(.next(.copyLinkOnThread))
-                    }))
+//                    actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на тред", style: .default, handler: { [weak self] _ in
+//                        self?.listener?.viewActions.on(.next(.copyLinkOnThread))
+//                    }))
                     
-                    actionSheet.addAction(UIAlertAction(title: "Пожаловаться", style: .destructive, handler: { [weak self] _ in
+                    actionSheet.addAction(UIAlertAction(title: "Complaint".localized, style: .destructive, handler: { [weak self] _ in
                         self?.reportThread()
                     }))
                 } else {
-                    actionSheet.addAction(UIAlertAction(title: "Вернуться к треду", style: .default, handler: { [weak self] _ in
+                    actionSheet.addAction(UIAlertAction(title: "go_to_thread".localized, style: .default, handler: { [weak self] _ in
                         self?.listener?.viewActions.on(.next(.popToRoot))
                     }))
                 }
                 
-                actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
+                actionSheet.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 
                 self?.present(actionSheet, animated: true)
             })
@@ -547,7 +547,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
   
     private func reportThread() {
         self.listener?.viewActions.on(.next(.reportThread))
-        ErrorDisplay.presentAlert(with: "Жалоба отправлена", message: "Жалоба будет рассмотрена в течении 24 часов", dismiss: DefaultDismissTime)
+        ErrorDisplay.presentAlert(with: "complaint_sended".localized, message: "complaint_sended_message".localized, dismiss: DefaultDismissTime)
     }
 }
 

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FPSCounter
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,8 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         self.window = window
         AppDependency.shared.startApp(with: window)
-        
-//        FPSCounter.showInStatusBar()
         
         
         return true

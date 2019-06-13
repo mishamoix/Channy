@@ -89,7 +89,7 @@ final class BoardSelectionViewController: BaseViewController, BoardSelectionPres
     
     private func setupHeader() {
         
-        self.navigationItem.title = "Добавить доску"
+        self.navigationItem.title = "add_board".localized
         
         let closeButton = UIBarButtonItem(image: UIImage.cross, landscapeImagePhone: UIImage.cross, style: .plain, target: nil, action: nil)
         self.navigationItem.leftBarButtonItem = closeButton
@@ -104,7 +104,7 @@ final class BoardSelectionViewController: BaseViewController, BoardSelectionPres
             .disposed(by: self.disposeBag)
         
         
-        let saveButton = UIBarButtonItem(title: "Готово", style: .done, target: nil, action: nil)
+        let saveButton = UIBarButtonItem(title: "Ready".localized, style: .done, target: nil, action: nil)
         self.navigationItem.rightBarButtonItem = saveButton
         
         saveButton.rx
@@ -118,7 +118,7 @@ final class BoardSelectionViewController: BaseViewController, BoardSelectionPres
         let search = UISearchController(searchResultsController: nil)
         search.searchResultsUpdater = self
         search.dimsBackgroundDuringPresentation = false
-        search.searchBar.placeholder = "Введите название или код доски"
+        search.searchBar.placeholder = "enter_board_or_name".localized
         search.searchBar.searchBarStyle = .default
         
         if #available(iOS 11.0, *) {

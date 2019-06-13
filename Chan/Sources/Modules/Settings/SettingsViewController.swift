@@ -89,7 +89,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         
         self.limitorSwitch.isOn = Values.shared.safeMode
         self.historySwitch.isOn = Values.shared.historyWrite
-        self.navigationItem.title = "Настройки"
+        self.navigationItem.title = "Settings".localized
 
         self.infoTextView.text = FirebaseManager.shared.mainInfo
 
@@ -100,7 +100,14 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         self.setupTheme()
         
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Готово", style: UIBarButtonItem.Style.done, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ready".localized, style: UIBarButtonItem.Style.done, target: nil, action: nil)
+        
+        self.titleLimitor.text = "safe_mode".localized
+        self.subtitleLimitor.text = "safe_mode_message".localized
+        self.titleHistory.text = "history_write".localized
+        self.subtitleHistory.text = "history_write_message".localized
+        self.titleVersion.text = "app_version".localized
+        self.writeToDevelopers.setTitle("write_to_developer".localized, for: .normal)
     }
     
     private func setupRx() {
@@ -112,12 +119,12 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
             .drive(onNext: { [weak self] _ in
                 if let result = self?.limitorSwitch.isOn {
                     if !result {
-                        let vc = UIAlertController(title: "", message: "Подтвердите что вам более 17 лет", preferredStyle: UIAlertController.Style.alert)
-                        vc.addAction(UIAlertAction(title: "Мне 17+", style: .default, handler: { [weak self] _ in
+                        let vc = UIAlertController(title: "", message: "age_above_17".localized, preferredStyle: UIAlertController.Style.alert)
+                        vc.addAction(UIAlertAction(title: "accept_age_above_17".localized, style: .default, handler: { [weak self] _ in
                             Values.shared.safeMode = result
                             self?.listener?.limitorChanged()
                         }))
-                        vc.addAction(UIAlertAction(title: "Нет", style: .destructive, handler: { [weak self] _ in
+                        vc.addAction(UIAlertAction(title: "No".localized, style: .destructive, handler: { [weak self] _ in
                             self?.limitorSwitch.isOn = true
                         }))
                         
@@ -163,7 +170,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                let vc = UIAlertController(title: "Выберите тему", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+                let vc = UIAlertController(title: "select_theme".localized, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
                 if IsIpad {
                     vc.popoverPresentationController?.sourceView = self.changeThemeButton
                     vc.popoverPresentationController?.sourceRect = CGRect(x: self.changeThemeButton.frame.midX, y: self.changeThemeButton.frame.midY, width: 1, height: 1)
@@ -172,7 +179,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                 let currentType = self.themeManager.savedThemeType
 //
                 if currentType != .light {
-                    vc.addAction(UIAlertAction(title: "Светлая", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                    vc.addAction(UIAlertAction(title: "light_theme".localized, style: UIAlertAction.Style.default, handler: { [weak self] _ in
                         guard let self = self else { return }
                         self.themeManager.save(theme: .light)
                         self.updateThemeText()
@@ -181,7 +188,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                 }
 
                 if currentType != .dark {
-                    vc.addAction(UIAlertAction(title: "Темная", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                    vc.addAction(UIAlertAction(title: "dark_theme".localized, style: UIAlertAction.Style.default, handler: { [weak self] _ in
                         guard let self = self else { return }
                         self.themeManager.save(theme: .dark)
                         self.updateThemeText()
@@ -191,7 +198,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
 
                 if currentType != .blue {
 
-                    vc.addAction(UIAlertAction(title: "Синяя", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                    vc.addAction(UIAlertAction(title: "blue_theme".localized, style: UIAlertAction.Style.default, handler: { [weak self] _ in
                         guard let self = self else { return }
                         self.themeManager.save(theme: .blue)
                         self.updateThemeText()
@@ -201,7 +208,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
 
                 if currentType != .superDark {
 
-                    vc.addAction(UIAlertAction(title: "Черная", style: UIAlertAction.Style.default, handler: { [weak self] _ in
+                    vc.addAction(UIAlertAction(title: "black_theme".localized, style: UIAlertAction.Style.default, handler: { [weak self] _ in
                         guard let self = self else { return }
                         self.themeManager.save(theme: .superDark)
                         self.updateThemeText()
@@ -209,7 +216,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                     }))
                 }
                 
-                vc.addAction(UIAlertAction(title: "Отменить", style: UIAlertAction.Style.cancel, handler: nil))
+                vc.addAction(UIAlertAction(title: "Cancel".localized, style: UIAlertAction.Style.cancel, handler: nil))
                 self.present(vc: vc, animated: true)
             })
             .disposed(by: self.disposeBag)
@@ -300,23 +307,32 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
     
     
     private func updateThemeText() {
-        var text = "светлая"
+        var text = "light_theme".localized
         switch self.themeManager.savedThemeType {
         case .dark:
-            text = "темная"
+            text = "dark_theme".localized
         case .blue:
-            text = "синяя"
+            text = "blue_theme".localized
         case .light:
-            text = "светлая"
+            text = "light_theme".localized
         case .superDark:
-            text = "черная"
+            text = "black_theme".localized
         }
-        self.changeThemeButton.setTitle("Выберите тему: сейчас \(text)", for: UIControl.State.normal)
+        self.changeThemeButton.setTitle("\("select_theme_current".localized) \(text)", for: UIControl.State.normal)
 
     }
     
     private func updateSelectedBrowser() {
-        self.changeDefaultBrowser.setTitle("Выберите бразузер: сейчас \(LinkOpener.shared.currentBrowser.type.rawValue)", for: UIControl.State.normal)
+        self.changeDefaultBrowser.setTitle("\("select_browser_current".localized) \(LinkOpener.shared.currentBrowser.type.rawValue.localized)", for: UIControl.State.normal)
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "main_settings".localized
+        } else {
+            return "additional_info".localized
+        }
     }
 }
 

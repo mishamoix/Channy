@@ -22,7 +22,7 @@ class CoreDataImageboard: NSManagedObject {
     @NSManaged var highlight: String?
     @NSManaged var sort: Int64
     @NSManaged var current: Bool
-
+    
     // captcha
     @NSManaged var captchaKey: String?
     @NSManaged var captchaType: String?

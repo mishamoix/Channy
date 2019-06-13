@@ -82,7 +82,7 @@ final class BoardsListViewController: BaseViewController, BoardsListPresentable,
         self.setupTableView()
         self.setupSearchBar()
         
-        self.navigationItem.title = "Список досок"
+        self.navigationItem.title = "board_list".localized
         
         self.setupTheme()
         

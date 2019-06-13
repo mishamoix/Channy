@@ -79,19 +79,19 @@ class ErrorDisplay: ErrorDisplayProtocol {
         
         switch error {
         case .offline:
-            title = "Сетевая ошибка"
-            message = "Похоже вы оффлайн"
+            title = "network_error".localized
+            message = "you_offline".localized
         case .notFound:
-            title = "Уупс"
-            message = "Не найдено 😒"
+            title = "not_found_title".localized
+            message = "not_found_message".localized
         case .somethingWrong(let description):
-            title = "Неизвестная ошибка"
+            title = "unknown_error".localized
             if let descr = description {
                 message = descr
             }
         case .badProxy:
-            title = "Ошибка прокси"
-            message = "Не удается подключиться к прокси"
+            title = "proxy_error_title".localized
+            message = "proxy_error_message".localized
         case .error(let t, let description):
             title = t
             message = description
@@ -107,15 +107,15 @@ class ErrorDisplay: ErrorDisplayProtocol {
         for button in self.buttons {
             switch button {
             case .ok:
-                vc.addAction(UIAlertAction(title: "ОК", style: .default, handler: { _ in
+                vc.addAction(UIAlertAction(title: "ОК".localized, style: .default, handler: { _ in
                     self.actions.on(.next(.ok))
                 }))
             case .cancel:
-                vc.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { _ in
+                vc.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { _ in
                     self.actions.on(.next(.cancel))
                 }))
             case .retry:
-                vc.addAction(UIAlertAction(title: "Попытаться снова", style: .default, handler: { _ in
+                vc.addAction(UIAlertAction(title: "try_again".localized, style: .default, handler: { _ in
                     self.actions.on(.next(.retry))
                 }))
                 
@@ -127,7 +127,7 @@ class ErrorDisplay: ErrorDisplayProtocol {
                     textFiled.placeholder = placeholder
                 }
                 
-                vc.addAction(UIAlertAction(title: "ОК", style: .default, handler: { _ in
+                vc.addAction(UIAlertAction(title: "ОК".localized, style: .default, handler: { _ in
                     self.actions.on(.next(.input(result: self.currentTextField?.text)))
                 }))
               
@@ -152,13 +152,13 @@ class ErrorDisplay: ErrorDisplayProtocol {
         for button in styles {
             switch button {
             case .ok:
-                vc.addAction(UIAlertAction(title: "ОК", style: .default, handler: { _ in
+                vc.addAction(UIAlertAction(title: "ОК".localized, style: .default, handler: { _ in
                 }))
             case .cancel:
-                vc.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { _ in
+                vc.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { _ in
                 }))
             case .retry:
-                vc.addAction(UIAlertAction(title: "Попытаться снова", style: .default, handler: { _ in
+                vc.addAction(UIAlertAction(title: "try_again".localized, style: .default, handler: { _ in
                 }))
             default: break
                 

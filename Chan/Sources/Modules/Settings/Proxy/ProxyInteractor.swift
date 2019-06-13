@@ -62,7 +62,7 @@ final class ProxyInteractor: PresentableInteractor<ProxyPresentable>, ProxyInter
         }
         
         
-        return Observable<Bool>.error(ChanError.error(title: "Ошибка", description: "Проверьте заполненность полей server и port"))
+        return Observable<Bool>.error(ChanError.error(title: "Error".localized, description: "check_fields_proxy".localized))
         
     }
     
@@ -70,17 +70,17 @@ final class ProxyInteractor: PresentableInteractor<ProxyPresentable>, ProxyInter
         if let model = self.presenter.buildedModel {
             if self.checkProxy(model: model) {
                 Values.shared.proxy = model
-                ErrorDisplay.presentAlert(with: title ?? "Успешно!", message: "Настройки прокси обновлены", dismiss: 1.0)
+                ErrorDisplay.presentAlert(with: title ?? "Successful!".localized, message: "proxy_updated".localized, dismiss: 1.0)
                 return
             }
         }
         
-        ErrorManager.errorHandler(for: nil, error: ChanError.error(title: "Ошибка", description: "Проверьте заполненность полей server и port")).show()
+        ErrorManager.errorHandler(for: nil, error: ChanError.error(title: "Error".localized, description: "check_fields_proxy".localized)).show()
     }
     
     func deleteProxy() {
         Values.shared.proxy = nil
-        ErrorDisplay.presentAlert(with: "Успешно!", message: "Настройки прокси удалены", dismiss: 1.0)
+        ErrorDisplay.presentAlert(with: "Successful!".localized, message: "proxy_deleted".localized, dismiss: 1.0)
 
     }
     

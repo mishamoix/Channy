@@ -51,8 +51,9 @@ target 'Chan' do
     # Utils
     pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
     pod 'SwiftTryCatch'
-    pod 'FPSCounter', '~> 4.0'
-    
+#    pod 'FPSCounter', '~> 4.0'
+#    pod 'Localize'
+
     # ADs
     pod 'Google-Mobile-Ads-SDK'
     

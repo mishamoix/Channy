@@ -83,19 +83,19 @@ class AdThreadCell: UICollectionViewCell {
         }
 
         self.bannerView.adUnitID = Enviroment.default.AdUnitID
-//        self.bannerView.delegate = self
+        self.bannerView.delegate = self
     }
 }
 
-//extension AdThreadCell: GADBannerViewDelegate {
-//    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-//        print("a")
-//    }
-//
-//    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-//        print("b")
-//    }
-//}
+extension AdThreadCell: GADBannerViewDelegate {
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("a")
+    }
+
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("b")
+    }
+}
 
 extension AdThreadCell: GADUnifiedNativeAdLoaderDelegate {
     func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADUnifiedNativeAd) {

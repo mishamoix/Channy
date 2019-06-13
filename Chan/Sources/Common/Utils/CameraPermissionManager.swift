@@ -22,8 +22,8 @@ class CameraPermissionManager {
       let photos = PHPhotoLibrary.authorizationStatus()
 
       if photos != .authorized {
-        let alert = ChanError.error(title: "Нет доступа к галерее", description: "Перейдите в настройки и дайте доступ к галерее")
-        let display = ErrorDisplay(error: alert, buttons: [ErrorButton.cancel, ErrorButton.custom(title: "Настройки", style: UIAlertAction.Style.default)])
+        let alert = ChanError.error(title: "gallery_no_access".localized, description: "gallery_access_instructions".localized)
+        let display = ErrorDisplay(error: alert, buttons: [ErrorButton.cancel, ErrorButton.custom(title: "Settings".localized, style: UIAlertAction.Style.default)])
         display.show()
         
         display
