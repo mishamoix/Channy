@@ -138,7 +138,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     }
     
     var serachActive: Bool {
-        return self.searchController.isActive && (self.searchController.searchBar.text?.count ?? 0) > 0
+        return self.searchController.isActive
     }
 
     //MARK: Private
