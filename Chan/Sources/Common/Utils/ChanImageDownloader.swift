@@ -15,12 +15,16 @@ private let MaximumActiveDownloads = 8
 class ChanImageDownloader {
     private let disposeBag = DisposeBag()
     private(set) var imageLoader: ImageDownloader
+    private(set) var fullImageLoader: ImageDownloader
     private let cache = AutoPurgingImageCache()
 
     static let shared = ChanImageDownloader()
     
     init() {
         self.imageLoader = ImageDownloader(configuration: ChanManager.imagesConfig, downloadPrioritization: ImageDownloader.DownloadPrioritization.lifo, maximumActiveDownloads: MaximumActiveDownloads, imageCache: self.cache)
+        
+        self.fullImageLoader = ImageDownloader(configuration: ChanManager.imagesConfig, downloadPrioritization: ImageDownloader.DownloadPrioritization.fifo, maximumActiveDownloads: MaximumActiveDownloads, imageCache: self.cache)
+
         
         self.setupRx()
     }
@@ -43,6 +47,8 @@ class ChanImageDownloader {
     
     private func reconfigureLoader() {
         self.imageLoader = ImageDownloader(configuration: ChanManager.imagesConfig, downloadPrioritization: ImageDownloader.DownloadPrioritization.lifo, maximumActiveDownloads: MaximumActiveDownloads, imageCache: self.cache)
+        
+        self.fullImageLoader = ImageDownloader(configuration: ChanManager.imagesConfig, downloadPrioritization: ImageDownloader.DownloadPrioritization.fifo, maximumActiveDownloads: MaximumActiveDownloads, imageCache: self.cache)
     }
     
     private func setupRx() {

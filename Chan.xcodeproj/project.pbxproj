@@ -184,6 +184,8 @@
 		0A5D949021923CB500E84314 /* DefaultNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D948F21923CB500E84314 /* DefaultNavigationController.swift */; };
 		0A5E786922B12DCA001A584E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A5E786B22B12DCA001A584E /* Localizable.strings */; };
 		0A5E787622B138A5001A584E /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 0A5E787822B138A5001A584E /* Localizable.stringsdict */; };
+		0A5E787B22B28F99001A584E /* AXChanImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E787A22B28F99001A584E /* AXChanImage.swift */; };
+		0A5E787D22B29209001A584E /* ChanFullImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E787C22B29209001A584E /* ChanFullImageLoader.swift */; };
 		0A6331B222A93EED001DDF9F /* ChanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6331B122A93EED001DDF9F /* ChanManager.swift */; };
 		0A65579B21B6C6D9003FA355 /* ImageFixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65579A21B6C6D9003FA355 /* ImageFixer.swift */; };
 		0A65AACF215802BD00B2A2DE /* NSAttributedString.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */; };
@@ -518,6 +520,8 @@
 		0A5E786C22B12DCD001A584E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0A5E787722B138A5001A584E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		0A5E787922B138A6001A584E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		0A5E787A22B28F99001A584E /* AXChanImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXChanImage.swift; sourceTree = "<group>"; };
+		0A5E787C22B29209001A584E /* ChanFullImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanFullImageLoader.swift; sourceTree = "<group>"; };
 		0A6331B122A93EED001DDF9F /* ChanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChanManager.swift; sourceTree = "<group>"; };
 		0A65579A21B6C6D9003FA355 /* ImageFixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFixer.swift; sourceTree = "<group>"; };
 		0A65AACE215802BD00B2A2DE /* NSAttributedString.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.Key.swift; sourceTree = "<group>"; };
@@ -740,6 +744,8 @@
 			children = (
 				0A856292216E518900D053F7 /* ThreadImageViewer.swift */,
 				0A0D570A21A5800E00A8053D /* ChanAXPhotosViewController.swift */,
+				0A5E787A22B28F99001A584E /* AXChanImage.swift */,
+				0A5E787C22B29209001A584E /* ChanFullImageLoader.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -2063,6 +2069,7 @@
 				0AAFBBF0227EF2740085DB51 /* MarkedRouter.swift in Sources */,
 				0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */,
 				0A197B0022AC0179004116D2 /* AdPostViewModel.swift in Sources */,
+				0A5E787B22B28F99001A584E /* AXChanImage.swift in Sources */,
 				0A197AEB22ABF93E004116D2 /* SwipeCollectionViewCellDelegate.swift in Sources */,
 				0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */,
 				0A2E0CA32145561E00CBD619 /* BoardsListCell.swift in Sources */,
@@ -2217,6 +2224,7 @@
 				0A2E0C9721453E4B00CBD619 /* Router+Utils.swift in Sources */,
 				0A2E0CBF2145790300CBD619 /* BoardBuilder.swift in Sources */,
 				0A37B0412222F15000FFACDF /* MenuViewController.swift in Sources */,
+				0A5E787D22B29209001A584E /* ChanFullImageLoader.swift in Sources */,
 				0A90E78F2151A9A100B71EAA /* ResultThreadModel.swift in Sources */,
 				0AAFBBE9227EF1460085DB51 /* MarkService.swift in Sources */,
 				0A197AE422ABF93E004116D2 /* SwipeTableViewCell+Display.swift in Sources */,

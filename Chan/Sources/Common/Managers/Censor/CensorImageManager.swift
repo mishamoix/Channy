@@ -103,13 +103,16 @@ class CensorImageManager {
             }
             
             self.loadToken = self.loader.load(url: url) { [weak self] result in
+                
                 switch result.result {
                 case .success(let img):
                     self?.originalImage = img
                     self?.type = .normal
                     self?.updateImage()
                 default:
-                    break
+                    self?.originalImage = nil
+                    self?.type = .normal
+                    self?.updateImage()
                 }
             }
         }

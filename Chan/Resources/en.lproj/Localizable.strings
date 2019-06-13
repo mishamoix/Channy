@@ -94,8 +94,8 @@
 "history_write" = "Enable history";
 "history_write_message" = "Enable ";
 
-"age_above_18" = "I am over 18 years old";
-"accept_age_above_18" = "I am over 18";
+"age_above_17" = "I am over 18 years old";
+"accept_age_above_17" = "I am over 18";
 "select_theme" = "Choose theme";
 "light_theme" = "Light";
 "dark_theme" = "Dark";
