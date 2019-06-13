@@ -70,7 +70,7 @@ class ErrorHelper {
             } else if response?.statusCode ?? 0 == 404 {
                 return .notFound
             } else if let errJSON = try? response?.mapJSON() as? [String: Any], let value = errJSON?["error"] as? String {
-                return .error(title: "Ошибка", description: value)
+                return .error(title: "Error".localized, description: value)
             }
         default: break
         }

@@ -44,13 +44,30 @@ extension String {
         if todayDay == dateDay && todayWeek == dateWeek && todayYear == dateYear {
             formatter.timeStyle = .short
         } else if todayDay != dateDay && todayWeek == dateWeek && todayYear == dateYear {
-            formatter.dateFormat = "MMM d, HH:mm"
+            if String.isUSA {
+                formatter.dateFormat = "d MMM, HH:mm"
+            } else {
+                formatter.dateFormat = "MMM d, HH:mm"
+            }
         } else {
-            formatter.dateFormat = "dd.MM.yy, HH:mm"
+            if String.isUSA {
+                formatter.dateFormat = "MM.dd.yy, HH:mm"
+            } else {
+                formatter.dateFormat = "dd.MM.yy, HH:mm"
+
+            }
         }
         
         result = formatter.string(from: date)
         return result
     }
+    
+    static var isUSA: Bool {
+        return Locale.current.identifier.lowercased().hasSuffix("us")
+    }
 
+    
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
 }

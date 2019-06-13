@@ -43,7 +43,7 @@ class Values {
             if Defaults.hasKey(.safeMode) {
                 return Defaults[.safeMode]
             }
-            return false
+            return true
         }
         
         set {

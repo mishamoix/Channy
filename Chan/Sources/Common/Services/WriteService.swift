@@ -97,7 +97,7 @@ class WriteService: BaseService, WriteServiceProtocol {
             }
             
             if let reason = data?["Reason"] as? String {
-                let err = ChanError.error(title: "Ошибка постинга", description: reason)
+                let err = ChanError.error(title: "postiong_error".localized, description: reason)
                 return Observable<WriteResponseModel>.error(err)
             } else {
                 

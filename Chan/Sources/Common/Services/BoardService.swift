@@ -43,7 +43,7 @@ class BoardService: BaseService, BoardServiceProtocol {
         
         guard let imageboard = board.imageboard else {
             
-            return Observable<ResultType>.error(ChanError.error(title: "Ошибка", description: "Произошла непредвиденная ошибка, перезапустите приложение"))
+            return Observable<ResultType>.error(ChanError.error(title: "Error".localized, description: "unknown_error_restart_app".localized))
         }
         
         

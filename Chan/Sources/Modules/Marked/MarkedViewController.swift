@@ -72,21 +72,21 @@ final class MarkedViewController: BaseViewController, MarkedPresentable, MarkedV
         if let component = self.component {
             switch component.type {
             case .favorited:
-                self.navigationItem.title = "Избранное"
+                self.navigationItem.title = "Favorites".localized
             case .history:
-                self.navigationItem.title = "История"
+                self.navigationItem.title = "History".localized
             }
         }
         
         
-        let deleteButton = UIBarButtonItem(title: "Удалить", style: UIBarButtonItem.Style.done, target: nil, action: nil)
+        let deleteButton = UIBarButtonItem(title: "Delete".localized, style: UIBarButtonItem.Style.done, target: nil, action: nil)
         self.navigationItem.rightBarButtonItem = deleteButton
 
         deleteButton
             .rx
             .tap
             .flatMap ({ _ -> Observable<Bool> in
-                let err = ChanError.error(title: "Удаление всего списка", description: "Вы уверены?")
+                let err = ChanError.error(title: "delete_full_list".localized, description: "are_you_sure".localized)
                 let manager = ErrorDisplay(error: err, buttons: [ErrorButton.ok, ErrorButton.cancel])
                 manager.show()
                 return manager.actions.asObservable().map({ button -> Bool in
@@ -193,7 +193,7 @@ extension MarkedViewController: UITableViewDataSource {
 extension MarkedViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         
-        let bgColor = ThemeManager.shared.theme.background
+//        let bgColor = ThemeManager.shared.theme.background
         
         if orientation == .left {
             
@@ -203,14 +203,16 @@ extension MarkedViewController: SwipeTableViewCellDelegate {
             return nil
         }
         
-        let delete = SwipeAction(style: .destructive, title: "Удалить") { [weak self] (action, indexPath) in
+        let delete = SwipeAction(style: .destructive, title: "Delete".localized) { [weak self] (action, indexPath) in
             guard let self = self else { return }
             let item = self.models[indexPath.row]
             self.listener?.delete(uid: item.id)
             
             
         }
-        delete.textColor = .white
+        delete.textColor = ThemeManager.shared.theme.text
+//        delete.tintColor = ThemeManager.shared.theme.text
+//        delete.backgroundColor = ThemeManager.shared.theme.background
 //        delete.
         
         return [delete]

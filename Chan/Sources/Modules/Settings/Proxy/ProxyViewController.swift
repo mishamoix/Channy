@@ -89,9 +89,13 @@ final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyV
         self.tableView.keyboardDismissMode = .onDrag
         self.navigationItem.title = "SOCKS5 Proxy"
         
-        let deleteButton = UIBarButtonItem(title: "Удалить", style: .plain, target: nil, action: nil)
+        let deleteButton = UIBarButtonItem(title: "Delete".localized, style: .plain, target: nil, action: nil)
         self.navigationItem.rightBarButtonItem = deleteButton
         self.enableSwitcher.isOn = Values.shared.proxyEnabled
+        
+        self.enabledTitle.text = "proxy_enabled".localized
+        self.checkButton.setTitle("proxy_test".localized, for: .normal)
+        self.acceptButton.setTitle("proxy_apply".localized, for: .normal)
     }
 
     
@@ -110,16 +114,16 @@ final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyV
                     if result {
 //                        ErrorDisplay.presentAlert(with: nil, message: "Успешно", dismiss: 0.75)
                         
-                        self?.listener?.saveProxy(title: "Соединение успешно!")
+                        self?.listener?.saveProxy(title: "connection_successful".localized)
                     } else {
-                        ErrorDisplay.presentAlert(with: "Ошибка", message: "Не удалось подключиться к прокси", dismiss: 0.75)
+                        ErrorDisplay.presentAlert(with: "Error".localized, message: "not_connected_proxy".localized, dismiss: 0.75)
                     }
                     
                     
                     
                 }, onError: { error in
                     self.hideCentralActivity()
-                    ErrorDisplay.presentAlert(with: "Ошибка", message: "Не удалось подключиться к прокси", dismiss: 1.5)
+                    ErrorDisplay.presentAlert(with: "Error".localized, message: "not_connected_proxy".localized, dismiss: 1.5)
 
 //                    ErrorManager.errorHandler(for: nil, error: error).show()
                 })

@@ -73,18 +73,6 @@ class Style {
     class func removeLink(text: NSMutableAttributedString, range: NSRange) {
 //        text.removeAttribute(NSAttributedString.Key.link, range: range)
     }
-    
-    
-//    class func spoiler(text: String) -> NSAttributedString {
-//        return NSAttributedString(string: text, attributes: [NSAttributedStringKey.font : UIFont.text, NSAttributedStringKey.foregroundColor: UIColor.spoiler])
-//    }
-//
-//    class func unkfunc(text: String) -> NSAttributedString {
-//        return NSAttributedString(string: text, attributes: [NSAttributedStringKey.font : UIFont.text, NSAttributedStringKey.foregroundColor: UIColor.unkfunc])
-//    }
-//
-//    class func strong(text: String) -> NSAttributedString {
-//        return NSAttributedString(string: text, attributes: [NSAttributedStringKey.font : UIFont.strongText, NSAttributedStringKey.foregroundColor: UIColor.black])
-//    }
+
 
 }

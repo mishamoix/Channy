@@ -231,7 +231,7 @@ class ThreadImageViewer: NSObject {
       
         self.browser = browser
         browser.delegate = self
-        self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
+        self.openInBrowserButton.setTitle("open_in_browser".localized, for: .normal)
 //        self.openInBrowserButton.alpha = CensorManager.isCensored(model: self.anchor) ? 1 : 0
 //        self.textCanvas.isHidden = CensorManager.isCensored(model: self.anchor)
         
@@ -243,7 +243,7 @@ class ThreadImageViewer: NSObject {
         self.textCanvas.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5996919014)
         self.text.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8499944982)
         self.text.textAlignment = .center
-        self.text.text = "Внимание!\nКартинка может содержать нежелательный контент, некоторые люди могут посчитать это оскорбительным.\nДля просмотра картинки нажмите на текст."
+        self.text.text = "nsfw_content_message".localized
         self.text.numberOfLines = 0
         
         

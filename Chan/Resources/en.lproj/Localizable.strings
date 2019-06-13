@@ -1,0 +1,138 @@
+/* 
+  Localizable.strings
+  Chan
+
+  Created by Mikhail Malyshev on 12/06/2019.
+  Copyright © 2019 Mikhail Malyshev. All rights reserved.
+*/
+
+
+// common
+"Settings" = "Settings";
+"Error" = "Error";
+"OK" = "OK";
+"No" = "No";
+"Cancel" = "Cancel";
+"try_again" = "Try Again";
+"Delete" = "Delete";
+"are_you_sure" = "Are you sure?";
+"Ready" = "Done";
+"Imageboards" = "Imageboards";
+"Successful!" = "Success!";
+
+//CameraPermissionManager
+"gallery_no_access" = "No access to picture gallery";
+"gallery_access_instructions" = "Please allow access to picture gallery";
+
+
+//browsers
+"Safari" = "Safari";
+"Google Chrome" = "Google Chrome";
+"Firefox" = "Firefox";
+"Яндекс.Браузер" = "Yandex.Browser";
+
+"select_browser" = "Browser selection";
+"no_external_browsers" = "No third-party browsers found";
+"select_browser_message" = "Choose default browser to open links. You can change it later in settings";
+
+// errors
+"network_error" = "Network error";
+"you_offline" = "Looks like you're offline";
+
+"not_found_title" = "Oops";
+"not_found_message" = "Not found 😒";
+
+"unknown_error" = "Unknown error";
+
+"proxy_error_title" = "Proxy error";
+"proxy_error_message" = "Proxy connection failed";
+
+//services
+"unknown_error_restart_app" = "Unexpected error, please restart the app";
+
+"posting_error" = "Posting error";
+
+// MarkedModule
+"Favorites" = "Favorites";
+"History" = "History";
+"delete_full_list" = "Delete all";
+
+
+//BoardSelectionModule
+"add_board" = "Add board";
+"enter_board_or_name" = "Enter the name or code";
+
+// BoardsListModule
+"board_list" = "Boards list";
+
+
+//WriteModule
+"solve_captcha" = "Captcha solved!";
+"enter_text" = "Enter text";
+"Topic" = "Theme";
+"Send" = "Send";
+"thread_creature" = "Thread creation";
+"reply_thread" = "Reply to thread";
+
+//WebAcceptModule
+"license_agreement" = "Licence Agreement";
+
+//ProxyModule
+"proxy_enabled" = "Enabled";
+"connection_successful" = "Successful connection!";
+"not_connected_proxy" = "Proxy connection failed";
+"check_fields_proxy" = "Check server and port fields";
+"proxy_updated" = "Proxy settings successfully updated";
+"proxy_deleted" = "Proxy settings deleted";
+"proxy_test" = "Test";
+"proxy_apply" = "Apply";
+
+
+//Settings
+"safe_mode" = "Safe browsing";
+"safe_mode_message" = "Hide images";
+"history_write" = "Enable history";
+"history_write_message" = "Enable ";
+
+"age_above_18" = "I am over 18 years old";
+"accept_age_above_18" = "I am over 18";
+"select_theme" = "Choose theme";
+"light_theme" = "Light";
+"dark_theme" = "Dark";
+"blue_theme" = "Dark Blue";
+"black_theme" = "Black";
+"select_theme_current" = "Current theme: ";
+"select_browser_current" = "Current browser: ";
+"app_version" = "App Version: ";
+"write_to_developer" = "Message developers"; // contact@channy.io
+"main_settings" = "General Settings";
+"additional_info" = "Extras";
+
+
+//Thread
+"open_in_browser" = "Open in browser";
+"nsfw_content_message" = "WARNING!\nSome viewers may find this media disturbing, viewer discretion is strongly advised\nTo view the media press on this warning";
+
+
+"replies.one" = "% reply";
+"replies.two" = "% replies";
+"replies.three" = "% replies";
+"replies.four" = "% replies";
+"replies.many" = "% replies";
+
+"Complaint" = "Complain";
+"complaint_sent" = "Complaint sent";
+"complaint_sent_message" = "Complaint will be reviewed in 24 hours";
+"go_to_thread" = "Back to thread";
+"Reply" = "Reply";
+
+
+//BoardModule
+"delete_from_favorite" = "Remove from favorites";
+"add_to_favorite" = "Add to favorites";
+"Agreement" = "Agreement";
+
+
+// MainModule
+"Board" = "Board";
+

@@ -132,11 +132,11 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
             })
             .disposed(by: self.disposeBag)
         
-        self.textView.placeholder = "Введите текст"
+        self.textView.placeholder = "enter_text".localized
         self.textView.keyboardDismissMode = .onDrag
         self.textView.alwaysBounceVertical = true
         
-        self.subjectView.placeholder = "Тема"
+        self.subjectView.placeholder = "Topic".localized
         self.subjectView.keyboardDismissMode = .onDrag
         
 
@@ -144,7 +144,7 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
         let _ = self.imageButtons.map({ self.setupImageButton($0) })
         let _ = self.imageViews.map({ self.setupImage($0) })
         
-        let sendButton = UIBarButtonItem(title: "Отправить", style: UIBarButtonItem.Style.done, target: nil, action: nil)
+        let sendButton = UIBarButtonItem(title: "Send".localized, style: UIBarButtonItem.Style.done, target: nil, action: nil)
         self.sendButton = sendButton
         
         self.navigationItem.rightBarButtonItem = sendButton
@@ -152,9 +152,9 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
         if let state = self.listener?.moduleState {
             switch state {
             case .create:
-                self.navigationItem.title = "Создание треда"
+                self.navigationItem.title = "thread_creature".localized
             case .write:
-                self.navigationItem.title = "Ответить в тред"
+                self.navigationItem.title = "reply_thread".localized
             }
         }
       

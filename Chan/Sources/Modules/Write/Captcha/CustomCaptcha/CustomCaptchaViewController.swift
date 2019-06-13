@@ -67,7 +67,7 @@ class CustomCaptchaViewController: BaseViewController {
         self.closeButton = closeButton
         self.navigationItem.leftBarButtonItem = closeButton
         
-        let solveButton = UIBarButtonItem(title: "Я решил капчу", style: .done, target: nil, action: nil)
+        let solveButton = UIBarButtonItem(title: "solve_captcha".localized, style: .done, target: nil, action: nil)
         self.solveButton = solveButton
         self.navigationItem.rightBarButtonItem = solveButton
         
