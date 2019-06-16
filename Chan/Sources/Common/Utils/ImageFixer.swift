@@ -9,6 +9,14 @@
 import UIKit
 
 class ImageFixer {
+    
+    class func fixImage(image: UIImage?) -> UIImage? {
+        if let img = image, let data = img.pngData() {
+            return ImageFixer.fixIfNeeded(image: data)
+        }
+        
+        return nil
+    }
 
     class func fixIfNeeded(image data: Data?) -> UIImage? {
         

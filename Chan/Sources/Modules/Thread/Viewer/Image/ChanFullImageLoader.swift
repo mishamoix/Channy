@@ -9,6 +9,7 @@
 import UIKit
 import AlamofireImage
 import RxSwift
+import Alamofire
 
 
 class ChanFullImageLoader: NSObject, AXNetworkIntegrationProtocol {
@@ -16,6 +17,8 @@ class ChanFullImageLoader: NSObject, AXNetworkIntegrationProtocol {
     private var imageDownloader: ImageDownloader {
         return ChanImageDownloader.shared.fullImageLoader
     }
+    
+    private let manager = Alamofire.SessionManager(configuration: ChanManager.imagesConfig)
     
     private let disposeBag = DisposeBag()
     
@@ -30,6 +33,8 @@ class ChanFullImageLoader: NSObject, AXNetworkIntegrationProtocol {
         if let model = photo as? AXChanImage {
             
             self.process(model: model)
+                .subscribeOn(Helper.rxBackgroundPriorityThread)
+                .observeOn(Helper.rxMainThread)
                 .subscribe(onNext: { [weak self] model in
                     guard let self = self else { return }
                     self.delegate?.networkIntegration(self, loadDidFinishWith: model)
@@ -66,25 +71,59 @@ class ChanFullImageLoader: NSObject, AXNetworkIntegrationProtocol {
                 observable.on(.next(model))
                 observable.on(.completed)
             } else {
-                let request = URLRequest(url: model._url)
-                model.cancelable = self.imageDownloader.download(request) { response in
-                    switch response.result {
-                    case .success(let img):
-                        model.update(original: img)
-                    case .failure(let error):
-                        return observable.on(.error(error))
-                    }
+//                let request = URLRequest(url: model._url)
+                
+                
+                
+                model.request = self.manager.request(model.path, method: .get).response { response in
                     
-                    observable.on(.next(model))
-                    observable.on(.completed)
+                    if let error = response.error {
+                        return observable.on(.error(error))
 
+                    } else {
+                        Helper.performOnBGThread {
+                            if let fixedImage = ImageFixer.fixIfNeeded(image: response.data) {
+                                self.imageDownloader.imageCache?.add(fixedImage, withIdentifier: model.path)
+                                model.update(original: fixedImage)
+                            }
+                            
+                            observable.on(.next(model))
+                            observable.on(.completed)
+                        }
+
+                    }
+//                    response.er
+                    
+//                    self.myImageView.image = UIImage(data: data, scale:1)
                 }
+                
+                
+//                model.cancelable = self.imageDownloader.download(request) { response in
+//                    switch response.result {
+//                    case .success(let img):
+//                        Helper.performOnBGThread {
+//                            if let fixedImage = ImageFixer.fixImage(image: img) {
+//                                self.imageDownloader.imageCache?.add(fixedImage, withIdentifier: model.path)
+//                                model.update(original: fixedImage)
+//                            }
+//
+//                            observable.on(.next(model))
+//                            observable.on(.completed)
+//                        }
+//                    case .failure(let error):
+//                        return observable.on(.error(error))
+//                    }
+//
+
+//                }
             }
 
             return Disposables.create {
-                if let cancel = model.cancelable {
-                    self.imageDownloader.cancelRequest(with: cancel)
-                }
+                model.request?.cancel()
+//                if let cancel = model.cancelable {
+//
+//                    self.imageDownloader.cancelRequest(with: cancel)
+//                }
             }
         }
         
@@ -121,8 +160,8 @@ class ChanFullImageLoader: NSObject, AXNetworkIntegrationProtocol {
     
 
     func cancelLoad(for photo: AXPhotoProtocol) {
-        if let model = photo as? AXChanImage, let cancel = model.cancelable {
-            self.imageDownloader.cancelRequest(with: cancel)
+        if let model = photo as? AXChanImage {
+            model.request?.cancel()
         }
     }
     
