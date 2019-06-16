@@ -97,8 +97,8 @@
 "history_write" = "Enable history";
 "history_write_message" = "Enable ";
 
-"age_above_17" = "I am over 18 years old. WARNING!\nSome viewers may find this media disturbing, viewer discretion is strongly advised.";
-"accept_age_above_17" = "I am over 18";
+"age_above_17" = " WARNING!\nSome viewers may find media disturbing, viewer discretion is strongly advised.";
+"accept_age_above_17" = "Agree";
 "select_theme" = "Choose theme";
 "light_theme" = "Light";
 "dark_theme" = "Dark";

@@ -48,6 +48,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CoreDataStore.shared.clean()
         
     }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return RotationManager.orientation
+    }
 
 
 }

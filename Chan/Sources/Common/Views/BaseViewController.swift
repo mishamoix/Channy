@@ -32,6 +32,12 @@ open class BaseViewController: UIViewController, HalfSheetPresentingProtocol {
         // Do any additional setup after loading the view.
     }
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        RotationManager.makeDefault()
+    }
+    
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

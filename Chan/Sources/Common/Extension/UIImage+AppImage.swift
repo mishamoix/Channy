@@ -35,5 +35,10 @@ extension UIImage {
     static var fullStar: UIImage { return UIImage(named: "fullStar")!}
     
     static var postCellBG: UIImage { return UIImage(named: "threadCellBG")!}
+    
+    static var pauseVideo: UIImage { return UIImage(named: "pause")!}
+    static var playVideo: UIImage { return UIImage(named: "playVideo")!}
+    static var playerCircle: UIImage { return UIImage(named: "playerCircle")!}
+
 
 }

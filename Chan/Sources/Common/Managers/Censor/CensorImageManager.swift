@@ -86,36 +86,39 @@ class CensorImageManager {
     
     private func runLoadImage() {
         guard let media = self.media else { return }
-        
-        let url = self.full ? media.url ?? media.thumbnail : media.thumbnail ?? media.url
-        self.loaderUrl = url?.absoluteString
-        
-        if let url: URL = (url) {
-            if let img = self.loader.checkCache(url: url) {
-                self.originalImage = img
-                self.type = .normal
-                self.updateImage()
-                return
-            } else {
-                self.originalImage = UIImage.placeholder
-                self.type = .placeholder
-                self.updateImage()
-            }
+
+//        Helper.performOnBGThread {
+            let url = self.full ? media.url ?? media.thumbnail : media.thumbnail ?? media.url
+            self.loaderUrl = url?.absoluteString
             
-            self.loadToken = self.loader.load(url: url) { [weak self] result in
+            if let url: URL = (url) {
+                if let img = self.loader.checkCache(url: url) {
+                    self.originalImage = img
+                    self.type = .normal
+                    self.updateImage()
+                    return
+                } else {
+                    self.originalImage = UIImage.placeholder
+                    self.type = .placeholder
+                    self.updateImage()
+                }
                 
-                switch result.result {
-                case .success(let img):
-                    self?.originalImage = img
-                    self?.type = .normal
-                    self?.updateImage()
-                default:
-                    self?.originalImage = nil
-                    self?.type = .normal
-                    self?.updateImage()
+                self.loadToken = self.loader.load(url: url) { [weak self] result in
+                    
+                    switch result.result {
+                    case .success(let img):
+                        self?.originalImage = img
+                        self?.type = .normal
+                        self?.updateImage()
+                    default:
+                        self?.originalImage = nil
+                        self?.type = .normal
+                        self?.updateImage()
+                    }
                 }
             }
-        }
+//        }
+        
     }
     
     private func update(need censor: Bool) {

@@ -738,20 +738,36 @@ extension UIImage {
 //
 //
     func applyBlur(percent: CGFloat) -> UIImage? {
-        let context = CIContext(options: nil)
-        let currentFilter = CIFilter(name: "CIGaussianBlur")
-        let beginImage = CIImage(image: self)
-        currentFilter!.setValue(beginImage, forKey: kCIInputImageKey)
-        currentFilter!.setValue(percent * (self.size.width + self.size.height), forKey: kCIInputRadiusKey)
-        
-        let cropFilter = CIFilter(name: "CICrop")
-        cropFilter!.setValue(currentFilter!.outputImage, forKey: kCIInputImageKey)
-        cropFilter!.setValue(CIVector(cgRect: beginImage!.extent), forKey: "inputRectangle")
-        
-        let output = cropFilter!.outputImage
-        let cgimg = context.createCGImage(output!, from: output!.extent)
-        let processedImage = UIImage(cgImage: cgimg!)
-        return processedImage
+        do {
+            let radius = percent * (self.size.width + self.size.height)
+            let ciContext = CIContext(options: nil)
+            guard let cgImage = cgImage else { return nil }
+            let inputImage = CIImage(cgImage: cgImage)
+            guard let ciFilter = CIFilter(name: "CIGaussianBlur") else { return nil }
+            ciFilter.setValue(inputImage, forKey: kCIInputImageKey)
+            ciFilter.setValue(radius, forKey: "inputRadius")
+            guard let resultImage = ciFilter.value(forKey: kCIOutputImageKey) as? CIImage else { return nil }
+            guard let cgImage2 = ciContext.createCGImage(resultImage, from: inputImage.extent) else { return nil }
+            return UIImage(cgImage: cgImage2)
+        } catch {
+            return nil
+        }
+//    }
+
+//        let context = CIContext(options: nil)
+//        let currentFilter = CIFilter(name: "CIGaussianBlur")
+//        let beginImage = CIImage(image: self)
+//        currentFilter!.setValue(beginImage, forKey: kCIInputImageKey)
+//        currentFilter!.setValue(percent * (self.size.width + self.size.height), forKey: kCIInputRadiusKey)
+//
+//        let cropFilter = CIFilter(name: "CICrop")
+//        cropFilter!.setValue(currentFilter!.outputImage, forKey: kCIInputImageKey)
+//        cropFilter!.setValue(CIVector(cgRect: beginImage!.extent), forKey: "inputRectangle")
+//
+//        let output = cropFilter!.outputImage
+//        let cgimg = context.createCGImage(output!, from: output!.extent)
+//        let processedImage = UIImage(cgImage: cgimg!)
+//        return processedImage
     }
 }
 

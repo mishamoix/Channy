@@ -13,14 +13,14 @@ import SnapKit
 
 class VideoPlayer {
     
-//    let vlc = VLCViewController()
+    let vlc = UIStoryboard(name: "VLCViewController", bundle: nil).instantiateViewController(withIdentifier: "VLCViewController") as! VLCViewController
     init(with file: MediaModel) {
         
-//        vlc.url = file.url
+        vlc.url = file.url
 //
     }
     
     func play(vc: UIViewController) {
-//        vc.present(self.vlc, animated: true, completion: nil)
+        vc.present(self.vlc, animated: true, completion: nil)
     }
 }
