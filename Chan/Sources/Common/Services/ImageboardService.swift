@@ -78,6 +78,8 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
 
                 self?.coreData.saveModels(with: data, with: CoreDataImageboard.self) {
                     self?.loadFromCache()
+                    
+                    self?.deleteOldImagesboards(new: data)
                 }
                                 
             }, onError: { error in
@@ -187,7 +189,34 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
         }
     }
     
+    private func boardsForceUpdate() {
+        self.updateCurrentCachedImageboard(force: true)
+        self.updateCurrentCachedBoard(force: true)
+        self.loadFromCache()
+    }
+    
     private func deleteOldImagesboards(new: [ImageboardModel]) {
+        var needUpdate = false
+        if let allBoards = self.coreData.findModels(with: CoreDataImageboard.self) as? [ImageboardModel] {
+            var toDelete: [ImageboardModel] = []
+            
+            for board in allBoards {
+                if !new.contains(where: { $0.id == board.id }) {
+                    toDelete.append(board)
+                }
+            }
+            
+            
+            for delete in toDelete {
+                needUpdate = true
+                self.coreData.delete(with: CoreDataThread.self, predicate: NSPredicate(format: "board.imageboard.id = \(delete.id)"))
+                self.coreData.delete(with: CoreDataBoard.self, predicate: NSPredicate(format: "imageboard.id = \(delete.id)"))
+                self.coreData.delete(with: CoreDataImageboard.self, predicate: NSPredicate(format: "id = \(delete.id)"))
+            }
+        }
         
+        if needUpdate {
+            self.boardsForceUpdate()
+        }
     }
 }
