@@ -316,6 +316,7 @@
 		0AFD188222352B2B00F844BE /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD188122352B2B00F844BE /* BaseView.swift */; };
 		0AFD18842235403B00F844BE /* MenuConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD18832235403B00F844BE /* MenuConstants.swift */; };
 		0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */; };
+		0AFFD86A22B679A100BD723A /* QueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFD86922B679A100BD723A /* QueueManager.swift */; };
 		0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */; };
 		0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA421499C190002E832 /* TextStripper.swift */; };
 		0AFFFDAC2149A1F40002E832 /* ThreadRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */; };
@@ -650,6 +651,7 @@
 		0AFD188122352B2B00F844BE /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		0AFD18832235403B00F844BE /* MenuConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuConstants.swift; sourceTree = "<group>"; };
 		0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDownButton.swift; sourceTree = "<group>"; };
+		0AFFD86922B679A100BD723A /* QueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueManager.swift; sourceTree = "<group>"; };
 		0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		0AFFFDA421499C190002E832 /* TextStripper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStripper.swift; sourceTree = "<group>"; };
 		0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadRouter.swift; sourceTree = "<group>"; };
@@ -1249,6 +1251,7 @@
 				0A69E82022AE583600BF2D49 /* CookiesManager.swift */,
 				0AD6DA2622A9509A00024DED /* ProxyManager.swift */,
 				0A72E18D21BABEB500BD488E /* StatisticManager.swift */,
+				0AFFD86922B679A100BD723A /* QueueManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -2144,6 +2147,7 @@
 				0AB88E0A227621920052AF45 /* CoreDataThread.swift in Sources */,
 				0A2E0CAF2145588A00CBD619 /* BoardsTableHeader.swift in Sources */,
 				0A4FEA2D2275F14E00A78A72 /* ParallaxHeaderMode.swift in Sources */,
+				0AFFD86A22B679A100BD723A /* QueueManager.swift in Sources */,
 				0AFD071622A66BCD0093E18E /* RecaptchaViewController.swift in Sources */,
 				0A37B0312222E40300FFACDF /* MainContainerViewController.swift in Sources */,
 				0A2BA8E522AEB95B0000AC7D /* CensorImageManager.swift in Sources */,

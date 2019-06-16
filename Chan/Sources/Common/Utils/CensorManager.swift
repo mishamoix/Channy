@@ -98,6 +98,10 @@ class CensorManager {
     }
     
     private func findTask(by path: String) -> CensorManagerTask? {
+        self.semaphoreRemoveQueue.wait()
+        defer {
+            self.semaphoreRemoveQueue.signal()
+        }
         return self.queue.first(where: { $0.path == path })
     }
   
@@ -164,7 +168,7 @@ class CensorManager {
             }
         }
         
-        print("operations count \(self.queue.count)")
+        print("operations count \(self.queue.count); executing: \(self.currentExecutersCount)")
     }
 }
 
