@@ -8,11 +8,11 @@
 
 import UIKit
 import RxSwift
-import AlamofireImage
+import Alamofire
 
 class AXChanImage: NSObject, AXPhotoProtocol {
     var imageData: Data? = nil
-    weak var cancelable: RequestReceipt? = nil
+    weak var request: DataRequest? = nil
     private let disposeBag = DisposeBag()
     
     
@@ -60,19 +60,23 @@ class AXChanImage: NSObject, AXPhotoProtocol {
     }
     
     private func setupRx() {
+        
         if Values.shared.safeMode {
             self.needBlur = true
         } else {
             if let result = CensorManager.shared.cache[self.path] {
                 self.needBlur = result
             } else {
-                CensorManager
-                    .shared
-                    .censor(url: self.path)
-                    .subscribe(onNext: { [weak self] needCensor in
-                        self?.needBlur = needCensor
-                    })
-                    .disposed(by: self.disposeBag)
+                Helper.performOnBGThread {
+
+                    CensorManager
+                        .shared
+                        .censor(url: self.path)
+                        .subscribe(onNext: { [weak self] needCensor in
+                            self?.needBlur = needCensor
+                        })
+                        .disposed(by: self.disposeBag)
+                }
             }
         }
     }

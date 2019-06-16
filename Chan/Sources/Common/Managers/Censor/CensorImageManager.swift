@@ -158,7 +158,7 @@ class CensorImageManager {
         if let img = image {
             self.image.value = img
         } else if self.image.value != nil && image == nil {
-            self.image.value = nil
+            self.image.value = .placeholder
         }
     }
     
