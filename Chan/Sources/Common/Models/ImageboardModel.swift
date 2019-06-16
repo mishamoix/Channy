@@ -148,4 +148,15 @@ class ImageboardModel: BaseModel, Decodable {
         
     }
 
+    
+    override var hash: Int {
+        return self.id.hashValue
+    }
+    
+    // MARK: Equatable
+    static func ==(lhs: ImageboardModel, rhs: ImageboardModel) -> Bool {
+        return lhs.hash == rhs.hash
+    }
+
 }
+
