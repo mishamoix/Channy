@@ -45,23 +45,24 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     let service: ThreadServiceProtocol
     let historyService: WriteMarkServiceProtocol?
+    let favoriteService: WriteMarkServiceProtocol?
     
     private let disposeBag = DisposeBag()
     
     private var data: [PostModel] = []
     private var thread: ThreadModel? = nil
-//    private var viewModels: [PostViewModel] = []
     
     private var postsManager: PostManager? = nil
     internal let moduleIsRoot: Bool
     
     private let replySubject = BehaviorSubject<String>(value: "")
     
-    init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, thread: ThreadModel?, history: WriteMarkServiceProtocol? = nil) {
+    init(presenter: ThreadPresentable, service: ThreadServiceProtocol, moduleIsRoot: Bool, thread: ThreadModel?, history: WriteMarkServiceProtocol? = nil, favorite: WriteMarkServiceProtocol? = nil) {
         self.service = service
         self.moduleIsRoot = moduleIsRoot
         self.thread = thread
         self.historyService = history
+        self.favoriteService = favorite
         self.mainViewModel = Variable(ThreadMainViewModel(thread: thread, canRefresh: self.moduleIsRoot))
 //        self.postsManager = PostManager(thread: service.thread)
 //        self.postsManager?.update(vms: cachedVM)
@@ -168,6 +169,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 case .copyLinkPost(let postUid): self?.copyLinkPost(uid: postUid)
                 case .replyThread: self?.openWrite()
                 case .openMediaBrowser(let model): self?.openMediaInBrowser(model)
+                case .changeFavorite: self?.changeFavorite()
                 }
             }).disposed(by: self.disposeBag)
     }
@@ -212,7 +214,8 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
                 }
                 self.data = thread.posts
 
-                self.mainViewModel.value = ThreadMainViewModel(thread: thread, canRefresh: self.moduleIsRoot)
+                self.updateMainModel()
+//                self.mainViewModel.value = ThreadMainViewModel(thread: thread, canRefresh: self.moduleIsRoot)
 
                 return Observable<ThreadModel>.just(thread)
             })
@@ -235,9 +238,13 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
             .disposed(by: self.service.disposeBag)
     }
     
+    private func updateMainModel() {
+        self.mainViewModel.value = ThreadMainViewModel(thread: self.thread, canRefresh: self.moduleIsRoot)
+    }
+    
     private func openByTextIndex(postUid: String, url: URL) {
-        let posts = self.data
-        let thread = self.thread
+//        let posts = self.data
+//        let thread = self.thread
         
 //        guard let
 //        let thread = self.service.thread
@@ -472,18 +479,32 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     
     
     private func copyLinkOnThread() {
-//        if let link = self.service.thread.buildLink {
-//            UIPasteboard.general.string = link
-//            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: SmallDismissTime)
-//
-//        } else {
-//            ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
-//        }
+        if let url = self.thread?.url {
+            UIPasteboard.general.string = url
+            ErrorDisplay.presentAlert(with: "link_copied".localized, message: url, dismiss: SmallDismissTime)
+        } else {
+            ErrorDisplay.presentAlert(with: nil, message: "link_copy_error".localized, dismiss: SmallDismissTime)
+        }
     }
     
     private func openMediaInBrowser(_ media: MediaModel) {
 //        LinkOpener.shared.open(url: media.url)
         Helper.open(url: media.url)
+        
+    }
+    
+    private func changeFavorite() {
+        if let thread = self.thread {
+            if thread.type == .favorited {
+                thread.type = .history
+            } else {
+                thread.type = .favorited
+            }
+            
+            self.favoriteService?.write(thread: thread)
+            self.updateMainModel()
+            
+        }
         
     }
 

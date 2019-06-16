@@ -19,6 +19,9 @@
 "Ready" = "Готово";
 "Imageboards" = "Имиджборды";
 "Successful!" = "Успешно!";
+"screenshot" = "Скриншот";
+"copy_link" = "Скопировать ссылку";
+
 
 //CameraPermissionManager
 "gallery_no_access" = "Нет доступа к галерее";
@@ -124,6 +127,11 @@
 "complaint_sended_message" = "Жалоба будет рассмотрена в течении 24 часов";
 "go_to_thread" = "Вернуться к треду";
 "Reply" = "Ответить";
+
+"copy_link_on_thread" = "Скопировать ссылку на тред";
+"link_copied" = "Ссылка скопирована";
+"link_copy_error" = "Ошибка копирования ссылки";
+
 
 //BoardModule
 "delete_from_favorite" = "Удалить из избранного";

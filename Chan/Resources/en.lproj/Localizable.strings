@@ -19,6 +19,8 @@
 "Ready" = "Done";
 "Imageboards" = "Imageboards";
 "Successful!" = "Success!";
+"screenshot" = "Screenshot";
+"copy_link" = "Copy link";
 
 //CameraPermissionManager
 "gallery_no_access" = "No access to picture gallery";
@@ -125,6 +127,10 @@
 "complaint_sent_message" = "Complaint will be reviewed in 24 hours";
 "go_to_thread" = "Back to thread";
 "Reply" = "Reply";
+"copy_link_on_thread" = "Copy link on thread";
+"link_copied" = "Link copied";
+"link_copy_error" = "Link copy error";
+
 
 
 //BoardModule

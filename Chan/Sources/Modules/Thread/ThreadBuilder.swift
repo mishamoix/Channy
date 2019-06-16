@@ -43,8 +43,9 @@ final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
         
         let history = HistoryService()
         let service = ThreadService(thread: thread)
+        let favorite = FavoriteService()
         
-        let interactor = ThreadInteractor(presenter: viewController, service: service, moduleIsRoot: true, thread: thread, history: history)
+        let interactor = ThreadInteractor(presenter: viewController, service: service, moduleIsRoot: true, thread: thread, history: history, favorite: favorite)
         interactor.listener = listener
         
         
@@ -60,7 +61,7 @@ final class ThreadBuilder: Builder<ThreadDependency>, ThreadBuildable {
         
         let viewController = UIStoryboard(name: "ThreadViewController", bundle: nil).instantiateViewController(withIdentifier: "ThreadViewController") as! ThreadViewController
         
-        var service: ThreadServiceProtocol = ThreadReplyService(reply: model)
+        let service: ThreadServiceProtocol = ThreadReplyService(reply: model)
         
         
 //        if let replyed = replys.replyed {

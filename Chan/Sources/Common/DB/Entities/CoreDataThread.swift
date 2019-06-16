@@ -26,6 +26,7 @@ class CoreDataThread: NSManagedObject {
     @NSManaged var cachedImageURL: String?
     
     @NSManaged var board: CoreDataBoard
+    @NSManaged var url: String?
 
     
 }
@@ -83,6 +84,7 @@ extension CoreDataThread: CacheTrackerEntity {
             }
             
             self.cachedImageURL = obj.media.first?.url?.absoluteString
+            self.url = obj.url
             
         }
     }
@@ -103,6 +105,7 @@ extension CoreDataThread: CacheTrackerEntity {
             let media = MediaModel(url: url)
             result.media = [media]
         }
+        result.url = self.url
         
         return result as AnyObject
     }

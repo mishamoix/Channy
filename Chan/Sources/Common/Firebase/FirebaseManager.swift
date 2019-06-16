@@ -15,9 +15,9 @@ class FirebaseManager {
     static let shared = FirebaseManager()
     let canLoadData: Variable<Bool> = Variable(true)
   
-    #if RELEASE
+//    #if RELEASE
     private let db = FirebaseDB()
-    #endif
+//    #endif
   
     private let disposeBag = DisposeBag()
     
@@ -47,7 +47,7 @@ class FirebaseManager {
     }
     
     private func run() {
-      #if RELEASE
+//      #if RELEASE
 
         self.db
             .snapshot
@@ -60,7 +60,7 @@ class FirebaseManager {
             })
             .bind(to: self.canLoadData)
             .disposed(by: self.disposeBag)
-      #endif
+//      #endif
     }
     
     

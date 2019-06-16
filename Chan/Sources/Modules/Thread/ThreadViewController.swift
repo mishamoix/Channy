@@ -14,7 +14,7 @@ import AVKit
 import KafkaRefresh
 
 
-let ThreadAvailableContextMenu = ["copyLink", "copyOrigianlText", "copyText", "screenshot"]
+let ThreadAvailableContextMenu = ["screenshot"]
 
 
 private let PostCellIdentifier = "PostCell"
@@ -319,9 +319,15 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 
                 if self?.listener?.moduleIsRoot ?? false {
                     
-//                    actionSheet.addAction(UIAlertAction(title: "Скопировать ссылку на тред", style: .default, handler: { [weak self] _ in
-//                        self?.listener?.viewActions.on(.next(.copyLinkOnThread))
-//                    }))
+                    actionSheet.addAction(UIAlertAction(title: "copy_link_on_thread".localized, style: .default, handler: { [weak self] _ in
+                        self?.listener?.viewActions.on(.next(.copyLinkOnThread))
+                    }))
+                    
+                    let title = !(self?.listener?.mainViewModel.value.favorited ?? true) ? "add_to_favorite".localized : "delete_from_favorite".localized
+                    actionSheet.addAction(UIAlertAction(title: title, style: .default, handler: { [weak self] _ in
+                        self?.listener?.viewActions.on(.next(.changeFavorite))
+                    }))
+
                     
                     actionSheet.addAction(UIAlertAction(title: "Complaint".localized, style: .destructive, handler: { [weak self] _ in
                         self?.reportThread()

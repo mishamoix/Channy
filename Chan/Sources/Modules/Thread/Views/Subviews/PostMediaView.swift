@@ -109,8 +109,8 @@ class PostMediaView: UIView {
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return false
-//        return ["copyLink", "openBrowser"].contains(action.description)
+//        return false
+        return ["copyLink", "openBrowser"].contains(action.description)
     }
     
     @objc func copyLink() {

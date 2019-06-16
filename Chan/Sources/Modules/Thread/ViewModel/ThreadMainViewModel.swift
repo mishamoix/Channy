@@ -14,11 +14,13 @@ class ThreadMainViewModel: NSObject {
     let canRefresh: Bool
     
     let thread: ThreadModel?
+    let favorited: Bool
     
     init(title: String, canRefresh: Bool) {
         self.title = TextStripper.fullClean(text: title)
         self.canRefresh = canRefresh
         self.thread = nil
+        self.favorited = false
         super.init()
     }
     
@@ -30,6 +32,8 @@ class ThreadMainViewModel: NSObject {
         } else {
             self.title = ""
         }
+        
+        self.favorited = thread?.type == .favorited
         
         super.init()
     }

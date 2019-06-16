@@ -82,7 +82,8 @@ class PostMediaCell: PostCell {
     private func addCopyLinkMenuItems() {
         for media in self.images {
             media
-                .actions.subscribe(onNext: { [weak self, weak media] action in
+                .actions
+                .subscribe(onNext: { [weak self, weak media] action in
                     
                     switch action {
                     case .disableParentActions: self?.canPerformAction = false
