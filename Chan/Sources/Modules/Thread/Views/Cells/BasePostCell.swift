@@ -148,12 +148,14 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.updateHeader(with: model)
         self.updateFooter(with: model)
         
+        self.bg.frame = self.bounds
+        
         if model.isFirst && self.canBeFirst {
-            self.bg.isHidden = true
-//            self.contentView.backgroundColor = UIColor.clear
+//            self.bg.isHidden = true
+            self.bg.tintColor = ThemeManager.shared.theme.background
         } else {
-            self.bg.isHidden = false
-            self.bg.frame = self.bounds
+//            self.bg.isHidden = false
+            
             self.bg.tintColor = ThemeManager.shared.theme.cell
         }
         

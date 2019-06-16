@@ -37,7 +37,13 @@ class ThreadImageViewer: NSObject {
         self.process(files: files)
         self.setupBrowser()
         self.setupButton()
-        self.setupText()
+//        self.setupText()
+
+        
+        if let idx = self.dataSource?.initialPhotoIndex, let img = self.dataSource?.photo(at: idx) {
+            self.updateOverlay(with: img)
+        }
+
     }
     
     private func process(files: [MediaModel]) {
@@ -80,32 +86,19 @@ class ThreadImageViewer: NSObject {
 
                 if #available(iOS 11.0, *) {
                     bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-                } else {
                 }
 
                 make.bottom.equalToSuperview().offset(-DefaultMargin - bottom)
             }
         }
-//
-//
+
         self.openInBrowserButton
             .rx
             .tap
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
                 if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx), let url = model.url {
-
-//                    if CensorManager.isCensored(model: FileModel(path: url.absoluteString)) {
-//
-                        Helper.open(url: url)
-//                    } else {
-////                        model.needBlur = false
-////                        model.ax_loadingState = .notLoaded
-////                        if let ds = self?.browser?.dataSource {
-////                            ds.initialPhotoIndex = idx
-////                            self?.browser?.dataSource = ds
-////                        }
-//                    }
+                    Helper.open(url: url)
                 }
             })
             .disposed(by: self.disposeBag)
@@ -114,18 +107,14 @@ class ThreadImageViewer: NSObject {
         self.openInBrowserButton.alpha = 0
         
         
+        
     }
     
     private func setupBrowser() {
         let transitionInfo = AXTransitionInfo(interactiveDismissalEnabled: true, startingView: nil, endingView: nil)
-//
         let browser = ChanAXPhotosViewController(dataSource: self.dataSource, pagingConfig: nil, transitionInfo: transitionInfo, networkIntegration: ChanFullImageLoader())
-//
         self.browser = browser
         browser.delegate = self
-//        self.openInBrowserButton.setTitle("open_in_browser".localized, for: .normal)
-//        self.openInBrowserButton.alpha = CensorManager.isCensored(model: self.anchor) ? 1 : 0
-//        self.textCanvas.isHidden = CensorManager.isCensored(model: self.anchor)
         
     }
     
@@ -168,23 +157,12 @@ class ThreadImageViewer: NSObject {
     
     
     private func updateOverlay(with photo: AXPhotoProtocol) {
-        
-        self.openInBrowserButton.alpha = 0
-        self.textCanvas.isHidden = true
-        
         if photo.needBlur {
-//            let model = MediaModel(path: url.absoluteString)
-//            if CensorManager.isCensored(model: model) {
             self.openInBrowserButton.setTitle("open_in_browser".localized, for: .normal)
             self.openInBrowserButton.alpha = 1
-            self.textCanvas.isHidden = true
-                //                self.openInBrowserButton.isEnabled = true
         } else {
             self.openInBrowserButton.alpha = 0
             self.textCanvas.isHidden = !photo.needBlur
-
-                //              self.openInBrowserButton.setTitle("Показать", for: .normal)
-//            }
         }
     }
     
@@ -205,32 +183,6 @@ extension ThreadImageViewer: AXPhotosViewControllerDelegate {
         print(index)
 
     }
-    
-//    func addGestures(_ photosViewController: AXPhotosViewController) {
-//        let tap = UITapGestureRecognizer()
-//        self.textCanvas.isUserInteractionEnabled = true
-//        tap.delegate = self
-//        self.textCanvas.addGestureRecognizer(tap)
-//
-//        self.textButton.rx
-//            .tap
-//            .asDriver()
-//            .drive(onNext: { [weak self] gesture in
-//                if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx), let url = model.url {
-//
-////                    if !CensorManager.isCensored(model: FileModel(path: url.absoluteString)) {
-////                        model.needBlur = false
-////                        model.ax_loadingState = .notLoaded
-////                        if let ds = self?.browser?.dataSource {
-////                            ds.initialPhotoIndex = idx
-////                            self?.browser?.dataSource = ds
-////                        }
-////                    }
-//                }
-//
-//            }).disposed(by: self.disposeBag)
-//    }
-    
 }
 
 extension ThreadImageViewer: UIGestureRecognizerDelegate {

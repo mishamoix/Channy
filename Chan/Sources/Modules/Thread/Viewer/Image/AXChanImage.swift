@@ -67,8 +67,7 @@ class AXChanImage: NSObject, AXPhotoProtocol {
             if let result = CensorManager.shared.cache[self.path] {
                 self.needBlur = result
             } else {
-                Helper.performOnBGThread {
-
+                Helper.performOnQueue(q: QueueManager.shared.fullImageCensorAddingQueue) {
                     CensorManager
                         .shared
                         .censor(url: self.path)

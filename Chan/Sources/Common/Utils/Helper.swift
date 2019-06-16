@@ -50,6 +50,13 @@ class Helper {
             block()
         }
     }
+    
+    static func performOnQueue(q: DispatchQueue, _ block: @escaping () -> ()) {
+        q.async {
+            block()
+        }
+//        DispatchQueue.global(qos: DispatchQoS.QoSClass)
+    }
 
     
     static func openInBrowser(path: String?) {
@@ -89,4 +96,5 @@ class Helper {
             return nil
         }
     }
+    
 }

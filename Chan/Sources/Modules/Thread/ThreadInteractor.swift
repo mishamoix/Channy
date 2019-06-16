@@ -325,10 +325,10 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func copyMedia(media: MediaModel) {
-//        if let url = media.url?.absoluteString {
-//            UIPasteboard.general.string = url
-//            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: url, dismiss: SmallDismissTime)
-//        }
+        if let url = media.url?.absoluteString {
+            UIPasteboard.general.string = url
+            ErrorDisplay.presentAlert(with: "link_copied".localized, message: url, dismiss: SmallDismissTime)
+        }
     }
     
     private func copyLinkPost(uid: String) {

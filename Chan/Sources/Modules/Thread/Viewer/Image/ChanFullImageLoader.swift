@@ -32,6 +32,11 @@ class ChanFullImageLoader: NSObject, AXNetworkIntegrationProtocol {
         
         if let model = photo as? AXChanImage {
             
+            if model.originalImage != nil && model.blurredImage != nil {
+                self.delegate?.networkIntegration(self, loadDidFinishWith: model)
+                return
+            }
+            
             self.process(model: model)
                 .subscribeOn(Helper.rxBackgroundPriorityThread)
                 .observeOn(Helper.rxMainThread)

@@ -132,27 +132,18 @@ class PostMediaView: UIView {
 
     
     @objc func longGesture(gesture: UILongPressGestureRecognizer) {
-//        if recognizer.state == UIGestureRecognizer.State.changed {
-//            if let self = self {
-        
         if gesture.state == UIGestureRecognizer.State.began {
-        
-            self._actions.on(.next(.copy))
-            gesture.isEnabled = false
-            gesture.isEnabled = true
-        }
-//                let menu = UIMenuController.shared
-//                if !menu.isMenuVisible {
-//                    self._actions.on(.next(.copy))
-//                    self.becomeFirstResponder()
-//                    menu.setTargetRect(self.bounds, in: self)
-//                    menu.setMenuVisible(true, animated: true)
-//                    self._actions.on(.next(.enableParentActions))
-//
-//
-//                }
+//            if let self = self {
+            let menu = UIMenuController.shared
+            if !menu.isMenuVisible {
+//                self._actions.on(.next(.copy))
+                self.becomeFirstResponder()
+                menu.setTargetRect(self.bounds, in: self)
+                menu.setMenuVisible(true, animated: true)
+                self._actions.on(.next(.enableParentActions))
+            }
 //            }
-//        }
+        }
 
     }
     
