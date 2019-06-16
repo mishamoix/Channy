@@ -16,7 +16,7 @@ extension DefaultsKeys {
     static let currentTheme = DefaultsKey<String?>("currentTheme")
     static let currentBrowser = DefaultsKey<String?>("selectedBrowser")
     
-    static let historyWrite = DefaultsKey<Bool?>("safeMode")
+    static let historyWrite = DefaultsKey<Bool?>("historyWrite")
     static let proxy = DefaultsKey<Data?>("proxy")
     static let proxyEnabled = DefaultsKey<Bool?>("proxyEnabled")
 

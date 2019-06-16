@@ -52,6 +52,7 @@ class ThreadService: BaseService, ThreadServiceProtocol {
             .asObservable()
             .flatMap({ [weak self] response -> Observable<ResultType> in
                 if let res = self?.makeModel(data: response.data) {
+                    self?.updateThread(thread: res)
                     let result = ResultThreadModel<DataType>(result: res, type: .all)
                     return Observable<ResultType>.just(result)
                 } else {
@@ -101,6 +102,13 @@ class ThreadService: BaseService, ThreadServiceProtocol {
   
     override func cancel() {
         super.cancel()
+    }
+    
+    
+    private func updateThread(thread: ThreadModel) {
+        if let dbThread = self.coreData.findModel(with: CoreDataThread.self, predicate: NSPredicate(format: "id = \"\(thread.id)\"")) as? ThreadModel {
+            thread.type = dbThread.type
+        }
     }
     
     

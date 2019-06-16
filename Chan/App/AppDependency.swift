@@ -81,14 +81,14 @@ class AppDependency: NSObject {
             print(error)
         }
         
-        let copyOrigianlText = UIMenuItem(title: "Скопировать оригинал", action: Selector(("copyOrigianlText")))
-        let copyText = UIMenuItem(title: "Скопировать", action: Selector(("copyText")))
-        let copyLink = UIMenuItem(title: "Скопировать ссылку", action: Selector(("copyLink")))
-        let makeScreenshot = UIMenuItem(title: "Скриншот", action: Selector(("screenshot")))
-        let openBrowser = UIMenuItem(title: "Открыть в браузере", action: Selector(("openBrowser")))
+//        let copyOrigianlText = UIMenuItem(title: "Скопировать оригинал", action: Selector(("copyOrigianlText")))
+//        let copyText = UIMenuItem(title: "Скопировать", action: Selector(("copyText")))
+        let copyLink = UIMenuItem(title: "copy_link".localized, action: Selector(("copyLink")))
+        let makeScreenshot = UIMenuItem(title: "screenshot".localized, action: Selector(("screenshot")))
+        let openBrowser = UIMenuItem(title: "open_in_browser".localized, action: Selector(("openBrowser")))
 
 
-        UIMenuController.shared.menuItems = [openBrowser, copyLink, copyText, copyOrigianlText, makeScreenshot]
+        UIMenuController.shared.menuItems = [openBrowser, copyLink, makeScreenshot]
         UIMenuController.shared.update()
         UIMenuController.shared.setMenuVisible(true, animated: true)
         
@@ -111,10 +111,10 @@ class AppDependency: NSObject {
     }
     
     func setupFirebase() {
-      #if RELEASE
+//      #if RELEASE
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
-      #endif
+//      #endif
     }
     
     func updateAction(app action: AppAction) {

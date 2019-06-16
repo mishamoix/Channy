@@ -62,6 +62,7 @@ enum PostAction {
     case open(media: MediaModel)
     case copyLinkOnThread
     case replyThread
+    case changeFavorite
 
 }
 

@@ -48,6 +48,7 @@ class ThreadModel: BaseModel, Decodable {
     var markups: [MarkupModel] = []
     var media: [MediaModel] = []
     var posts: [PostModel] = []
+    var url: String? = nil
     
     var type: ThreadModelType = .none
     
@@ -65,6 +66,7 @@ class ThreadModel: BaseModel, Decodable {
         case postsCount
         case markups = "decorations"
         case files
+        case url = "URL"
     }
     
     public required init(from decoder: Decoder) throws {
@@ -93,6 +95,10 @@ class ThreadModel: BaseModel, Decodable {
         if let files = try? values.decode([MediaModel].self, forKey: .files) {
             self.media = files
         }
+        
+        if let url = try? values.decode(String.self, forKey: .url) {
+            self.url = url
+        }
     }
 
     
@@ -106,12 +112,4 @@ class ThreadModel: BaseModel, Decodable {
         return thread
     }
 
-//    override var hash: Int {
-//        return self.id.hash
-//    }
-    
-
-//    override func isEqual(_ object: Any?) -> Bool {
-//        if
-//    }
 }

@@ -202,11 +202,11 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
     }
     
     @objc public func screenshot() {
-//        if let image = self.snapshot() {
-//            CameraPermissionManager.request {
-//                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
-//            }
-//        }
+        if let image = self.snapshot() {
+            CameraPermissionManager.request {
+                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+            }
+        }
     }
     
     
