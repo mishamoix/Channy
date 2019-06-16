@@ -24,6 +24,7 @@ class CensorService: BaseService {
       return self.service
         .rx
         .request(.censor(path: path))
+        .observeOn(Helper.rxBackgroundPriorityThread)
         .asObservable()
         .flatMap({ [weak self] response -> Observable<Bool?> in
           if let json = self?.fromJson(data: response.data) {

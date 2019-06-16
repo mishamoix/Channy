@@ -159,7 +159,7 @@ class LinkOpener {
             self.save(browser: browser)
             
             if needExcluedSelected {
-                ErrorDisplay.presentAlert(with: "select_brwoser".localized, message: "no_external_browsers".localized, dismiss: SmallDismissTime)
+                ErrorDisplay.presentAlert(with: "select_browser".localized, message: "no_external_browsers".localized, dismiss: SmallDismissTime)
 //                let err = ChanError.error(title: "Выберите браузер", description: "")
 //                let display = ErrorDisplay(error: err, buttons: [])
 //                display.show()
@@ -182,7 +182,7 @@ class LinkOpener {
         }
         
         
-        let err = ChanError.error(title: "select_brwoser".localized, description: "select_browser_message".localized)
+        let err = ChanError.error(title: "select_browser".localized, description: "select_browser_message".localized)
         let display = ErrorDisplay(error: err, buttons: buttons)
         
         display.show()

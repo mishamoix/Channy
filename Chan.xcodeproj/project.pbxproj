@@ -207,6 +207,7 @@
 		0A7A379C22A8096F00E35C49 /* ProxyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A379B22A8096F00E35C49 /* ProxyService.swift */; };
 		0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */; };
 		0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */; };
+		0A7C0A4622B69BF800FAFC63 /* VLCViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7C0A4522B69BF800FAFC63 /* VLCViewController.storyboard */; };
 		0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856292216E518900D053F7 /* ThreadImageViewer.swift */; };
 		0A86048622106817004C6B6C /* VLCOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86048522106817004C6B6C /* VLCOpener.swift */; };
 		0A86411C2250E1B9000BBE07 /* BoardSelectionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8641172250E1B9000BBE07 /* BoardSelectionRouter.swift */; };
@@ -317,6 +318,7 @@
 		0AFD18842235403B00F844BE /* MenuConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD18832235403B00F844BE /* MenuConstants.swift */; };
 		0AFFB6DA21596D7400A122A0 /* ScrollDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */; };
 		0AFFD86A22B679A100BD723A /* QueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFD86922B679A100BD723A /* QueueManager.swift */; };
+		0AFFD86C22B694BF00BD723A /* RotationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFD86B22B694BF00BD723A /* RotationManager.swift */; };
 		0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */; };
 		0AFFFDA521499C190002E832 /* TextStripper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA421499C190002E832 /* TextStripper.swift */; };
 		0AFFFDAC2149A1F40002E832 /* ThreadRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */; };
@@ -541,6 +543,7 @@
 		0A7A379B22A8096F00E35C49 /* ProxyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyService.swift; sourceTree = "<group>"; };
 		0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebmPlayerViewController.swift; sourceTree = "<group>"; };
+		0A7C0A4522B69BF800FAFC63 /* VLCViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VLCViewController.storyboard; sourceTree = "<group>"; };
 		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
 		0A86048522106817004C6B6C /* VLCOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCOpener.swift; sourceTree = "<group>"; };
 		0A8641172250E1B9000BBE07 /* BoardSelectionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSelectionRouter.swift; sourceTree = "<group>"; };
@@ -652,6 +655,7 @@
 		0AFD18832235403B00F844BE /* MenuConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuConstants.swift; sourceTree = "<group>"; };
 		0AFFB6D921596D7400A122A0 /* ScrollDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDownButton.swift; sourceTree = "<group>"; };
 		0AFFD86922B679A100BD723A /* QueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueManager.swift; sourceTree = "<group>"; };
+		0AFFD86B22B694BF00BD723A /* RotationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationManager.swift; sourceTree = "<group>"; };
 		0AFFFDA221499B9D0002E832 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		0AFFFDA421499C190002E832 /* TextStripper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStripper.swift; sourceTree = "<group>"; };
 		0AFFFDA72149A1F40002E832 /* ThreadRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadRouter.swift; sourceTree = "<group>"; };
@@ -725,6 +729,7 @@
 				0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */,
 				0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */,
 				0A197B0722AC2092004116D2 /* VLCViewController.swift */,
+				0A7C0A4522B69BF800FAFC63 /* VLCViewController.storyboard */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -1252,6 +1257,7 @@
 				0AD6DA2622A9509A00024DED /* ProxyManager.swift */,
 				0A72E18D21BABEB500BD488E /* StatisticManager.swift */,
 				0AFFD86922B679A100BD723A /* QueueManager.swift */,
+				0AFFD86B22B694BF00BD723A /* RotationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1854,6 +1860,7 @@
 				0A326B9A225CEADE00E94AED /* DismissBar.storyboard in Resources */,
 				0A1A79B921C6D58D0020463F /* launchIconNY.png in Resources */,
 				0AAFBBF1227EF2740085DB51 /* MarkedViewController.storyboard in Resources */,
+				0A7C0A4622B69BF800FAFC63 /* VLCViewController.storyboard in Resources */,
 				0ACC296D2143F22F00B4E53B /* BoardsListViewController.storyboard in Resources */,
 				0ACC295C2143EF1200B4E53B /* LaunchScreen.storyboard in Resources */,
 				0A5E787622B138A5001A584E /* Localizable.stringsdict in Resources */,
@@ -2063,6 +2070,7 @@
 				0A905F7221A9B10000ADE51E /* WriteInteractor.swift in Sources */,
 				0A2E0C8A2145397600CBD619 /* BoardModel.swift in Sources */,
 				0ACC29752143F3AE00B4E53B /* BaseService.swift in Sources */,
+				0AFFD86C22B694BF00BD723A /* RotationManager.swift in Sources */,
 				0A203F17219C9CEC00A51554 /* CensorManager.swift in Sources */,
 				0A37B0432222F15000FFACDF /* MenuInteractor.swift in Sources */,
 				0AD6DA2522A949DA00024DED /* ChanImageDownloader.swift in Sources */,

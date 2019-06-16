@@ -390,7 +390,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         let homeCanvas = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         let homeButton = UIBarButtonItem(customView: homeCanvas)
 
-        self.navigationItem.setRightBarButtonItems([more], animated: false)
+//        self.navigationItem.setRightBarButtonItems([more], animated: false)
         self.navigationItem.setLeftBarButtonItems([homeButton], animated: false)
 
         let home = UIButton(frame: .zero)

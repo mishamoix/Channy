@@ -82,28 +82,28 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        let target = self.collectionView.contentOffset.y
-        var result: CGFloat = 0
-        for (i, item) in self.data.enumerated() {
-            result += PostCellTopMargin
-            result += item.height
-            if result > target {
-                self.savedIndexForRotate = IndexPath(item: i, section: 0)
-                break
-            }
-        }
-        
-        self.currentWidth = size.width
-        self.collectionView.collectionViewLayout.invalidateLayout()
-        self.collectionView.layoutSubviews()
-        
-        for visibleCell in self.collectionView.visibleCells {
-            if let idx = self.collectionView.indexPath(for: visibleCell) {
-                if let cell = visibleCell as? BasePostCellProtocol {
-                    cell.update(with: self.data[idx.item])
-                }
-            }
-        }
+//        let target = self.collectionView.contentOffset.y
+//        var result: CGFloat = 0
+//        for (i, item) in self.data.enumerated() {
+//            result += PostCellTopMargin
+//            result += item.height
+//            if result > target {
+//                self.savedIndexForRotate = IndexPath(item: i, section: 0)
+//                break
+//            }
+//        }
+//        
+//        self.currentWidth = size.width
+//        self.collectionView.collectionViewLayout.invalidateLayout()
+//        self.collectionView.layoutSubviews()
+//        
+//        for visibleCell in self.collectionView.visibleCells {
+//            if let idx = self.collectionView.indexPath(for: visibleCell) {
+//                if let cell = visibleCell as? BasePostCellProtocol {
+//                    cell.update(with: self.data[idx.item])
+//                }
+//            }
+//        }
     }
     
     // MARK: ThreadPresentable
