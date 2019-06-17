@@ -111,11 +111,17 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     func load(reload: Bool = false) {
         
-        if self.isLoading && !reload { return }
-        self.isLoading = true
         guard let board = self.currentModel else {
+            self.presenter.stopAnyLoaders()
+
+            let error = ChanError.error(title: "", description: "need_select_imageboard_and_board".localized)
+            ErrorDisplay(error: error, buttons: [.ok]).show()
             return
         }
+        
+        if self.isLoading && !reload { return }
+        self.isLoading = true
+ 
         
         StatisticManager.openBoard(model: board)
         
@@ -262,7 +268,9 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                         if let idx = self.findThreadViewModelIdx(by: uid) {
                             self.viewModels[idx] = ThreadViewModel(with: model)
                         }
-                        self.dataSource.value = self.viewModels
+                            
+                        self.updateData()
+//                        self.dataSource.value = self.viewModels
                         
                         self.favoriteService.write(thread: model)
                     }

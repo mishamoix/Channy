@@ -231,14 +231,14 @@ class ThemeManager {
         }
     }
     
-    func changeTheme() {
-//        if self.savedThemeType == .dark {
-//            self.save(theme: .light)
-//        } else {
-            self.save(theme: .dark)
-
-//        }
-    }
+//    func changeTheme() {
+////        if self.savedThemeType == .dark {
+////            self.save(theme: .light)
+////        } else {
+//            self.save(theme: .dark)
+//
+////        }
+//    }
     
     func save(theme: ThemeType) {
         if theme != self.savedThemeType {
@@ -277,24 +277,24 @@ class ThemeManager {
     private func theme(for type: ThemeType) -> Theme {
         if type == .superDark {
             return Theme.superDark
-        } else if type == .blue {
-            return Theme.blue
+        } else if type == .dark {
+            return Theme.dark
         } else if type == .light {
             return Theme.light
         } else {
-            return Theme.dark
+            return Theme.blue
         }
     }
     
     private func themeType(from string: String) -> ThemeType {
         if string == "superDark" {
             return .superDark
-        } else if string == "blue" {
-            return .blue
+        } else if string == "dark" {
+            return .dark
         } else if  string == "light" {
             return .light
         } else {
-            return .dark
+            return .blue
         }
     }
     

@@ -48,6 +48,7 @@ final class WebAcceptViewController: BaseViewController, WebAcceptPresentable, W
     private func setupUI() {
         self.mainTitle.text = "license_agreement".localized;
         self.mainTitle.textColor = ThemeManager.shared.theme.text
+        self.accept.setTitle("Accept".localized, for: .normal)
     }
     
     private func setupRx() {

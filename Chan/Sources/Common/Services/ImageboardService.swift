@@ -185,7 +185,11 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
     private func updateCurrentCachedBoard(force: Bool = false) {
         if (self.currentCachedBoard.value == nil || force) {
             let result = self.coreData.findModel(with: CoreDataBoard.self, predicate: NSPredicate(format: "current = YES AND imageboard.current = YES")) as? BoardModel
-            self.currentCachedBoard.value = result
+            
+            if self.currentCachedBoard.value != result {
+//            if let current = self.currentCachedBoard.value?.uid, let new = result?.uid, new != current {
+                self.currentCachedBoard.value = result
+            }
         }
     }
     
