@@ -138,8 +138,11 @@
 "delete_from_favorite" = "Remove from favorites";
 "add_to_favorite" = "Add to favorites";
 "Agreement" = "Agreement";
+"need_select_imageboard_and_board" = "Swipe right to select an imageboard and add some boards.";
 
 
 // MainModule
 "Board" = "Board";
 
+// WebviewModule
+"Accept" = "Accept";

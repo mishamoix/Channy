@@ -137,8 +137,12 @@
 "delete_from_favorite" = "Удалить из избранного";
 "add_to_favorite" = "В избранное";
 "Agreement" = "Соглашение";
+"need_select_imageboard_and_board" = "Вы должны выбрать имиджборду и борду. Свайп вправо откроест список доступных имиджборд.";
 
 
 // MainModule
 "Board" = "Доска";
 
+
+// WebviewModule
+"Accept" = "Принять";
