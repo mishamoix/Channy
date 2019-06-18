@@ -24,6 +24,10 @@ class Enviroment {
         return URL(string: "https://censor.channy.io")!
     }
     
+    var baseUrlProxy: String {
+        return "https://proxy.channy.io/"
+    }
+    
     var oldBasePath: String {
         return "https://2ch.hk"
     }

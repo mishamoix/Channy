@@ -42,6 +42,9 @@ let PostScrollDownButtonSize = CGSize(width: 44, height: 44)
 let PostScrollDownButtonRightMargin = MediumMargin
 let PostScrollDownButtonBottomMargin = MediumMargin
 
+let PostTopOffsetNumber: CGFloat = 11
+let PostHeaderBottomOffset: CGFloat = 13
+
 
 //let PostScrollDownButtonImageSize = CGSize(width: 44, height: 44)
 

@@ -70,7 +70,7 @@
 
 
 //WriteModule
-"solve_captcha" = "Captcha solved!";
+"solve_captcha" = "Captcha solved";
 "enter_text" = "Enter text";
 "Topic" = "Theme";
 "Send" = "Send";
@@ -139,6 +139,9 @@
 "add_to_favorite" = "Add to favorites";
 "Agreement" = "Agreement";
 "need_select_imageboard_and_board" = "Swipe right to select an imageboard and add some boards.";
+"video_open_title" = "Open video";
+"video_open_message" = "NSFW video. Recommend use VLC player.";
+"vlc_in_app_store" = "VLC in AppStore";
 
 
 // MainModule

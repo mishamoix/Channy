@@ -76,17 +76,11 @@ class CensorManager {
     }
   
     static func isCensored(model: MediaModel) -> Bool {
-      #if RELEASE
-        var needCensor = true
-//        if let result = CensorManager.shared.cache[CensorManager.path(for: model)] {
-//            needCensor = result
-//        }
-        
-        
-        return needCensor
-      #endif
-
-      return false
+//        var needCensor = true
+        if let url = model.url?.absoluteString, let result = CensorManager.shared.cache[url] {
+            return result
+        }
+        return true
     }
   
     private func cachedResult(for path: String) -> Bool? {

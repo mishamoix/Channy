@@ -85,16 +85,16 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.contentView.addSubview(self.headerDelimeter)
         self.contentView.addSubview(self.repliesButton)
         
-        self.number.font = .postTitle
+        self.number.font = .postNumber
         
-        self.uid.font = .secondaryText
+        self.uid.font = .postSmall
         
-        self.date.font = .secondaryText
+        self.date.font = .postSmall
         self.date.textAlignment = .right
         
         self.reply.backgroundColor = .clear
         self.reply.setTitle("Reply".localized, for: .normal)
-        self.reply.titleLabel?.font = .secondaryText
+        self.reply.titleLabel?.font = .postSmall
         self.reply.contentHorizontalAlignment = .right
         
         self.repliesButton.titleLabel?.font = .textStrong
@@ -279,15 +279,16 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         
         let sideOffset = leftOffset + rightOffset
         
-        let topOffset: CGFloat = 11
+        let topOffset: CGFloat = PostTopOffsetNumber
         
-        let smallTextHeight: CGFloat = 15
+        let smallTextHeight: CGFloat = UIFont.postSmall.lineHeight
         
         self.number.frame = CGRect(x: leftOffset, y: topOffset, width: self.contentView.frame.width / 2 - sideOffset, height: 22)
         
         self.uid.frame = CGRect(x: self.number.frame.minX, y: self.number.frame.maxY + 2, width: self.number.frame.width, height: smallTextHeight)
         
         self.date.frame = CGRect(x: self.number.frame.maxX + rightOffset, y: self.number.frame.minY + 2, width: self.contentView.frame.width / 2 - rightOffset, height: smallTextHeight)
+        
         self.reply.frame = CGRect(x: self.date.frame.minX, y: self.date.frame.maxY + 5, width: self.date.frame.width, height: self.date.frame.height)
         
         self.headerDelimeter.frame = CGRect(x: leftOffset, y: self.uid.frame.maxY + topOffset, width: self.contentView.frame.width - leftOffset, height: 0.5)

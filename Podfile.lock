@@ -109,7 +109,7 @@ PODS:
     - MagicalRecord/Core (= 2.3.2)
   - MagicalRecord/Core (2.3.2)
   - MBProgressHUD (1.1.0)
-  - MobileVLCKit (3.1.0)
+  - MobileVLCKit (3.3.1)
   - Moya (11.0.2):
     - Moya/Core (= 11.0.2)
   - Moya/Core (11.0.2):
@@ -154,7 +154,7 @@ DEPENDENCIES:
   - KafkaRefresh
   - MagicalRecord
   - MBProgressHUD
-  - MobileVLCKit (= 3.1.0)
+  - MobileVLCKit
   - Moya
   - Moya/RxSwift
   - ReCaptcha/RxSwift
@@ -224,7 +224,7 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  MobileVLCKit: 4e55792b03c99429c9f4716aa44e685f65b3d178
+  MobileVLCKit: 021031f214414aa801909f61544912162d3bcd49
   Moya: a725035953bc1c0eb1be505ab903984501d82440
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   ReCaptcha: c7122c19f515d61f48ce372e1ea2497bcba1fd63
@@ -240,6 +240,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: 9526df620fdc80ab110d049ceb967d4ffb7df4e7
+PODFILE CHECKSUM: 77d13d51305f43a855268ae0670aa19d71404ba1
 
 COCOAPODS: 1.5.3

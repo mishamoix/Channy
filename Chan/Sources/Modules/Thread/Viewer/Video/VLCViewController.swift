@@ -53,13 +53,14 @@ class VLCViewController: UIViewController {
 //        self.mediaPlayer.play()
         self.changePlay()
         
-        self.mediaPlayer.time = VLCTime(int: 3)
+//        self.mediaPlayer.time = VLCTime(int: 3)
     }
     
     private func setup() {
         if let url = self.url {
             self.mediaPlayer.drawable = self.movieView
             self.mediaPlayer.media = VLCMedia(url: url)
+//            self.media
         }
         
         self.setupUI()

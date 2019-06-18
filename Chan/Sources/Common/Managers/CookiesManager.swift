@@ -24,6 +24,10 @@ class CookiesManager {
         return result
     }
     
+    class func cookieString() -> String? {
+        return CookiesManager.allCookies()?["Cookie"]
+    }
+    
     class func clearCookies() {
         CookiesManager.cached = nil
     }

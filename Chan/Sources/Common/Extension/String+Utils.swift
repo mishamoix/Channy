@@ -45,9 +45,9 @@ extension String {
             formatter.timeStyle = .short
         } else if todayDay != dateDay && todayWeek == dateWeek && todayYear == dateYear {
             if String.isUSA {
-                formatter.dateFormat = "d MMM, HH:mm"
-            } else {
                 formatter.dateFormat = "MMM d, HH:mm"
+            } else {
+                formatter.dateFormat = "d MMM, HH:mm"
             }
         } else {
             if String.isUSA {
