@@ -13,7 +13,7 @@ protocol MainContainerDependency: Dependency {
     // created by this RIB.
 }
 
-final class MainContainerComponent: Component<MainContainerDependency>, BoardDependency, MarkedDependency {
+final class MainContainerComponent: Component<MainContainerDependency>, BoardDependency, MarkedDependency, OnboardDependency {
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }

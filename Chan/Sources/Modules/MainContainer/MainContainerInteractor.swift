@@ -25,6 +25,7 @@ protocol MainContainerListener: class {
 }
 
 final class MainContainerInteractor: PresentableInteractor<MainContainerPresentable>, MainContainerInteractable, MainContainerPresentableListener {
+    
 
     weak var router: MainContainerRouting?
     weak var listener: MainContainerListener?

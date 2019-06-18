@@ -13,7 +13,7 @@ protocol OnboardDependency: Dependency {
     // created by this RIB.
 }
 
-final class OnboardComponent: Component<OnboardDependency> {
+final class OnboardComponent: Component<OnboardDependency>, WebAcceptDependency {
 
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
@@ -35,6 +35,9 @@ final class OnboardBuilder: Builder<OnboardDependency>, OnboardBuildable {
         let viewController = UIStoryboard(name: "OnboardViewController", bundle: nil).instantiateViewController(withIdentifier: "OnboardViewController") as! OnboardViewController
         let interactor = OnboardInteractor(presenter: viewController)
         interactor.listener = listener
-        return OnboardRouter(interactor: interactor, viewController: viewController)
+        
+        let webView = WebAcceptBuilder(dependency: component)
+        
+        return OnboardRouter(interactor: interactor, viewController: viewController, webView: webView)
     }
 }

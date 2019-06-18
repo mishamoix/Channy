@@ -11,9 +11,10 @@ import RxSwift
 
 protocol RootRouting: ViewableRouting {
     func setupMainViews()
-    func setupOnboard()
+//    func setupOnboard()
     func openMenu()
     func closeMenu()
+    func closeOnboarding()
 }
 
 protocol RootPresentable: Presentable {
@@ -39,9 +40,8 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
 
     override func didBecomeActive() {
         super.didBecomeActive()
-
         self.router?.setupMainViews()
-//        self.router?.setupOnboard()
+
     }
 
     override func willResignActive() {
@@ -55,6 +55,15 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
     }
     func closeBoardsList() {
         
+    }
+    
+    func viewWillAppear() {
+
+    }
+    
+    func closeOnboarding() {
+        self.router?.closeOnboarding()
+        self.router?.setupMainViews()
     }
     
     // MARK: MainContainerListner

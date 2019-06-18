@@ -84,6 +84,10 @@ final class BoardRouter: ViewableRouter<BoardInteractable, BoardViewControllable
         
         self.tryDeattach(router: self.createThread) {}
     }
+    
+    func showOnboarding() {
+        
+    }
 
     
     // MARK: Private

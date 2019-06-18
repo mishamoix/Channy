@@ -19,6 +19,8 @@ extension DefaultsKeys {
     static let historyWrite = DefaultsKey<Bool?>("historyWrite")
     static let proxy = DefaultsKey<Data?>("proxy")
     static let proxyEnabled = DefaultsKey<Bool?>("proxyEnabled")
+    
+    static let onboardShows = DefaultsKey<Bool?>("onboardShows")
 
 }
 
@@ -65,13 +67,27 @@ class Values {
         }
     }
     
+    var onboardShows: Bool {
+        get {
+            if Defaults.hasKey(.onboardShows) {
+                return Defaults[.onboardShows] ?? false
+            }
+            return false
+        }
+        
+        set {
+            Defaults[.onboardShows] = newValue
+        }
+
+    }
+    
     var currentTheme: String {
         get {
             if let result = Defaults[.currentTheme] {
                 return result
             }
             
-            return "light"
+            return "blue"
         }
         
         set {

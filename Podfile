@@ -36,6 +36,7 @@ target 'Chan' do
     pod 'SideMenu'
 #    pod 'SwipeCellKit'
     pod 'MobileVLCKit'
+    pod 'SwiftyOnboard'
 
 
     # Analyticts
