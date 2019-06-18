@@ -41,4 +41,10 @@ extension UIImage {
     static var playerCircle: UIImage { return UIImage(named: "playerCircle")!}
 
 
+    // onboarding
+    static var onboardingAnon: UIImage { return UIImage(named: "obAnon")!}
+    static var onboardingFavorites: UIImage { return UIImage(named: "obFavorites")!}
+    static var onboardingHat: UIImage { return UIImage(named: "obHat")!}
+    static var onboardingLegion: UIImage { return UIImage(named: "obLegion")!}
+    static var onboardingTheme: UIImage { return UIImage(named: "obTheme")!}
 }

@@ -96,6 +96,9 @@ final class ProxyViewController: UITableViewController, ProxyPresentable, ProxyV
         self.enabledTitle.text = "proxy_enabled".localized
         self.checkButton.setTitle("proxy_test".localized, for: .normal)
         self.acceptButton.setTitle("proxy_apply".localized, for: .normal)
+        
+        self.enableSwitcher.tintColor = ThemeManager.shared.theme.accnt
+        self.enableSwitcher.onTintColor = ThemeManager.shared.theme.accnt
     }
 
     

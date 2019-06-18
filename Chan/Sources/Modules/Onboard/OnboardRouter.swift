@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol OnboardInteractable: Interactable {
+protocol OnboardInteractable: Interactable, WebAcceptListener {
     var router: OnboardRouting? { get set }
     var listener: OnboardListener? { get set }
 }
@@ -20,8 +20,28 @@ protocol OnboardViewControllable: ViewControllable {
 final class OnboardRouter: ViewableRouter<OnboardInteractable, OnboardViewControllable>, OnboardRouting {
 
     // TODO: Constructor inject child builder protocols to allow building children.
-    override init(interactor: OnboardInteractable, viewController: OnboardViewControllable) {
+    init(interactor: OnboardInteractable, viewController: OnboardViewControllable, webView: WebAcceptBuildable) {
+        self.webAcceptBuilder = webView
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
+    
+    private let webAcceptBuilder: WebAcceptBuildable
+    private weak var webAccept: ViewableRouting?
+    
+    func openWebView(model: WebAcceptViewModel) {
+        self.tryDeattach(router: self.webAccept) {
+            let agreement = self.webAcceptBuilder.build(withListener: self.interactor, model: model)
+            self.webAccept = agreement
+            self.attachChild(agreement)
+            
+            self.viewController.present(view: agreement.viewControllable)
+        }
+    }
+    
+    func closeWebView() {
+        self.webAccept?.viewControllable.dismiss()
+        self.tryDeattach(router: self.webAccept) {}
+    }
+
 }

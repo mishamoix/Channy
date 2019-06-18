@@ -26,7 +26,6 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
         self.favoritesBuilder = favorites
         self.historyBuilder = history
 
-        
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
@@ -40,7 +39,6 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
 
     private let historyBuilder: MarkedBuildable
     private weak var history: ViewableRouting?
-
 
 
     
@@ -87,5 +85,8 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
         }
         
         self.viewController.addTabs(views: result)
+        
     }
+    
+
 }

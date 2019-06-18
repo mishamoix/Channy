@@ -24,7 +24,7 @@ protocol RootViewControllable: ViewControllable {
 }
 
 final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, RootRouting {
-
+    
     // TODO: Constructor inject child builder protocols to allow building children.
     init(interactor: RootInteractable, viewController: RootViewControllable, mainContainer: MainContainerBuildable, onboard: OnboardBuildable, menu: MenuBuildable) {
         self.mainContainerBuilder = mainContainer
@@ -44,42 +44,36 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     
     private let menuBuilder: MenuBuildable
     private weak var menu: ViewableRouting?
-
-    internal func setupOnboard() {
-//        if self.canDeattach(router: self.onboard) {
-//            let boards = self.onboardBuilder.build(withListener: self.interactor)
-//            self.boards = boards
-//            self.attachChild(boards)
-//            self.viewControllable.setupRoot(view: boards.viewControllable, animated: false)
-//        }
-    }
-
     
     internal func setupMainViews() {
         
-        var menu: UIViewController?
-        var mainView: UIViewController?
+        if !self.showOnboardingIfNeeded() {
         
         
-        
-        if self.canDeattach(router: self.mainContainer) {
-            let mainContainer = self.mainContainerBuilder.build(withListener: self.interactor)
-            self.mainContainer = mainContainer
-            self.attachChild(mainContainer)
+            var menu: UIViewController?
+            var mainView: UIViewController?
             
-            mainView = mainContainer.viewControllable.uiviewController
-        }
-        
-        if self.canDeattach(router: self.menu) {
-            let menuModule = self.menuBuilder.build(withListener: self.interactor)
-            self.menu = menuModule
-            self.attachChild(menuModule)
+            if self.canDeattach(router: self.mainContainer) {
+                let mainContainer = self.mainContainerBuilder.build(withListener: self.interactor)
+                self.mainContainer = mainContainer
+                self.attachChild(mainContainer)
+                
+                mainView = mainContainer.viewControllable.uiviewController
+            }
             
-            menu = menuModule.viewControllable.uiviewController
-        }
-        
-        if let menu = menu, let mainView = mainView {
-            self.viewController.setupViews(main: mainView, side: menu)
+            if self.canDeattach(router: self.menu) {
+                let menuModule = self.menuBuilder.build(withListener: self.interactor)
+                self.menu = menuModule
+                self.attachChild(menuModule)
+                
+                menu = menuModule.viewControllable.uiviewController
+            }
+            
+            
+            
+            if let menu = menu, let mainView = mainView {
+                self.viewController.setupViews(main: mainView, side: menu)
+            }
         }
     }
     
@@ -89,5 +83,25 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
     
     func closeMenu() {
         self.viewController.closeMenu()
+    }
+    
+    func closeOnboarding() {
+        self.onboard?.viewControllable.dismiss(animated: false)
+//        self.tryDeattach(router: self.onboard) { }
+    }
+    
+    private func showOnboardingIfNeeded() -> Bool {
+        if !Values.shared.onboardShows {
+            if self.canDeattach(router: self.onboard) {
+                let onboard = self.onboardBuilder.build(withListener: self.interactor)
+                self.onboard = onboard
+                self.attachChild(onboard)
+                self.viewControllable.present(view: onboard.viewControllable, animated: false)
+            }
+            
+            return true
+        } else {
+            return false
+        }
     }
 }

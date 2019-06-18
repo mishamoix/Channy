@@ -115,7 +115,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
             self.presenter.stopAnyLoaders()
 
             let error = ChanError.error(title: "", description: "need_select_imageboard_and_board".localized)
-            ErrorDisplay(error: error, buttons: [.ok]).show()
+            ErrorDisplay(error: error, buttons: [.ok]).show(on: self.presenter.vc)
             return
         }
         
@@ -343,7 +343,6 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     private func viewWillAppear() {
         if self.isFirst {
             self.isFirst = false
-            
 //            self.initialLoad()
 
         }
@@ -394,15 +393,15 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     private func checkAgreement() {
-        if !Values.shared.privacyPolicy {
-            if let url = FirebaseManager.shared.agreementUrl {
-                let agreement = WebAcceptViewModel(url: url, title: "Agreement".localized)
-                
-                Helper.performOnMainThread {
-                    self.router?.openAgreement(model: agreement)
-                }
-            }
-        }
+//        if !Values.shared.privacyPolicy {
+//            if let url = FirebaseManager.shared.agreementUrl {
+//                let agreement = WebAcceptViewModel(url: url, title: "Agreement".localized)
+//                
+//                Helper.performOnMainThread {
+//                    self.router?.openAgreement(model: agreement)
+//                }
+//            }
+//        }
     }
     
     private func openByLink() {

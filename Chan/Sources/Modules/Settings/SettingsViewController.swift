@@ -108,6 +108,11 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         self.subtitleHistory.text = "history_write_message".localized
         self.titleVersion.text = "app_version".localized
         self.writeToDevelopers.setTitle("write_to_developer".localized, for: .normal)
+        
+        self.limitorSwitch.tintColor = ThemeManager.shared.theme.accnt
+        self.limitorSwitch.onTintColor = ThemeManager.shared.theme.accnt
+        self.historySwitch.tintColor = ThemeManager.shared.theme.accnt
+        self.historySwitch.onTintColor = ThemeManager.shared.theme.accnt
     }
     
     private func setupRx() {

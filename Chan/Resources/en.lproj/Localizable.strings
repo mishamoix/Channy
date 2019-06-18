@@ -149,3 +149,17 @@
 
 // WebviewModule
 "Accept" = "Accept";
+
+// Onboarding
+"Anonymous" = "Anonymous";
+"anonymous_message" = "No login required. All data will be saved on your phone";
+"like_web" = "Smells like web";
+"like_web_message" = "Familiar functionality - post, reply, view media and add to favourites";
+"more_colors" = "More colors";
+"more_colors_message" = "Switch themes on the go";
+"safe_browsing" = "Safe browsing";
+"safe_browsing_message" = "Optional nsfw filter built-in";
+"lets_go" = "Let's go!";
+"skip" = "Skip";
+"term_of_service" = "Terms of Service";
+"privacy_policy" = "Privacy Policy";

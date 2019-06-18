@@ -32,11 +32,12 @@ class FirebaseManager {
     private(set) var disableImages: Bool = false
     private(set) var needExcludeBoards: Bool = false
     private(set) var censorEnabled: Bool = false
-    private(set) var agreementUrl: URL? = nil
+    
     private(set) var oneAdsByCountThreads: Int = ThreadListAdCount
     private(set) var oneAdsByCountInThread: Int = PostListAdCount
     
-
+    private(set) var agreementUrl: URL? = URL(string: "https://channy.io/tos.html")
+    private(set) var privacyUrl: URL? = URL(string: "https://channy.io/privacy.html")
     
     init() {
         self.run()

@@ -90,7 +90,7 @@ open class SwiftyOnboardOverlay: UIView {
         self.addSubview(skipButton)
         skipButton.translatesAutoresizingMaskIntoConstraints = false
         skipButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        skipButton.topAnchor.constraint(equalTo: margin.topAnchor, constant: 10).isActive = true
+        skipButton.topAnchor.constraint(equalTo: margin.topAnchor, constant: 20).isActive = true
         skipButton.leftAnchor.constraint(equalTo: margin.leftAnchor, constant: 10).isActive = true
         skipButton.rightAnchor.constraint(equalTo: margin.rightAnchor, constant: -20).isActive = true
     }

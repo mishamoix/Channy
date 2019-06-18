@@ -27,6 +27,10 @@ extension UIFont {
     
     static var postNumber: UIFont { return UIFont.systemFont(ofSize: UIFont.dynamicFontSize + 2, weight: .semibold) }
     static var postSmall: UIFont { return UIFont.systemFont(ofSize: UIFont.dynamicFontSize - 3) }
+    
+    
+    static var onboardTitle: UIFont { return UIFont.systemFont(ofSize: 32, weight: .semibold) }
+    static var onboardSubtitle: UIFont { return UIFont.systemFont(ofSize: 18, weight: .regular) }
 
     func with(traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
         guard let descriptor = self.fontDescriptor.withSymbolicTraits(traits) else {
