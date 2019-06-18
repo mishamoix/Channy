@@ -325,39 +325,36 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func copyMedia(media: MediaModel) {
-        if let url = media.url?.absoluteString {
-            UIPasteboard.general.string = url
-            ErrorDisplay.presentAlert(with: "link_copied".localized, message: url, dismiss: SmallDismissTime)
+        if let result = Helper.prepareMediaProxyIfNeededPath(media: media) {
+            UIPasteboard.general.string = result
+            ErrorDisplay.presentAlert(with: "link_copied".localized, message: result, dismiss: SmallDismissTime)
         }
     }
     
     private func copyLinkPost(uid: String) {
-//        if let link = self.service.thread.buildLink {
-//            
-//            UIPasteboard.general.string = link + "#\(uid)"
-////            ErrorDisplay.presentAlert(with: "Ссылка скопирована!", message: link, dismiss: SmallDismissTime)
-//            
-//        } else {
-////            ErrorDisplay.presentAlert(with: nil, message: "Ошибка копирования ссылки", dismiss: SmallDismissTime)
-//        }
-
     }
 
     
     private func showMedia(with anchor: MediaModel) {
 
 
-    if anchor.type == .image {
-        let allFiles = self.data.flatMap { $0.files }.filter({ $0.type == .image })
-        let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
-        if let vc = viewer.browser {
-          self.router?.showMediaViewer(vc)
-        }
+        if anchor.type == .image {
+            let allFiles = self.data.flatMap { $0.files }.filter({ $0.type == .image })
+            let viewer = ThreadImageViewer(files: allFiles, anchor: anchor)
+            if let vc = viewer.browser {
+              self.router?.showMediaViewer(vc)
+            }
 
-        self.viewer = viewer
-    } else {
-        let videoPlayer = VideoPlayer(with: anchor)
-        videoPlayer.play(vc: self.presenter.vc)
+            self.viewer = viewer
+        } else {
+            if let url = anchor.url?.absoluteString {
+                if CensorManager.isCensored(model: anchor) {
+                    self.openVideoExternal(url: url)
+                } else {
+                    let videoPlayer = VideoPlayer(with: anchor)
+                    videoPlayer.play(vc: self.presenter.vc)
+                }
+        }
     }
 
 
@@ -477,6 +474,36 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         
     }
     
+    private func openVideoExternal(url: String) {
+        if VLCOpener.hasVLC() {
+            VLCOpener.openInVLC(url: url)
+        } else {
+            let error = ChanError.error(title: "video_open_title".localized, description: "video_open_message".localized)
+
+            let display = ErrorDisplay(error: error, buttons: [.cancel, .custom(title: "open_in_browser".localized, style: UIAlertAction.Style.default), .custom(title: "vlc_in_app_store".localized, style: UIAlertAction.Style.default)])
+
+            display
+                .actions
+                .subscribe(onNext: { action in
+                    switch action {
+                    case .custom(let title, _):
+                        if title.lowercased() == "vlc_in_app_store".localized.lowercased() {
+                            Helper.openInSafari(url: URL(string: "itms-apps://itunes.apple.com/app/id650377962"))
+                        } else {
+                            Helper.open(url: URL(string: url))
+                        }
+                    default: break
+                    }
+                })
+                .disposed(by: self.disposeBag)
+
+            display.show()
+
+
+        }
+
+    }
+    
     
     private func copyLinkOnThread() {
         if let url = self.thread?.url {
@@ -488,8 +515,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func openMediaInBrowser(_ media: MediaModel) {
-//        LinkOpener.shared.open(url: media.url)
-        Helper.open(url: media.url)
+        Helper.open(url: Helper.prepareMediaProxyIfNeededURL(media: media))
         
     }
     
@@ -505,7 +531,6 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
             self.updateMainModel()
             
         }
-        
     }
 
 }

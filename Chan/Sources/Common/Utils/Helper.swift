@@ -12,17 +12,59 @@ import RxSwift
 class Helper {
     class func open(url: URL?) {
         LinkOpener.shared.open(url: url)
-//        if let url = url {
-//
-//
-//
-//    //        UIApplication.shared.openURL(url)
-//            if #available(iOS 10.0, *) {
-//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//            } else {
-//                UIApplication.shared.openURL(url)
-//            }
-//        }
+
+    }
+    
+    class func openInSafari(url: URL?) {
+        if let url = url {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+  
+    class func buildProxyURL(url: String) -> String {
+        let cookies = (CookiesManager.cookieString() ?? "").replacingOccurrences(of: " ", with: "+")
+        
+        let result = "\(Enviroment.default.baseUrlProxy)?url=\(url)&cookies=\(cookies)"
+        return result
+    }
+    
+    class func prepareMediaProxyIfNeededPath(media: MediaModel?) -> String? {
+        guard let media = media, let url = media.url else { return nil }
+        
+        if CensorManager.isCensored(model: media) {
+            return Helper.buildProxyURL(url: url.absoluteString)
+        } else {
+            return url.absoluteString
+        }
+    }
+    
+    class func prepareMediaProxyIfNeededURL(media: MediaModel?) -> URL? {
+        guard let media = media, let url = media.url else { return nil }
+        
+        if CensorManager.isCensored(model: media) {
+            
+            let cookies = (CookiesManager.cookieString() ?? "").replacingOccurrences(of: " ", with: "+")
+            let params = Helper.percentEncoding(string: "?url=\(url)&cookies=\(cookies)")
+            
+            let result = "\(Enviroment.default.baseUrlProxy)\(params)"
+            return URL(string: result)
+        } else {
+            return url
+        }
+    }
+
+    static func percentEncoding(string: String) -> String {
+        let charSet = CharacterSet.urlHostAllowed
+        
+        var result = string.addingPercentEncoding(withAllowedCharacters: charSet) ?? ""
+        result = result.replacingOccurrences(of: "=", with: "%3D")
+        result = result.replacingOccurrences(of: ";", with: "%3B")
+        result = result.replacingOccurrences(of: "&", with: "%26")
+        return result
     }
     
     static var rxBackgroundThread = ConcurrentDispatchQueueScheduler(qos: .background)

@@ -138,6 +138,9 @@
 "add_to_favorite" = "В избранное";
 "Agreement" = "Соглашение";
 "need_select_imageboard_and_board" = "Вы должны выбрать имиджборду и борду. Свайп вправо откроест список доступных имиджборд.";
+"video_open_title" = "Открытие видео";
+"video_open_message" = "Видео содержит неприемлимый контент. Для просмотра рекомендуем установить VLC плеер.";
+"vlc_in_app_store" = "VLC в AppStore";
 
 
 // MainModule

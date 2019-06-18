@@ -24,6 +24,9 @@ extension UIFont {
     
     static var largeSubtitle: UIFont { return UIFont.systemFont(ofSize: 34, weight: .semibold) }
     static var largeTitle: UIFont { return UIFont.systemFont(ofSize: 34, weight: .bold) }
+    
+    static var postNumber: UIFont { return UIFont.systemFont(ofSize: UIFont.dynamicFontSize + 2, weight: .semibold) }
+    static var postSmall: UIFont { return UIFont.systemFont(ofSize: UIFont.dynamicFontSize - 3) }
 
     func with(traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
         guard let descriptor = self.fontDescriptor.withSymbolicTraits(traits) else {

@@ -14,6 +14,7 @@ class AXChanImage: NSObject, AXPhotoProtocol {
     var imageData: Data? = nil
     weak var request: DataRequest? = nil
     private let disposeBag = DisposeBag()
+    let media: MediaModel
     
     
     var image: UIImage? {
@@ -45,7 +46,8 @@ class AXChanImage: NSObject, AXPhotoProtocol {
     private(set) var originalImage: UIImage?
     private(set) var blurredImage: UIImage?
     
-    init(url: URL) {
+    init(media: MediaModel, url: URL) {
+        self.media = media
         self._url = url
         super.init()
         self.setupRx()

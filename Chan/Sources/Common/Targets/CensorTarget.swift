@@ -29,7 +29,7 @@ extension CensorTarget: TargetType {
     public var task: Task {
         switch self {
         case .censor(let path):
-            var result: [String: Any] = ["url": path]
+            let result: [String: Any] = ["url": path]
 //            if let cookie = CookiesManager.allCookies() {
 //                result["headers"] = cookie
 //            }

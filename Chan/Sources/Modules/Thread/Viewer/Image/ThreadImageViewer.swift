@@ -56,7 +56,7 @@ class ThreadImageViewer: NSObject {
             if file == self.anchor {
                 anchor = photos.count
             }
-            let photo = AXChanImage(url: url)
+            let photo = AXChanImage(media: file, url: url)
             photos.append(photo)
         }
 
@@ -97,8 +97,8 @@ class ThreadImageViewer: NSObject {
             .tap
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
-                if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx), let url = model.url {
-                    Helper.open(url: url)
+                if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx) as? AXChanImage {
+                    Helper.open(url: Helper.prepareMediaProxyIfNeededURL(media: model.media))
                 }
             })
             .disposed(by: self.disposeBag)

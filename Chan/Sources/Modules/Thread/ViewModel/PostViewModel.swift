@@ -104,7 +104,8 @@ class PostViewModel {
         
 //        let titleHeight = TextSize(text: self.title.string, maxWidth: CGFloat.infinity, font: UIFont.postTitle, lineHeight: UIFont.postTitle.lineHeight).calculate().height
 
-        let headerSection: CGFloat = PostHeaderHeight
+        let headerSection: CGFloat = PostTopOffsetNumber + UIFont.postNumber.lineHeight + UIFont.postSmall.lineHeight + PostHeaderBottomOffset
+        
         var mediaSection: CGFloat = 0
         var textSection: CGFloat = 0
         var bottomSection: CGFloat = 0

@@ -31,9 +31,23 @@ class VLCOpener: NSObject {
     
     
     class func openInVLC(url: String) {
-        let path = MakeFullPath(path: url)
-        if let url = VLCOpener.scheme(url: path) {
-            UIApplication.shared.openURL(url)
+        let path = url
+        if let result = VLCOpener.scheme(url: VLCOpener.buildProxyUrl(url: path)) {
+            UIApplication.shared.openURL(result)
         }
+    }
+  
+    
+  
+    private class func buildProxyUrl(url: String) -> String {
+        let url = Helper.buildProxyURL(url: url)
+        return Helper.percentEncoding(string: url)
+//        let charSet = CharacterSet.urlHostAllowed
+//
+//        var result = url.addingPercentEncoding(withAllowedCharacters: charSet) ?? ""
+//        result = result.replacingOccurrences(of: "=", with: "%3D")
+//        result = result.replacingOccurrences(of: ";", with: "%3B")
+//        result = result.replacingOccurrences(of: "&", with: "%26")
+//        return result
     }
 }
