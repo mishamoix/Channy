@@ -14,7 +14,7 @@ protocol RootRouting: ViewableRouting {
 //    func setupOnboard()
     func openMenu()
     func closeMenu()
-    func closeOnboarding()
+    func closeOnboardingOpenMain()
 }
 
 protocol RootPresentable: Presentable {
@@ -62,8 +62,12 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
     }
     
     func closeOnboarding() {
-        self.router?.closeOnboarding()
-        self.router?.setupMainViews()
+        self.router?.closeOnboardingOpenMain()
+//        Helper.performOnBGThread {
+//            Helper.performOnMainThread {
+//                self.router?.setupMainViews()
+//            }
+//        }
     }
     
     // MARK: MainContainerListner

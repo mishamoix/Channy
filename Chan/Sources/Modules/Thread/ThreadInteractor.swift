@@ -325,7 +325,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func copyMedia(media: MediaModel) {
-        if let result = Helper.prepareMediaProxyIfNeededPath(media: media) {
+        if let result = media.url?.absoluteString {
             UIPasteboard.general.string = result
             ErrorDisplay.presentAlert(with: "link_copied".localized, message: result, dismiss: SmallDismissTime)
         }
@@ -515,7 +515,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func openMediaInBrowser(_ media: MediaModel) {
-        Helper.open(url: Helper.prepareMediaProxyIfNeededURL(media: media))
+        Helper.open(url: media.url)
         
     }
     

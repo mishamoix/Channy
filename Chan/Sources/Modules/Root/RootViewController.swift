@@ -29,6 +29,13 @@ final class RootViewController: BaseViewController, RootPresentable, RootViewCon
     
     private var isFirstTime = true
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.modalPresentationStyle = .overFullScreen
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -41,8 +48,6 @@ final class RootViewController: BaseViewController, RootPresentable, RootViewCon
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-
     }
     
     func setupViews(main view: UIViewController, side menu: UIViewController) {

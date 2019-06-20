@@ -31,6 +31,8 @@ extension UIFont {
     
     static var onboardTitle: UIFont { return UIFont.systemFont(ofSize: 32, weight: .semibold) }
     static var onboardSubtitle: UIFont { return UIFont.systemFont(ofSize: 18, weight: .regular) }
+    
+    static var tinySmallText: UIFont { return UIFont.systemFont(ofSize: UIFont.fontSize - 2, weight: .light) }
 
     func with(traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
         guard let descriptor = self.fontDescriptor.withSymbolicTraits(traits) else {
