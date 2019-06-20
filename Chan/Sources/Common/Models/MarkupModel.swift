@@ -18,6 +18,7 @@ class MarkupModel: BaseModel, Decodable {
         case reply
         case spoiler
         case strikethrough
+        case link
         
         static func type(from: String) -> MarkupType {
             switch from {
@@ -31,6 +32,8 @@ class MarkupModel: BaseModel, Decodable {
                 return .spoiler
             case "strikethrough":
                 return .strikethrough
+            case "external":
+                return .link
             default:
                 return .none
             }
@@ -42,6 +45,7 @@ class MarkupModel: BaseModel, Decodable {
     var end: Int = 0
     
     var extra: [String: Any] = [:]
+    var link: URL? = nil
     
     enum CodingKeys : String, CodingKey {
         case type = "kind"
@@ -49,6 +53,7 @@ class MarkupModel: BaseModel, Decodable {
         case end
         
         case post
+        case link
 //        case thread
     }
     
@@ -70,6 +75,10 @@ class MarkupModel: BaseModel, Decodable {
         
         if let post = try? values.decode(String.self, forKey: .post) {
             extra["post"] = post
+        }
+        
+        if let link = try? values.decode(URL.self, forKey: .link) {
+            self.link = link
         }
         
         self.extra = extra

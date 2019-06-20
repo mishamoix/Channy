@@ -49,6 +49,7 @@ class TextPreparation {
                 case .reply: Style.reply(text: attributed, range: range, reply: markup.extra["post"] as? String)
                 case .spoiler: Style.spoiler(text: attributed, range: range)
                 case .strikethrough: Style.strikethrough(text: attributed, range: range)
+                case .link: Style.linkPost(text: attributed, range: range, url: markup.link)
                 case .none: break
             }
         }
