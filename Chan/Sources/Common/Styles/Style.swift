@@ -22,7 +22,7 @@ class Style {
         return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font : UIFont.postTitle, NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.accentText])
     }
     
-    class func em(text: NSMutableAttributedString, range: NSRange) {
+    class func italic(text: NSMutableAttributedString, range: NSRange) {
         text.addAttributes([NSAttributedString.Key.font : UIFont.textItalic], range: range)
     }
     
@@ -30,7 +30,7 @@ class Style {
         text.addAttributes([NSAttributedString.Key.font : UIFont.textStrong], range: range)
     }
     
-    class func emStrong(text: NSMutableAttributedString, range: NSRange) {
+    class func italicStrong(text: NSMutableAttributedString, range: NSRange) {
         text.addAttributes([NSAttributedString.Key.font : UIFont.textItalicStrong], range: range)
     }
     

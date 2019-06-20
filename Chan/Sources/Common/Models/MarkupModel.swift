@@ -19,6 +19,9 @@ class MarkupModel: BaseModel, Decodable {
         case spoiler
         case strikethrough
         case link
+        case underline
+        case italic
+        case italicStrong
         
         static func type(from: String) -> MarkupType {
             switch from {
@@ -34,6 +37,12 @@ class MarkupModel: BaseModel, Decodable {
                 return .strikethrough
             case "external":
                 return .link
+            case "underline":
+                return .underline
+            case "italics":
+                return .italic
+            case "italicStrong":
+                return .italicStrong
             default:
                 return .none
             }

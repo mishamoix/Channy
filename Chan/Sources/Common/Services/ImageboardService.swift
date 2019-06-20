@@ -68,6 +68,7 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
             .observeOn(Helper.rxBackgroundThread)
             .retry(RetryCount)
             .asObservable()
+            
 //            .subscribeOn(Helper.rxBackgroundThread)
             .subscribe(onNext: { [weak self] response in
                 let data = self?.makeModel(data: response.data) ?? []
@@ -75,7 +76,7 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
                 for (idx, obj) in data.enumerated() {
                     obj.sort = idx
                 }
-
+                
                 self?.coreData.saveModels(with: data, with: CoreDataImageboard.self) {
                     self?.loadFromCache()
                     

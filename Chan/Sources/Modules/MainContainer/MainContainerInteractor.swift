@@ -65,6 +65,8 @@ final class MainContainerInteractor: PresentableInteractor<MainContainerPresenta
     // MARK: MarkedListener
     func open(thread: ThreadModel) {
         self.presenter.openBoards()
-        self.boardInput.open(thread: thread)
+        Helper.performOnMainThread {
+            self.boardInput.open(thread: thread)
+        }
     }
 }
