@@ -59,6 +59,7 @@
 "Favorites" = "Favorites";
 "History" = "History";
 "delete_full_list" = "Delete all";
+"pull_to_refresh" = "Pull to Refresh";
 
 
 //BoardSelectionModule
@@ -142,6 +143,7 @@
 "video_open_title" = "Open video";
 "video_open_message" = "NSFW video. Recommend use VLC player.";
 "vlc_in_app_store" = "VLC in AppStore";
+"welcome" = "Welcome";
 
 
 // MainModule

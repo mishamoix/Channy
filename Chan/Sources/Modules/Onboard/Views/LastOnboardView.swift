@@ -20,6 +20,7 @@ class LastOnboardView: SwiftyOnboardPage {
     public var privacyButton: UIButton = {
         let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: "privacy_policy".localized, attributes: [NSAttributedString.Key.foregroundColor : ThemeManager.shared.theme.accnt, NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]), for: .normal)
+        button.contentHorizontalAlignment = .left
         button.sizeToFit()
         return button
     }()
@@ -73,6 +74,7 @@ class LastOnboardView: SwiftyOnboardPage {
         self.tosButton.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(controlOffset)
             make.left.equalToSuperview().offset(controlOffset)
+//            make.right.equalTo(self.tosSwitcher.snp.left).offset(8)
         }
         
         self.tosSwitcher.snp.makeConstraints { make in
@@ -86,6 +88,8 @@ class LastOnboardView: SwiftyOnboardPage {
         self.privacyButton.snp.makeConstraints { make in
             make.top.equalTo(self.tosButton.snp.bottom).offset(controlOffset)
             make.left.equalToSuperview().offset(controlOffset)
+            make.right.equalTo(self.privacySwitcher.snp.left).inset(-8)
+//            make.right.greaterThanOrEqualTo(self.privacySwitcher.snp.left).offset(8)
         }
         
         self.privacySwitcher.snp.makeConstraints { make in

@@ -290,6 +290,9 @@ class BasePostCell: UICollectionViewCell, BasePostCellProtocol {
         self.date.frame = CGRect(x: self.number.frame.maxX + rightOffset, y: self.number.frame.minY + 2, width: self.contentView.frame.width / 2 - rightOffset, height: smallTextHeight)
         
         self.reply.frame = CGRect(x: self.date.frame.minX, y: self.date.frame.maxY + 5, width: self.date.frame.width, height: self.date.frame.height)
+        self.reply.center = self.uid.center
+        self.reply.frame = CGRect(x: self.date.frame.minX, y: self.reply.frame.minY, width: self.date.frame.width, height: self.date.frame.height)
+
         
         self.headerDelimeter.frame = CGRect(x: leftOffset, y: self.uid.frame.maxY + topOffset, width: self.contentView.frame.width - leftOffset, height: 0.5)
         

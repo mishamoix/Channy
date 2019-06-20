@@ -56,5 +56,6 @@ enum BoardAction {
 
 enum BoardCellAction {
     case tapped(cell: UICollectionViewCell)
+    case starTapped(cell: UICollectionViewCell)
 }
 

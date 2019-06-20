@@ -21,8 +21,8 @@ class ThreadCell: SwipeCollectionViewCell {
     @IBOutlet weak var number: UILabel!
     @IBOutlet weak var postsCount: UILabel!
     @IBOutlet weak var newPosts: UILabel!
-    @IBOutlet weak var starred: UIImageView!
     @IBOutlet weak var commentsImage: UIImageView!
+    @IBOutlet weak var starred: UIButton!
     
     private var title: UILabel = UILabel()
     private var message: UILabel = UILabel()
@@ -77,6 +77,15 @@ class ThreadCell: SwipeCollectionViewCell {
 //        
 //        self.canvas.backgroundColor = .snow
         
+        self.starred
+            .rx
+            .tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.actions?.on(.next(.starTapped(cell: self)))
+            })
+            .disposed(by: self.disposeBag)
+        
         self.setupTheme()
         
 //        self.actionsView?.backgroudColor = .clear
@@ -106,9 +115,10 @@ class ThreadCell: SwipeCollectionViewCell {
         
         
         if model.favorited {
-            self.starred.image = .fullStar
+            self.starred.setImage(.fullStar, for: .normal)
         } else {
-            self.starred.image = .star
+            self.starred.setImage(.star, for: .normal)
+//            self.starred.image = .star
         }
         
 //        self.starred.isHidden = true

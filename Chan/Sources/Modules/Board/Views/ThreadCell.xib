@@ -56,29 +56,28 @@
                                     <constraint firstAttribute="width" constant="16" id="RpQ-9r-cNR"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="gJ0-7r-Ty8">
-                                <rect key="frame" x="390" y="112" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="NdS-tk-Xb0"/>
-                                    <constraint firstAttribute="height" constant="20" id="XD1-X8-Uyd"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+43" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeM-hF-icV">
                                 <rect key="frame" x="279.5" y="114" width="28.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hbB-oS-oWk">
+                                <rect key="frame" x="378" y="99" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="W7M-4e-qTh"/>
+                                    <constraint firstAttribute="width" constant="44" id="wyr-zt-LpG"/>
+                                </constraints>
+                                <state key="normal" image="star"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="gJ0-7r-Ty8" secondAttribute="trailing" constant="17" id="5jY-jj-qt6"/>
-                            <constraint firstItem="ofg-d9-sk0" firstAttribute="top" secondItem="gJ0-7r-Ty8" secondAttribute="bottom" constant="16" id="81w-TZ-cJs"/>
+                            <constraint firstItem="hbB-oS-oWk" firstAttribute="centerY" secondItem="gAP-DG-TVX" secondAttribute="centerY" constant="-2" id="04Z-if-Q65"/>
                             <constraint firstItem="CUs-6a-F78" firstAttribute="leading" secondItem="H0b-Un-22L" secondAttribute="leading" constant="17" id="CeT-8h-ARV"/>
                             <constraint firstItem="ofg-d9-sk0" firstAttribute="leading" secondItem="H0b-Un-22L" secondAttribute="leading" constant="17" id="FS4-DQ-sZs"/>
                             <constraint firstAttribute="bottom" secondItem="ofg-d9-sk0" secondAttribute="bottom" id="Ie8-zm-pOd"/>
                             <constraint firstItem="ofg-d9-sk0" firstAttribute="top" secondItem="UeM-hF-icV" secondAttribute="bottom" constant="16" id="TX7-w5-MyV"/>
-                            <constraint firstItem="gJ0-7r-Ty8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UeM-hF-icV" secondAttribute="trailing" constant="8" id="Wam-Vo-N24"/>
                             <constraint firstItem="CUs-6a-F78" firstAttribute="top" secondItem="H0b-Un-22L" secondAttribute="top" constant="23" id="WqO-pu-RaE"/>
                             <constraint firstItem="QmL-1w-CFw" firstAttribute="leading" secondItem="H0b-Un-22L" secondAttribute="leading" priority="100" constant="93" id="Zjt-fI-Mka"/>
                             <constraint firstItem="5U1-PL-wxj" firstAttribute="leading" secondItem="QmL-1w-CFw" secondAttribute="trailing" constant="21" id="ddf-Yj-o8m"/>
@@ -86,6 +85,7 @@
                             <constraint firstItem="ofg-d9-sk0" firstAttribute="top" secondItem="5U1-PL-wxj" secondAttribute="bottom" constant="16" id="khz-w3-gZe"/>
                             <constraint firstItem="UeM-hF-icV" firstAttribute="leading" secondItem="gAP-DG-TVX" secondAttribute="trailing" constant="3" id="n4e-yw-N3v"/>
                             <constraint firstItem="QmL-1w-CFw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H0b-Un-22L" secondAttribute="leading" constant="17" id="nQE-AJ-5OR"/>
+                            <constraint firstAttribute="trailing" secondItem="hbB-oS-oWk" secondAttribute="trailing" constant="5" id="qWg-wi-WeC"/>
                             <constraint firstItem="gAP-DG-TVX" firstAttribute="leading" secondItem="5U1-PL-wxj" secondAttribute="trailing" constant="7" id="qoO-Ye-dSz"/>
                             <constraint firstAttribute="trailing" secondItem="ofg-d9-sk0" secondAttribute="trailing" id="vm9-Z7-kGm"/>
                             <constraint firstItem="ofg-d9-sk0" firstAttribute="top" secondItem="QmL-1w-CFw" secondAttribute="bottom" constant="16" id="ysO-WY-1By"/>
@@ -108,7 +108,7 @@
                 <outlet property="newPosts" destination="UeM-hF-icV" id="tmX-d7-jW9"/>
                 <outlet property="number" destination="QmL-1w-CFw" id="Gzl-7b-Dic"/>
                 <outlet property="postsCount" destination="gAP-DG-TVX" id="tu5-8i-uNg"/>
-                <outlet property="starred" destination="gJ0-7r-Ty8" id="epP-h7-1nN"/>
+                <outlet property="starred" destination="hbB-oS-oWk" id="J35-2x-ByZ"/>
             </connections>
             <point key="canvasLocation" x="408.80000000000001" y="-64.31784107946028"/>
         </collectionViewCell>

@@ -98,7 +98,7 @@ class ThreadImageViewer: NSObject {
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
                 if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx) as? AXChanImage {
-                    Helper.open(url: Helper.prepareMediaProxyIfNeededURL(media: model.media))
+                    Helper.open(url: model.url)
                 }
             })
             .disposed(by: self.disposeBag)

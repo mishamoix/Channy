@@ -1177,20 +1177,20 @@
 			path = Submodules;
 			sourceTree = "<group>";
 		};
-		0A3F115222B9696A003D1ECE /* New Group */ = {
+		0A3F115222B9696A003D1ECE /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				0A3F115322B9697C003D1ECE /* OnboardViewModel.swift */,
 			);
-			path = "New Group";
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		0A3F115522B97868003D1ECE /* New Group1 */ = {
+		0A3F115522B97868003D1ECE /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				0A3F115622B97886003D1ECE /* LastOnboardView.swift */,
 			);
-			path = "New Group1";
+			path = Views;
 			sourceTree = "<group>";
 		};
 		0A4FEA292275F13C00A78A72 /* ParallaxHeader */ = {
@@ -1396,8 +1396,8 @@
 		0AACC175218A56D500B7BD19 /* Onboard */ = {
 			isa = PBXGroup;
 			children = (
-				0A3F115522B97868003D1ECE /* New Group1 */,
-				0A3F115222B9696A003D1ECE /* New Group */,
+				0A3F115522B97868003D1ECE /* Views */,
+				0A3F115222B9696A003D1ECE /* ViewModels */,
 				0AACC180218A5A2A00B7BD19 /* OnboardRouter.swift */,
 				0AACC181218A5A2A00B7BD19 /* OnboardViewController.storyboard */,
 				0AACC182218A5A2A00B7BD19 /* OnboardViewController.swift */,
@@ -1961,7 +1961,6 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftReorder/SwiftReorder.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftTryCatch/SwiftTryCatch.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyOnboard/SwiftyOnboard.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -1987,7 +1986,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftReorder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftTryCatch.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyOnboard.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",

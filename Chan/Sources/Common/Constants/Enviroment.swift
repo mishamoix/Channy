@@ -38,9 +38,9 @@ class Enviroment {
     
     var AdUnitID: String {
         #if RELEASE
-        return "ca-app-pub-2379914676870768/4519745736"
+        return "ca-app-pub-2379914676870768/3063057787"
         #endif
-        
+
         return "ca-app-pub-3940256099942544/2934735716"
     }
     

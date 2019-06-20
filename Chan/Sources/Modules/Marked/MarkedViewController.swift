@@ -35,7 +35,7 @@ final class MarkedViewController: BaseViewController, MarkedPresentable, MarkedV
     private let refreshControl = UIRefreshControl()
     private let disposeBag = DisposeBag()
     @IBOutlet weak var tableView: UITableView!
-    
+    private let pullToRefreshLabel = UILabel()
     
     
     override func viewDidLoad() {
@@ -46,6 +46,7 @@ final class MarkedViewController: BaseViewController, MarkedPresentable, MarkedV
     }
     
     func update(with threads: [ThreadModel]) {
+        self.pullToRefreshLabel.isHidden = threads.count != 0
         self.models = threads
         self.tableView.reloadData()
         self.refreshControl.endRefreshing()
@@ -104,7 +105,18 @@ final class MarkedViewController: BaseViewController, MarkedPresentable, MarkedV
                 }
             }, onError: nil, onCompleted: nil, onDisposed: nil)
             .disposed(by: self.disposeBag)
-
+        
+        self.view.addSubview(self.pullToRefreshLabel)
+        self.pullToRefreshLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(48)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
+        }
+        self.pullToRefreshLabel.text = "pull_to_refresh".localized
+        self.pullToRefreshLabel.textAlignment = .center
+        self.pullToRefreshLabel.font = .tinySmallText
+        self.pullToRefreshLabel.numberOfLines = 0
+        ThemeManager.shared.append(view: ThemeView(view: self.pullToRefreshLabel, type: .text, subtype: .third))
     }
     
     private func setupRx() {

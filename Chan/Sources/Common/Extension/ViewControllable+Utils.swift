@@ -52,8 +52,8 @@ public extension ViewControllable {
         }
     }
     
-    func dismiss(animated: Bool = true) {
-        self.uiviewController.dismiss(animated: animated, completion: nil)
+    func dismiss(animated: Bool = true, completion: (() -> ())? = nil) {
+        self.uiviewController.dismiss(animated: animated, completion: completion)
     }
     
 }

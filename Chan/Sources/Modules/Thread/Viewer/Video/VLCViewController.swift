@@ -46,31 +46,31 @@ class VLCViewController: UIViewController {
         self.mediaPlayer.delegate = self
         RotationManager.apply(orientation: .all)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
 //        self.mediaPlayer.play()
         self.changePlay()
-        
+
 //        self.mediaPlayer.time = VLCTime(int: 3)
     }
-    
+
     private func setup() {
         if let url = self.url {
             self.mediaPlayer.drawable = self.movieView
             self.mediaPlayer.media = VLCMedia(url: url)
 //            self.media
         }
-        
+
         self.setupUI()
         self.setupRx()
         self.setupGesture()
-        
+
     }
-    
-    
-    
+
+
+
     private func setupUI() {
 //        let theme = ThemeManager.shared.theme
         self.closeButton.tintColor = .white
@@ -78,18 +78,18 @@ class VLCViewController: UIViewController {
         self.remaingTime.textColor = .white
         self.timeSlider.tintColor = .white
         self.playPauseButton.tintColor = .white
-        
+
         let corenrRadius: CGFloat = 8
         self.controlCanvas.clipsToBounds = true
         self.controlCanvas.layer.cornerRadius = corenrRadius
         self.controlCanvas.backgroundColor = .black
-        
+
         self.closeCanvas.clipsToBounds = true
         self.closeCanvas.layer.cornerRadius = corenrRadius
         self.closeCanvas.backgroundColor = .black
-        
+
         self.movieView.backgroundColor = .black
-        
+
         self.timeSlider.maximumValue = 1.0
         self.timeSlider.minimumValue = 0.0
         self.timeSlider.value = 0.0
@@ -105,8 +105,8 @@ class VLCViewController: UIViewController {
                 self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: self.disposeBag)
-        
-        
+
+
         self.timeSlider
             .rx
             .value
@@ -116,8 +116,8 @@ class VLCViewController: UIViewController {
                 self.mediaPlayer.time = VLCTime(int: self.sliderToTime())
             })
             .disposed(by: self.disposeBag)
-        
-        
+
+
 //        self.timeSlider
 //            .rx
 //            .controlEvent(.editingDidBegin)
@@ -130,7 +130,7 @@ class VLCViewController: UIViewController {
 //            })
 //            .disposed(by: self.disposeBag)
 
-        
+
         self.playPauseButton
             .rx
             .tap
@@ -140,12 +140,12 @@ class VLCViewController: UIViewController {
             .disposed(by: self.disposeBag)
 
     }
-    
+
     private func setupGesture() {
         let tapGesture = UITapGestureRecognizer()
         self.movieView.addGestureRecognizer(tapGesture)
         self.movieView.isUserInteractionEnabled = true
-        
+
         tapGesture
             .rx
             .event
@@ -154,8 +154,8 @@ class VLCViewController: UIViewController {
             })
             .disposed(by: self.disposeBag)
     }
-    
-    
+
+
     private func changePlay() {
         if self.state == .paused {
             self.state = .playing
@@ -167,11 +167,11 @@ class VLCViewController: UIViewController {
             self.playPauseButton.setImage(.playVideo, for: .normal)
         }
     }
-    
+
     private func changeDisplay() {
         self.closeCanvas.layer.removeAllAnimations()
         self.controlCanvas.layer.removeAllAnimations()
-        
+
         if self.canvasDiaplayed {
             self.canvasDiaplayed = false
             self.closeCanvas.layer.opacity = 1
@@ -202,7 +202,7 @@ class VLCViewController: UIViewController {
 
         }
     }
-    
+
 
     private func timeToSlider(time: Float) -> Float {
         if self.fullTime == 0 {
@@ -210,7 +210,7 @@ class VLCViewController: UIViewController {
         }
         return min(1, time / self.fullTime)
     }
-    
+
     private func sliderToTime() -> Int32 {
         return Int32(self.timeSlider.value * self.fullTime)
     }
@@ -221,18 +221,18 @@ class VLCViewController: UIViewController {
 
 extension VLCViewController: VLCMediaPlayerDelegate {
     func mediaPlayerTimeChanged(_ aNotification: Notification!) {
-        
+
         if let remainingTime = self.mediaPlayer.remainingTime.value, self.fullTime == 0 {
             self.fullTime = self.mediaPlayer.time.value.floatValue + abs(remainingTime.floatValue)
         }
-        
+
         if self.canChangeSlider {
             self.timeSlider.value = self.timeToSlider(time: self.mediaPlayer.time.value.floatValue)
         }
-        
+
         self.currentTime.text = self.mediaPlayer.time.stringValue
         self.remaingTime.text = self.mediaPlayer.remainingTime.stringValue
     }
-    
-    
+
+
 }

@@ -81,7 +81,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             nc.interactivePopPanGestureRecognizer?.isEnabled = false
         }
         
-        self.updateRightLabel(hide: false)
+//        self.updateRightLabel(hide: false)
 //        self.updateLargeTitleSize()
 
 
@@ -93,8 +93,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
             nc.interactivePopPanGestureRecognizer?.isEnabled = true
         }
         
-        self.updateRightLabel(hide: true)
-        
+//        self.updateRightLabel(hide: true)
+      
 //        self.largeTitle?.alpha = 0
     }
     
@@ -103,7 +103,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
         
         
         coordinator.animate(alongsideTransition: { context in
-            self.collectionView.collectionViewLayout.invalidateLayout()
+//            self.collectionView.collectionViewLayout.invalidateLayout()
         }) { context in
 //            self.collectionView.layoutSubviews()
         }
@@ -139,6 +139,16 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     
     var serachActive: Bool {
         return self.searchController.isActive
+    }
+    
+    func scrollToTop() {
+        if #available(iOS 11.0, *) {
+            self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.adjustedContentInset.top), animated: true)
+        } else {
+            self.collectionView.setContentOffset(CGPoint(x: 0, y: self.collectionView.contentInset.top), animated: true)
+
+            // Fallback on earlier versions
+        }
     }
 
     //MARK: Private
@@ -224,6 +234,11 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 case .tapped(let cell): do {
                     if let idx = self?.collectionView.indexPath(for: cell), let model = self?.data[idx.row] {
                         self?.listener?.viewActions.on(.next(.openThread(uid: model.uid)))
+                    }
+                }
+                case .starTapped(let cell): do {
+                    if let idx = self?.collectionView.indexPath(for: cell), let model = self?.data[idx.row] {
+                        self?.listener?.viewActions.on(.next(.addToFavorites(uid: model.uid)))
                     }
                 }
                 }
@@ -324,10 +339,11 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 
                 let rightNavbarLabel = UILabel()
                 rightNavbarLabel.font = .largeSubtitle
+//                rightNavbarLabel.text = "/b"
                 
                 let leftNavbarLabel = UILabel()
                 leftNavbarLabel.font = .largeTitle
-                
+//                leftNavbarLabel.text = "welcome".localized
                 if let largeTitleView = self.largeTitleView {
                     largeTitleView.addSubview(rightNavbarLabel)
                     largeTitleView.addSubview(leftNavbarLabel)
@@ -359,7 +375,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 self.searchController.obscuresBackgroundDuringPresentation = false
                 self.searchController.hidesNavigationBarDuringPresentation = false
                 
-                
+                self.leftNavbarLabel?.text = "welcome".localized
+                self.rightNavbarLabel?.text = "/b"
                 
             }
         } else {

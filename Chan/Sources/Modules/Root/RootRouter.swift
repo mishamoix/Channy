@@ -85,9 +85,10 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
         self.viewController.closeMenu()
     }
     
-    func closeOnboarding() {
-        self.onboard?.viewControllable.dismiss(animated: false)
-//        self.tryDeattach(router: self.onboard) { }
+    func closeOnboardingOpenMain() {
+        self.onboard?.viewControllable.dismiss(animated: false) { [weak self] in
+            self?.setupMainViews()
+        }
     }
     
     private func showOnboardingIfNeeded() -> Bool {

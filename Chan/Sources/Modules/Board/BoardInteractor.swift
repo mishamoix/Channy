@@ -18,6 +18,7 @@ protocol BoardRouting: ViewableRouting {
     func openCreateThread(_ thread: ThreadModel)
     func closeCreateThread()
     
+    
 }
 
 protocol BoardPresentable: Presentable {
@@ -27,6 +28,8 @@ protocol BoardPresentable: Presentable {
     
     func stopLoadersAfterRefresh()
     var serachActive: Bool { get }
+
+    func scrollToTop()
 
 }
 
@@ -122,6 +125,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         if self.isLoading && !reload { return }
         self.isLoading = true
  
+
         
         StatisticManager.openBoard(model: board)
         
@@ -182,7 +186,12 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 })
             })
             .subscribe(onNext: { [weak self] models in
-                
+                if reload {
+                    Helper.performOnMainThread {
+                        self?.presenter.scrollToTop()
+                    }
+                }
+
                 let _ = models.map({ $0.board = self?.currentModel })
                 
                 self?.isLoading = false
@@ -197,6 +206,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                 self?.updateData()
                 
                 self?.presenter.stopLoadersAfterRefresh()
+                
             }, onError: { [weak self] err in
                 self?.isLoading = false
                 self?.presenter.stopAnyLoaders()

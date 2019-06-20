@@ -9,7 +9,7 @@
 import RIBs
 import RxSwift
 import UIKit
-import SwiftyOnboard
+//import SwiftyOnboard
 import SnapKit
 
 
