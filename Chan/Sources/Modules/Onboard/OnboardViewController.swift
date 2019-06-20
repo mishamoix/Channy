@@ -29,6 +29,9 @@ final class OnboardViewController: BaseViewController, OnboardPresentable, Onboa
     private let overlay = SwiftyOnboardOverlay()
     private let lastOnboard = LastOnboardView()
     
+    private var tosAccepted = false
+    private var privacyAccepted = false
+    
     private var data: [OnboardViewModel] = []
     
     override func viewDidLoad() {
@@ -37,11 +40,14 @@ final class OnboardViewController: BaseViewController, OnboardPresentable, Onboa
     }
     
     func acceptToS() {
-        self.lastOnboard.tosSwitcher.isOn = true
+        self.tosAccepted = true
+        self.updateCheckbox(button: self.lastOnboard.tosSwitcher, check: self.tosAccepted)
+//        self.lastOnboard.tosSwitcher.isOn = true
         self.updateLetsGo()
     }
     func acceptPrivacy() {
-        self.lastOnboard.privacySwitcher.isOn = true
+        self.privacyAccepted = true
+        self.updateCheckbox(button: self.lastOnboard.privacySwitcher, check: self.privacyAccepted)
         self.updateLetsGo()
     }
     
@@ -95,18 +101,24 @@ final class OnboardViewController: BaseViewController, OnboardPresentable, Onboa
         self.lastOnboard
             .tosSwitcher
             .rx
-            .value
+            .tap
             .subscribe(onNext: { [weak self] _ in
-                self?.updateLetsGo()
+                guard let self = self else { return }
+                self.tosAccepted = !self.tosAccepted
+                self.updateCheckbox(button: self.lastOnboard.tosSwitcher, check: self.tosAccepted)
+                self.updateLetsGo()
             })
             .disposed(by: self.disposeBag)
         
         self.lastOnboard
             .privacySwitcher
             .rx
-            .value
+            .tap
             .subscribe(onNext: { [weak self] _ in
-                self?.updateLetsGo()
+                guard let self = self else { return }
+                self.privacyAccepted = !self.privacyAccepted
+                self.updateCheckbox(button: self.lastOnboard.privacySwitcher, check: self.privacyAccepted)
+                self.updateLetsGo()
             })
             .disposed(by: self.disposeBag)
         
@@ -122,7 +134,7 @@ final class OnboardViewController: BaseViewController, OnboardPresentable, Onboa
     }
     
     private func updateLetsGo() {
-        if self.lastOnboard.tosSwitcher.isOn && self.lastOnboard.privacySwitcher.isOn {
+        if self.tosAccepted && self.privacyAccepted {
             self.lastOnboard.letsgoButton.isEnabled = true
             self.lastOnboard.letsgoButton.layer.opacity = 1.0
         } else {
@@ -140,8 +152,14 @@ final class OnboardViewController: BaseViewController, OnboardPresentable, Onboa
         self.onboard.style = .light
         self.onboard.backgroundColor = ThemeManager.shared.theme.background
         self.onboard.dataSource = self
+        self.onboard.delegate = self
         self.onboard.shouldSwipe = true
 //        self.onboard.con
+    }
+    
+    private func updateCheckbox(button: UIButton, check: Bool) {
+        let image: UIImage = check ? .checkboxChecked : .checkboxUnchecked
+        button.setImage(image, for: .normal)
     }
 }
 
@@ -178,4 +196,14 @@ extension OnboardViewController: SwiftyOnboardDataSource {
     }
 
     
+}
+
+extension OnboardViewController: SwiftyOnboardDelegate {
+    func swiftyOnboard(_ swiftyOnboard: SwiftyOnboard, currentPage index: Int) {
+        if index == self.data.count - 1 {
+            self.overlay.skipButton.isHidden = true
+        } else {
+            self.overlay.skipButton.isHidden = false
+        }
+    }
 }

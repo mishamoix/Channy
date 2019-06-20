@@ -25,23 +25,20 @@ class LastOnboardView: SwiftyOnboardPage {
         return button
     }()
     
-    public var tosSwitcher: UISwitch = {
-        let switcher = UISwitch()
-        
-        switcher.isOn = false
-        switcher.tintColor = ThemeManager.shared.theme.accnt
-        switcher.onTintColor = ThemeManager.shared.theme.accnt
-        
-        return switcher
+    public var tosSwitcher: UIButton = {
+        let button = UIButton()
+        button.tintColor = ThemeManager.shared.theme.accnt
+//        button.intColor = ThemeManager.shared.theme.accnt
+        button.setImage(.checkboxUnchecked, for: .normal)
+        return button
     }()
     
-    public var privacySwitcher: UISwitch = {
-        let switcher = UISwitch()
-        
-        switcher.isOn = false
-        switcher.tintColor = ThemeManager.shared.theme.accnt
-        switcher.onTintColor = ThemeManager.shared.theme.accnt
-        return switcher
+    public var privacySwitcher: UIButton = {
+        let button = UIButton()
+        button.tintColor = ThemeManager.shared.theme.accnt
+//        button.onTintColor = ThemeManager.shared.theme.accnt
+        button.setImage(.checkboxUnchecked, for: .normal)
+        return button
     }()
 
     public var letsgoButton: UIButton = {
@@ -74,12 +71,12 @@ class LastOnboardView: SwiftyOnboardPage {
         self.tosButton.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(controlOffset)
             make.left.equalToSuperview().offset(controlOffset)
-//            make.right.equalTo(self.tosSwitcher.snp.left).offset(8)
         }
         
         self.tosSwitcher.snp.makeConstraints { make in
             make.top.equalTo(self.imageView.snp.bottom).offset(controlOffset)
             make.right.equalToSuperview().offset(-controlOffset)
+            make.height.width.equalTo(44)
         }
         
         self.addSubview(self.privacyButton)
@@ -89,12 +86,12 @@ class LastOnboardView: SwiftyOnboardPage {
             make.top.equalTo(self.tosButton.snp.bottom).offset(controlOffset)
             make.left.equalToSuperview().offset(controlOffset)
             make.right.equalTo(self.privacySwitcher.snp.left).inset(-8)
-//            make.right.greaterThanOrEqualTo(self.privacySwitcher.snp.left).offset(8)
         }
         
         self.privacySwitcher.snp.makeConstraints { make in
             make.top.equalTo(self.tosButton.snp.bottom).offset(controlOffset)
             make.right.equalToSuperview().offset(-controlOffset)
+            make.height.width.equalTo(44)
         }
 
         self.addSubview(self.letsgoButton)

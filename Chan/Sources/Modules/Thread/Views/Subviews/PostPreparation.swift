@@ -104,7 +104,7 @@ class PostPreparation {
         var strongs: [NSRange] = []
 
         self.regexFind(regex: "<em[^>]*>(.*?)</em>", range: range) { range in
-            Style.em(text: self.attributedText, range: range)
+//            Style.em(text: self.attributedText, range: range)
             ems.append(range)
 
         }
@@ -118,7 +118,7 @@ class PostPreparation {
             for strong in strongs {
                 let emStrongRange = NSIntersectionRange(em, strong)
                 if emStrongRange.length != 0 {
-                    Style.emStrong(text: self.attributedText, range: emStrongRange)
+//                    Style.emStrong(text: self.attributedText, range: emStrongRange)
                 }
             }
         }

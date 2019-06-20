@@ -50,6 +50,9 @@ class TextPreparation {
                 case .spoiler: Style.spoiler(text: attributed, range: range)
                 case .strikethrough: Style.strikethrough(text: attributed, range: range)
                 case .link: Style.linkPost(text: attributed, range: range, url: markup.link)
+                case .underline: Style.underline(text: attributed, range: range)
+                case .italic: Style.italic(text: attributed, range: range)
+                case .italicStrong: Style.italicStrong(text: attributed, range: range)
                 case .none: break
             }
         }

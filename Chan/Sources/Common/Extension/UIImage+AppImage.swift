@@ -47,4 +47,6 @@ extension UIImage {
     static var onboardingHat: UIImage { return UIImage(named: "obHat")!}
     static var onboardingLegion: UIImage { return UIImage(named: "obLegion")!}
     static var onboardingTheme: UIImage { return UIImage(named: "obTheme")!}
+    static var checkboxChecked: UIImage { return UIImage(named: "checkBoxChecked")!}
+    static var checkboxUnchecked: UIImage { return UIImage(named: "checkBoxUnchecked")!}
 }

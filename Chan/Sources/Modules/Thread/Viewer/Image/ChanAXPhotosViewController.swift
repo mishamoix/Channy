@@ -20,33 +20,34 @@ class ChanAXPhotosViewController: AXPhotosViewController {
             return
         }
         
-        let anyRepresentation: Any? = image.jpegData(compressionQuality: 1.0)
+//        let anyRepresentation: UIImage = image.jpegData(compressionQuality: 1.0)
 //        if let imageData = photo.imageData {
 //            anyRepresentation = imageData
 //        } else if let image = photo.image {
 //            anyRepresentation = image
 //        }
         
-        guard let uAnyRepresentation = anyRepresentation else {
-            return
-        }
+//        guard let uAnyRepresentation = anyRepresentation else {
+//            return
+//        }
         
-        let activityViewController = UIActivityViewController(activityItems: [uAnyRepresentation], applicationActivities: nil)
-        activityViewController.completionWithItemsHandler = { [weak self] (activityType, completed, returnedItems, activityError) in
-            
-            
-            guard let `self` = self else {
-                return
-            }
-            
-            if completed, let activityType = activityType {
-                if activityType == UIActivity.ActivityType.saveToCameraRoll {
-                    CameraPermissionManager.request()
-                }
-                self.actionCompleted(activityType: activityType, for: photo)
-            }
-            
-        }
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+//        activityViewController.completionWithItemsHandler = { [weak self] (activityType, completed, returnedItems, activityError) in
+//            
+//            
+//            guard let `self` = self else {
+//                return
+//            }
+//            
+//            if let activityType = activityType, completed {
+////                if activityType == UIActivity.ActivityType.saveToCameraRoll {
+////                    CameraPermissionManager.request()
+////                }
+//                self.actionCompleted(activityType: activityType, for: photo)
+//            }
+//            
+//        }
         
         
         activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
