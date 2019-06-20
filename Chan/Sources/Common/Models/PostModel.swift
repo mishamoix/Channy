@@ -53,11 +53,16 @@ class PostModel: BaseModel, Decodable {
             self.markups += replies
         }
         
+        if let links = try? values.decode([MarkupModel].self, forKey: .links) {
+            self.markups += links
+        }
+
+        
         if let replies = try? values.decode([String].self, forKey: .selfReplies) {
             self.selfReplies = replies
         }
 
-
+        
       
     }
     
@@ -73,6 +78,7 @@ class PostModel: BaseModel, Decodable {
         case markups = "decorations"
         case replies
         case selfReplies
+        case links
     }
 
     

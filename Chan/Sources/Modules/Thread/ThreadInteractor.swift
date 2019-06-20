@@ -243,6 +243,9 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
     }
     
     private func openByTextIndex(postUid: String, url: URL) {
+        
+        Helper.open(url: url)
+        
 //        let posts = self.data
 //        let thread = self.thread
         
