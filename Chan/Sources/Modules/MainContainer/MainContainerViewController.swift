@@ -12,9 +12,7 @@ import UIKit
 import SnapKit
 
 protocol MainContainerPresentableListener: class {
-    // TODO: Declare properties and methods that the view controller can invoke to perform
-    // business logic, such as signIn(). This protocol is implemented by the corresponding
-    // interactor class.
+    func tabbarWillChange()
 }
 
 final class MainContainerViewController: BaseTabBarController, MainContainerPresentable, MainContainerViewControllable {
@@ -74,10 +72,14 @@ final class MainContainerViewController: BaseTabBarController, MainContainerPres
     private func setupTheme() {
         ThemeManager.shared.append(view: ThemeView(view: self.tabBarView, type: .background, subtype: .none))
     }
+  
+    
 }
 
 extension MainContainerViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        self.listener?.tabbarWillChange()
         return true
     }
+
 }

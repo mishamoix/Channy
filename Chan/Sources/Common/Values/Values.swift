@@ -131,10 +131,8 @@ class Values {
     
     var proxy: ProxyModel? {
         get {
-            if Defaults.hasKey(.historyWrite) {
-                if let value = Defaults[.proxy], let model = ProxyModel.parse(from: value) {
-                    return model
-                }
+            if let value = Defaults[.proxy], let model = ProxyModel.parse(from: value) {
+                return model
             }
             return nil
         }
