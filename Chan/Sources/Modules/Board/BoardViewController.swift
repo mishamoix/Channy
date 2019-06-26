@@ -63,6 +63,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
     // MARK: Main
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.definesPresentationContext = true
         self.setup()
     }
     
@@ -149,6 +150,10 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
 
             // Fallback on earlier versions
         }
+    }
+    
+    func deactivateSearch() {
+//        self.searchController.isActive = false
     }
 
     //MARK: Private
@@ -374,6 +379,8 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 self.navigationItem.searchController = self.searchController
                 self.searchController.obscuresBackgroundDuringPresentation = false
                 self.searchController.hidesNavigationBarDuringPresentation = false
+                self.searchController.dimsBackgroundDuringPresentation = false
+                self.searchController.definesPresentationContext = true
                 
                 self.leftNavbarLabel?.text = "welcome".localized
                 self.rightNavbarLabel?.text = "/b"

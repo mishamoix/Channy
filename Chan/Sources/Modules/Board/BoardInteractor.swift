@@ -30,6 +30,7 @@ protocol BoardPresentable: Presentable {
     var serachActive: Bool { get }
 
     func scrollToTop()
+    func deactivateSearch()
 
 }
 
@@ -42,6 +43,7 @@ protocol BoardListener: class {
 
 protocol BoardInputProtocol {
     func open(thread: ThreadModel)
+    func deactivateSearch()
 }
 
 final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInteractable, BoardPresentableListener, BoardInputProtocol {
@@ -105,6 +107,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     func open(thread: ThreadModel) {
         self.router?.open(thread: thread)
+    }
+    
+    func deactivateSearch() {
+        self.presenter.deactivateSearch()
     }
     
     // MARK: Private

@@ -69,4 +69,9 @@ final class MainContainerInteractor: PresentableInteractor<MainContainerPresenta
             self.boardInput.open(thread: thread)
         }
     }
+    
+    // MARK: MainContainerPresentableListener
+    func tabbarWillChange() {
+        self.boardInput.deactivateSearch()
+    }
 }
