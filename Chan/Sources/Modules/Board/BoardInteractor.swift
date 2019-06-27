@@ -122,9 +122,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         
         guard let board = self.currentModel else {
             self.presenter.stopAnyLoaders()
-
-            let error = ChanError.error(title: "", description: "need_select_imageboard_and_board".localized)
-            ErrorDisplay(error: error, buttons: [.ok]).show(on: self.presenter.vc)
+            self.listener?.openMenu()
+            
+//            let error = ChanError.error(title: "", description: "need_select_imageboard_and_board".localized)
+//            ErrorDisplay(error: error, buttons: [.ok]).show(on: self.presenter.vc)
             return
         }
         

@@ -70,6 +70,7 @@ final class OnboardViewController: BaseViewController, OnboardPresentable, Onboa
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.onboard.goToPage(index: self.data.count - 1, animated: true)
+                self.swiftyOnboard(self.onboard, currentPage: self.data.count - 1)
             })
             .disposed(by: self.disposeBag)
 

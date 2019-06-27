@@ -53,10 +53,14 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
             var menu: UIViewController?
             var mainView: UIViewController?
             
+            var mainContainerObj: MainContainerRouting?
+            var menuContainerObj: MenuRouting?
+
             if self.canDeattach(router: self.mainContainer) {
                 let mainContainer = self.mainContainerBuilder.build(withListener: self.interactor)
                 self.mainContainer = mainContainer
-                self.attachChild(mainContainer)
+                mainContainerObj = mainContainer
+//                self.attachChild(mainContainer)
                 
                 mainView = mainContainer.viewControllable.uiviewController
             }
@@ -64,7 +68,8 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
             if self.canDeattach(router: self.menu) {
                 let menuModule = self.menuBuilder.build(withListener: self.interactor)
                 self.menu = menuModule
-                self.attachChild(menuModule)
+                menuContainerObj = menuModule
+//                self.attachChild(menuModule)
                 
                 menu = menuModule.viewControllable.uiviewController
             }
@@ -73,6 +78,15 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
             
             if let menu = menu, let mainView = mainView {
                 self.viewController.setupViews(main: mainView, side: menu)
+            }
+            
+            
+            if let main = mainContainerObj {
+                self.attachChild(main)
+            }
+            
+            if let menu = menuContainerObj {
+                self.attachChild(menu)
             }
         }
     }
