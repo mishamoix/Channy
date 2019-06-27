@@ -501,7 +501,7 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
             cl.update(with: data)
             cl.update(action: self.cellActions)
         } else if let cell = cell as? AdsPostCell, let data = data as? AdPostViewModel {
-            cell.update(model: data, vc: self)
+//            cell.update(model: data, vc: self)
         }
         return cell
     }
@@ -634,35 +634,15 @@ extension ThreadViewController: UICollectionViewDelegateFlowLayout {
             return CGPoint(x: 0, y: newFrame.minY)
         }
         return proposedContentOffset
-
-
-        
-//        if let centerCellIdx = self.savedIndexForRotate {
-//            self.savedIndexForRotate = nil
-//            if let centerCellFrame = self.collectionView.layoutAttributesForItem(at: centerCellIdx)?.frame {
-//                let b = centerCellFrame.minY - self.collectionView.frame.height / 2.0
-//                return CGPoint(x: 0, y: centerCellFrame.origin.y)
-//            }
-//
-//        }
-//
-//        return CGPoint(x: 0, y: 0)
     }
     
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        let path = UIBezierPath(roundedRect: cell.contentView.bounds, cornerRadius: ThreadCornerRadius)
-//        let mask = CAShapeLayer()
-//        mask.path = path.cgPath
-//        cell.contentView.layer.mask = mask
+        if let cell = cell as? AdsPostCell, let data = self.data[indexPath.row] as? AdPostViewModel {
+            cell.update(model: data, vc: self)
+        }
     }
+
 }
 
-//extension ThreadViewController: KRPullLoadViewDelegate {
-//    func pullLoadView(_ pullLoadView: KRPullLoadView, didChangeState state: KRPullLoaderState, viewType type: KRPullLoaderType) {
-//        switch state {
-//        case .loading(_): self.refresh()
-//        default: break
-//        }
-//    }
-//}
+
