@@ -144,8 +144,8 @@
 "video_open_message" = "NSFW video. Recommend use VLC player.";
 "vlc_in_app_store" = "VLC in AppStore";
 "welcome" = "Welcome";
-"hide" = "Hide";
-"open" = "Open";
+"hide" = "Collapse";
+"open" = "Uncollapse";
 
 
 // MainModule
