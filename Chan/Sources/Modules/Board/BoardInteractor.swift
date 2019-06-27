@@ -297,6 +297,14 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
                     
                 case .hide(let uid): do {
                     guard let self = self else { return }
+                    
+                    if HiddenThreadManager.shared.hidden(uid: uid) {
+                        HiddenThreadManager.shared.remove(thread: uid)
+                    } else {
+                        HiddenThreadManager.shared.add(thread: uid)
+                    }
+                    
+                    self.updateData()
 //                    let model = self.data[idx]
 //                    model.
                     
@@ -373,7 +381,13 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     func filterThreads(view models: [ThreadViewModel], isActive: Bool, search text: String?) -> [ThreadViewModel] {
         
         if !isActive {
-            return models
+            let result = models.map({ model -> ThreadViewModel in
+                model.hidden = HiddenThreadManager.shared.hidden(uid: model.uid)
+                model.needReload = true
+                return model
+            })
+
+            return result
         }
         
         guard let text = text, text.count > 0 else {
@@ -382,8 +396,12 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         
         let searchText = text.lowercased()
         
-        let result = models.filter({ $0.displayText?.lowercased().contains(searchText) ?? false })
-        
+        var result = models.filter({ $0.displayText?.lowercased().contains(searchText) ?? false })
+        result = models.map({ model -> ThreadViewModel in
+            model.hidden = HiddenThreadManager.shared.hidden(uid: model.uid)
+            return model
+        })
+
         return result
     }
     

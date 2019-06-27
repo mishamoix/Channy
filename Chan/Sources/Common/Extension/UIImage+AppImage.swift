@@ -39,6 +39,7 @@ extension UIImage {
     static var pauseVideo: UIImage { return UIImage(named: "pause")!}
     static var playVideo: UIImage { return UIImage(named: "playVideo")!}
     static var playerCircle: UIImage { return UIImage(named: "playerCircle")!}
+    static var hideThread: UIImage { return UIImage(named: "hideThread")!}
 
 
     // onboarding

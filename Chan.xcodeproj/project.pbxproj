@@ -209,6 +209,9 @@
 		0A7A379C22A8096F00E35C49 /* ProxyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A379B22A8096F00E35C49 /* ProxyService.swift */; };
 		0A7B1D2F217B3AA200EE212A /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */; };
 		0A7B1D31217B3B7900EE212A /* WebmPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */; };
+		0A7C038922C4F4D00029E0E2 /* HiddenThreadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7C038822C4F4D00029E0E2 /* HiddenThreadManager.swift */; };
+		0A7C038C22C4F89B0029E0E2 /* HiddenThreadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7C038A22C4F89B0029E0E2 /* HiddenThreadCell.swift */; };
+		0A7C038D22C4F89B0029E0E2 /* HiddenThreadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A7C038B22C4F89B0029E0E2 /* HiddenThreadCell.xib */; };
 		0A7C0A4622B69BF800FAFC63 /* VLCViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7C0A4522B69BF800FAFC63 /* VLCViewController.storyboard */; };
 		0A856293216E518900D053F7 /* ThreadImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A856292216E518900D053F7 /* ThreadImageViewer.swift */; };
 		0A86048622106817004C6B6C /* VLCOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86048522106817004C6B6C /* VLCOpener.swift */; };
@@ -547,6 +550,9 @@
 		0A7A379B22A8096F00E35C49 /* ProxyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyService.swift; sourceTree = "<group>"; };
 		0A7B1D2E217B3AA200EE212A /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		0A7B1D30217B3B7900EE212A /* WebmPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebmPlayerViewController.swift; sourceTree = "<group>"; };
+		0A7C038822C4F4D00029E0E2 /* HiddenThreadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenThreadManager.swift; sourceTree = "<group>"; };
+		0A7C038A22C4F89B0029E0E2 /* HiddenThreadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenThreadCell.swift; sourceTree = "<group>"; };
+		0A7C038B22C4F89B0029E0E2 /* HiddenThreadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HiddenThreadCell.xib; sourceTree = "<group>"; };
 		0A7C0A4522B69BF800FAFC63 /* VLCViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VLCViewController.storyboard; sourceTree = "<group>"; };
 		0A856292216E518900D053F7 /* ThreadImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadImageViewer.swift; sourceTree = "<group>"; };
 		0A86048522106817004C6B6C /* VLCOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCOpener.swift; sourceTree = "<group>"; };
@@ -932,6 +938,8 @@
 				0A2E0CD22145A3FE00CBD619 /* ThreadCell.xib */,
 				0AD6DA2D22A9641300024DED /* AdThreadCell.swift */,
 				0A1CCD8722ABDD5700E66278 /* AdThreadCell.xib */,
+				0A7C038A22C4F89B0029E0E2 /* HiddenThreadCell.swift */,
+				0A7C038B22C4F89B0029E0E2 /* HiddenThreadCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1278,6 +1286,7 @@
 				0A72E18D21BABEB500BD488E /* StatisticManager.swift */,
 				0AFFD86922B679A100BD723A /* QueueManager.swift */,
 				0AFFD86B22B694BF00BD723A /* RotationManager.swift */,
+				0A7C038822C4F4D00029E0E2 /* HiddenThreadManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1890,6 +1899,7 @@
 				0A905F6F21A9B10000ADE51E /* WriteViewController.storyboard in Resources */,
 				0A86411D2250E1B9000BBE07 /* BoardSelectionViewController.storyboard in Resources */,
 				0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */,
+				0A7C038D22C4F89B0029E0E2 /* HiddenThreadCell.xib in Resources */,
 				0A2E0CB12145589600CBD619 /* BoardsTableHeader.xib in Resources */,
 				0A7A378E22A7F83C00E35C49 /* ProxyViewController.storyboard in Resources */,
 				0A2E0CBD2145790300CBD619 /* BoardViewController.storyboard in Resources */,
@@ -2077,6 +2087,7 @@
 				0A197B0022AC0179004116D2 /* AdPostViewModel.swift in Sources */,
 				0A5E787B22B28F99001A584E /* AXChanImage.swift in Sources */,
 				0A197AEB22ABF93E004116D2 /* SwipeCollectionViewCellDelegate.swift in Sources */,
+				0A7C038922C4F4D00029E0E2 /* HiddenThreadManager.swift in Sources */,
 				0AFFFDB42149AACD0002E832 /* ThreadService.swift in Sources */,
 				0A2E0CA32145561E00CBD619 /* BoardsListCell.swift in Sources */,
 				0AACC191218A5A8800B7BD19 /* SwiftyOnboardOverlay.swift in Sources */,
@@ -2153,6 +2164,7 @@
 				0A2D0C6A21A4942800B38224 /* UIView+Utils.swift in Sources */,
 				0AFD187B2235195200F844BE /* ImageboardTarget.swift in Sources */,
 				0A197AF822ABFB44004116D2 /* Swipeable.swift in Sources */,
+				0A7C038C22C4F89B0029E0E2 /* HiddenThreadCell.swift in Sources */,
 				0A8641202250E1B9000BBE07 /* BoardSelectionInteractor.swift in Sources */,
 				0A2E0CCE2145A36300CBD619 /* TGReusableLabel.mm in Sources */,
 				0AACC187218A5A2A00B7BD19 /* OnboardViewController.swift in Sources */,

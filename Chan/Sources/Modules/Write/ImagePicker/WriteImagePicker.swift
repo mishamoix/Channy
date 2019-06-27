@@ -26,7 +26,7 @@ class WriteImagePicker: NSObject {
     
     
     func pickImage(from vc: UIViewController) -> Observable<UIImage?> {
-        CameraPermissionManager.request()
+//        CameraPermissionManager.request()
         
         vc.present(self.picker, animated: true, completion: nil)
         

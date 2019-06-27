@@ -143,7 +143,8 @@
 "video_open_message" = "Видео содержит неприемлимый контент. Для просмотра рекомендуем установить VLC плеер.";
 "vlc_in_app_store" = "VLC в AppStore";
 "welcome" = "Привет";
-
+"hide" = "Скрыть";
+"open" = "Раскрыть";
 
 
 // MainModule

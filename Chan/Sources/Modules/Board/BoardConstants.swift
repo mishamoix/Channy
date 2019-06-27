@@ -38,6 +38,8 @@ let ThreadTitleMessageMargin: CGFloat = 4
 
 let ImageCornerRadius: CGFloat = 14
 
+let HiddenThreadHeight: CGFloat = 60
+
 
 enum BoardAction {
     case loadNext

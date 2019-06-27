@@ -20,6 +20,8 @@ class CoreDataImageboard: NSManagedObject {
     @NSManaged var logo: String?
     @NSManaged var maxImages: Int64
     @NSManaged var highlight: String?
+    @NSManaged var label: String?
+
     @NSManaged var sort: Int64
     @NSManaged var current: Bool
     
@@ -73,6 +75,7 @@ extension CoreDataImageboard: CacheTrackerEntity {
             self.maxImages = Int64(obj.maxImages)
 
             self.highlight = obj.highlight?.hex
+            self.label = obj.label
             
             self.captchaKey = obj.captcha?.key
             self.captchaType = obj.captcha?.type.value
@@ -108,6 +111,7 @@ extension CoreDataImageboard: CacheTrackerEntity {
         result.logo = URL(string: self.logo ?? "")
         result.maxImages = Int(self.maxImages)
         result.highlight = UIColor(hex: self.highlight)
+        result.label = self.label
         result.sort = Int(self.sort)
         result.current = self.current
       
