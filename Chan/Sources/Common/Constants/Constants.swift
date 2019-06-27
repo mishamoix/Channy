@@ -42,7 +42,9 @@ func MakeFullPath(path: String) -> String {
     if path.hasPrefix("http") {
         return path
     }
-    return Enviroment.default.oldBasePath + path
+    
+    return ""
+//    return Enviroment.default.oldBasePath + path
 }
 
 

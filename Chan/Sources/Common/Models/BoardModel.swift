@@ -48,8 +48,8 @@ class BoardModel: BaseModel, Decodable {
     }
     
     var buildLink: String? {
-        let result = "\(Enviroment.default.oldBasePath)/\(self.id)/"
-        return result
+//        let result = "\(Enviroment.default.oldBasePath)/\(self.id)/"
+        return nil
     }
 
     
