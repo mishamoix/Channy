@@ -12,12 +12,15 @@ class Enviroment {
   
     static var `default` = Enviroment()
 
-    var oldBaseUrl: URL {
-        return URL(string: self.oldBasePath)!
-    }
+//    var oldBaseUrl: URL {
+//        return URL(string: self.oldBasePath)!
+//    }
     
     var baseUrl: URL {
+//        #if RELEASE
         return URL(string: "https://one.channy.io/")!
+//        #endif
+//        return URL(string: "https://dev.channy.io/")!
     }
     
     var baseUrlCensor: URL {
@@ -28,13 +31,13 @@ class Enviroment {
         return "https://proxy.channy.io/"
     }
     
-    var oldBasePath: String {
-        return "https://2ch.hk"
-    }
-    
-    var basePathWithoutScheme: String {
-        return "2ch.hk"
-    }
+//    var oldBasePath: String {
+//        return "https://2ch.hk"
+//    }
+//
+//    var basePathWithoutScheme: String {
+//        return "2ch.hk"
+//    }
     
     var AdUnitID: String {
         #if RELEASE

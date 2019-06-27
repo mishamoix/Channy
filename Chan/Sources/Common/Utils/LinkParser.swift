@@ -23,7 +23,7 @@ class LinkParser {
     private(set) var type: LinkType = .externalLink
     
     private var baseUrl: [String] {
-        return [Enviroment.default.basePathWithoutScheme]
+        return []
     }
     
     

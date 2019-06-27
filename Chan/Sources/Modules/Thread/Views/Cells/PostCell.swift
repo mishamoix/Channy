@@ -74,13 +74,19 @@ class PostCell: BasePostCell {
                     let point = recognizer.location(in: textLabel)
                     let idx = TextSize.indexForPoint(text: textLabel.attributedText, point: point, container: textLabel.bounds.size)
 
-
+                    var needReturn = false
                     self?.textLabel.attributedText?.enumerateAttribute(NSAttributedString.Key.reply, in: NSRange(location: idx, length: 1), options: NSAttributedString.EnumerationOptions.init(rawValue: 0)) { (result, range, stop) in
                         if let reply = result as? String {
                             self?.action?.on(.next(.openPostReply(reply: reply, cell: strongSelf)))
+                            needReturn = true
                             return
                         }
                     }
+                    
+                    if needReturn {
+                        return
+                    }
+                    
                     self?.textLabel.attributedText?.enumerateAttribute(NSAttributedString.Key.chanlink, in: NSRange(location: idx, length: 1), options: NSAttributedString.EnumerationOptions.init(rawValue: 0)) { (result, range, stop) in
                             if let link = result as? URL {
                                 self?.action?.on(.next(.tappedAtLink(url: link, cell: strongSelf)))

@@ -16,7 +16,7 @@ enum BoardsListTarget {
 extension BoardsListTarget: TargetType {
 
   
-  public var baseURL: URL { return Enviroment.default.oldBaseUrl }
+  public var baseURL: URL { return Enviroment.default.baseUrl }
   public var path: String {
     switch self {
     case .list:
