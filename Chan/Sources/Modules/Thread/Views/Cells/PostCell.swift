@@ -71,6 +71,9 @@ class PostCell: BasePostCell {
             .asDriver()
             .drive(onNext: { [weak self] recognizer in
                 if let textLabel = self?.textLabel, let strongSelf = self {
+                    
+                    textLabel.selectedTextRange = nil
+                    
                     let point = recognizer.location(in: textLabel)
                     let idx = TextSize.indexForPoint(text: textLabel.attributedText, point: point, container: textLabel.bounds.size)
 
