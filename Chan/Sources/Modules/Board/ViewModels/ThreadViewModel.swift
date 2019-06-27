@@ -16,8 +16,9 @@ enum ThreadViewModelType {
 
 class ThreadViewModel {
     
+    let uid: String
     var type: ThreadViewModelType
-    
+
     private(set) var thumbnail: URL? = nil
     private(set) var title: String? = nil
     private(set) var comment: NSAttributedString
@@ -31,11 +32,16 @@ class ThreadViewModel {
     
     private(set) var media: MediaModel? = nil
     var favorited: Bool = false
+    var hidden: Bool = false {
+        didSet {
+            self.sizeCalculated = false
+        }
+    }
     
+    var needReload = false
     
     private var sizeCalculated: Bool = false
     
-    let uid: String
     
     var file: MediaModel? = nil
     
@@ -68,6 +74,12 @@ class ThreadViewModel {
         }
         
         self.sizeCalculated = true
+
+        
+        if self.hidden {
+            self.height = HiddenThreadHeight
+            return self
+        }
         
         let textMaxWidth = width - (ThreadImageLeftMargin + ThreadImageSize + ThreadImageTextMargin + ThreadTextLeftMargin)
         
@@ -88,12 +100,19 @@ class ThreadViewModel {
 
 extension ThreadViewModel: ListDiffable {
     func diffIdentifier() -> NSObjectProtocol {
+        defer {
+            self.needReload = false
+        }
+        if needReload {
+            return UUID().uuidString as NSObjectProtocol
+        }
+        
         return self.uid as NSObjectProtocol
     }
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if let obj = object as? ThreadViewModel {
-            return obj.uid == self.uid && obj.favorited == self.favorited
+            return obj.uid == self.uid && obj.favorited == self.favorited && obj.hidden == self.hidden
         }
         
         return false

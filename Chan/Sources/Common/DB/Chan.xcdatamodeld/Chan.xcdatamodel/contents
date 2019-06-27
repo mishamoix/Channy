@@ -16,6 +16,7 @@
         <attribute name="current" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="highlight" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="maxImages" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -34,7 +35,7 @@
     </entity>
     <elements>
         <element name="CoreDataBoard" positionX="-63" positionY="-1239.83203125" width="128" height="135"/>
-        <element name="CoreDataImageboard" positionX="-345.796875" positionY="-1239.359375" width="128" height="225"/>
+        <element name="CoreDataImageboard" positionX="-345.796875" positionY="-1239.359375" width="128" height="240"/>
         <element name="CoreDataThread" positionX="-207" positionY="-1152" width="128" height="165"/>
     </elements>
 </model>

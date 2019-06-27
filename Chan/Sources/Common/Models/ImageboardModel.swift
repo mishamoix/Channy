@@ -82,6 +82,7 @@ class ImageboardModel: BaseModel, Decodable {
     var logo: URL? = nil
     var maxImages: Int = 4
     var highlight: UIColor? = nil
+    var label: String? = nil
     var boards: [BoardModel] = [] {
         didSet {
             for board in boards {
@@ -95,6 +96,8 @@ class ImageboardModel: BaseModel, Decodable {
     
     var captcha: ImageboardModel.Captcha?
     
+    
+    
     override init() {
         super.init()
     }
@@ -106,6 +109,7 @@ class ImageboardModel: BaseModel, Decodable {
         case logo
         case maxImages
         case highlight
+        case label
         
         case captcha
     }
@@ -137,6 +141,11 @@ class ImageboardModel: BaseModel, Decodable {
             self.highlight = UIColor(hex: highlight) ?? UIColor.main
         }
         
+        if let label = try? values.decode(String.self, forKey: .label) {
+            self.label = label
+        }
+
+        
         if let captcha = try? values.decode(ImageboardModel.Captcha.self, forKey: .captcha) {
             self.captcha = captcha
             
@@ -145,6 +154,8 @@ class ImageboardModel: BaseModel, Decodable {
             }
             
         }
+        
+        
         
     }
 
