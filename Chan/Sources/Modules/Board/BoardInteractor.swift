@@ -47,6 +47,7 @@ protocol BoardInputProtocol {
 }
 
 final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInteractable, BoardPresentableListener, BoardInputProtocol {
+    
 
 
     weak var router: BoardRouting?
@@ -100,7 +101,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
 
     // MARK: ThreadListener
     func popToRoot(animated: Bool) {}
-    func reply(postUid: String) {}
+    func reply(postUid: Int) {}
     
     
     // MARK: BoardInputProtocol

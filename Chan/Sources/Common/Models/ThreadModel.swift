@@ -75,6 +75,12 @@ class ThreadModel: BaseModel, Decodable {
         if let id = try? values.decode(String.self, forKey: .id) {
             self.id = id
         }
+        
+        if let id = try? values.decode(Int.self, forKey: .id) {
+            self.id = String(id)
+        }
+
+        
         if let subject = try? values.decode(String.self, forKey: .subject) {
             self.subject = subject
         }

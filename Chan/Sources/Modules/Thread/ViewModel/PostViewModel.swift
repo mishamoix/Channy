@@ -18,7 +18,7 @@ class PostViewModel {
     var type: PostViewModelType = .post
 
     let modifier: TextPreparation
-    let uid: String
+    let uid: Int
     let media: [MediaModel]
     
     
@@ -38,7 +38,7 @@ class PostViewModel {
 //    private(set) var textFrame: CGFloat = 0
     private var heightCalculated = false
     
-    var replyPosts: [String] = []
+    var replyPosts: [Int] = []
 
     var text: NSAttributedString {
         return self.modifier.attributedText

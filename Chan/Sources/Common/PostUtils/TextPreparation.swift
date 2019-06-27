@@ -46,7 +46,7 @@ class TextPreparation {
             switch markup.type {
                 case .bold: Style.strong(text: attributed, range: range)
                 case .quote: Style.quote(text: attributed, range: range)
-                case .reply: Style.reply(text: attributed, range: range, reply: markup.extra["post"] as? String)
+                case .reply: Style.reply(text: attributed, range: range, reply: markup.extra["post"] as? Int)
                 case .spoiler: Style.spoiler(text: attributed, range: range)
                 case .strikethrough: Style.strikethrough(text: attributed, range: range)
                 case .link: Style.linkPost(text: attributed, range: range, url: markup.link)

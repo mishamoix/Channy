@@ -192,8 +192,9 @@ final class WriteViewController: BaseViewController, WritePresentable, WriteView
                 if let self = self, newText.count != 0 {
                     var insertText = newText
                     if self.textView.text.count != 0 {
-                        insertText = "\n\n" + insertText
+                        insertText = "\n" + insertText
                     }
+                    insertText += "\n"
                     
                     self.textView.text += insertText
                 }

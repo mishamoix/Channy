@@ -17,10 +17,10 @@ class Enviroment {
 //    }
     
     var baseUrl: URL {
-//        #if RELEASE
+        #if RELEASE
         return URL(string: "https://one.channy.io/")!
-//        #endif
-//        return URL(string: "https://dev.channy.io/")!
+        #endif
+        return URL(string: "https://dev.channy.io/")!
     }
     
     var baseUrlCensor: URL {

@@ -9,7 +9,7 @@
 import UIKit
 
 class PostModel: BaseModel, Decodable {
-    var uid = ""
+    var uid = 0
 //    var name = ""
 //    var subject = ""
     var comment = ""
@@ -18,7 +18,7 @@ class PostModel: BaseModel, Decodable {
     var date: TimeInterval = 0
     var number = 0
     var markups: [MarkupModel] = []
-    var selfReplies: [String] = []
+    var selfReplies: [Int] = []
     
     override init() {
         super.init()
@@ -27,9 +27,11 @@ class PostModel: BaseModel, Decodable {
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
-        if let uidSrting = try? values.decode(String.self, forKey: .id) {
-            self.uid = uidSrting
+        if let uid = try? values.decode(Int.self, forKey: .id) {
+            self.uid = uid
         }
+        
+        
 //        if let uidInt = try? values.decode(Int.self, forKey: .uid) {
 //            self.uid = String(uidInt)
 //        }
@@ -58,7 +60,7 @@ class PostModel: BaseModel, Decodable {
         }
 
         
-        if let replies = try? values.decode([String].self, forKey: .selfReplies) {
+        if let replies = try? values.decode([Int].self, forKey: .selfReplies) {
             self.selfReplies = replies
         }
 

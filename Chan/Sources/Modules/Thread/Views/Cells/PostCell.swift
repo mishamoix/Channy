@@ -76,7 +76,7 @@ class PostCell: BasePostCell {
 
                     var needReturn = false
                     self?.textLabel.attributedText?.enumerateAttribute(NSAttributedString.Key.reply, in: NSRange(location: idx, length: 1), options: NSAttributedString.EnumerationOptions.init(rawValue: 0)) { (result, range, stop) in
-                        if let reply = result as? String {
+                        if let reply = result as? Int {
                             self?.action?.on(.next(.openPostReply(reply: reply, cell: strongSelf)))
                             needReturn = true
                             return
