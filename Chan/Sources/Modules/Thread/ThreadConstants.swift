@@ -49,16 +49,16 @@ let PostHeaderBottomOffset: CGFloat = 13
 //let PostScrollDownButtonImageSize = CGSize(width: 44, height: 44)
 
 enum PostAction {
-    case openReplys(postUid: String)
-    case openPostReply(postUid: String)
-    case reply(postUid: String)
-    case openLink(postUid: String, url: URL)
+    case openReplys(postUid: Int)
+    case openPostReply(postUid: Int)
+    case reply(postUid: Int)
+    case openLink(postUid: Int, url: URL)
     case refresh
     case popToRoot
     case reportThread
-    case copyPost(postUid: String)
-    case cutPost(postUid: String)
-    case copyLinkPost(postUid: String)
+    case copyPost(postUid: Int)
+    case cutPost(postUid: Int)
+    case copyLinkPost(postUid: Int)
     case copyMedia(media: MediaModel)
     case openMediaBrowser(media: MediaModel)
 
@@ -73,7 +73,7 @@ enum PostCellAction {
     case openReplys(cell: UICollectionViewCell)
     case reply(cell: UICollectionViewCell)
     case tappedAtLink(url: URL, cell: UICollectionViewCell)
-    case openPostReply(reply: String, cell: UICollectionViewCell)
+    case openPostReply(reply: Int, cell: UICollectionViewCell)
     case openMedia(idx: Int, cell: UICollectionViewCell, view: UIImageView)
     
     case copyText(cell: UICollectionViewCell)

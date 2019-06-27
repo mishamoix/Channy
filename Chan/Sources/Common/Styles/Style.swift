@@ -46,7 +46,7 @@ class Style {
         text.addAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.quote], range: range)
     }
     
-    class func reply(text: NSMutableAttributedString, range: NSRange, reply: String? = nil) {
+    class func reply(text: NSMutableAttributedString, range: NSRange, reply: Int? = nil) {
         if let reply = reply {
             text.addAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.shared.theme.accnt], range: range)
             let replyAttrs = [NSAttributedString.Key.reply: reply]

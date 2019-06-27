@@ -31,13 +31,11 @@ protocol ThreadPresentable: Presentable {
 protocol ThreadListener: class {
     func popToRoot(animated: Bool)
     func open(board: BoardModel)
-    func reply(postUid: String)
+    func reply(postUid: Int)
     
 }
 
 final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadInteractable, ThreadPresentableListener {
-
-    
 
     weak var router: ThreadRouting?
     weak var listener: ThreadListener?
@@ -242,7 +240,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         self.mainViewModel.value = ThreadMainViewModel(thread: self.thread, canRefresh: self.moduleIsRoot)
     }
     
-    private func openByTextIndex(postUid: String, url: URL) {
+    private func openByTextIndex(postUid: Int, url: URL) {
         
         Helper.open(url: url)
         
@@ -291,7 +289,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         self.listener?.open(board: board)
     }
     
-    func reply(postUid: String) {
+    func reply(postUid: Int) {
         if self.moduleIsRoot {
             self.popToRoot(animated: true)
             self.openWrite()
@@ -315,13 +313,13 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
 //        FirebaseManager.shared.report(thread: self.service.thread)
     }
     
-    private func copyPost(uid: String) {
+    private func copyPost(uid: Int) {
         if let post = self.data.first(where: { $0.uid == uid }) {
             UIPasteboard.general.string = post.comment
         }
     }
     
-    private func cutPost(uid: String) {
+    private func cutPost(uid: Int) {
 //        if let post = self.postsManager?.filtredPostsVM.first(where: { $0.uid == uid }) {
 //            UIPasteboard.general.string = post.text.string
 //        }
@@ -334,7 +332,7 @@ final class ThreadInteractor: PresentableInteractor<ThreadPresentable>, ThreadIn
         }
     }
     
-    private func copyLinkPost(uid: String) {
+    private func copyLinkPost(uid: Int) {
     }
 
     

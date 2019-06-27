@@ -183,13 +183,13 @@ final class ThreadViewController: BaseViewController, ThreadPresentable, ThreadV
                 var scrollIdx: Int? = nil
                 if let autosctollUid = self.autosctollUid {
                 
-                    if let idx = posts.firstIndex(where: { $0.uid == autosctollUid }) {
+                    if autosctollUid == "last" {
+                        self.autosctollUid = nil
+                        scrollIdx = posts.count - 1
+                    } else if let autoscroll = Int(autosctollUid), let idx = posts.firstIndex(where: { $0.uid == autoscroll }) {
                         self.autosctollUid = nil
                         self.data[idx].needHighlight = true
                         scrollIdx = idx
-                    } else if autosctollUid == "last" {
-                        self.autosctollUid = nil
-                        scrollIdx = posts.count - 1
                     }
                 }
 
