@@ -520,6 +520,13 @@ extension BoardViewController: UICollectionViewDelegateFlowLayout {
             self.listener?.viewActions.on(.next(.loadNext))
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? AdThreadCell, let data = self.data[indexPath.row] as? AdsThreadViewModel {
+            
+            cell.update(model: data, vc: self)
+        }
+    }
 //
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        self.tableView.deselectRow(at: indexPath, animated: true)
@@ -547,9 +554,8 @@ extension BoardViewController: UICollectionViewDataSource {
 
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdThreadCellIdentifier, for: indexPath)
-            if let c = cell as? AdThreadCell, let data = data as? AdsThreadViewModel {
+            if  let data = data as? AdsThreadViewModel { //let c = cell as? AdThreadCell,
                 data.updateAdBannerLoader(with: self)
-                c.update(model: data, vc: self)
             }
             
             return cell
@@ -557,20 +563,7 @@ extension BoardViewController: UICollectionViewDataSource {
         
 
     }
-//    collectionViewItemFor
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.data.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let data = self.data[indexPath.row]
-//        let cell = tableView.dequeueReusableCell(withIdentifier: ThreadCellIdentifier, for: indexPath)
-//        if let c = cell as? ThreadCell {
-//            c.update(with: data)
-//            c.actions = self.cellActions
-//        }
-//        return cell
-//    }
+
 }
 
 

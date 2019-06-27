@@ -36,10 +36,13 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
     override init(presenter: RootPresentable) {
         super.init(presenter: presenter)
         presenter.listener = self
+        
+
     }
 
     override func didBecomeActive() {
         super.didBecomeActive()
+        
         self.router?.setupMainViews()
 
     }
