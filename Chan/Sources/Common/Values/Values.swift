@@ -21,6 +21,7 @@ extension DefaultsKeys {
     static let proxyEnabled = DefaultsKey<Bool?>("proxyEnabled")
     
     static let onboardShows = DefaultsKey<Bool?>("onboardShows")
+    static let hiddenThreads = DefaultsKey<[Data]>("hiddenThreads")
 
 }
 
@@ -164,6 +165,31 @@ class Values {
     
     var proxyEnabledObservable: Variable<Bool>
     
+    var hiddenThreads: [HiddenThreadModel] {
+        get {
+            let dataArray = Defaults[.hiddenThreads]
+            var result: [HiddenThreadModel] = []
+            for data in dataArray {
+                if let model = HiddenThreadModel.parse(from: data) {
+                    result.append(model)
+                }
+            }
+            
+            return result
+        }
+        
+        set {
+            var result: [Data] = []
+            for value in newValue {
+                if let data = value.toData() {
+                    result.append(data)
+                }
+            }
+            
+            Defaults[.hiddenThreads] = result
+        }
+    }
+
     
     private let defaults = UserDefaults(suiteName: "chan")
     

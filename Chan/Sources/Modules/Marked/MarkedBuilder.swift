@@ -38,7 +38,7 @@ protocol MarkedBuildable: Buildable {
 }
 
 final class MarkedBuilder: Builder<MarkedDependency>, MarkedBuildable {
-
+    
     override init(dependency: MarkedDependency) {
         super.init(dependency: dependency)
     }
@@ -53,6 +53,7 @@ final class MarkedBuilder: Builder<MarkedDependency>, MarkedBuildable {
         
         return self.baseBuild(read: service, withListener: listener, type: .favorited)
     }
+    
     
     private func baseBuild(read service: ReadMarkServiceProtocol, withListener listener: MarkedListener, type: MarkedModuleType) -> MarkedRouting {
         let component = MarkedComponent(dependency: dependency, type: type)

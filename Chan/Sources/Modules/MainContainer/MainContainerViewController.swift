@@ -13,11 +13,15 @@ import SnapKit
 
 protocol MainContainerPresentableListener: class {
     func tabbarWillChange()
+    func scrollToTop(idx: Int)
+    
 }
 
 final class MainContainerViewController: BaseTabBarController, MainContainerPresentable, MainContainerViewControllable {
 
     weak var listener: MainContainerPresentableListener?
+    
+    var vcs: [UIViewController] = []
     
     private var tabBarView: UIView? = nil
     
@@ -40,8 +44,13 @@ final class MainContainerViewController: BaseTabBarController, MainContainerPres
         
     }
     
-    func addTabs(views: [UIViewController]) {
-        self.viewControllers = views
+    func addTab(view: UIViewController) {
+//        if self.viewControllers == nil {
+//            self.viewControllers = []
+//        }
+        
+        self.vcs.append(view)
+        self.viewControllers = self.vcs
     }
     
     
@@ -78,6 +87,10 @@ final class MainContainerViewController: BaseTabBarController, MainContainerPres
 
 extension MainContainerViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+        if tabBarController.selectedViewController == viewController {
+            self.listener?.scrollToTop(idx: tabBarController.selectedIndex)
+        }
         self.listener?.tabbarWillChange()
         return true
     }

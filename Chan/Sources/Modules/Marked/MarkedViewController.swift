@@ -52,6 +52,12 @@ final class MarkedViewController: BaseViewController, MarkedPresentable, MarkedV
         self.refreshControl.endRefreshing()
     }
     
+    func scrollToTop() {
+        if self.viewDidLoaded {
+            self.tableView.setContentOffset(.zero, animated: true)
+        }
+    }
+    
     //MARK: Private
     private func setup() {
         self.setupUI()

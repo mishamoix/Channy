@@ -82,7 +82,7 @@ class MarkupModel: BaseModel, Decodable {
             self.end = end
         }
         
-        if let post = try? values.decode(String.self, forKey: .post) {
+        if let post = try? values.decode(Int.self, forKey: .post) {
             extra["post"] = post
         }
         

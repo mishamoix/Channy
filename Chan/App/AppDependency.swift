@@ -97,6 +97,8 @@ class AppDependency: NSObject {
         
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         
+        HiddenThreadManager.shared.clear()
+        
         
     }
     

@@ -44,9 +44,10 @@ class PostMediaCell: PostCell {
         for (idx, media) in model.media.enumerated() {
             if idx < self.images.count {
                 let imgView = self.images[idx]
-                imgView.update(with: media)
-                
-                self.updateImagePosition(with: imgView, model: model, idx: idx)
+                Helper.performOnMainThread {
+                    imgView.update(with: media)
+                    self.updateImagePosition(with: imgView, model: model, idx: idx)
+                }
             }
         }
     }

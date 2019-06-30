@@ -19,6 +19,8 @@ protocol RefreshingViewController {
 open class BaseViewController: UIViewController, HalfSheetPresentingProtocol {
     
     public var transitionManager: HalfSheetPresentationManager!
+    
+    var viewDidLoaded = false
 
     let didLoadSignal = Variable<Bool>(false)
     var didLoadSignalObservable: Observable<Bool> {
@@ -29,6 +31,8 @@ open class BaseViewController: UIViewController, HalfSheetPresentingProtocol {
         self.setupTheme()
         
         self.didLoadSignal.value = true
+        
+        self.viewDidLoaded = true
         // Do any additional setup after loading the view.
     }
     
