@@ -14,10 +14,13 @@ protocol MainContainerInteractable: Interactable, BoardListener, MarkedListener 
 }
 
 protocol MainContainerViewControllable: ViewControllable {
-    func addTabs(views: [UIViewController])
+    func addTab(view: UIViewController)
 }
 
 final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainContainerViewControllable>, MainContainerRouting {
+    
+//    weak var favoriteInput: MarkedInputProtocol?
+//    weak var historyInput: MarkedInputProtocol?
 
     // TODO: Constructor inject child builder protocols to allow building children.
     init(interactor: MainContainerInteractable, viewController: MainContainerViewControllable, board: BoardBuildable, favorites: MarkedBuildable, history: MarkedBuildable) {
@@ -47,6 +50,16 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
         
         var result: [UIViewController] = []
         
+        
+        
+        
+        
+//        self.viewController.addTabs(views: result)
+        
+    }
+    
+    
+    func addBoards() {
         if self.canDeattach(router: self.board) {
             let board = self.boardBuilder.build(withListener: self.interactor)
             self.board = board
@@ -55,11 +68,13 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
             let nc = BaseNavigationController(rootViewController: board.viewControllable.uiviewController)
             
             nc.tabBarItem = UITabBarItem(title: "Board".localized, image: .boards, tag: 0)
+            self.viewController.addTab(view: nc)
             
-            result.append(nc)
+//            result.append(nc)
         }
-        
-        
+
+    }
+    func addFavorites() -> MarkedInputProtocol? {
         if self.canDeattach(router: self.favorites) {
             let favorites = self.favoritesBuilder.buildFavorited(withListener: self.interactor)
             self.favorites = favorites
@@ -69,9 +84,15 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
             
             vc.tabBarItem = UITabBarItem(title: "Favorites".localized, image: .favorites, tag: 1)
             
-            result.append(vc)
+            self.viewController.addTab(view: vc)
+
+            return favorites.interactable as? MarkedInteractable
         }
         
+        return nil
+
+    }
+    func addHistory() -> MarkedInputProtocol? {
         if self.canDeattach(router: self.history) {
             let history = self.historyBuilder.buildHistory(withListener: self.interactor)
             self.history = history
@@ -81,12 +102,15 @@ final class MainContainerRouter: ViewableRouter<MainContainerInteractable, MainC
             
             vc.tabBarItem = UITabBarItem(title: "History".localized, image: .history, tag: 2)
             
-            result.append(vc)
+            self.viewController.addTab(view: vc)
+            
+            return history.interactable as? MarkedInteractable
         }
         
-        self.viewController.addTabs(views: result)
-        
+        return nil
+
     }
+
     
 
 }

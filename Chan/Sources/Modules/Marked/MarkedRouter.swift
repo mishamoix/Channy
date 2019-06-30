@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol MarkedInteractable: Interactable {
+protocol MarkedInteractable: Interactable, MarkedInputProtocol {
     var router: MarkedRouting? { get set }
     var listener: MarkedListener? { get set }
 }
@@ -24,4 +24,6 @@ final class MarkedRouter: ViewableRouter<MarkedInteractable, MarkedViewControlla
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
+    
+    
 }

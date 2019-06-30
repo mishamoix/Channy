@@ -74,12 +74,16 @@ class CensorImageManager {
             self.update(need: true)
         }
         if let url = self.media?.url {
-            CensorManager.shared
-                .censor(url: url.absoluteString)
-                .subscribe(onNext: { [weak self] censor in
-                    self?.update(need: censor)
-                })
-                .disposed(by: self.disposeBag)
+            if let needCensor = CensorManager.shared.cache[url.absoluteString] {
+                self.update(need: needCensor)
+            } else {
+                CensorManager.shared
+                    .censor(url: url.absoluteString)
+                    .subscribe(onNext: { [weak self] censor in
+                        self?.update(need: censor)
+                    })
+                    .disposed(by: self.disposeBag)
+            }
         }
     }
 
@@ -92,28 +96,30 @@ class CensorImageManager {
             self.loaderUrl = url?.absoluteString
             
             if let url: URL = (url) {
-                if let img = self.loader.checkCache(url: url) {
-                    self.originalImage = img
-                    self.type = .normal
-                    self.updateImage()
-                    return
-                } else {
-                    self.originalImage = UIImage.placeholder
-                    self.type = .placeholder
-                    self.updateImage()
-                }
-                
-                self.loadToken = self.loader.load(url: url) { [weak self] result in
+                Helper.performOnMainThread {
+                    if let img = self.loader.checkCache(url: url) {
+                        self.originalImage = img
+                        self.type = .normal
+                        self.updateImage()
+                        return
+                    } else {
+                        self.originalImage = UIImage.placeholder
+                        self.type = .placeholder
+                        self.updateImage()
+                    }
                     
-                    switch result.result {
-                    case .success(let img):
-                        self?.originalImage = img
-                        self?.type = .normal
-                        self?.updateImage()
-                    default:
-                        self?.originalImage = nil
-                        self?.type = .normal
-                        self?.updateImage()
+                    self.loadToken = self.loader.load(url: url) { [weak self] result in
+                        
+                        switch result.result {
+                        case .success(let img):
+                            self?.originalImage = img
+                            self?.type = .normal
+                            self?.updateImage()
+                        default:
+                            self?.originalImage = nil
+                            self?.type = .normal
+                            self?.updateImage()
+                        }
                     }
                 }
             }

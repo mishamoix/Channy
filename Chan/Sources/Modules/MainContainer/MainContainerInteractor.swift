@@ -11,6 +11,10 @@ import RxSwift
 
 protocol MainContainerRouting: ViewableRouting {
     func setupViews()
+    
+    func addBoards()
+    func addFavorites() -> MarkedInputProtocol?
+    func addHistory() -> MarkedInputProtocol?
 }
 
 protocol MainContainerPresentable: Presentable {
@@ -31,6 +35,8 @@ final class MainContainerInteractor: PresentableInteractor<MainContainerPresenta
     weak var listener: MainContainerListener?
     
     let boardInput: BoardInputProtocol
+    weak var favoriteInput: MarkedInputProtocol?
+    weak var historyInput: MarkedInputProtocol?
 
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
@@ -44,7 +50,11 @@ final class MainContainerInteractor: PresentableInteractor<MainContainerPresenta
     override func didBecomeActive() {
         super.didBecomeActive()
 
-        self.router?.setupViews()
+//        self.router?.setupViews()
+        
+        self.router?.addBoards()
+        self.favoriteInput = self.router?.addFavorites()
+        self.historyInput = self.router?.addHistory()
         // TODO: Implement business logic here.
     }
 
@@ -73,5 +83,15 @@ final class MainContainerInteractor: PresentableInteractor<MainContainerPresenta
     // MARK: MainContainerPresentableListener
     func tabbarWillChange() {
         self.boardInput.deactivateSearch()
+    }
+    
+    func scrollToTop(idx: Int) {
+        if idx == 0 {
+            self.boardInput.scrollToTop()
+        } else if idx == 1 {
+            self.favoriteInput?.scrollToTop()
+        } else if idx == 2 {
+            self.historyInput?.scrollToTop()
+        }
     }
 }

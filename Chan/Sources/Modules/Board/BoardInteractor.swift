@@ -44,6 +44,7 @@ protocol BoardListener: class {
 protocol BoardInputProtocol {
     func open(thread: ThreadModel)
     func deactivateSearch()
+    func scrollToTop()
 }
 
 final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInteractable, BoardPresentableListener, BoardInputProtocol {
@@ -112,6 +113,10 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     
     func deactivateSearch() {
         self.presenter.deactivateSearch()
+    }
+    
+    func scrollToTop() {
+        self.presenter.scrollToTop()
     }
     
     // MARK: Private
@@ -396,7 +401,7 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         
         let searchText = text.lowercased()
         
-        var result = models.filter({ $0.displayText?.lowercased().contains(searchText) ?? false })
+        var result = models.filter({ ($0.displayText?.lowercased().contains(searchText) ?? false) || ($0.title?.lowercased().contains(searchText) ?? false) })
         result = models.map({ model -> ThreadViewModel in
             model.hidden = HiddenThreadManager.shared.hidden(uid: model.uid)
             return model

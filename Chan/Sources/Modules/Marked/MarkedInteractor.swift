@@ -10,17 +10,23 @@ import RIBs
 import RxSwift
 
 protocol MarkedRouting: ViewableRouting {
+    
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
 }
 
 protocol MarkedPresentable: Presentable {
     var listener: MarkedPresentableListener? { get set }
     func update(with threads: [ThreadModel])
+    func scrollToTop()
 }
 
 protocol MarkedListener: class {
 
     func open(thread: ThreadModel)
+}
+
+protocol MarkedInputProtocol: class {
+    func scrollToTop()
 }
 
 final class MarkedInteractor: PresentableInteractor<MarkedPresentable>, MarkedInteractable, MarkedPresentableListener {
@@ -86,6 +92,11 @@ final class MarkedInteractor: PresentableInteractor<MarkedPresentable>, MarkedIn
     func deleteAll() {
         self.service.deleteAll()
         self.load(reload: true)
+    }
+    
+    // MARK: MarkedInputProtocol
+    func scrollToTop() {
+        self.presenter.scrollToTop()
     }
     
     // MARK: Private

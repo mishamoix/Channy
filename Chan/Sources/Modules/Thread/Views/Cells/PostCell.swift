@@ -34,13 +34,13 @@ class PostCell: BasePostCell {
     
     override func setupUI() {
         super.setupUI()
-      
+        self.contentView.addSubview(self.textLabel)
+
 //        self.textLabel.numberOfLines = 0
         self.textLabel.textContainer.lineFragmentPadding = 0
         self.textLabel.textContainerInset = .zero
         self.textLabel.isScrollEnabled = false
         self.textLabel.isEditable = false
-        self.contentView.addSubview(self.textLabel)
         self.textLabel.backgroundColor = .clear
 //
     }
@@ -49,9 +49,11 @@ class PostCell: BasePostCell {
         super.update(with: model)
         
 //        self.textLabel.isScrollEnabled = true
-        
-        self.textLabel.attributedText = model.text
-        self.textLabel.frame = model.textFrame
+      
+        Helper.performOnMainThread {
+            self.textLabel.attributedText = model.text
+            self.textLabel.frame = model.textFrame
+        }
       
 //        self.textLabel.sizeToFit()
 //        self.textLabel.setNeedsDisplay()

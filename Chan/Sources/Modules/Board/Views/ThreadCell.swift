@@ -103,10 +103,12 @@ class ThreadCell: SwipeCollectionViewCell {
     func update(with model: ThreadViewModel) {
 //        super.update(with: model)
         
-        self.message.attributedText = model.comment
         self.title.text = model.title
 
-        self.iconView.loadImage(media: model.media)
+        Helper.performOnMainThread {
+            self.message.attributedText = model.comment
+            self.iconView.loadImage(media: model.media)
+        }
         
         let textRightOffset = ThreadImageLeftMargin + ThreadImageSize + ThreadImageTextMargin
         
