@@ -387,8 +387,12 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         
         if !isActive {
             let result = models.map({ model -> ThreadViewModel in
-                model.hidden = HiddenThreadManager.shared.hidden(uid: model.uid)
-                model.needReload = true
+                let  hidden = HiddenThreadManager.shared.hidden(uid: model.uid)
+                
+                if model.hidden != hidden {
+                    model.hidden = hidden
+                    model.needReload = true
+                }
                 return model
             })
 

@@ -203,7 +203,7 @@ final class BoardViewController: BaseViewController, BoardPresentable, BoardView
                 let oldData = self.data
 //                let collectionView = self?.collectionView
 //                    let diff = ListDiff(oldArray: oldData, newArray: result, option: .equality)
-                let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
+                   let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldData, newArray: result, option: .equality)
                 self.data = result
                 
                 let movesNotNull = diff.moves.count != 0

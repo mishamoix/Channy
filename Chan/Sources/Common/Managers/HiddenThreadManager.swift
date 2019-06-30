@@ -10,10 +10,17 @@ import UIKit
 import RxSwift
 
 private let ExpireTime: Double = 60 * 60 * 24 * 7 // 1 week
+private let UpdatedLessHour: Double = 60 * 60
 
 class HiddenThreadModel: BaseModel, Decodable, Encodable {
     let id: String
     private(set) var updated: TimeInterval = Date().timeIntervalSince1970
+    
+    
+    var needUpdate: Bool {
+        let now = Date().timeIntervalSince1970
+        return self.updated + UpdatedLessHour < now
+    }
     
     init(id: String) {
         self.id = id
@@ -22,6 +29,9 @@ class HiddenThreadModel: BaseModel, Decodable, Encodable {
     func update() {
         self.updated = Date().timeIntervalSince1970
     }
+    
+
+    
     
     enum CodingKeys : String, CodingKey {
         case id
@@ -86,8 +96,11 @@ class HiddenThreadManager {
     
     func hidden(uid: String) -> Bool {
         if let model = self.cache[uid] {
-            model.update()
-            self.sendSyncSignal()
+            
+            if model.needUpdate {
+                model.update()
+                self.sendSyncSignal()
+            }
             return true
         } else {
             return false
