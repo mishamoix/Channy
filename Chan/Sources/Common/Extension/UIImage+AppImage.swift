@@ -40,6 +40,7 @@ extension UIImage {
     static var playVideo: UIImage { return UIImage(named: "playVideo")!}
     static var playerCircle: UIImage { return UIImage(named: "playerCircle")!}
     static var hideThread: UIImage { return UIImage(named: "hideThread")!}
+    static var sandWatch: UIImage { return UIImage(named: "sandWatch")!}
 
 
     // onboarding

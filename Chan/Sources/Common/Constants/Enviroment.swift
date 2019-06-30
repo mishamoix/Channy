@@ -18,7 +18,7 @@ class Enviroment {
     
     var baseUrl: URL {
         #if RELEASE
-        return URL(string: "https://one.channy.io/")!
+        return URL(string: "https://prod.channy.io/")!
         #endif
         return URL(string: "https://dev.channy.io/")!
     }

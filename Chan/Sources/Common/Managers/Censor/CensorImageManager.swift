@@ -21,8 +21,10 @@ class CensorImageManager {
     private(set) var disposeBag = DisposeBag()
     private(set) var blurDisposeBag = DisposeBag()
     
+    
     private(set) var cancellation = CancellationToken()
     private var loadToken: RequestReceipt? = nil
+    
 
     // data
     private var media: MediaModel?
@@ -32,6 +34,7 @@ class CensorImageManager {
     // inner
     private var needCensor = true
     let image = Variable<UIImage?>(nil)
+    let censorWorkingObservable = Variable<Bool>(false)
     private var originalImage: UIImage? = nil
     private var type: CensorImageManagerType = .placeholder
     private var loaderUrl: String? = nil
@@ -73,6 +76,10 @@ class CensorImageManager {
         if self.censorEnabled {
             self.update(need: true)
         }
+        
+        self.censorWorkingObservable.value = true
+
+        
         if let url = self.media?.url {
             if let needCensor = CensorManager.shared.cache[url.absoluteString] {
                 self.update(need: needCensor)
@@ -128,6 +135,8 @@ class CensorImageManager {
     }
     
     private func update(need censor: Bool) {
+        self.censorWorkingObservable.value = false
+
         if self.needCensor != censor {
             self.needCensor = censor
             self.updateImage()
