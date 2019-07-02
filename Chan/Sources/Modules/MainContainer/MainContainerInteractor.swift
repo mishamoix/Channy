@@ -63,6 +63,8 @@ final class MainContainerInteractor: PresentableInteractor<MainContainerPresenta
         // TODO: Pause any business logic.
     }
     
+    
+    
     // MARK: BoardListener
     func openMenu() {
         self.listener?.openMenu()
@@ -94,4 +96,6 @@ final class MainContainerInteractor: PresentableInteractor<MainContainerPresenta
             self.historyInput?.scrollToTop()
         }
     }
+    
+
 }

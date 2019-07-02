@@ -61,18 +61,27 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
     func reload() {
         
         self.loadFromCache()
+        ConfigManager
+            .shared
+            .canLoad
+            .subscribe(onNext: { [weak self] _ in
+                self?.makeRequest()
+            })
+            .disposed(by: self.disposeBag)
+
         
+    }
+    
+    private func makeRequest() {
         self.provider
             .rx
             .request(.list)
             .observeOn(Helper.rxBackgroundThread)
             .retry(RetryCount)
             .asObservable()
-            
-//            .subscribeOn(Helper.rxBackgroundThread)
             .subscribe(onNext: { [weak self] response in
                 let data = self?.makeModel(data: response.data) ?? []
-
+                
                 for (idx, obj) in data.enumerated() {
                     obj.sort = idx
                 }
@@ -82,13 +91,11 @@ class ImageboardService: BaseService, ImageboardServiceProtocol {
                     
                     self?.deleteOldImagesboards(new: data)
                 }
-                                
-            }, onError: { error in
-//                self?.replaySubject.on(.error(error))
+                
+                }, onError: { error in
+                    //                self?.replaySubject.on(.error(error))
             })
             .disposed(by: self.disposeBag)
-
-        
     }
     
     func load() -> Observable<ResultType> {

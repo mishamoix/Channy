@@ -8,36 +8,61 @@
 
 import Foundation
 
+enum EnviromentType {
+    case dev
+    case prod
+}
+
 class Enviroment {
   
     static var `default` = Enviroment()
+    
+    private var baseUrlConfig: URL = URL(string: "https://prod.channy.io/")!
+    private var proxyUrlConfig: URL = URL(string: "https://proxy.channy.io/")!
+    private var censorUrlConfig: URL = URL(string: "https://censor.channy.io")!
 
-//    var oldBaseUrl: URL {
-//        return URL(string: self.oldBasePath)!
-//    }
+    var configUrl: URL {
+        return URL(string: "https://config.channy.io")!
+    }
+    
+    func update(with model: ConfigModel) {
+        if self.type == .prod {
+            if let base = URL(string: model.prod) {
+                self.baseUrlConfig = base
+            }
+            if let proxy = URL(string: model.prodProxy) {
+                self.proxyUrlConfig = proxy
+            }
+            if let censor = URL(string: model.prodCensor) {
+                self.censorUrlConfig = censor
+            }
+        } else {
+            if let base = URL(string: model.dev) {
+                self.baseUrlConfig = base
+            }
+            if let proxy = URL(string: model.devProxy) {
+                self.proxyUrlConfig = proxy
+            }
+            if let censor = URL(string: model.devCensor) {
+                self.censorUrlConfig = censor
+            }
+
+        }
+    }
     
     var baseUrl: URL {
-        #if RELEASE
-        return URL(string: "https://prod.channy.io/")!
-        #endif
-        return URL(string: "https://dev.channy.io/")!
+        return self.baseUrlConfig
     }
     
     var baseUrlCensor: URL {
-        return URL(string: "https://censor.channy.io")!
+        return self.censorUrlConfig
     }
     
     var baseUrlProxy: String {
-        return "https://proxy.channy.io/"
+        return self.proxyUrlConfig.absoluteString
     }
     
-//    var oldBasePath: String {
-//        return "https://2ch.hk"
-//    }
-//
-//    var basePathWithoutScheme: String {
-//        return "2ch.hk"
-//    }
+
     
     var AdUnitID: String {
         #if RELEASE
@@ -45,6 +70,16 @@ class Enviroment {
         #endif
 
         return "ca-app-pub-3940256099942544/2934735716"
+    }
+    
+    
+    var type: EnviromentType {
+        #if RELEASE
+        return .prod
+        #endif
+        
+        return .dev
+
     }
     
 

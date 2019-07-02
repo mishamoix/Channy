@@ -15,18 +15,18 @@ class NetworkManager {
     static let `default` = NetworkManager()
     static let disposeBag = DisposeBag()
     
-    let canPerformRequests: Variable<Bool> = Variable(false)
+    let canPerformRequests: Variable<Bool> = Variable(true)
     
     init() {
         self.run()
     }
     
     private func run() {
-        FirebaseManager.shared
-            .canLoadData
-            .asObservable()
-            .bind(to: self.canPerformRequests)
-            .disposed(by: NetworkManager.disposeBag)
+//        FirebaseManager.shared
+//            .canLoadData
+//            .asObservable()
+//            .bind(to: self.canPerformRequests)
+//            .disposed(by: NetworkManager.disposeBag)
     }
     
 }

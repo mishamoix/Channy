@@ -19,7 +19,7 @@ extension CensorTarget: TargetType {
     
     public var baseURL: URL { return Enviroment.default.baseUrlCensor }
     public var path: String {
-        return "/"
+        return ""
     }
     
     public var method: Moya.Method {

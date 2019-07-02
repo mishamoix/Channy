@@ -91,7 +91,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
         self.historySwitch.isOn = Values.shared.historyWrite
         self.navigationItem.title = "Settings".localized
 
-        self.infoTextView.text = FirebaseManager.shared.mainInfo
+        self.infoTextView.text = ConfigManager.shared.config?.info
 
         self.setupVersion()
         
@@ -147,7 +147,7 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
             .tap
             .asDriver()
             .drive(onNext: { _ in
-                if let email = FirebaseManager.shared.email {
+                if let email = ConfigManager.shared.config?.email {
                     if let url = URL(string: "mailto:\(email)") {
                         if #available(iOS 10.0, *) {
                             UIApplication.shared.open(url)
@@ -155,16 +155,17 @@ final class SettingsViewController: UITableViewController, SettingsPresentable, 
                             UIApplication.shared.openURL(url)
                         }
                     }
-                } else if let tg = FirebaseManager.shared.tg {
-                    let result = "tg://msg?to=\(tg)"
-                    if let url = URL(string: result), UIApplication.shared.canOpenURL(url) {
-                        if #available(iOS 10.0, *) {
-                            UIApplication.shared.open(url)
-                        } else {
-                            UIApplication.shared.openURL(url)
-                        }
-                    }
                 }
+//                else if let tg = FirebaseManager.shared.tg {
+//                    let result = "tg://msg?to=\(tg)"
+//                    if let url = URL(string: result), UIApplication.shared.canOpenURL(url) {
+//                        if #available(iOS 10.0, *) {
+//                            UIApplication.shared.open(url)
+//                        } else {
+//                            UIApplication.shared.openURL(url)
+//                        }
+//                    }
+//                }
             }).disposed(by: self.disposeBag)
         
         

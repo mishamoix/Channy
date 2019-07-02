@@ -54,6 +54,9 @@ class AppDependency: NSObject {
     }
     
     func commonSetup() {
+        
+        ConfigManager.shared.start()
+        
         self.setupMainAppearance()
         self.setupFirebase()
         

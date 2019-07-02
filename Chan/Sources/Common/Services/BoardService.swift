@@ -41,12 +41,21 @@ class BoardService: BaseService, BoardServiceProtocol {
         
         self.favorite.update(board: board)
         
+        return ConfigManager.shared
+            .canLoad
+            .flatMap({ [weak self, weak board] _ -> Observable<ResultType> in
+                guard let self = self, let board = board else { return Observable<ResultType>.error(ChanError.badRequest) }
+                return self.makeRequest(board: board)
+            })
+    }
+    
+    private func makeRequest(board: BoardModel) -> Observable<ResultType> {
+        
         guard let imageboard = board.imageboard else {
             
             return Observable<ResultType>.error(ChanError.error(title: "Error".localized, description: "unknown_error_restart_app".localized))
         }
-        
-        
+
         return self.provider
             .rx
             .request(.mainPage(board: String(board.id), imageboard: String(imageboard.id)))
@@ -59,6 +68,7 @@ class BoardService: BaseService, BoardServiceProtocol {
                 self.updateFormDB(models: models)
                 return models
             })
+
     }
 
     private func makeModel(data: Data) -> ResultType {

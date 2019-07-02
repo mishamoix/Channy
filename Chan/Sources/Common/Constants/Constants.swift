@@ -30,7 +30,7 @@ let AdHeightDefault: CGFloat = 120
 let ThreadListAdCount = 15
 let PostListAdCount = 20
 
-let SendWatchSize: CGFloat = 10
+let SendWatchSize: CGFloat = 15
 
 let IsIpad = {
     return UIDevice.current.userInterfaceIdiom == .pad

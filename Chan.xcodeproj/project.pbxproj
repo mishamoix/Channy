@@ -162,6 +162,10 @@
 		0A37B05321BC4251009EC571 /* AXStateButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A37B04021BC3A1B009EC571 /* AXStateButton.h */; };
 		0A37B05421BC4251009EC571 /* FLAnimatedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A37B04821BC3A1B009EC571 /* FLAnimatedImage.h */; };
 		0A37B05521BC4251009EC571 /* FLAnimatedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A37B04921BC3A1B009EC571 /* FLAnimatedImageView.h */; };
+		0A3E91EB22CB465E00924163 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E91EA22CB465E00924163 /* ConfigManager.swift */; };
+		0A3E91ED22CB467900924163 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E91EC22CB467900924163 /* ConfigService.swift */; };
+		0A3E91EF22CB469400924163 /* ConfigTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E91EE22CB469400924163 /* ConfigTarget.swift */; };
+		0A3E91F122CB471900924163 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E91F022CB471900924163 /* ConfigModel.swift */; };
 		0A3F115422B9697C003D1ECE /* OnboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F115322B9697C003D1ECE /* OnboardViewModel.swift */; };
 		0A3F115722B97886003D1ECE /* LastOnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F115622B97886003D1ECE /* LastOnboardView.swift */; };
 		0A4FEA2D2275F14E00A78A72 /* ParallaxHeaderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FEA2C2275F14E00A78A72 /* ParallaxHeaderMode.swift */; };
@@ -497,6 +501,10 @@
 		0A37B04721BC3A1B009EC571 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
 		0A37B04821BC3A1B009EC571 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
 		0A37B04921BC3A1B009EC571 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
+		0A3E91EA22CB465E00924163 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
+		0A3E91EC22CB467900924163 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
+		0A3E91EE22CB469400924163 /* ConfigTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigTarget.swift; sourceTree = "<group>"; };
+		0A3E91F022CB471900924163 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		0A3F115322B9697C003D1ECE /* OnboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewModel.swift; sourceTree = "<group>"; };
 		0A3F115622B97886003D1ECE /* LastOnboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastOnboardView.swift; sourceTree = "<group>"; };
 		0A4FEA2A2275F14E00A78A72 /* UIScrollView+ParallaxHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ParallaxHeader.swift"; sourceTree = "<group>"; };
@@ -820,6 +828,7 @@
 				0A326B84225CDCCF00E94AED /* MediaModel.swift */,
 				0AE3BC7E2273110D0096C384 /* MarkupModel.swift */,
 				0A7A379722A800B400E35C49 /* ProxyModel.swift */,
+				0A3E91F022CB471900924163 /* ConfigModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1287,6 +1296,7 @@
 				0AFFD86922B679A100BD723A /* QueueManager.swift */,
 				0AFFD86B22B694BF00BD723A /* RotationManager.swift */,
 				0A7C038822C4F4D00029E0E2 /* HiddenThreadManager.swift */,
+				0A3E91EA22CB465E00924163 /* ConfigManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1578,6 +1588,7 @@
 				0A905F7321A9C1E400ADE51E /* WriteService.swift */,
 				0AFD18782235190400F844BE /* ImageboardService.swift */,
 				0A7A379B22A8096F00E35C49 /* ProxyService.swift */,
+				0A3E91EC22CB467900924163 /* ConfigService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1592,6 +1603,7 @@
 				0A905F7521A9C29500ADE51E /* WriteTarget.swift */,
 				0AFD187A2235195200F844BE /* ImageboardTarget.swift */,
 				0A7A379922A808F100E35C49 /* ProxyTarget.swift */,
+				0A3E91EE22CB469400924163 /* ConfigTarget.swift */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -2076,6 +2088,7 @@
 				0A326B9D225CEADE00E94AED /* PresentationViewController.swift in Sources */,
 				0AFFFDA321499B9D0002E832 /* UIColor+AppColor.swift in Sources */,
 				0A113215215F96EA00BB3C79 /* SettingsRouter.swift in Sources */,
+				0A3E91EB22CB465E00924163 /* ConfigManager.swift in Sources */,
 				0AB3C69521B462F000A58FDE /* RecaptchaManager.swift in Sources */,
 				0A197AE522ABF93E004116D2 /* SwipeFeedback.swift in Sources */,
 				0A197AF222ABF93E004116D2 /* SwipeAnimator.swift in Sources */,
@@ -2110,6 +2123,7 @@
 				0AD6DA2522A949DA00024DED /* ChanImageDownloader.swift in Sources */,
 				0A2E0C9F2145467F00CBD619 /* ResultModel.swift in Sources */,
 				0AD5C2DC215AC9A100F68AF4 /* ErrorBoardsListDisplay.swift in Sources */,
+				0A3E91EF22CB469400924163 /* ConfigTarget.swift in Sources */,
 				0ACC29892143F79900B4E53B /* RootBuilder.swift in Sources */,
 				0A2E0C8E21453BE100CBD619 /* BaseViewController.swift in Sources */,
 				0AFD186D2235111900F844BE /* ImageboardListBuilder.swift in Sources */,
@@ -2137,6 +2151,7 @@
 				0A197AEF22ABF93E004116D2 /* SwipeController.swift in Sources */,
 				0A37B01521BC3774009EC571 /* AXBundle.swift in Sources */,
 				0A37B05021BC3A1C009EC571 /* FLAnimatedImageView.m in Sources */,
+				0A3E91ED22CB467900924163 /* ConfigService.swift in Sources */,
 				0A2E0C9321453C1000CBD619 /* UIViewController+Utils.swift in Sources */,
 				0AFD18722235167500F844BE /* ImageboardCell.swift in Sources */,
 				0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */,
@@ -2147,6 +2162,7 @@
 				0AD5C2D4215A7F2B00F68AF4 /* NetworkManager.swift in Sources */,
 				0AFFFDB92149AC640002E832 /* PostViewModel.swift in Sources */,
 				0AFD187D22351AAD00F844BE /* ImageboardModel.swift in Sources */,
+				0A3E91F122CB471900924163 /* ConfigModel.swift in Sources */,
 				0A2E0C9521453CB600CBD619 /* ViewControllable+Utils.swift in Sources */,
 				0A197AEE22ABF93E004116D2 /* SwipeOptions.swift in Sources */,
 				0A326BA4225CEADE00E94AED /* AnimatorConvenience.swift in Sources */,
