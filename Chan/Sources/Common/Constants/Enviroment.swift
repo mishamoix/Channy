@@ -20,6 +20,7 @@ class Enviroment {
     private var baseUrlConfig: URL = URL(string: "https://prod.channy.io/")!
     private var proxyUrlConfig: URL = URL(string: "https://proxy.channy.io/")!
     private var censorUrlConfig: URL = URL(string: "https://censor.channy.io")!
+    private var ad = ""
 
     var configUrl: URL {
         return URL(string: "https://config.channy.io")!
@@ -36,6 +37,8 @@ class Enviroment {
             if let censor = URL(string: model.prodCensor) {
                 self.censorUrlConfig = censor
             }
+            
+            self.ad = model.prodAd
         } else {
             if let base = URL(string: model.dev) {
                 self.baseUrlConfig = base
@@ -46,7 +49,7 @@ class Enviroment {
             if let censor = URL(string: model.devCensor) {
                 self.censorUrlConfig = censor
             }
-
+            self.ad = model.devAd
         }
     }
     
@@ -65,20 +68,16 @@ class Enviroment {
 
     
     var AdUnitID: String {
-        #if RELEASE
-        return "ca-app-pub-2379914676870768/3063057787"
-        #endif
-
-        return "ca-app-pub-3940256099942544/2934735716"
+        return self.ad
     }
     
     
     var type: EnviromentType {
-        #if RELEASE
+//        #if RELEASE
         return .prod
-        #endif
+//        #endif
         
-        return .dev
+//        return .dev
 
     }
     

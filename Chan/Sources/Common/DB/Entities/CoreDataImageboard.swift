@@ -115,8 +115,8 @@ extension CoreDataImageboard: CacheTrackerEntity {
         result.sort = Int(self.sort)
         result.current = self.current
       
-        result.captcha = ImageboardModel.Captcha(type: self.captchaType, key: self.captchaKey)
-        result.captcha?.url = self.captchaURL
+//        result.captcha = ImageboardModel.Captcha(type: self.captchaType, key: self.captchaKey)
+//        result.captcha?.url = self.captchaURL
         
         var boards: [BoardModel] = []
         for coreDataBoard in self.boards {

@@ -36,7 +36,7 @@ class ConfigManager: NSObject {
             .subscribe(onNext: { [weak self] model in
                 self?.update(config: model)
             }, onError: { error in
-                ErrorDisplay(error: ChanError.error(title: "error".localized, description: "unknown_error_restart_app".localized), buttons: []).show()
+                ErrorDisplay(error: ChanError.error(title: "Error".localized, description: "unknown_error_restart_app".localized), buttons: []).show()
             })
             .disposed(by: self.disposeBag)
     }
@@ -47,6 +47,26 @@ class ConfigManager: NSObject {
     
     private func update(config: ConfigModel) {
         self.config = config
+        
+        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+            if config.version != version {
+                let display = ErrorDisplay(error: ChanError.error(title: "version_warning".localized, description: "update_app".localized), buttons: [.custom(title: "AppStore", style: .default)])
+                display
+                    .actions
+                    .subscribe(onNext: { [weak self, weak config] _ in
+                        Helper.openInSafari(url: URL(string: "https://apps.apple.com/app/channy/id1437833949"))
+                        if let config = config {
+                            self?.update(config: config)
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                display.show()
+                return
+
+            }
+        }
+        
         Enviroment.default.update(with: config)
         self.canLoadVariable.value = true
     }

@@ -405,8 +405,9 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         
         let searchText = text.lowercased()
         
-        var result = models.filter({ ($0.displayText?.lowercased().contains(searchText) ?? false) || ($0.title?.lowercased().contains(searchText) ?? false) })
-        result = models.map({ model -> ThreadViewModel in
+        let result = models
+            .filter({ ($0.displayText?.lowercased().contains(searchText) ?? false) || ($0.title?.lowercased().contains(searchText) ?? false) })
+            .map({ model -> ThreadViewModel in
             model.hidden = HiddenThreadManager.shared.hidden(uid: model.uid)
             return model
         })

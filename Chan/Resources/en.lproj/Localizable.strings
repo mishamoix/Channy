@@ -167,3 +167,7 @@
 "skip" = "Skip";
 "term_of_service" = "Terms of Service";
 "privacy_policy" = "Privacy Policy";
+
+// other
+"update_app" = "Your app is out to date and incompatible with server.\n\nPlease upgarde argenly to avoid any disrption";
+"version_warning" = "Version Warning";
