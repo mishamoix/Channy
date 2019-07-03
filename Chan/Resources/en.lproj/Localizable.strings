@@ -139,9 +139,9 @@
 "delete_from_favorite" = "Remove from favorites";
 "add_to_favorite" = "Add to favorites";
 "Agreement" = "Agreement";
-"need_select_imageboard_and_board" = "Swipe right to select an imageboard and add some boards.";
+"need_select_imageboard_and_board" = "Swipe right to select an imageboard and add some boards";
 "video_open_title" = "Open video";
-"video_open_message" = "NSFW video. Recommend use VLC player.";
+"video_open_message" = "NSFW video. We will open it in VLC";
 "vlc_in_app_store" = "VLC in AppStore";
 "welcome" = "Welcome";
 "hide" = "Collapse";
@@ -169,5 +169,5 @@
 "privacy_policy" = "Privacy Policy";
 
 // other
-"update_app" = "Your app is out to date and incompatible with server.\n\nPlease upgarde argenly to avoid any disrption";
+"update_app" = "Your app is out to date and will soon be incompatible with the server.\n\nPlease upgrade urgently to avoid any disruption";
 "version_warning" = "Version Warning";
