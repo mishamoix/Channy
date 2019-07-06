@@ -19,7 +19,14 @@ enum BoardTarget {
 extension BoardTarget: TargetType {
     
     
-    public var baseURL: URL { return Enviroment.default.baseUrl }
+    public var baseURL: URL {
+        
+        if Values.shared.safeMode {
+            return Enviroment.default.safeModeUrl
+        }
+        
+        return Enviroment.default.baseUrl
+    }
     public var path: String {
         switch self {
         case .mainPage(let board, let imageboard):

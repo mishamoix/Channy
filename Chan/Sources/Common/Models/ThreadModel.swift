@@ -105,6 +105,7 @@ class ThreadModel: BaseModel, Decodable {
         if let url = try? values.decode(String.self, forKey: .url) {
             self.url = url
         }
+        
     }
 
     

@@ -16,7 +16,13 @@ enum ThreadTarget {
 extension ThreadTarget: TargetType {
     
     
-    public var baseURL: URL { return Enviroment.default.baseUrl }
+    public var baseURL: URL {
+        if Values.shared.safeMode {
+            return Enviroment.default.safeModeUrl
+        }
+
+        return Enviroment.default.baseUrl        
+    }
     public var path: String {
         switch self {
         case .load(let imageboard, let board, let id):

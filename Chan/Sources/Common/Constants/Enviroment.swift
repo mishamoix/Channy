@@ -20,6 +20,7 @@ class Enviroment {
     private var baseUrlConfig: URL = URL(string: "https://prod.channy.io/")!
     private var proxyUrlConfig: URL = URL(string: "https://proxy.channy.io/")!
     private var censorUrlConfig: URL = URL(string: "https://censor.channy.io")!
+    private var refindedUrlConfig: URL = URL(string: "https://refined.channy.io")!
     private var ad = ""
 
     var configUrl: URL {
@@ -51,6 +52,11 @@ class Enviroment {
             }
             self.ad = model.devAd
         }
+        
+        
+        if let refinded = URL(string: model.refinedApi) {
+            self.refindedUrlConfig = refinded
+        }
     }
     
     var baseUrl: URL {
@@ -65,7 +71,9 @@ class Enviroment {
         return self.proxyUrlConfig.absoluteString
     }
     
-
+    var safeModeUrl: URL {
+        return self.refindedUrlConfig
+    }
     
     var AdUnitID: String {
         return self.ad

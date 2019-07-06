@@ -384,7 +384,13 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
     }
     
     func filterThreads(view models: [ThreadViewModel], isActive: Bool, search text: String?) -> [ThreadViewModel] {
-        
+      
+      
+//      var mdls = models
+//      if Values.shared.safeMode {
+//        mdls = mdls.filter({ $0.safe })
+//      }
+      
         if !isActive {
             let result = models.map({ model -> ThreadViewModel in
                 let  hidden = HiddenThreadManager.shared.hidden(uid: model.uid)
@@ -408,9 +414,9 @@ final class BoardInteractor: PresentableInteractor<BoardPresentable>, BoardInter
         let result = models
             .filter({ ($0.displayText?.lowercased().contains(searchText) ?? false) || ($0.title?.lowercased().contains(searchText) ?? false) })
             .map({ model -> ThreadViewModel in
-            model.hidden = HiddenThreadManager.shared.hidden(uid: model.uid)
-            return model
-        })
+                model.hidden = HiddenThreadManager.shared.hidden(uid: model.uid)
+                return model
+            })
 
         return result
     }

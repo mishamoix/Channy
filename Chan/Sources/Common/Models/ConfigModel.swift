@@ -15,6 +15,7 @@ class ConfigModel: BaseModel, Decodable {
         case prodCensor = "prod_censor"
         case prodProxy = "prod_proxy"
         case prodAd = "prod_ad"
+        case refinedApi = "refined_api"
         
         case dev = "dev_api"
         case devCensor = "dev_censor"
@@ -32,6 +33,7 @@ class ConfigModel: BaseModel, Decodable {
     var prodCensor: String
     var prodProxy: String
     var prodAd: String
+    var refinedApi: String
 
     var dev: String
     var devCensor: String
@@ -49,6 +51,7 @@ class ConfigModel: BaseModel, Decodable {
         self.prodCensor = try values.decode(String.self, forKey: .prodCensor)
         self.prodProxy = try values.decode(String.self, forKey: .prodProxy)
         self.prodAd = try values.decode(String.self, forKey: .prodAd)
+        self.refinedApi = try values.decode(String.self, forKey: .refinedApi)
 
         self.dev = try values.decode(String.self, forKey: .dev)
         self.devCensor = try values.decode(String.self, forKey: .devCensor)

@@ -94,11 +94,11 @@
 
 //Settings
 "safe_mode" = "Safe browsing";
-"safe_mode_message" = "Hide images";
+"safe_mode_message" = "Hide offensive content";
 "history_write" = "Enable history";
 "history_write_message" = "Enable ";
 
-"age_above_17" = " WARNING!\nSome viewers may find media disturbing, viewer discretion is strongly advised.";
+"age_above_17" = " WARNING!\nSome viewers may find media and text disturbing, viewer discretion is strongly advised.";
 "accept_age_above_17" = "Agree";
 "select_theme" = "Choose theme";
 "light_theme" = "Light";
