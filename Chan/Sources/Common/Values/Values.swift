@@ -43,10 +43,11 @@ class Values {
     
     var safeMode: Bool {
         get {
-            if Defaults.hasKey(.safeMode) {
-                return Defaults[.safeMode]
-            }
-            return true
+            return false
+//            if Defaults.hasKey(.safeMode) {
+//                return Defaults[.safeMode]
+//            }
+//            return true
         }
         
         set {
