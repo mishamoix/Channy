@@ -5,6 +5,10 @@
 # Channy
 Channy, 2ch.hk browser, Двач, 4ch, 8chan 
 
+## How to use?
+```
+Run backend https://github.com/chebyrash/one 
+```
 
 ### Multiple theme 
 <table>
