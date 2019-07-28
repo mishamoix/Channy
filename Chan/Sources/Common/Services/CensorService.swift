@@ -21,23 +21,23 @@ class CensorService: BaseService {
     
     
     func checkCensor(path: String) -> Observable<Bool?> {
-      #if RELEASE
-      return self.service
-        .rx
-        .request(CensorTarget.censor(path: path))
-        .asObservable()
-        .flatMap({ [weak self] response -> Observable<Bool?> in
-          if let json = self?.fromJson(data: response.data) {
-            if let censor = json["censor"] as? Bool {
-              return Observable<Bool?>.just(censor)
-            }
-          }
-          return Observable<Bool?>.just(nil)
-        })
-        .catchError({ error -> Observable<Bool?> in
-          return Observable<Bool?>.just(nil)
-        })
-      #endif
+//      #if RELEASE
+//      return self.service
+//        .rx
+//        .request(CensorTarget.censor(path: path))
+//        .asObservable()
+//        .flatMap({ [weak self] response -> Observable<Bool?> in
+//          if let json = self?.fromJson(data: response.data) {
+//            if let censor = json["censor"] as? Bool {
+//              return Observable<Bool?>.just(censor)
+//            }
+//          }
+//          return Observable<Bool?>.just(nil)
+//        })
+//        .catchError({ error -> Observable<Bool?> in
+//          return Observable<Bool?>.just(nil)
+//        })
+//      #endif
       return Observable<Bool?>.just(false)      
     }
 }

@@ -56,10 +56,10 @@ class AppDependency: NSObject {
         FirebaseManager.setup()
       
         Fabric.with([Crashlytics.self])
-        MSAppCenter.start("66600e45-de1a-45c9-a0f7-10210663c7ef", withServices:[
-            MSAnalytics.self,
-            MSCrashes.self
-        ])
+//        MSAppCenter.start("66600e45-de1a-45c9-a0f7-10210663c7ef", withServices:[
+//            MSAnalytics.self,
+//            MSCrashes.self
+//        ])
 
         
         CoreDataStore.shared.setup()
@@ -97,10 +97,10 @@ class AppDependency: NSObject {
     }
     
     func setupFirebase() {
-      #if RELEASE
-        FirebaseApp.configure()
-        Database.database().isPersistenceEnabled = true
-      #endif
+//      #if RELEASE
+//        FirebaseApp.configure()
+//        Database.database().isPersistenceEnabled = true
+//      #endif
     }
     
     func updateAction(app action: AppAction) {

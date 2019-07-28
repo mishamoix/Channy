@@ -15,9 +15,9 @@ class FirebaseManager {
     static let shared = FirebaseManager()
     let canLoadData: Variable<Bool> = Variable(true)
   
-    #if RELEASE
-    private let db = FirebaseDB()
-    #endif
+//    #if RELEASE
+//    private let db = FirebaseDB()
+//    #endif
   
     private let disposeBag = DisposeBag()
     
@@ -45,20 +45,20 @@ class FirebaseManager {
     }
     
     private func run() {
-      #if RELEASE
-
-        self.db
-            .snapshot
-            .asObservable()
-            .map({ [weak self] data -> Bool in
-                if let d = data {
-                    self?.parse(result: d)
-                }
-              return data != nil
-            })
-            .bind(to: self.canLoadData)
-            .disposed(by: self.disposeBag)
-      #endif
+//      #if RELEASE
+//
+//        self.db
+//            .snapshot
+//            .asObservable()
+//            .map({ [weak self] data -> Bool in
+//                if let d = data {
+//                    self?.parse(result: d)
+//                }
+//              return data != nil
+//            })
+//            .bind(to: self.canLoadData)
+//            .disposed(by: self.disposeBag)
+//      #endif
     }
     
     
@@ -116,9 +116,9 @@ class FirebaseManager {
         
         let value = thread.threadPath
       
-      #if RELEASE
-
-        self.db.report(thread: value, key: key)
-      #endif
+//      #if RELEASE
+//
+//        self.db.report(thread: value, key: key)
+//      #endif
     }
 }
