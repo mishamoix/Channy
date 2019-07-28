@@ -9,9 +9,9 @@ Yablach, 2ch.hk browser, Двач
 
 ## Инструкция по запуску:
   - Скачать репозиторий
-  - В Firebase создать новый проект для ios, [Раздел "Add Firebase to your app"](https://firebase.google.com/docs/ios/setup)
-  - Созданный в Firebase .plist файл переместить в папку Resources
+  - Скачать [Cocoapods](https://cocoapods.org)
   - В консоли перейти в папку и выполнить pod install
+  - Запустить на своем девайсе
   - Profit
 
 
@@ -23,9 +23,9 @@ Yablach, 2ch.hk browser, Двач
     <th width="33%">Темная</th>
   </tr>
   <tr>
-    <th width="33%"><img src="https://raw.githubusercontent.com/Yablach/Yablach-ios/master/Screenshots/1.png"></th>
-    <th width="33%"><img src="https://raw.githubusercontent.com/Yablach/Yablach-ios/master/Screenshots/2.png"></th>
-    <th width="33%"><img src="https://raw.githubusercontent.com/Yablach/Yablach-ios/master/Screenshots/3.png"></th>
+    <th width="33%"><img src="https://raw.githubusercontent.com/mishamoix/Channy/only-2ch/Screenshots/1.png"></th>
+    <th width="33%"><img src="https://raw.githubusercontent.com/mishamoix/Channy/only-2ch/Screenshots/2.png"></th>
+    <th width="33%"><img src="https://raw.githubusercontent.com/mishamoix/Channy/only-2ch/Screenshots/3.png"></th>
   </tr>
 </table>
 
@@ -36,12 +36,10 @@ Yablach, 2ch.hk browser, Двач
     <th width="67%">Landscape</th>
   </tr>
   <tr>
-    <th width="33%"><img src="https://raw.githubusercontent.com/Yablach/Yablach-ios/master/Screenshots/9.png"></th>
-    <th width="67%"><img src="https://raw.githubusercontent.com/Yablach/Yablach-ios/master/Screenshots/5.png"></th>
+    <th width="33%"><img src="https://raw.githubusercontent.com/mishamoix/Channy/only-2ch/Screenshots/9.png"></th>
+    <th width="67%"><img src="https://raw.githubusercontent.com/mishamoix/Channy/only-2ch/Screenshots/5.png"></th>
   </tr>
 </table>
 
 ### Recaptcha
-<img src="https://raw.githubusercontent.com/Yablach/Yablach-ios/master/Screenshots/7.png" width="40%">
-
-P.S. Скоро добавлю скрины, инфо о коде, архитектуре и т.п.
+<img src="https://raw.githubusercontent.com/mishamoix/Channy/only-2ch/Screenshots/7.png" width="40%">
