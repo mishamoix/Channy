@@ -9,6 +9,9 @@ Build project in XCode
 Deploy backend server: https://github.com/chebyrash/one
 ```
 
+## If you want only 2ch without backend
+[Check this](https://github.com/mishamoix/Channy/tree/only-2ch)
+
 ### Multiple themes
 <table>
   <tr>
