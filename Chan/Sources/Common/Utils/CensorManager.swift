@@ -87,16 +87,16 @@ class CensorManager {
     }
   
     static func isCensored(model: FileModel) -> Bool {
-      #if RELEASE
-        var needCensor = true
-        if let result = CensorManager.shared.cache[CensorManager.path(for: model)] {
-            needCensor = result
-        }
-        
-        
-        return needCensor
-      #endif
-
+//      #if RELEASE
+//        var needCensor = true
+//        if let result = CensorManager.shared.cache[CensorManager.path(for: model)] {
+//            needCensor = result
+//        }
+//        
+//        
+//        return needCensor
+//      #endif
+//
       return false
     }
   

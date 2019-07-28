@@ -48,8 +48,6 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
                     guard let self = self, let photo = photo else {
                         return
                     }
-                    
-                    
                     self.delegate?.networkIntegration?(self, didUpdateLoadingProgress: CGFloat(progress.fractionCompleted), for: photo)
                 }, progressQueue: DispatchQueue.main) { [weak self, weak photo] response in
                     
@@ -96,22 +94,22 @@ class ImageNetworkIntegration: NSObject, AXNetworkIntegrationProtocol {
 //            needBlur = CensorManager.isCensored(model: model)
 //        }
         
-        if needBlur {
-            Helper.performOnUtilityThread { [weak image] in
-                let blurred = image?.applyBlur(percent: BlurRadiusOriginal)
-                Helper.performOnMainThread {
-//                    if let blurred = blurred {
-//                        let img = blurred
-                        callBack(blurred)
-//                    } else {
-//                        callBack(nil)
-//                    }
-                }
-            }
-            
-            return
-        }
-        
+//        if needBlur {
+//            Helper.performOnUtilityThread { [weak image] in
+//                let blurred = image?.applyBlur(percent: BlurRadiusOriginal)
+//                Helper.performOnMainThread {
+////                    if let blurred = blurred {
+////                        let img = blurred
+//                        callBack(blurred)
+////                    } else {
+////                        callBack(nil)
+////                    }
+//                }
+//            }
+//
+//            return
+//        }
+      
         callBack(image)
         
     }
@@ -170,52 +168,52 @@ class ThreadImageViewer: NSObject {
     }
     
     private func setupButton() {
-        let mainColor = ThemeManager.shared.theme.main
-        self.openInBrowserButton.backgroundColor = .clear
-        self.openInBrowserButton.layer.cornerRadius = DefaultCornerRadius
-        self.openInBrowserButton.layer.borderWidth = 2.0
-        self.openInBrowserButton.layer.borderColor = mainColor.cgColor
-        self.openInBrowserButton.setTitleColor(mainColor, for: .normal)
-//        self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
-        self.openInBrowserButton.titleLabel?.font = UIFont.textStrong
+//        let mainColor = ThemeManager.shared.theme.main
+//        self.openInBrowserButton.backgroundColor = .clear
+//        self.openInBrowserButton.layer.cornerRadius = DefaultCornerRadius
+//        self.openInBrowserButton.layer.borderWidth = 2.0
+//        self.openInBrowserButton.layer.borderColor = mainColor.cgColor
+//        self.openInBrowserButton.setTitleColor(mainColor, for: .normal)
+////        self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
+//        self.openInBrowserButton.titleLabel?.font = UIFont.textStrong
+//
+//        if let overlay = self.browser?.overlayView {
+//            overlay.addSubview(self.openInBrowserButton)
+//
+//            self.openInBrowserButton.snp.makeConstraints { make in
+//                make.left.equalToSuperview().offset(DefaultMargin)
+//                make.right.equalToSuperview().offset(-DefaultMargin)
+//                make.height.equalTo(44)
+//                make.bottom.equalToSuperview().offset(-DefaultMargin)
+//            }
+//        }
+      
         
-        if let overlay = self.browser?.overlayView {
-            overlay.addSubview(self.openInBrowserButton)
-            
-            self.openInBrowserButton.snp.makeConstraints { make in
-                make.left.equalToSuperview().offset(DefaultMargin)
-                make.right.equalToSuperview().offset(-DefaultMargin)
-                make.height.equalTo(44)
-                make.bottom.equalToSuperview().offset(-DefaultMargin)
-            }
-        }
-        
-        
-        self.openInBrowserButton
-            .rx
-            .tap
-            .asObservable()
-            .subscribe(onNext: { [weak self] _ in
-                if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx), let url = model.url {
-                    
-                    if CensorManager.isCensored(model: FileModel(path: url.absoluteString)) {
-                    
-                        Helper.open(url: url)
-                    } else {
-                        model.needBlur = false
-                        model.ax_loadingState = .notLoaded
-                        if let ds = self?.browser?.dataSource {
-                            ds.initialPhotoIndex = idx
-                            self?.browser?.dataSource = ds
-                        }
-                    }
-                }
-            })
-            .disposed(by: self.disposeBag)
-        
-        self.openInBrowserButton.isUserInteractionEnabled = true
-        
-        
+//        self.openInBrowserButton
+//            .rx
+//            .tap
+//            .asObservable()
+//            .subscribe(onNext: { [weak self] _ in
+//                if let idx = self?.browser?.currentPhotoIndex, let model = self?.browser?.dataSource.photo(at: idx), let url = model.url {
+//
+//                    if CensorManager.isCensored(model: FileModel(path: url.absoluteString)) {
+//
+//                        Helper.open(url: url)
+//                    } else {
+//                        model.needBlur = false
+//                        model.ax_loadingState = .notLoaded
+//                        if let ds = self?.browser?.dataSource {
+//                            ds.initialPhotoIndex = idx
+//                            self?.browser?.dataSource = ds
+//                        }
+//                    }
+//                }
+//            })
+//            .disposed(by: self.disposeBag)
+//
+//        self.openInBrowserButton.isUserInteractionEnabled = true
+//
+      
     }
     
     private func setupBrowser() {
@@ -225,9 +223,9 @@ class ThreadImageViewer: NSObject {
       
         self.browser = browser
         browser.delegate = self
-        self.openInBrowserButton.setTitle(CensorManager.isCensored(model: self.anchor) ? "Открыть в браузере" : "Показать", for: .normal)
-        self.openInBrowserButton.alpha = 1 //CensorManager.isCensored(model: self.anchor) ? 1 : 0
-        
+//        self.openInBrowserButton.setTitle(CensorManager.isCensored(model: self.anchor) ? "Открыть в браузере" : "Показать", for: .normal)
+//        self.openInBrowserButton.alpha = 1 //CensorManager.isCensored(model: self.anchor) ? 1 : 0
+      
     }
     
     private func setupText() {
@@ -240,23 +238,23 @@ class ThreadImageViewer: NSObject {
         self.text.numberOfLines = 0
         
         
-        self.textCanvas.addSubview(self.text)
-        if let overlay = self.browser?.overlayView {
-            overlay.addSubview(self.textCanvas)
-            
-            self.textCanvas.snp.makeConstraints { make in
-                make.centerX.centerY.equalToSuperview()
-                make.left.greaterThanOrEqualToSuperview().offset(36)
-                make.right.greaterThanOrEqualToSuperview().offset(36)
-            }
-            
-            self.text.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(8)
-                make.bottom.equalToSuperview().offset(-8)
-                make.left.equalToSuperview().offset(8)
-                make.right.equalToSuperview().offset(-8)
-            }
-        }
+//        self.textCanvas.addSubview(self.text)
+//        if let overlay = self.browser?.overlayView {
+//            overlay.addSubview(self.textCanvas)
+//
+//            self.textCanvas.snp.makeConstraints { make in
+//                make.centerX.centerY.equalToSuperview()
+//                make.left.greaterThanOrEqualToSuperview().offset(36)
+//                make.right.greaterThanOrEqualToSuperview().offset(36)
+//            }
+//
+//            self.text.snp.makeConstraints { make in
+//                make.top.equalToSuperview().offset(8)
+//                make.bottom.equalToSuperview().offset(-8)
+//                make.left.equalToSuperview().offset(8)
+//                make.right.equalToSuperview().offset(-8)
+//            }
+//        }
     }
     
     
@@ -269,14 +267,14 @@ extension ThreadImageViewer: AXPhotosViewControllerDelegate {
     func photosViewController(_ photosViewController: AXPhotosViewController, didNavigateTo photo: AXPhotoProtocol, at index: Int) {
         if let url = photo.url {
             let model = FileModel(path: url.absoluteString)
-            if CensorManager.isCensored(model: model) {
-              self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
+//            if CensorManager.isCensored(model: model) {
+//              self.openInBrowserButton.setTitle("Открыть в браузере", for: .normal)
 //                self.openInBrowserButton.alpha = 1
 //                self.openInBrowserButton.isEnabled = true
-                return
-            } else {
-              self.openInBrowserButton.setTitle("Показать", for: .normal)
-            }
+//                return
+//            } else {
+//              self.openInBrowserButton.setTitle("Показать", for: .normal)
+//            }
         }
         
 //        self.openInBrowserButton.alpha = 0
