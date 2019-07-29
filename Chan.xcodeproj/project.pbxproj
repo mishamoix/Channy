@@ -107,6 +107,8 @@
 		0A37B05321BC4251009EC571 /* AXStateButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A37B04021BC3A1B009EC571 /* AXStateButton.h */; };
 		0A37B05421BC4251009EC571 /* FLAnimatedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A37B04821BC3A1B009EC571 /* FLAnimatedImage.h */; };
 		0A37B05521BC4251009EC571 /* FLAnimatedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A37B04921BC3A1B009EC571 /* FLAnimatedImageView.h */; };
+		0A46E3D922EF84BF00B8C383 /* recaptchaScript.js in Resources */ = {isa = PBXBuildFile; fileRef = 0A46E3D822EF84BF00B8C383 /* recaptchaScript.js */; };
+		0A46E3DD22EF86A600B8C383 /* RecaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46E3DC22EF86A600B8C383 /* RecaptchaViewController.swift */; };
 		0A505D76216D060A0076F383 /* WebAcceptRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D71216D060A0076F383 /* WebAcceptRouter.swift */; };
 		0A505D77216D060A0076F383 /* WebAcceptViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */; };
 		0A505D78216D060A0076F383 /* WebAcceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A505D73216D060A0076F383 /* WebAcceptViewController.swift */; };
@@ -167,7 +169,6 @@
 		0AACC191218A5A8800B7BD19 /* SwiftyOnboardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC18E218A5A8800B7BD19 /* SwiftyOnboardOverlay.swift */; };
 		0AACC192218A5A8800B7BD19 /* SwiftyOnboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACC18F218A5A8800B7BD19 /* SwiftyOnboardPage.swift */; };
 		0AB3C69521B462F000A58FDE /* RecaptchaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3C69421B462F000A58FDE /* RecaptchaManager.swift */; };
-		0AB3C69721B4630800A58FDE /* RecaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3C69621B4630800A58FDE /* RecaptchaViewController.swift */; };
 		0AC5FAB521FF297F00113078 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AC5FAB421FF297F00113078 /* GoogleService-Info.plist */; };
 		0ACC29522143EF0B00B4E53B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC29512143EF0B00B4E53B /* AppDelegate.swift */; };
 		0ACC29592143EF1200B4E53B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC29582143EF1200B4E53B /* Assets.xcassets */; };
@@ -314,6 +315,8 @@
 		0A37B04721BC3A1B009EC571 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
 		0A37B04821BC3A1B009EC571 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
 		0A37B04921BC3A1B009EC571 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
+		0A46E3D822EF84BF00B8C383 /* recaptchaScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = recaptchaScript.js; sourceTree = "<group>"; };
+		0A46E3DC22EF86A600B8C383 /* RecaptchaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecaptchaViewController.swift; sourceTree = "<group>"; };
 		0A505D71216D060A0076F383 /* WebAcceptRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptRouter.swift; sourceTree = "<group>"; };
 		0A505D72216D060A0076F383 /* WebAcceptViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebAcceptViewController.storyboard; sourceTree = "<group>"; };
 		0A505D73216D060A0076F383 /* WebAcceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAcceptViewController.swift; sourceTree = "<group>"; };
@@ -377,7 +380,6 @@
 		0AACC18E218A5A8800B7BD19 /* SwiftyOnboardOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyOnboardOverlay.swift; sourceTree = "<group>"; };
 		0AACC18F218A5A8800B7BD19 /* SwiftyOnboardPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyOnboardPage.swift; sourceTree = "<group>"; };
 		0AB3C69421B462F000A58FDE /* RecaptchaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaManager.swift; sourceTree = "<group>"; };
-		0AB3C69621B4630800A58FDE /* RecaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaViewController.swift; sourceTree = "<group>"; };
 		0AC5FAB421FF297F00113078 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0ACC294E2143EF0B00B4E53B /* Chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC29512143EF0B00B4E53B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -909,8 +911,8 @@
 		0AB3C69321B462D300A58FDE /* Recaptcha */ = {
 			isa = PBXGroup;
 			children = (
+				0A46E3DC22EF86A600B8C383 /* RecaptchaViewController.swift */,
 				0AB3C69421B462F000A58FDE /* RecaptchaManager.swift */,
-				0AB3C69621B4630800A58FDE /* RecaptchaViewController.swift */,
 			);
 			path = Recaptcha;
 			sourceTree = "<group>";
@@ -1059,6 +1061,7 @@
 				0A37B01721BC378A009EC571 /* AXPhotoViewer.xcassets */,
 				0A2E0CCA2145A36200CBD619 /* Chan-Bridging-Header.h */,
 				0A2E0C81214460FB00CBD619 /* Main.storyboard */,
+				0A46E3D822EF84BF00B8C383 /* recaptchaScript.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1251,6 +1254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A46E3D922EF84BF00B8C383 /* recaptchaScript.js in Resources */,
 				0A9120B221E8EA1500A209FF /* launchIcon.png in Resources */,
 				0A113216215F96EA00BB3C79 /* SettingsViewController.storyboard in Resources */,
 				0AFFFDAD2149A1F40002E832 /* ThreadViewController.storyboard in Resources */,
@@ -1446,6 +1450,7 @@
 				0A90E78421518B2600B71EAA /* LinkParser.swift in Sources */,
 				0ACC29782143F44400B4E53B /* BoardsListTarget.swift in Sources */,
 				0AD5C2D4215A7F2B00F68AF4 /* NetworkManager.swift in Sources */,
+				0A46E3DD22EF86A600B8C383 /* RecaptchaViewController.swift in Sources */,
 				0AFFFDB92149AC640002E832 /* PostViewModel.swift in Sources */,
 				0A2E0C9521453CB600CBD619 /* ViewControllable+Utils.swift in Sources */,
 				0A203F19219C9E6700A51554 /* CensorTarget.swift in Sources */,
@@ -1460,7 +1465,6 @@
 				0AACC187218A5A2A00B7BD19 /* OnboardViewController.swift in Sources */,
 				0AACC190218A5A8800B7BD19 /* SwiftyOnboard.swift in Sources */,
 				0A505D7C216D074B0076F383 /* WebAcceptViewModel.swift in Sources */,
-				0AB3C69721B4630800A58FDE /* RecaptchaViewController.swift in Sources */,
 				0A2E0C852145391F00CBD619 /* ChanProvider.swift in Sources */,
 				0A2E0CBC2145790300CBD619 /* BoardRouter.swift in Sources */,
 				0A2E0CDE2145B3F600CBD619 /* PostModel.swift in Sources */,
